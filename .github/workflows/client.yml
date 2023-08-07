@@ -1,36 +1,74 @@
-name: client
+name: FE codedeploy
+
+# main 브런치에 push가 되면 아래의 flow가 실행됩니다.
 on:
   push:
-    branches: [release]
-env: 
-  working-directory: ./trecord
+    branches: [ "release" ]
+
+# flow에서 사용할 변수 같은 느낌입니다.
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: trecordbucket
+  CODE_DEPLOY_APPLICATION_NAME: potendayProject
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: web-cd
+  working-directory: ./trecord # 이 코드는 제 프로젝트 경로를 맞춰주기 위해 적어주었습니다. 필요하시면 적으세요 !
+
+permissions:
+  contents: read
+
 jobs:
-  build:
-    runs-on: ubuntu-20.04 
-    steps: 
-      - name: Checkout source code.
-        uses: actions/checkout@v2     
-      - name: Install dependencies
-        run: npm install
-        working-directory:  ${{ env.working-directory }}
-      - name: Build
-        run: npm run build
-        working-directory:  ${{ env.working-directory }}
-      - name: SHOW AWS CLI VERSION
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_EC2_METADATA_DISABLED: true
-        run: |
-          aws --version
-      - name: Sync Bucket
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_EC2_METADATA_DISABLED: true
-        run: |
-          aws s3 sync \
-            —region ap-northeast-2 \
-            build s3://trecordbucket \
-            —delete
-        working-directory:  ${{ env.working-directory }}
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      
+    # AWS 인증
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    # 1) 기본 체크아웃
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    # 2) node 셋팅
+    - name: Set node@v1
+      uses: actions/setup-node@v3
+      
+    - name: check Node v
+      run: node -v
+    
+    - name: Install npm
+      run: sudo apt install npm
+
+    - name: check npm
+      run: npm -v
+
+    - name: install dependency
+      run: npm install
+      working-directory: ${{ env.working-directory }}
+
+    - name: install CI
+      run: npm ci
+      working-directory: ${{ env.working-directory }}
+    
+    - name: Generate build
+      run: npm run build
+      working-directory: ${{ env.working-directory }}
+
+
+        
+    # AWS S3에 업로드
+    - name: Upload to AWS S3
+      run: |
+        aws deploy push \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --ignore-hidden-files \
+          --s3-location s3://${{env.S3_BUCKET_NAME}}/$GITHUB_SHA.zip \
+          --source .
