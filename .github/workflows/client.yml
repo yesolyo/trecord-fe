@@ -67,8 +67,7 @@ jobs:
     # AWS S3에 업로드
     - name: Upload to AWS S3
       run: |
-        aws deploy push \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --ignore-hidden-files \
-          --s3-location s3://${{env.S3_BUCKET_NAME}}/$GITHUB_SHA.zip \
-          --source .
+        aws s3 sync \
+        —region ${{env.AWS_REGION}} \
+        build s3://${{env.S3_BUCKET_NAME}}\
+        —delete
