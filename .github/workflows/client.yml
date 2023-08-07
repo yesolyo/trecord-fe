@@ -68,4 +68,7 @@ jobs:
     # AWS S3에 업로드
     - name: Upload to AWS S3
       run: |
-        aws s3 sync ./build s3://${{ env.S3_BUCKET_NAME }} --profile=${{ env.profile }}
+        aws s3 sync \
+          --region ${{env.AWS_REGION}} \
+        build s3://${{env.S3_BUCKET_NAME}} \
+          --delete
