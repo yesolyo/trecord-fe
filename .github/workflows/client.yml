@@ -3,7 +3,7 @@ on:
   push:
     branches: [release]
 env: 
-  working-directory: ./trecord
+  working-directory: trecord
 jobs:
 
   build:
