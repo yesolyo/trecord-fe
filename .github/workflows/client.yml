@@ -20,8 +20,7 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-18.04.
 
     steps:
 
