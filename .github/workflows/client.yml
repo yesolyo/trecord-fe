@@ -5,7 +5,12 @@ on:
     branches: [release]
 
 env:
-  AWS_REGION: ap-northeast-2
+      AWS_REGION: ap-northeast-2
+      S3_BUCKET_NAME: trecordbucket
+      CODE_DEPLOY_APPLICATION_NAME: potendayProject
+      CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: web-cd
+      working-directory: ./trecord
+      profile: test-water
 
 jobs:
   build:
@@ -15,16 +20,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - name: Install Dependencies
+      - name: Set node@v1
+        uses: actions/setup-node@v3
+        
+      - name: check Node v
+        run: node -v
+      
+      - name: Install npm
+        run: sudo apt install npm
+  
+      - name: check npm
+        run: npm -v
+  
+      - name: install dependency
         run: npm install
-
-      - name: Build React App
+        working-directory: ${{ env.working-directory }}
+  
+      - name: install CI
+        run: npm ci
+        working-directory: ${{ env.working-directory }}
+      
+      - name: Generate build
         run: npm run build
+        working-directory: ${{ env.working-directory }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -38,3 +56,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ 
+
+
+
