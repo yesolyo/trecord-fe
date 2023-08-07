@@ -1,73 +1,40 @@
-name: FE codedeploy
+name: Deploy FrontEnd to S3
 
-# main 브런치에 push가 되면 아래의 flow가 실행됩니다.
 on:
   push:
-    branches: [ "release" ]
+    branches: [release]
 
-# flow에서 사용할 변수 같은 느낌입니다.
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: trecordbucket
-  CODE_DEPLOY_APPLICATION_NAME: potendayProject
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: web-cd
-  working-directory: ./trecord
-  profile: test-water
-
-permissions:
-  contents: read
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
       
-    # AWS 인증
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-
-    # 1) 기본 체크아웃
-    - name: Checkout
-      uses: actions/checkout@v3
-    
-    # 2) node 셋팅
-    - name: Set node@v1
-      uses: actions/setup-node@v3
-      
-    - name: check Node v
-      run: node -v
-    
-    - name: Install npm
-      run: sudo apt install npm
-
-    - name: check npm
-      run: npm -v
-
-    - name: install dependency
-      run: npm install
-      working-directory: ${{ env.working-directory }}
-
-    - name: install CI
-      run: npm ci
-      working-directory: ${{ env.working-directory }}
-    
-    - name: Generate build
-      run: npm run build
-      working-directory: ${{ env.working-directory }}
-
-
-        
-    # AWS S3에 업로드
-    - name: Upload to AWS S3
-      run: aws s3 sync ./build s3://trecordbucket --profile=test-water
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Deploy to S3
+        run: aws s3 sync build s3://trecordbucket --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
