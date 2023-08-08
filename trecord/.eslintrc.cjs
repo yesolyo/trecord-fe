@@ -19,8 +19,8 @@ module.exports = {
                 '.eslintrc.{js,cjs}'
             ],
             'parserOptions': {
-                'sourceType': 'script'
-            }
+              'project': './tsconfig.json'
+            },
         }
     ],
     'parser': '@typescript-eslint/parser',
@@ -31,13 +31,12 @@ module.exports = {
         'ecmaVersion': 'latest',
         'sourceType': 'module'
     },
-    'plugins': ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+    'plugins': ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'import'],
     'rules': {
-      'react/react-in-jsx-scope': 'off',
-        'camelcase': 'error',
-        'spaced-comment': 'error',
-        'quotes': ['error', 'single'],
-        'no-duplicate-imports': 'error'
+      "import/no-unresolved": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": "error",
+    "arrow-body-style": ["error", "as-needed"],
   },
   'settings': {
     'import/resolver': {
