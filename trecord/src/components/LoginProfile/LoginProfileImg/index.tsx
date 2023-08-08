@@ -2,9 +2,9 @@ import { useRef } from 'react';
 
 interface LoginProfileImgPrpos {
   profileFile: React.Dispatch<
-    React.SetStateAction<{ imgFile: string; originFile: File | null }>
+    React.SetStateAction<{ imgFile: string; originFile: File | Blob | string }>
   >;
-  profileFileValue: { imgFile: string; originFile: File | null };
+  profileFileValue: { imgFile: string; originFile: File | Blob | string };
 }
 
 export const LoginProfileImg = ({

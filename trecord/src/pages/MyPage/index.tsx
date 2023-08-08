@@ -6,11 +6,11 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
-    originFile: File | null;
+    originFile: File | Blob | string;
   }>({
     imgFile:
       'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg',
-    originFile: null,
+    originFile: '',
   });
   const [nickName, setNickName] = useState<string>('안예림');
   const [introduce, setIntroduce] = useState<string>('안예림 소개글임');

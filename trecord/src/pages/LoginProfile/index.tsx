@@ -4,13 +4,15 @@ import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { useNavigate } from 'react-router-dom';
+import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
 export const LoginProfile = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
-    originFile: File | null;
+    originFile: File | Blob | string;
   }>({
-    imgFile: '',
-    originFile: null,
+    imgFile:
+      'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg',
+    originFile: '',
   });
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
@@ -31,14 +33,7 @@ export const LoginProfile = () => {
         introduceValue={introduce}
         introduceSetValue={setIntroduce}
       />
-      <button
-        disabled={nickName.length <= 0}
-        onClick={() => {
-          navigate('/home');
-        }}
-      >
-        건너뛰기
-      </button>
+      <ImgUploadBtn imageFile={profileFile}></ImgUploadBtn>
     </S.Layout>
   );
 };
