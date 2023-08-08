@@ -1,10 +1,20 @@
 import AWS from 'aws-sdk';
+import { useNavigate } from 'react-router-dom';
 
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
+  imageUrl: string;
+  saveImageUrl: React.Dispatch<React.SetStateAction<string>>;
+  nickNameValue: string;
 }
 
-export const ImgUploadBtn = ({ imageFile }: ImgUploadBtnProps) => {
+export const ImgUploadBtn = ({
+  imageFile,
+  imageUrl,
+  saveImageUrl,
+  nickNameValue,
+}: ImgUploadBtnProps) => {
+  const navigate = useNavigate();
   const uploadS3 = (formDate: any) => {
     AWS.config.update({
       region: import.meta.env.VITE_AWS_REGION,
@@ -28,40 +38,31 @@ export const ImgUploadBtn = ({ imageFile }: ImgUploadBtnProps) => {
     const promise = upload.promise();
 
     promise
-      .then((data) => console.log(data.Location))
+      .then((data) => saveImageUrl(data.Location))
       .catch((err) => console.log(err));
   };
 
   return (
     <button
       type="button"
+      disabled={nickNameValue.length <= 0}
       onClick={() => {
-        if (!imageFile.imgFile) {
-          alert('이미지를 등록해 주세요.');
-          return;
+        if (imageFile.originFile) {
+          const formData = new FormData();
+          formData.append('file', imageFile.originFile);
+          formData.append(
+            'name',
+            imageFile.originFile instanceof File
+              ? imageFile.originFile.name
+              : 'default-name',
+          );
+
+          uploadS3(formData);
         }
-
-        const formData = new FormData();
-        formData.append('file', imageFile.originFile);
-        formData.append(
-          'name',
-          imageFile.originFile instanceof File
-            ? imageFile.originFile.name
-            : 'default-name',
-        );
-
-        uploadS3(formData);
+        navigate('/home');
       }}
     >
-      업로드!
+      건너뛰기
     </button>
-    // <button
-    //   disabled={nickName.length <= 0}
-    //   onClick={() => {
-    //     navigate('/home');
-    //   }}
-    // >
-    //   건너뛰기
-    // </button>
   );
 };

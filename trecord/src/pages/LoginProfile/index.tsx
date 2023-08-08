@@ -14,9 +14,9 @@ export const LoginProfile = () => {
       'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg',
     originFile: '',
   });
+  const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
-  const navigate = useNavigate();
   return (
     <S.Layout>
       <LoginProfileImg
@@ -33,7 +33,12 @@ export const LoginProfile = () => {
         introduceValue={introduce}
         introduceSetValue={setIntroduce}
       />
-      <ImgUploadBtn imageFile={profileFile}></ImgUploadBtn>
+      <ImgUploadBtn
+        imageFile={profileFile}
+        saveImageUrl={setProfilUrl}
+        imageUrl={profileUrl}
+        nickNameValue={nickName}
+      ></ImgUploadBtn>
     </S.Layout>
   );
 };
