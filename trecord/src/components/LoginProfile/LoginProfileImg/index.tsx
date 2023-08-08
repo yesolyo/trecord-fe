@@ -32,11 +32,7 @@ export const LoginProfileImg = ({
   return (
     <>
       <img
-        src={
-          profileFileValue.imgFile
-            ? profileFileValue.imgFile
-            : 'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg'
-        }
+        src={profileFileValue.imgFile}
         alt="프로필 이미지"
         height="280"
         width="180"
