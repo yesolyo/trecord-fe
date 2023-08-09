@@ -29,7 +29,8 @@ export const menuBox = styled.button`
 
 export const menuNameBox = styled.div<ItemNamePrps>`
   ${({ theme }) => theme.font.fontSize.Nevi_M};
-  ${({ theme }) => theme.font.fontType.M};
+  ${({ theme, isSlected }) =>
+    isSlected ? theme.font.fontType.B : theme.font.fontType.M};
   color: ${({ theme, isSlected }) =>
     isSlected
       ? theme.colors.colorStyles.gray900

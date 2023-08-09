@@ -5,6 +5,7 @@ import { ReactComponent as noneCharacter } from '@/assets/noneCharacter.svg';
 import { ReactComponent as profile } from '@/assets/profile.svg';
 import { ReactComponent as trecordLogo } from '@/assets/trecordLogo.svg';
 import { ReactComponent as welcomeCharacter } from '@/assets/welcomeCharacter.svg';
+import { ReactComponent as edit } from '@/assets/edit.svg';
 export default {
   alarm,
   book,
@@ -13,4 +14,5 @@ export default {
   profile,
   trecordLogo,
   welcomeCharacter,
+  edit,
 };

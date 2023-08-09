@@ -6,7 +6,6 @@ import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
 import { NewTrip } from './pages/NewTrip';
 import { MyPage } from './pages/MyPage';
-import { TabBar } from '@components/common/TabBar';
 
 export const router = createBrowserRouter(
   [
