@@ -21,6 +21,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
       "@components/*": ["src/components/*"],
       "@/*": ["src/*"]
     }

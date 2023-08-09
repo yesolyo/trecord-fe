@@ -5,7 +5,6 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />

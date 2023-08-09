@@ -23,7 +23,7 @@ export const LoginProfile = () => {
         profileFile={setProfileFile}
         profileFileValue={profileFile}
       />
-      <label htmlFor="nickName">닉네임: </label>
+      <label htmlFor="nickName">닉네임(필수): </label>
       <LoginProfileName
         nickNameValue={nickName}
         nickNameSetValue={setNickName}
