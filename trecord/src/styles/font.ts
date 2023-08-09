@@ -62,4 +62,7 @@ export const fontType = {
   L: {
     fontWeight: 300,
   },
+  R: {
+    fontWeight: 400,
+  },
 };

@@ -6,6 +6,7 @@ import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
 import { NewTrip } from './pages/NewTrip';
 import { MyPage } from './pages/MyPage';
+import { WelcomePage } from './pages/WelcomPage';
 
 export const router = createBrowserRouter(
   [
@@ -14,6 +15,10 @@ export const router = createBrowserRouter(
       children: [
         {
           index: true,
+          element: <WelcomePage />,
+        },
+        {
+          path: '/login',
           element: <Login />,
         },
         {

@@ -3,7 +3,6 @@ import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
-import { useNavigate } from 'react-router-dom';
 import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
 export const LoginProfile = () => {
   const [profileFile, setProfileFile] = useState<{

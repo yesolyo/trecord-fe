@@ -22,7 +22,7 @@ export const ImgUploadBtn = ({
 }: ImgUploadBtnProps) => {
   const navigate = useNavigate();
 
-  const uploadS3 = (formDate: any) => {
+  const uploadS3 = () => {
     AWS.config.update({
       region: import.meta.env.VITE_AWS_REGION,
       accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
@@ -87,7 +87,7 @@ export const ImgUploadBtn = ({
               : 'default-name',
           );
 
-          uploadS3(formData);
+          uploadS3();
         }
         postData({ nickName: nickNameValue, imgUrl: imageUrl });
         navigate('/home');
