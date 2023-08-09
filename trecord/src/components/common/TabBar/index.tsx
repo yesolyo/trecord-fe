@@ -1,7 +1,6 @@
 import { colorStyles } from '@/styles/color';
 import { Icon } from '../Icon';
 import * as S from './style';
-import { tabBarList } from '@/types';
 import { useNavigate } from 'react-router-dom';
 interface TabBarProps {
   currentPage: string;
