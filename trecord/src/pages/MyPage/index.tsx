@@ -3,6 +3,7 @@ import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
+import { TabBar } from '@components/common/TabBar';
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -54,6 +55,7 @@ export const MyPage = () => {
         <b>{introduce}</b>
       )}
       <button type="submit">{isEditing ? '저장하기' : '수정하기'}</button>
+      <TabBar currentPage="mypage" />
     </S.Layout>
   );
 };

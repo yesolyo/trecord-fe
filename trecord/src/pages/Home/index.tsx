@@ -1,3 +1,4 @@
+import { TabBar } from '@components/common/TabBar';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
@@ -5,8 +6,7 @@ export const Home = () => {
   return (
     <>
       <div>홈입니다</div>
-      <button onClick={() => navigate('/newTrip')}>등록하기 버튼</button>
-      <button onClick={() => navigate('/mypage')}>마이페이지 버튼</button>
+      <TabBar currentPage="home" />
     </>
   );
 };
