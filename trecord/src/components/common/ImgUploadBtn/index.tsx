@@ -1,5 +1,4 @@
 import AWS from 'aws-sdk';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface ImgUploadBtnProps {
@@ -9,14 +8,8 @@ interface ImgUploadBtnProps {
   nickNameValue: string;
 }
 
-interface PostDataProps {
-  nickName: string;
-  imgUrl: string;
-}
-
 export const ImgUploadBtn = ({
   imageFile,
-  imageUrl,
   saveImageUrl,
   nickNameValue,
 }: ImgUploadBtnProps) => {
@@ -49,28 +42,29 @@ export const ImgUploadBtn = ({
       .catch((err) => console.log(err));
   };
 
-  const postData = ({ nickName, imgUrl }: PostDataProps) => {
-    const getToken = localStorage.getItem('acessToken');
-    axios
-      .post(
-        `${import.meta.env.VITE_BASE_URL}/api/v1/users`,
-        {
-          nickname: nickName,
-          imageUrl: imgUrl,
-          introduction: '소개글',
-        },
-        {
-          headers: {
-            Authorization: getToken,
-          },
-        },
-      )
-      .then((response) => {
-        console.log(response);
-        console.log('post 성공');
-      })
-      .catch((err) => console.log(err));
-  };
+  // const postData = ({ nickName, imgUrl }: PostDataProps) => {
+  // const getToken = localStorage.getItem('acessToken');
+  // fetch;
+  // axios
+  //   .post(
+  //     `${import.meta.env.VITE_BASE_URL}/api/v1/users`,
+  //     {
+  //       nickname: nickName,
+  //       imageUrl: imgUrl,
+  //       introduction: '소개글',
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: getToken,
+  //       },
+  //     },
+  //   )
+  //   .then((response) => {
+  //     console.log(response);
+  //     console.log('post 성공');
+  //   })
+  //   .catch((err) => console.log(err));
+  // };
 
   return (
     <button
@@ -89,7 +83,7 @@ export const ImgUploadBtn = ({
 
           uploadS3();
         }
-        postData({ nickName: nickNameValue, imgUrl: imageUrl });
+        // postData({ nickName: nickNameValue, imgUrl: imageUrl });
         navigate('/home');
       }}
     >
