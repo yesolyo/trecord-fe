@@ -4,8 +4,10 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
+  height: 660px;
   justify-content: center;
+  position: absolute;
+  width: 100%;
 `;
 
 export const TextBox = styled.span`
