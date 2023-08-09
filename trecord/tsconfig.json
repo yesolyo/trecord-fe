@@ -21,12 +21,13 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
+      "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
       "@components/*": ["src/components/*"],
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "include": ["src", "**/*.ts", "**/*.tsx", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
