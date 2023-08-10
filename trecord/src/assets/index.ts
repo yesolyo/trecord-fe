@@ -6,6 +6,7 @@ import { ReactComponent as profile } from '@/assets/profile.svg';
 import { ReactComponent as trecordLogo } from '@/assets/trecordLogo.svg';
 import { ReactComponent as welcomeCharacter } from '@/assets/welcomeCharacter.svg';
 import { ReactComponent as edit } from '@/assets/edit.svg';
+import { ReactComponent as google } from '@/assets/google.svg';
 export default {
   alarm,
   book,
@@ -15,4 +16,5 @@ export default {
   trecordLogo,
   welcomeCharacter,
   edit,
+  google,
 };
