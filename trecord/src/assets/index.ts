@@ -8,6 +8,11 @@ import { ReactComponent as welcomeCharacter } from '@/assets/welcomeCharacter.sv
 import { ReactComponent as edit } from '@/assets/edit.svg';
 import { ReactComponent as google } from '@/assets/google.svg';
 import { ReactComponent as add } from '@/assets/add.svg';
+import { ReactComponent as emojiHappy } from '@/assets/emojiHappy.svg';
+import { ReactComponent as emojiNormal } from '@/assets/emojiNormal.svg';
+import { ReactComponent as emojiSad } from '@/assets/emojiSad.svg';
+import { ReactComponent as arrow } from '@/assets/arrow.svg';
+import { ReactComponent as gallery } from '@/assets/gallery.svg';
 export default {
   alarm,
   book,
@@ -19,4 +24,9 @@ export default {
   edit,
   google,
   add,
+  arrow,
+  emojiHappy,
+  emojiNormal,
+  emojiSad,
+  gallery,
 };
