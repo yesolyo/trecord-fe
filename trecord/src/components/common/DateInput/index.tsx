@@ -13,7 +13,7 @@ export const DateInput = ({
     <S.Layout>
       <label htmlFor="input_date">{labelTitle}</label>
       <input
-        type="date"
+        type="datetime-local"
         name="startAt"
         id="input_date"
         value={inputValue}

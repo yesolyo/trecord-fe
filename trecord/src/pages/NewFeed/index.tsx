@@ -6,8 +6,8 @@ import * as S from './style';
 import { DateInput } from '@components/common/DateInput';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
-import { SquareBtn } from '@components/common/SquareBtn';
 import { useNavigate } from 'react-router-dom';
+import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
@@ -68,12 +68,19 @@ export const NewFeed = () => {
         labelTitle="여행 설명"
         inputTitle="여행에 대해 설명해주세요 (최대 100자)"
       />
-      <Satisfaction />
-      <SquareBtn
+      <Satisfaction inputValue={satisfaction} inputSetValue={setSatisfaction} />
+      <NewFeedBtn
+        imageFile={titleImgFile}
+        imageUrl={titleImgUrl}
+        saveImageUrl={setTitleImgUrl}
+        titleValue={title}
+        tripPlaceValue={tripPlace}
+        startAtValue={startAt}
+        endAtValue={endAt}
+        withPeopleValue={withPeople}
+        tripIntrouceValue={tripIntroduce}
+        satisfactionValue={satisfaction}
         title="완료"
-        width="342px"
-        height="56px"
-        onClick={() => navigate('/home')}
       />
     </S.Layout>
   );
