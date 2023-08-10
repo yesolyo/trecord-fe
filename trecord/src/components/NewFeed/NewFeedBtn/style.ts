@@ -9,4 +9,7 @@ export const BtnBox = styled.button`
   height: 56px;
   border-radius: 8px;
   border: none;
+  &:disabled {
+    background: ${({ theme }) => theme.colors.colorStyles.gray500};
+  }
 `;

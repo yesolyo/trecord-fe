@@ -111,7 +111,7 @@ export const NewFeedBtn = ({
   };
 
   return (
-    <S.BtnBox disabled={titleValue.length < 0} onClick={handlePost}>
+    <S.BtnBox disabled={titleValue.length < 1} onClick={handlePost}>
       {title}
     </S.BtnBox>
   );
