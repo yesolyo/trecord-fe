@@ -1,17 +1,20 @@
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
+import { useEffect } from 'react';
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
   saveImageUrl: React.Dispatch<React.SetStateAction<string>>;
   nickNameValue: string;
   title: string;
+  intrduceValue: string;
 }
 
 interface PostDataProps {
   nickName: string;
   imgUrl: string;
+  introduce: string;
 }
 
 export const ImgUploadBtn = ({
@@ -20,8 +23,15 @@ export const ImgUploadBtn = ({
   nickNameValue,
   imageUrl,
   title,
+  intrduceValue,
 }: ImgUploadBtnProps) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (imageUrl.length > 0) {
+      handleUploadPost();
+    }
+  }, [imageUrl]);
 
   const uploadS3 = () => {
     AWS.config.update({
@@ -46,11 +56,26 @@ export const ImgUploadBtn = ({
     const promise = upload.promise();
 
     promise
-      .then((data) => saveImageUrl(data.Location))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        console.log(data.Location);
+        saveImageUrl(data.Location);
+      })
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
   };
 
-  const postData = ({ nickName }: PostDataProps) => {
+  const handleUploadPost = () => {
+    postData({
+      nickName: nickNameValue,
+      imgUrl: imageUrl,
+      introduce: intrduceValue,
+    });
+    navigate('/home');
+  };
+
+  const postData = ({ nickName, introduce }: PostDataProps) => {
     const getToken = localStorage.getItem('acessToken');
     if (getToken) {
       fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/users`, {
@@ -61,9 +86,8 @@ export const ImgUploadBtn = ({
         },
         body: JSON.stringify({
           nickname: nickName,
-          imageUrl:
-            'https://trecordbucket.s3.ap-northeast-2.amazonaws.com/upload/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2023-08-06+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+10.03.06.png',
-          introduction: '소개글',
+          imageUrl: imageUrl,
+          introduction: introduce,
         }),
       })
         .then((response) => {
@@ -74,26 +98,19 @@ export const ImgUploadBtn = ({
     }
   };
 
+  const handlePost = () => {
+    if (imageFile.originFile) {
+      uploadS3();
+      return;
+    }
+    handleUploadPost();
+  };
+
   return (
     <S.BtnBox
       type="button"
       disabled={nickNameValue.length <= 0}
-      onClick={() => {
-        if (imageFile.originFile) {
-          const formData = new FormData();
-          formData.append('file', imageFile.originFile);
-          formData.append(
-            'name',
-            imageFile.originFile instanceof File
-              ? imageFile.originFile.name
-              : 'default-name',
-          );
-
-          uploadS3();
-        }
-        postData({ nickName: nickNameValue, imgUrl: imageUrl });
-        navigate('/home');
-      }}
+      onClick={handlePost}
     >
       {title}
     </S.BtnBox>

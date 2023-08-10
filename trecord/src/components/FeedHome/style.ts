@@ -4,11 +4,12 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 660px;
+  height: 880px;
   justify-content: flex-start;
-  position: absolute;
   width: 100%;
   gap: 10px;
+  padding-top: 90px;
+  padding-bottom: 165px;
 `;
 
 export const TopBox = styled.div`
@@ -24,7 +25,7 @@ export const ImgBox = styled.div`
 
   img {
     border-radius: 8px;
-    filter: brightness(70%);
+    filter: brightness(72%);
   }
 `;
 

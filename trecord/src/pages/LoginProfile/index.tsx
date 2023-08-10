@@ -41,6 +41,7 @@ export const LoginProfile = () => {
           saveImageUrl={setProfilUrl}
           imageUrl={profileUrl}
           nickNameValue={nickName}
+          intrduceValue={introduce}
           title="시작하기"
         ></ImgUploadBtn>
       </S.ProfileBox>
