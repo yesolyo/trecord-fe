@@ -14,4 +14,13 @@ export const ExplainBox = styled.div`
   align-items: center;
   ${({ theme }) => theme.font.fontSize.Body_S};
   ${({ theme }) => theme.font.fontType.R};
+  margin-bottom: 35px;
+`;
+
+export const CharcterBox = styled.div`
+  margin-bottom: 45px;
+`;
+
+export const LogoBox = styled.div`
+  margin-bottom: 25px;
 `;

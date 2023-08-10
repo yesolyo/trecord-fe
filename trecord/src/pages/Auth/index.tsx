@@ -17,12 +17,15 @@ export const Auth = () => {
       }),
     })
       .then((response) => {
-        console.log(response);
+        return response.json();
         // localStorage.setItem('acessToken', response.data.data.token.token);
         // localStorage.setItem(
         //   'refrashToken',
         //   response.data.data.token.refreshToken,
         // );
+      })
+      .then((data) => {
+        console.log(data);
       })
       .catch((err) => console.log(err));
     // axios
