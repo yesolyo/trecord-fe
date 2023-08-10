@@ -10,8 +10,8 @@ export const Layout = styled.div`
   align-items: center;
   margin: 0 auto;
   margin-right: 20px;
-  position: absolute;
+  position: fixed;
   right: 0;
-  bottom: 110px;
+  bottom: 12%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.16);
 `;

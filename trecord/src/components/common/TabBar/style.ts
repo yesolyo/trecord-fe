@@ -13,6 +13,7 @@ export const Layout = styled.div`
   border-radius: 20px 20px 0 0;
   position: fixed;
   bottom: 0;
+  background: ${({ theme }) => theme.colors.colorStyles.gray100};
 `;
 
 export const menuBox = styled.button`

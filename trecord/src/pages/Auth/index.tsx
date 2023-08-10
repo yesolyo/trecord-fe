@@ -20,6 +20,7 @@ export const Auth = () => {
         return response.json();
       })
       .then((data) => {
+        console.log('엑세스토큰', data.data.token.token);
         localStorage.setItem('acessToken', data.data.token.token);
         localStorage.setItem('refrashToken', data.data.token.refreshToken);
       })

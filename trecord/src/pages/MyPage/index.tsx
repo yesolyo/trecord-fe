@@ -9,8 +9,7 @@ export const MyPage = () => {
     imgFile: string;
     originFile: File | Blob | string;
   }>({
-    imgFile:
-      'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg',
+    imgFile: '',
     originFile: '',
   });
   const [nickName, setNickName] = useState<string>('안예림');

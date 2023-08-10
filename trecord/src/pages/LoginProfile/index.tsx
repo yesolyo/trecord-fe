@@ -9,7 +9,7 @@ export const LoginProfile = () => {
     imgFile: string;
     originFile: File | Blob | string;
   }>({
-    imgFile: 'profile',
+    imgFile: '',
     originFile: '',
   });
   const [profileUrl, setProfilUrl] = useState<string>('');
