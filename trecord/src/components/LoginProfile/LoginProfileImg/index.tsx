@@ -1,5 +1,7 @@
-import { useRef } from 'react';
-
+import { useRef, useState } from 'react';
+import * as S from './style';
+import { Icon } from '@components/common/Icon';
+import { NewBtn } from '@components/common/NewBtn';
 interface LoginProfileImgPrpos {
   profileFile: React.Dispatch<
     React.SetStateAction<{ imgFile: string; originFile: File | Blob | string }>
@@ -12,7 +14,7 @@ export const LoginProfileImg = ({
   profileFileValue,
 }: LoginProfileImgPrpos) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
-
+  const [isProfileActive, setIsProfileActive] = useState(false);
   const handleSaveImgFile = () => {
     if (fileInput.current && fileInput.current.files) {
       const file = fileInput.current?.files[0];
@@ -24,6 +26,7 @@ export const LoginProfileImg = ({
             imgFile: String(reader.result),
             originFile: file,
           });
+          setIsProfileActive(true);
         }
       };
     }
@@ -31,18 +34,33 @@ export const LoginProfileImg = ({
 
   return (
     <>
-      <img
-        src={profileFileValue.imgFile}
-        alt="프로필 이미지"
-        height="280"
-        width="180"
-      />
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInput}
-        onChange={handleSaveImgFile}
-      />
+      <S.Layout>
+        <S.ImgBox>
+          {isProfileActive ? (
+            <img
+              src={profileFileValue.imgFile}
+              alt="프로필 이미지"
+              height="280"
+              width="180"
+            />
+          ) : (
+            <Icon iconType="profile" width={74} />
+          )}
+        </S.ImgBox>
+        <S.UploadBox>
+          <label htmlFor="input-file">
+            <Icon iconType="add" width={24} />
+          </label>
+          <input
+            type="file"
+            id="input-file"
+            accept="image/*"
+            ref={fileInput}
+            onChange={handleSaveImgFile}
+            style={{ display: 'none' }}
+          />
+        </S.UploadBox>
+      </S.Layout>
     </>
   );
 };

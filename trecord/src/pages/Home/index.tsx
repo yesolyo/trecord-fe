@@ -8,7 +8,7 @@ export const Home = () => {
     <>
       <NavBar totalPage={0} />
       <EmptyHome />
-      <NewBtn />
+      <NewBtn type="edit" iconWidth={24} onClick={() => {}} />
       <TabBar currentPage="home" />
     </>
   );

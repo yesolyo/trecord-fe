@@ -18,29 +18,12 @@ export const Auth = () => {
     })
       .then((response) => {
         return response.json();
-        // localStorage.setItem('acessToken', response.data.data.token.token);
-        // localStorage.setItem(
-        //   'refrashToken',
-        //   response.data.data.token.refreshToken,
-        // );
       })
       .then((data) => {
-        console.log(data);
+        localStorage.setItem('acessToken', data.data.token.token);
+        localStorage.setItem('refrashToken', data.data.token.refreshToken);
       })
       .catch((err) => console.log(err));
-    // axios
-    //   .post(`${import.meta.env.VITE_BASE_URL}/api/v1/auth/google-login`, {
-    //     authorizationCode: queryCode,
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data.data.token);
-    //     localStorage.setItem('acessToken', response.data.data.token.token);
-    //     localStorage.setItem(
-    //       'refrashToken',
-    //       response.data.data.token.refreshToken,
-    //     );
-    //   })
-    //   .catch((err) => console.log(err));
 
     navigate('/loginProfile');
   });

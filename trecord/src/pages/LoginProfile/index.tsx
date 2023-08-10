@@ -9,8 +9,7 @@ export const LoginProfile = () => {
     imgFile: string;
     originFile: File | Blob | string;
   }>({
-    imgFile:
-      'https://cdn.pixabay.com/photo/2023/05/13/14/35/white-flower-7990645_1280.jpg',
+    imgFile: 'profile',
     originFile: '',
   });
   const [profileUrl, setProfilUrl] = useState<string>('');
@@ -18,26 +17,33 @@ export const LoginProfile = () => {
   const [introduce, setIntroduce] = useState<string>('');
   return (
     <S.Layout>
-      <LoginProfileImg
-        profileFile={setProfileFile}
-        profileFileValue={profileFile}
-      />
-      <label htmlFor="nickName">닉네임(필수): </label>
-      <LoginProfileName
-        nickNameValue={nickName}
-        nickNameSetValue={setNickName}
-      />
-      <label htmlFor="profileIntroduce">소개글</label>
-      <LoginProfileIntroduce
-        introduceValue={introduce}
-        introduceSetValue={setIntroduce}
-      />
-      <ImgUploadBtn
-        imageFile={profileFile}
-        saveImageUrl={setProfilUrl}
-        imageUrl={profileUrl}
-        nickNameValue={nickName}
-      ></ImgUploadBtn>
+      <S.TextBox>
+        <span className="profileTitle">프로필</span>
+        <span className="profileText">
+          다른 사용자에게 보여지는 프로필을 설정해주세요
+        </span>
+      </S.TextBox>
+      <S.ProfileBox>
+        <LoginProfileImg
+          profileFile={setProfileFile}
+          profileFileValue={profileFile}
+        />
+        <LoginProfileName
+          nickNameValue={nickName}
+          nickNameSetValue={setNickName}
+        />
+        <LoginProfileIntroduce
+          introduceValue={introduce}
+          introduceSetValue={setIntroduce}
+        />
+        <ImgUploadBtn
+          imageFile={profileFile}
+          saveImageUrl={setProfilUrl}
+          imageUrl={profileUrl}
+          nickNameValue={nickName}
+          title="시작하기"
+        ></ImgUploadBtn>
+      </S.ProfileBox>
     </S.Layout>
   );
 };
