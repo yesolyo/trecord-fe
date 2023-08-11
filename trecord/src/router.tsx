@@ -9,6 +9,8 @@ import { MyPage } from './pages/MyPage';
 import { WelcomePage } from './pages/WelcomPage';
 import { NewFeed } from './pages/NewFeed';
 import { FeedDetail } from './pages/FeedDetail';
+import { NewRecord } from './pages/NewRecord';
+import { NewWriteRecord } from './pages/NewWriteRecord';
 
 export const router = createBrowserRouter(
   [
@@ -46,6 +48,14 @@ export const router = createBrowserRouter(
         {
           path: '/feedDetail/:id',
           element: <FeedDetail />,
+        },
+        {
+          path: '/newRecord',
+          element: <NewRecord />,
+        },
+        {
+          path: '/newRecord/newWrite',
+          element: <NewWriteRecord />,
         },
         {
           path: '/mypage',

@@ -1,11 +1,13 @@
 import { styled } from 'styled-components';
 interface EmojiLayoutProps {
   isSelected: boolean;
+  width: string;
+  height: string;
 }
 export const Layout = styled.button<EmojiLayoutProps>`
   display: flex;
-  width: 109px;
-  height: 40px;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
   border-radius: 8px;
   background: ${({ theme, isSelected }) =>

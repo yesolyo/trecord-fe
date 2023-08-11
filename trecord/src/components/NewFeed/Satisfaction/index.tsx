@@ -17,18 +17,24 @@ export const Satisfaction = ({
           textTitle="불만족ㅠ"
           activeBtn={inputValue}
           activeSetBtn={inputSetValue}
+          width="109px"
+          height="40px"
         />
         <EmojiBtn
           iconName="emojiNormal"
           textTitle="보통이에요"
           activeBtn={inputValue}
           activeSetBtn={inputSetValue}
+          width="109px"
+          height="40px"
         />
         <EmojiBtn
           iconName="emojiHappy"
           textTitle="만족해요!"
           activeBtn={inputValue}
           activeSetBtn={inputSetValue}
+          width="109px"
+          height="40px"
         />
       </S.EmojiBox>
     </S.Layout>

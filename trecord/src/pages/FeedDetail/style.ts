@@ -8,7 +8,10 @@ export const Layout = styled.div`
   }
 `;
 export const ImgBox = styled.div``;
-
+export const IconBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const ExplainBox = styled.div`
   position: absolute;
   top: 490px;
@@ -36,4 +39,13 @@ export const ExplainBox = styled.div`
     ${({ theme }) => theme.font.fontType.R}
     padding-top:25px;
   }
+`;
+
+export const EmojiBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 18px;
+  ${({ theme }) => theme.font.fontSize.Body_S}
+  ${({ theme }) => theme.font.fontType.R}
 `;

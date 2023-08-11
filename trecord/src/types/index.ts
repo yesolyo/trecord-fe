@@ -1,3 +1,4 @@
+import icons from '@/assets/index';
 export type tabBarList =
   '"alarm" | "book" | "user" | "noneCharacter" | "profile" | "trecordLogo" | "welcomeCharacter"';
 export type feedList = {
@@ -17,7 +18,7 @@ export type feedDetailProps = {
   description: string;
   companion: string;
   place: string;
-  satisfaction: string;
+  satisfaction: keyof typeof icons;
   startAt: string;
   endAt: string;
   records: recordList[];

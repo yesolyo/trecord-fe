@@ -15,7 +15,31 @@ import { ReactComponent as arrow } from '@/assets/arrow.svg';
 import { ReactComponent as gallery } from '@/assets/gallery.svg';
 import { ReactComponent as more } from '@/assets/more.svg';
 import { ReactComponent as defaultImg } from '@/assets/defaultImg.svg';
+import { ReactComponent as addSquare } from '@/assets/addSquare.svg';
+import { ReactComponent as airplane } from '@/assets/airplane.svg';
+import { ReactComponent as bus } from '@/assets/bus.svg';
+import { ReactComponent as car } from '@/assets/car.svg';
+import { ReactComponent as cloudDrizzle } from '@/assets/cloudDrizzle.svg';
+import { ReactComponent as cloudSunny } from '@/assets/cloudSunny.svg';
+import { ReactComponent as flash } from '@/assets/flash.svg';
+import { ReactComponent as ship } from '@/assets/ship.svg';
+import { ReactComponent as snow } from '@/assets/snow.svg';
+import { ReactComponent as sun } from '@/assets/sun.svg';
+import { ReactComponent as wind } from '@/assets/wind.svg';
+import { ReactComponent as cloud } from '@/assets/cloud.svg';
 export default {
+  addSquare,
+  cloud,
+  flash,
+  ship,
+  snow,
+  sun,
+  wind,
+  bus,
+  car,
+  airplane,
+  cloudDrizzle,
+  cloudSunny,
   alarm,
   book,
   user,

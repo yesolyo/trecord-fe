@@ -13,4 +13,7 @@ export const BtnBox = styled.button<BtnBoxProps>`
   height: ${({ boxHeight }) => boxHeight};
   border-radius: 8px;
   border: none;
+  &:disabled {
+    background: ${({ theme }) => theme.colors.colorStyles.gray600};
+  }
 `;

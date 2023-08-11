@@ -28,7 +28,7 @@ export const NewFeed = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn title="피드 만들기" isDark={true} />
+      <NavBarBackBtn title="피드 만들기" isDark={true} isRegister={false} />
       <NewTitleImg
         titleImgFile={setTitleImgFile}
         titleImgFileValue={titleImgFile}
@@ -50,11 +50,15 @@ export const NewFeed = () => {
           inputValue={startAt}
           inputSetValue={setStartAt}
           labelTitle="여행 시작 날짜"
+          inputWidth="150px"
+          inputHeight="46px"
         />
         <DateInput
           inputValue={endAt}
           inputSetValue={setEndAt}
           labelTitle="여행 끝나는 날짜"
+          inputWidth="150px"
+          inputHeight="46px"
         />
       </S.DateBox>
       <TextInput

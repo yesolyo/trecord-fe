@@ -4,8 +4,10 @@ import * as S from './style';
 import icons from '@/assets/index';
 interface EmojiBtnProps {
   iconName: keyof typeof icons;
-  textTitle: string;
+  textTitle?: string;
   activeBtn: string;
+  width: string;
+  height: string;
   activeSetBtn: React.Dispatch<React.SetStateAction<string>>;
 }
 export const EmojiBtn = ({
@@ -13,11 +15,15 @@ export const EmojiBtn = ({
   textTitle,
   activeBtn,
   activeSetBtn,
+  width,
+  height,
 }: EmojiBtnProps) => {
   return (
     <S.Layout
       isSelected={activeBtn === iconName}
       onClick={() => activeSetBtn(iconName)}
+      width={width}
+      height={height}
     >
       <Icon
         iconType={iconName}
@@ -26,7 +32,7 @@ export const EmojiBtn = ({
           activeBtn === iconName ? colorStyles.gray100 : colorStyles.gray600
         }
       />
-      <div className="text_emoji">{textTitle}</div>
+      {textTitle && <div className="text_emoji">{textTitle}</div>}
     </S.Layout>
   );
 };

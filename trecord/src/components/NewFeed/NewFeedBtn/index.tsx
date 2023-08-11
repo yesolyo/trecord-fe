@@ -89,8 +89,8 @@ export const NewFeedBtn = ({
           name: titleValue,
           satisfaction: satisfactionValue,
           place: tripPlaceValue,
-          startAt: startAtValue,
-          endAt: endAtValue,
+          startAt: `${startAtValue}T00:00`,
+          endAt: `${endAtValue}T00:00`,
           companion: withPeopleValue,
           description: tripIntrouceValue,
           imageUrl: imageUrl,
@@ -112,8 +112,14 @@ export const NewFeedBtn = ({
     handleUploadPost();
   };
 
+  const isDisabled = !(
+    titleValue.length > 0 &&
+    startAtValue.length > 0 &&
+    endAtValue.length > 0
+  );
+
   return (
-    <S.BtnBox disabled={titleValue.length < 1} onClick={handlePost}>
+    <S.BtnBox disabled={isDisabled} onClick={handlePost}>
       {title}
     </S.BtnBox>
   );

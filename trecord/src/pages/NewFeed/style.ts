@@ -12,5 +12,5 @@ export const Layout = styled.div`
 
 export const DateBox = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 25px;
 `;

@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
-
-export const Layout = styled.div`
+interface NavBarBackProps {
+  isRegister: boolean;
+}
+export const Layout = styled.div<NavBarBackProps>`
   display: flex;
   position: fixed;
   top: 0;
@@ -10,14 +12,20 @@ export const Layout = styled.div`
   justify-content: flex-start;
   gap: 110px;
   padding-left: 20px;
-  /* padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px; */
-  /* background: ${({ theme }) => theme.colors.colorStyles.gray100}; */
 `;
 
 export const TitleBox = styled.span`
   ${({ theme }) => theme.colors.colorStyles.gray900};
   ${({ theme }) => theme.font.fontSize.Title_M};
   ${({ theme }) => theme.font.fontType.S};
+`;
+
+export const SaveBox = styled.button`
+  border: none;
+  background: none;
+  ${({ theme }) => theme.font.fontSize.Button_M};
+  ${({ theme }) => theme.font.fontType.M};
+  &:disabled {
+    ${({ theme }) => theme.colors.colorStyles.gray900};
+  }
 `;

@@ -1,10 +1,6 @@
 import { styled } from 'styled-components';
 
-interface DateInputProps {
-  width: string;
-  height: string;
-}
-export const Layout = styled.div<DateInputProps>`
+export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   label {
@@ -12,10 +8,15 @@ export const Layout = styled.div<DateInputProps>`
     ${({ theme }) => theme.font.fontType.R}
   margin-bottom:5px;
   }
+`;
 
+export const InputBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
   input {
-    height: ${({ height }) => height};
-    width: ${({ width }) => width};
+    height: 46px;
+    width: 292px;
     padding-left: 12px;
     padding-top: 2px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
