@@ -20,14 +20,16 @@ export const Auth = () => {
         return response.json();
       })
       .then((data) => {
+        console.log('로그인 데이터', data.data);
         console.log('엑세스토큰', data.data.token.token);
         localStorage.setItem('acessToken', data.data.token.token);
         localStorage.setItem('refrashToken', data.data.token.refreshToken);
+        if (!data.data.user.nickname) {
+          navigate('/loginProfile');
+        } else {
+          navigate('/home');
+        }
       })
       .catch((err) => console.log(err));
-
-    navigate('/loginProfile');
   });
-
-  return <div>로그인 완료</div>;
 };
