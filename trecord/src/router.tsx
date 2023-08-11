@@ -8,6 +8,7 @@ import { NewTrip } from './pages/NewTrip';
 import { MyPage } from './pages/MyPage';
 import { WelcomePage } from './pages/WelcomPage';
 import { NewFeed } from './pages/NewFeed';
+import { FeedDetail } from './pages/FeedDetail';
 
 export const router = createBrowserRouter(
   [
@@ -41,6 +42,10 @@ export const router = createBrowserRouter(
         {
           path: '/newfeed',
           element: <NewFeed />,
+        },
+        {
+          path: '/feedDetail/:id',
+          element: <FeedDetail />,
         },
         {
           path: '/mypage',

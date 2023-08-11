@@ -1,13 +1,18 @@
 import { feedList } from '@/types';
 import * as S from './style';
+import { useNavigate } from 'react-router-dom';
 interface FeedHomeProps {
   pageData: feedList[];
 }
 export const FeedHome = ({ pageData }: FeedHomeProps) => {
+  const navigate = useNavigate();
   return (
     <S.Layout>
       {pageData.map((feed) => (
-        <S.ImgBox key={feed.id}>
+        <S.ImgBox
+          key={feed.id}
+          onClick={() => navigate(`/feedDetail/${feed.id}`)}
+        >
           <img src={feed.imageUrl} width={342} height={180} />
           <div className="img_oppacity"></div>
           <S.TextBox>

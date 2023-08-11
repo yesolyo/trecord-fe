@@ -30,6 +30,7 @@ export const Home = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
   return (
     <>
       {feedData.length > 0 ? <FeedHome pageData={feedData} /> : <EmptyHome />}
@@ -37,7 +38,7 @@ export const Home = () => {
         type="edit"
         iconWidth={24}
         onClick={() => {
-          navigate('/newfeed');
+          navigate('/newfeed', { replace: true });
         }}
       />
       <TabBar currentPage="home" />

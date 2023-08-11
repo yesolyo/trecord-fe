@@ -32,4 +32,6 @@ export const Auth = () => {
       })
       .catch((err) => console.log(err));
   });
+
+  return <div>로그인 중</div>;
 };

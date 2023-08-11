@@ -4,12 +4,11 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 880px;
   justify-content: flex-start;
   width: 100%;
   gap: 10px;
   padding-top: 90px;
-  padding-bottom: 165px;
+  padding-bottom: 100px;
 `;
 
 export const TopBox = styled.div`

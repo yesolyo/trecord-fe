@@ -13,6 +13,8 @@ import { ReactComponent as emojiNormal } from '@/assets/emojiNormal.svg';
 import { ReactComponent as emojiSad } from '@/assets/emojiSad.svg';
 import { ReactComponent as arrow } from '@/assets/arrow.svg';
 import { ReactComponent as gallery } from '@/assets/gallery.svg';
+import { ReactComponent as more } from '@/assets/more.svg';
+import { ReactComponent as defaultImg } from '@/assets/defaultImg.svg';
 export default {
   alarm,
   book,
@@ -29,4 +31,6 @@ export default {
   emojiNormal,
   emojiSad,
   gallery,
+  more,
+  defaultImg,
 };

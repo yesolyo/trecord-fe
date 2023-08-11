@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import AWS from 'aws-sdk';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 interface NewFeedBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
@@ -29,9 +29,10 @@ export const NewFeedBtn = ({
   title,
 }: NewFeedBtnProps) => {
   const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (imageUrl.length > 0) {
+    if (isActive) {
       handleUploadPost();
     }
   }, [imageUrl]);
@@ -62,6 +63,7 @@ export const NewFeedBtn = ({
       .then((data) => {
         console.log(data.Location);
         saveImageUrl(data.Location);
+        setIsActive(true);
       })
       .catch((err) => {
         console.log(err);

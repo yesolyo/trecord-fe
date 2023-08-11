@@ -16,7 +16,9 @@ export const NewFeed = () => {
     imgFile: '',
     originFile: '',
   });
-  const [titleImgUrl, setTitleImgUrl] = useState<string>('');
+  const [titleImgUrl, setTitleImgUrl] = useState<string>(
+    'https://trecordbucket.s3.ap-northeast-2.amazonaws.com/upload/trip2.png',
+  );
   const [title, setTitle] = useState('');
   const [tripPlace, setTripPlace] = useState('');
   const [startAt, setStartAt] = useState('');
@@ -25,9 +27,10 @@ export const NewFeed = () => {
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
   const navigate = useNavigate();
+
   return (
     <S.Layout>
-      <NavBarBackBtn title="피드 만들기" />
+      <NavBarBackBtn title="피드 만들기" isDark={true} />
       <NewTitleImg
         titleImgFile={setTitleImgFile}
         titleImgFileValue={titleImgFile}

@@ -13,7 +13,7 @@ export const Layout = styled.div`
   /* padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px; */
-  background: ${({ theme }) => theme.colors.colorStyles.gray100};
+  /* background: ${({ theme }) => theme.colors.colorStyles.gray100}; */
 `;
 
 export const TitleBox = styled.span`
