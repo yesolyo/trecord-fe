@@ -6,7 +6,6 @@ import * as S from './style';
 import { DateInput } from '@components/common/DateInput';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
-import { useNavigate } from 'react-router-dom';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
@@ -26,7 +25,6 @@ export const NewFeed = () => {
   const [withPeople, setWithPeople] = useState('');
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
-  const navigate = useNavigate();
 
   return (
     <S.Layout>
