@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
@@ -26,9 +26,10 @@ export const ImgUploadBtn = ({
   intrduceValue,
 }: ImgUploadBtnProps) => {
   const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (imageUrl.length > 0) {
+    if (isActive) {
       handleUploadPost();
     }
   }, [imageUrl]);
@@ -59,6 +60,7 @@ export const ImgUploadBtn = ({
       .then((data) => {
         console.log(data.Location);
         saveImageUrl(data.Location);
+        setIsActive(true);
       })
       .catch((err) => {
         console.log(err);
@@ -72,6 +74,7 @@ export const ImgUploadBtn = ({
       imgUrl: imageUrl,
       introduce: intrduceValue,
     });
+    setIsActive(false);
     navigate('/home');
   };
 

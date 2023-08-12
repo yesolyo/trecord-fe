@@ -5,7 +5,7 @@ export const Layout = styled.div`
   flex-direction: column;
   padding-top: 30px;
 `;
-export const DataBox = styled.div`
+export const DataBox = styled.li`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -26,6 +26,8 @@ export const DayBox = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 15px;
+  height: 54px;
+  border-left: 1px solid;
   span {
     ${({ theme }) => theme.font.fontSize.Caption_M}
     ${({ theme }) => theme.font.fontType.M}

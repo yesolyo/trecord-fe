@@ -6,13 +6,23 @@ export const Layout = styled.div`
   gap: 15px;
   padding-top: 30px;
   padding-bottom: 20px;
+  h2 {
+    ${({ theme }) => theme.font.fontType.R};
+    ${({ theme }) => theme.font.fontSize.Body_M};
+  }
+`;
+
+export const GroupBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 export const ItemBox = styled.div`
   display: flex;
   align-items: center;
   width: 312px;
-  height: 80px;
+  height: 50px;
   border-radius: 8px;
   box-shadow: 0px -2px 10px rgba(0, 0, 8, 0.12);
   gap: 15px;

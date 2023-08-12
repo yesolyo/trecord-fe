@@ -1,16 +1,19 @@
 import { useRef, useState } from 'react';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
+import { TabBar } from '@components/common/TabBar';
 interface LoginProfileImgPrpos {
   profileFile: React.Dispatch<
     React.SetStateAction<{ imgFile: string; originFile: File | Blob | string }>
   >;
   profileFileValue: { imgFile: string; originFile: File | Blob | string };
+  profileUrl?: string;
 }
 
 export const LoginProfileImg = ({
   profileFile,
   profileFileValue,
+  profileUrl,
 }: LoginProfileImgPrpos) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [isProfileActive, setIsProfileActive] = useState(false);
@@ -31,21 +34,29 @@ export const LoginProfileImg = ({
     }
   };
 
+  const ChoiceImage = () => {
+    if (profileUrl && !isProfileActive) {
+      return (
+        <img src={profileUrl} alt="프로필 이미지" height="280" width="180" />
+      );
+    } else if (isProfileActive) {
+      return (
+        <img
+          src={profileFileValue.imgFile}
+          alt="프로필 이미지"
+          height="280"
+          width="180"
+        />
+      );
+    } else {
+      return <Icon iconType="profile" width={74} />;
+    }
+  };
+
   return (
     <>
       <S.Layout>
-        <S.ImgBox>
-          {isProfileActive ? (
-            <img
-              src={profileFileValue.imgFile}
-              alt="프로필 이미지"
-              height="280"
-              width="180"
-            />
-          ) : (
-            <Icon iconType="profile" width={74} />
-          )}
-        </S.ImgBox>
+        <S.ImgBox>{ChoiceImage()}</S.ImgBox>
         <S.UploadBox>
           <label htmlFor="input-file">
             <Icon iconType="add" width={24} />

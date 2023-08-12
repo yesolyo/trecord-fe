@@ -27,6 +27,7 @@ export type feedDetailProps = {
 export type recordList = {
   id: number;
   title: string;
+  place: string;
   date: string;
 };
 

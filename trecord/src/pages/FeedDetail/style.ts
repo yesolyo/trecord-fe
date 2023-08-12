@@ -19,7 +19,7 @@ export const ExplainBox = styled.div`
   height: 800px;
   border-radius: 20px;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
-  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   padding: 30px;
