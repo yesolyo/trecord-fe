@@ -5,12 +5,12 @@ on:
     branches: [release]
 
 env:
-      AWS_REGION: ap-northeast-2
-      S3_BUCKET_NAME: trecordbucket
-      CODE_DEPLOY_APPLICATION_NAME: potendayProject
-      CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: web-cd
-      working-directory: ./trecord
-      profile: test-water
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: trecordbucket
+  CODE_DEPLOY_APPLICATION_NAME: potendayProject
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: web-cd
+  working-directory: ./trecord
+  profile: test-water
 
 jobs:
   build:
@@ -22,24 +22,41 @@ jobs:
 
       - name: Set node@v1
         uses: actions/setup-node@v3
-        
+
       - name: check Node v
         run: node -v
-      
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "VITE_GOOGLE_AUTH_CLIENT_ID=$VITE_GOOGLE_AUTH_CLIENT_ID" >> .env
+          echo "VITE_AWS_ACCESS_KEY_ID=$VITE_AWS_ACCESS_KEY_ID" >> .env
+          echo "VITE_AWS_SECRET_ACCESS_KEY=$VITE_AWS_SECRET_ACCESS_KEY" >> .env
+          echo "VITE_AWS_REGION=$VITE_AWS_REGION" >> .env
+          echo "VITE_BASE_URL=$VITE_BASE_URL" >> .env
+          echo "VITE_REDIRECT_URI=$VITE_REDIRECT_URI" >> .env
+          echo "VITE_AWS_BUCKET=$VITE_AWS_BUCKET" >> .env
+        env:
+          VITE_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.GOOGLE_AUTH_CLIENT_ID }}
+          VITE_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          VITE_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          VITE_AWS_REGION: ${{ secrets.AWS_REGION }}
+          VITE_BASE_URL: ${{ secrets.BASE_URL }}
+          VITE_REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          VITE_AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+
       - name: Install npm
         run: sudo apt install npm
-  
+
       - name: check npm
         run: npm -v
-  
+
       - name: install dependency
         run: npm install
         working-directory: ${{ env.working-directory }}
-  
+
       - name: install CI
         run: npm ci
         working-directory: ${{ env.working-directory }}
-      
+
       - name: Generate build
         run: npm run build
         working-directory: ${{ env.working-directory }}
@@ -50,11 +67,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-      
+
       - name: Deploy to S3
-        run: aws s3 sync trecord/dist/ s3://trecordbucket --delete
+        run: aws s3 sync trecord/dist/ s3://trecordbucket --recursive
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-
