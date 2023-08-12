@@ -27,7 +27,7 @@ export const RecordSummary = ({ listData }: RecordSummaryProps) => {
   console.log('결과', result);
   return (
     <S.Layout>
-      {Object.entries(result).map(([dayKey, dayData], index) => (
+      {Object.entries(result).map(([dayKey, dayData]) => (
         <div key={dayKey}>
           <S.DayBox>
             <CircleTag />

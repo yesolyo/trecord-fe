@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
-import AWS from 'aws-sdk';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useEffect, useState } from 'react';
 interface NewFeedBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
@@ -37,38 +37,40 @@ export const NewFeedBtn = ({
     }
   }, [imageUrl]);
 
-  const uploadS3 = () => {
-    AWS.config.update({
+  const uploadS3 = async () => {
+    const s3Client = new S3Client({
       region: import.meta.env.VITE_AWS_REGION,
-      accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
-    });
-
-    const upload = new AWS.S3.ManagedUpload({
-      params: {
-        ACL: 'public-read',
-        Bucket: 'trecordbucket',
-        Key: `upload/${
-          imageFile.originFile instanceof File
-            ? imageFile.originFile.name
-            : 'default-name'
-        }`,
-        Body: imageFile.originFile,
+      credentials: {
+        accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
+        secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
       },
     });
 
-    const promise = upload.promise();
+    const key =
+      imageFile.originFile instanceof File
+        ? imageFile.originFile.name
+        : 'default-name';
 
-    promise
-      .then((data) => {
-        console.log(data.Location);
-        saveImageUrl(data.Location);
-        setIsActive(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        return null;
-      });
+    const params = {
+      ACL: 'public-read',
+      Bucket: import.meta.env.VITE_AWS_BUCKET,
+      Key: `upload/${key}`,
+      Body: imageFile.originFile,
+    };
+
+    try {
+      const command = new PutObjectCommand(params);
+      const data = await s3Client.send(command);
+      if (data.$metadata.httpStatusCode === 200) {
+      }
+      const url = `https://${import.meta.env.VITE_AWS_BUCKET}.s3.${
+        import.meta.env.VITE_AWS_REGION
+      }.amazonaws.com/upload/${key}`;
+      saveImageUrl(url);
+      setIsActive(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleUploadPost = () => {
@@ -96,10 +98,7 @@ export const NewFeedBtn = ({
           imageUrl: imageUrl,
         }),
       })
-        .then((response) => {
-          console.log(response);
-          console.log('post 성공');
-        })
+        .then(() => {})
         .catch((err) => console.log(err));
     }
   };

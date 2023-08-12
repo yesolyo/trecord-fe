@@ -8,7 +8,6 @@ import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { NewRecordBtn } from '@components/common/NewBtn/NewRecordBtn';
 import { feelCategory } from '@/utils';
-import { FeedCategoryList } from '@components/FeedDetail/FeedCategoryList';
 
 export const FeedDetail = () => {
   const { id } = useParams();

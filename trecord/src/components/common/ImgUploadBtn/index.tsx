@@ -1,11 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import * as S from './style';
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-} from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
@@ -100,7 +96,7 @@ export const ImgUploadBtn = ({
           introduction: introduce,
         }),
       })
-        .then((response) => {})
+        .then(() => {})
         .catch((err) => console.log(err));
     }
   };
