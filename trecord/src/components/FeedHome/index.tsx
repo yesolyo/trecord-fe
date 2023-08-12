@@ -6,6 +6,7 @@ interface FeedHomeProps {
 }
 export const FeedHome = ({ pageData }: FeedHomeProps) => {
   const navigate = useNavigate();
+  console.log(pageData);
   return (
     <S.Layout>
       {pageData.map((feed) => (

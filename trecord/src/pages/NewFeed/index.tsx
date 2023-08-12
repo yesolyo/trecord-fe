@@ -7,6 +7,7 @@ import { DateInput } from '@components/common/DateInput';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
+import { useNavigate } from 'react-router-dom';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
@@ -25,10 +26,16 @@ export const NewFeed = () => {
   const [withPeople, setWithPeople] = useState('');
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
+  const navigate = useNavigate();
 
   return (
     <S.Layout>
-      <NavBarBackBtn title="피드 만들기" isDark={true} isRegister={false} />
+      <NavBarBackBtn
+        title="피드 만들기"
+        isDark={true}
+        isRegister={false}
+        onClick={() => navigate('/home')}
+      />
       <NewTitleImg
         titleImgFile={setTitleImgFile}
         titleImgFileValue={titleImgFile}

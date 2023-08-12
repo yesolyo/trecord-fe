@@ -4,7 +4,6 @@ import { Login } from './pages/Login';
 import { LoginProfile } from './pages/LoginProfile';
 import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
-import { NewTrip } from './pages/NewTrip';
 import { MyPage } from './pages/MyPage';
 import { WelcomePage } from './pages/WelcomPage';
 import { NewFeed } from './pages/NewFeed';
@@ -37,10 +36,6 @@ export const router = createBrowserRouter(
         {
           path: '/home',
           element: <Home />,
-        },
-        {
-          path: '/newtrip',
-          element: <NewTrip />,
         },
         {
           path: '/newfeed',

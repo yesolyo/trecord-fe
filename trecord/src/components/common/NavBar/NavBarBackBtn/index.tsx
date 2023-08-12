@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
@@ -8,6 +7,7 @@ interface NavBarBackBtnProps {
   isDark: boolean;
   isRegister: boolean;
   disabled?: boolean;
+  onClick: () => void;
   registerClick?: () => void;
 }
 export const NavBarBackBtn = ({
@@ -16,15 +16,15 @@ export const NavBarBackBtn = ({
   isRegister,
   disabled,
   registerClick,
+  onClick,
 }: NavBarBackBtnProps) => {
-  const navigate = useNavigate();
   return (
     <S.Layout isRegister={isRegister}>
       <Icon
         iconType="arrow"
         width={24}
         fill={isDark ? colorStyles.gray900 : colorStyles.gray100}
-        onClick={() => navigate('/home')}
+        onClick={onClick}
       />
       <S.TitleBox>{title}</S.TitleBox>
       {isRegister && (

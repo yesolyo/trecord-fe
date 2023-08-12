@@ -1,7 +1,7 @@
 import { NavBarCategory } from '@components/common/NavBar/NavBarCategory';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { recordDetailList } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';

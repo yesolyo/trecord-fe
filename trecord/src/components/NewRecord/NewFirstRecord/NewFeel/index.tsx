@@ -1,4 +1,3 @@
-import { EmojiBtn } from '@components/common/EmojiBtn';
 import * as S from './style';
 import { FeelTag } from '../FeelTag';
 interface NewFeelProps {

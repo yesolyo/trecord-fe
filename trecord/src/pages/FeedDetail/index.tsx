@@ -5,9 +5,9 @@ import { feedDetailProps } from '@/types';
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
-import { NewBtn } from '@components/common/NewBtn';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { NewRecordBtn } from '@components/common/NewBtn/NewRecordBtn';
+import { feelCategory } from '@/utils';
 
 export const FeedDetail = () => {
   const { id } = useParams();
@@ -36,7 +36,11 @@ export const FeedDetail = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn isDark={false} isRegister={false} />
+      <NavBarBackBtn
+        isDark={false}
+        isRegister={false}
+        onClick={() => navigate('/home')}
+      />
       <S.ImgBox>
         <img src={detailData?.imageUrl} />
       </S.ImgBox>
@@ -55,7 +59,10 @@ export const FeedDetail = () => {
         {detailData?.satisfaction && (
           <S.EmojiBox>
             <div>만족도</div>
-            <Icon iconType={detailData?.satisfaction} width={24} />
+            <S.FeelBox>
+              <Icon iconType={detailData?.satisfaction} width={24} />
+              <span>{feelCategory({ feel: detailData?.satisfaction })}</span>
+            </S.FeelBox>
           </S.EmojiBox>
         )}
         <div className="detail_description">{detailData?.description}</div>

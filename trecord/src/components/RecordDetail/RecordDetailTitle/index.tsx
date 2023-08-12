@@ -1,31 +1,15 @@
 import { recordDetailList } from '@/types';
 import * as S from './style';
-import { CircleTag } from '@components/FeedDetail/RecordSummary/CircleTag/inedx';
-import { TagBox } from '@components/NewRecord/NewFirstRecord/NewFeel/style';
 import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
-import { useNavigate } from 'react-router-dom';
+import { feelSet } from '@/utils';
 
 interface RecordDetailDataProps {
   recordData: recordDetailList;
 }
-interface FeelSetProps {
-  feel: string;
-}
+
 export const RecordDetailTitle = ({ recordData }: RecordDetailDataProps) => {
-  const feelSet = ({ feel }: FeelSetProps) => {
-    switch (feel) {
-      case 'happy':
-        return '행복해요';
-      case 'sad':
-        return '슬퍼요';
-      case 'angry':
-        return '화나요';
-      case 'flutter':
-        return '설레요';
-    }
-  };
   return (
     <S.Layout>
       <div className="title">{recordData.title}</div>
@@ -50,7 +34,7 @@ export const RecordDetailTitle = ({ recordData }: RecordDetailDataProps) => {
       </S.MoveBox>
       <S.PeopleBox>
         <span className="first">같이 간 사람</span>
-        <Tag title={recordData.companion} />
+        {recordData.companion && <Tag title={recordData.companion} />}
       </S.PeopleBox>
     </S.Layout>
   );

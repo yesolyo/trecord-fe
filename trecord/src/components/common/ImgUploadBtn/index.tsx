@@ -58,7 +58,6 @@ export const ImgUploadBtn = ({
 
     promise
       .then((data) => {
-        console.log(data.Location);
         saveImageUrl(data.Location);
         setIsActive(true);
       })
@@ -95,7 +94,6 @@ export const ImgUploadBtn = ({
       })
         .then((response) => {
           console.log(response);
-          console.log('post 성공');
         })
         .catch((err) => console.log(err));
     }

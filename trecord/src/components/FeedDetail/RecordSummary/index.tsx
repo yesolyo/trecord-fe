@@ -47,23 +47,4 @@ export const RecordSummary = ({ listData }: RecordSummaryProps) => {
       ))}
     </S.Layout>
   );
-
-  // return (
-  //   <S.Layout>
-  //     <S.AlignBox>
-  //       <S.DayBox>
-  //         <CircleTag />
-  //         <Icon iconType="star" width={24} />
-  //         <span>Day</span>
-  //       </S.DayBox>
-  //     </S.AlignBox>
-
-  //     {listData.map((record) => (
-  //       <S.DataBox key={record.id}>
-  //         <CircleTag />
-  //         <span>{record.place}</span>
-  //       </S.DataBox>
-  //     ))}
-  //   </S.Layout>
-  // );
 };

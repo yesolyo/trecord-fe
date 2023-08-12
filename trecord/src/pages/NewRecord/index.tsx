@@ -20,7 +20,6 @@ export const NewRecord = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state;
-  console.log('확인', startDate);
 
   const isDisabled = !(
     title.length > 0 &&
@@ -34,7 +33,12 @@ export const NewRecord = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn title="기록 남기기" isDark={true} isRegister={false} />
+      <NavBarBackBtn
+        title="기록 남기기"
+        isDark={true}
+        isRegister={false}
+        onClick={() => navigate(-1)}
+      />
       <TextInput
         inputValue={title}
         inputSetValue={setTitle}

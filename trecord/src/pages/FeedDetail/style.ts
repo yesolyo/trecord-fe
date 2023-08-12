@@ -49,3 +49,9 @@ export const EmojiBox = styled.div`
   ${({ theme }) => theme.font.fontSize.Body_S}
   ${({ theme }) => theme.font.fontType.R}
 `;
+
+export const FeelBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;

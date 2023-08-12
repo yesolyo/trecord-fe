@@ -1,5 +1,5 @@
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';
 export const NewWriteRecord = () => {
@@ -48,6 +48,7 @@ export const NewWriteRecord = () => {
         isRegister={true}
         disabled={write.length <= 0}
         registerClick={postData}
+        onClick={() => navigate(-1)}
       />
       <textarea
         cols={40}
