@@ -8,6 +8,7 @@ import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { NewRecordBtn } from '@components/common/NewBtn/NewRecordBtn';
 import { feelCategory } from '@/utils';
+import { FeedCategoryList } from '@components/FeedDetail/FeedCategoryList';
 
 export const FeedDetail = () => {
   const { id } = useParams();
@@ -49,6 +50,7 @@ export const FeedDetail = () => {
           <div className="detail_name">{detailData?.name}</div>
           <Icon iconType="more" width={24} />
         </S.IconBox>
+        {/* <FeedCategoryList></FeedCategoryList> */}
         <div className="detail_place">
           {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
         </div>
