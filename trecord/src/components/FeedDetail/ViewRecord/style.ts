@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const Layout = styled.div`
-  padding-top: 100px;
+  padding-top: 130px;
 `;
 
 export const BtnBox = styled.div`

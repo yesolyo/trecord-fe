@@ -14,7 +14,6 @@ import { ReactComponent as emojiSad } from '@/assets/emojiSad.svg';
 import { ReactComponent as arrow } from '@/assets/arrow.svg';
 import { ReactComponent as gallery } from '@/assets/gallery.svg';
 import { ReactComponent as more } from '@/assets/more.svg';
-import { ReactComponent as defaultImg } from '@/assets/defaultImg.svg';
 import { ReactComponent as addSquare } from '@/assets/addSquare.svg';
 import { ReactComponent as airplane } from '@/assets/airplane.svg';
 import { ReactComponent as bus } from '@/assets/bus.svg';
@@ -56,5 +55,4 @@ export default {
   emojiSad,
   gallery,
   more,
-  defaultImg,
 };
