@@ -29,3 +29,26 @@ export type recordList = {
   title: string;
   date: string;
 };
+
+export type recordDetailList = {
+  comments: commentList[];
+  companion: string;
+  content: string;
+  date: string;
+  feedId: number;
+  feeling: string;
+  isUpdatable: boolean;
+  place: string;
+  recordId: number;
+  title: string;
+  transportation: keyof typeof icons;
+  weather: keyof typeof icons;
+  writerId: number;
+};
+
+export type commentList = {
+  commentId: number;
+  commenterId: number;
+  isUpdatable: boolean;
+  content: string;
+};

@@ -24,7 +24,6 @@ export const Home = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setFeedData(data.data.feeds);
         })
         .catch((err) => console.log(err));

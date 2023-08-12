@@ -7,6 +7,7 @@ import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { NewBtn } from '@components/common/NewBtn';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
+import { NewRecordBtn } from '@components/common/NewBtn/NewRecordBtn';
 
 export const FeedDetail = () => {
   const { id } = useParams();
@@ -60,7 +61,7 @@ export const FeedDetail = () => {
         <div className="detail_description">{detailData?.description}</div>
         {detailData?.records && <ViewRecord listData={detailData?.records} />}
       </S.ExplainBox>
-      <NewBtn
+      <NewRecordBtn
         type="edit"
         iconWidth={24}
         onClick={() =>

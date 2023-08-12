@@ -6,6 +6,7 @@ export const NewWriteRecord = () => {
   const [write, setWrite] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
+
   const { feedId, title, startDate, weather, place, feel, move, withPeople } =
     location.state;
 
@@ -30,8 +31,11 @@ export const NewWriteRecord = () => {
           companion: withPeople,
         }),
       })
-        .then(() => {
-          navigate('/home');
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          navigate(`/recordDetail/${data.data.recordId}`);
         })
         .catch((err) => console.log(err));
     }

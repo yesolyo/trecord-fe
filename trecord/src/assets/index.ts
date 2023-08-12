@@ -26,6 +26,7 @@ import { ReactComponent as snow } from '@/assets/snow.svg';
 import { ReactComponent as sun } from '@/assets/sun.svg';
 import { ReactComponent as wind } from '@/assets/wind.svg';
 import { ReactComponent as cloud } from '@/assets/cloud.svg';
+import { ReactComponent as star } from '@/assets/star.svg';
 export default {
   addSquare,
   cloud,
@@ -55,4 +56,5 @@ export default {
   emojiSad,
   gallery,
   more,
+  star,
 };

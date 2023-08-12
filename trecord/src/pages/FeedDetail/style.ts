@@ -16,7 +16,7 @@ export const ExplainBox = styled.div`
   position: absolute;
   top: 490px;
   width: 330px;
-  height: 705px;
+  height: 800px;
   border-radius: 20px;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
