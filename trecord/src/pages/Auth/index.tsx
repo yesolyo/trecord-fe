@@ -14,6 +14,7 @@ export const Auth = () => {
       },
       body: JSON.stringify({
         authorizationCode: queryCode,
+        redirectionUri: import.meta.env.VITE_REDIRECT_URI,
       }),
     })
       .then((response) => {
