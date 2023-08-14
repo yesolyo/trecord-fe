@@ -16,7 +16,7 @@ export const LoginButton = () => {
   return (
     <S.Layout onClick={githubLoginHandler}>
       <Icon iconType="google" width={24} />
-      <span>Google 계정으로 회원가입</span>
+      <span>Google 계정으로 시작하기</span>
     </S.Layout>
   );
 };
