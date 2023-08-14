@@ -41,6 +41,29 @@ export const FeedDetail = () => {
         isRegister={false}
         onClick={() => navigate('/home')}
       />
+      <button
+        onClick={async () => {
+          if (getToken) {
+            await fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/feeds/${id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: getToken,
+              },
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data.data);
+                setDetailData(data.data);
+              })
+              .catch((err) => console.log(err));
+          }
+        }}
+      >
+        누르기
+      </button>
       <S.ImgBox>
         <img src={detailData?.imageUrl} />
       </S.ImgBox>
