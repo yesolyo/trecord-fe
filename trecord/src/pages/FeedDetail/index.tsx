@@ -62,7 +62,7 @@ export const FeedDetail = () => {
           }
         }}
       >
-        누르기
+        배포용 버튼
       </button>
       <S.ImgBox>
         <img src={detailData?.imageUrl} />
