@@ -7,7 +7,6 @@ export const Auth = () => {
   const queryCode = url.searchParams.get('code');
 
   useEffect(() => {
-    console.log('로그인 요청 문제 확인1');
     fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/auth/google-login`, {
       method: 'POST',
       headers: {
