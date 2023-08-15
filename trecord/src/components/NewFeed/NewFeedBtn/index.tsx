@@ -68,6 +68,7 @@ export const NewFeedBtn = ({
       }.amazonaws.com/upload/${key}`;
       saveImageUrl(url);
       setIsActive(true);
+      console.log('성공');
     } catch (error) {
       console.error(error);
     }
