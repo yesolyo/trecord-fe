@@ -33,7 +33,7 @@ export const NewFeedBtn = ({
 
   useEffect(() => {
     if (isActive) {
-      handleUploadPost();
+      postData();
     }
   }, [imageUrl]);
 
@@ -74,11 +74,6 @@ export const NewFeedBtn = ({
     }
   };
 
-  const handleUploadPost = () => {
-    postData();
-    navigate('/home');
-  };
-
   const postData = () => {
     const getToken = localStorage.getItem('acessToken');
     if (getToken) {
@@ -99,7 +94,11 @@ export const NewFeedBtn = ({
           imageUrl: imageUrl,
         }),
       })
-        .then(() => {})
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) {
+            navigate('/home');
+          }
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -109,7 +108,7 @@ export const NewFeedBtn = ({
       uploadS3();
       return;
     }
-    handleUploadPost();
+    postData();
   };
 
   const isDisabled = !(
