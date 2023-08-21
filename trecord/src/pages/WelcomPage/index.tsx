@@ -2,8 +2,7 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useNavigate } from 'react-router-dom';
-import { SquareButton } from '@components/common/button/SquareButton';
-import { CircularButton } from '@components/common/button/CircularButton';
+
 export const WelcomePage = () => {
   const navigate = useNavigate();
   return (
