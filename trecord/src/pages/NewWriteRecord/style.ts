@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-export const Layout = styled.div`
+interface LayoutProps {
+  pt?: string;
+}
+
+export const Layout = styled.div<LayoutProps>`
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: ${({ pt }) => (pt ? pt : '100px')};
   textarea {
     border: none;
   }
