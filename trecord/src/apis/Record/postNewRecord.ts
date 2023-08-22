@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { http } from '../_http';
+import { PostNewRecordResponse } from '@/types/record';
 
 interface Props {
     imageUrl?: string;
@@ -15,8 +16,21 @@ interface Props {
     companion: string;         
 }
 
-const postNewRecord = async ({ 
-    imageUrl = undefined,
+const postNewRecord = async ({
+  imageUrl = undefined,
+  feedId,
+  title,
+  date,
+  place,
+  feeling,
+  weather,
+  transportation,
+  content,
+  companion,
+}: Props): Promise<PostNewRecordResponse> => {
+  const url = `/api/v1/records`;
+  const response: PostNewRecordResponse = await http.post(url, {
+    imageUrl,
     feedId,
     title,
     date,
@@ -25,23 +39,8 @@ const postNewRecord = async ({
     weather,
     transportation,
     content,
-    companion,   
- }: Props) => {
-  const url = `/api/v1/records`;
-    const response = await http.post(url, {
-      imageUrl,
-      feedId,
-      title,
-      date,
-      place,
-      feeling,
-      weather,
-      transportation,
-      content,
-      companion,
-    });
-
-    console.log(response);
+    companion,
+  });
 
   return response;
 };
