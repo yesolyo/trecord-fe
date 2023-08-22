@@ -1,6 +1,6 @@
 import { EmptyHome } from '@components/EmptyHome';
 import { FeedHome } from '@components/FeedHome';
-import { NavBar } from '@components/common/NavBar';
+import { NavBarHome } from '@components/common/NavBar/NavBarHome';
 import { NewBtn } from '@components/common/NewBtn';
 import { TabBar } from '@components/common/TabBar';
 import { useEffect, useState } from 'react';
@@ -41,7 +41,7 @@ export const Home = () => {
         }}
       />
       <TabBar currentPage="home" />
-      <NavBar totalPage={feedData.length} />
+      <NavBarHome totalPage={feedData.length} />
     </>
   );
 };
