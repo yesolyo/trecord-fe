@@ -6,6 +6,7 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
 import { TabBar } from '@components/common/TabBar';
 import { MyPageBtn } from '@components/MyPage/MyPageBtn';
+import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -39,11 +40,13 @@ export const MyPage = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  const constant = {
+    navBarProfile: { mainTitle: '마이페이지' },
+  };
   return (
     <S.Layout>
-      <S.TextBox>
-        <span className="profileTitle">마이페이지</span>
-      </S.TextBox>
+      <NavBarProfile {...constant.navBarProfile} />
       <S.ProfileBox>
         <LoginProfileImg
           profileFile={setProfileFile}

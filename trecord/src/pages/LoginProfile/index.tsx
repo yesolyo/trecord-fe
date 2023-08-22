@@ -4,6 +4,7 @@ import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
+import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 export const LoginProfile = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -15,14 +16,16 @@ export const LoginProfile = () => {
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+
+  const constant = {
+    navBarProfile: {
+      mainTitle: '프로필',
+      subTitle: '다른 사용자에게 보여지는 프로필을 설정해주세요',
+    },
+  };
   return (
     <S.Layout>
-      <S.TextBox>
-        <span className="profileTitle">프로필</span>
-        <span className="profileText">
-          다른 사용자에게 보여지는 프로필을 설정해주세요
-        </span>
-      </S.TextBox>
+      <NavBarProfile {...constant.navBarProfile} />
       <S.ProfileBox>
         <LoginProfileImg
           profileFile={setProfileFile}
