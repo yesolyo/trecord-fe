@@ -1,11 +1,11 @@
 import { EmptyHome } from '@components/EmptyHome';
 import { FeedHome } from '@components/FeedHome';
 import { NavBarHome } from '@components/common/navBar/NavBarHome';
-import { NewBtn } from '@components/common/NewBtn';
 import { TabBar } from '@components/common/TabBar';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { CircularButton } from '@components/common/button/CircularButton';
+import * as S from './style';
 export const Home = () => {
   const [feedData, setFeedData] = useState([]);
   const navigate = useNavigate();
@@ -24,22 +24,29 @@ export const Home = () => {
           return response.json();
         })
         .then((data) => {
-          setFeedData(data.data.feeds);
+          if (data.code === 200 || data.code === 201) {
+            setFeedData(data.data.feeds);
+          }
         })
         .catch((err) => console.log(err));
     }
   }, []);
 
+  const constant = {
+    circularBtn: {
+      width: 24,
+      onClick: () => {
+        navigate('/newfeed', { replace: true });
+      },
+    },
+  };
+
   return (
     <>
       {feedData.length > 0 ? <FeedHome pageData={feedData} /> : <EmptyHome />}
-      <NewBtn
-        type="edit"
-        iconWidth={24}
-        onClick={() => {
-          navigate('/newfeed', { replace: true });
-        }}
-      />
+      <S.ButtonBox>
+        <CircularButton iconType="edit" {...constant.circularBtn} />
+      </S.ButtonBox>
       <TabBar currentPage="home" />
       <NavBarHome totalPage={feedData.length} />
     </>

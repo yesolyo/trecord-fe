@@ -6,7 +6,10 @@ interface FeedHomeProps {
 }
 export const FeedHome = ({ pageData }: FeedHomeProps) => {
   const navigate = useNavigate();
-  console.log(pageData);
+  const constant = {
+    width: 342,
+    height: 180,
+  };
   return (
     <S.Layout>
       {pageData.map((feed) => (
@@ -14,7 +17,7 @@ export const FeedHome = ({ pageData }: FeedHomeProps) => {
           key={feed.id}
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
-          <img src={feed.imageUrl} width={342} height={180} />
+          <img src={feed.imageUrl} {...constant} />
           <div className="img_oppacity"></div>
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>
