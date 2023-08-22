@@ -1,9 +1,9 @@
-import { TextareaInput } from '@components/common/TextareaInput';
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
-import { TextInput } from '@components/common/TextInput';
+import { TextareaInput } from '@components/common/input/TextareaInput';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
+import { TextInput } from '@components/common/input/TextInput';
 import { useState } from 'react';
 import * as S from './style';
-import { DateInput } from '@components/common/DateInput';
+import { DateInput } from '@components/common/input/DateInput';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { recordDetailList } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 export const RecordDetail = () => {
   const { id } = useParams();
   const [recordData, setRecordData] = useState<recordDetailList | null>(null);

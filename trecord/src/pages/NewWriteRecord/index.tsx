@@ -1,4 +1,4 @@
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';

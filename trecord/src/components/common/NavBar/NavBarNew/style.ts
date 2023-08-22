@@ -8,7 +8,6 @@ export const Layout = styled.div<NavBarBackProps>`
   top: 0;
   height: 70px;
   width: 100%;
-  /* align-items: center; */
   justify-content: center;
   gap: 80px;
 `;

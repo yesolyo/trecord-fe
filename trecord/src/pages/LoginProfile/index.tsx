@@ -4,7 +4,7 @@ import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
-import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
+import { NavBarProfile } from '@components/common/navBar/NavBarProfile';
 export const LoginProfile = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
