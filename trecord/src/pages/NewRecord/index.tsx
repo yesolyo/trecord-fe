@@ -9,6 +9,7 @@ import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 export const NewRecord = () => {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -33,9 +34,8 @@ export const NewRecord = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn
+      <NavBarNew
         title="기록 남기기"
-        isDark={true}
         isRegister={false}
         onClick={() => navigate(-1)}
       />
