@@ -16,14 +16,16 @@ export const SquareButton = ({
   onClick,
 }: squareButtonProps) => {
   return (
-    <S.ButtonBox
-      buttonWidth={width}
-      buttonHeight={height}
-      disabled={disabled}
-      isDark={isDark}
-      onClick={onClick}
-    >
-      {title}
-    </S.ButtonBox>
+    <>
+      <S.ButtonBox
+        width={width}
+        height={height}
+        disabled={disabled}
+        isDark={isDark}
+        onClick={onClick}
+      >
+        {title}
+      </S.ButtonBox>
+    </>
   );
 };

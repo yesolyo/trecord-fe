@@ -1,7 +1,7 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 interface buttonBoxProps {
-  buttonWidth: string;
-  buttonHeight: string;
+  width: string;
+  height: string;
   isDark: boolean;
 }
 
@@ -16,8 +16,8 @@ export const ButtonBox = styled.button<buttonBoxProps>`
     isDark
       ? theme.colors.colorStyles.gray900
       : theme.colors.colorStyles.gray100};
-  width: ${({ buttonWidth }) => buttonWidth};
-  height: ${({ buttonHeight }) => buttonHeight};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   border-radius: 8px;
   border: ${({ theme }) => theme.colors.colorStyles.gray900};
   &:disabled {

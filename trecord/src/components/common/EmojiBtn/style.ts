@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 interface EmojiLayoutProps {
   isSelected: boolean;
   width: string;

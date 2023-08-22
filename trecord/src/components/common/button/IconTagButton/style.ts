@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 interface iconTagBoxProps {
   isActive: boolean;
   width: string;
