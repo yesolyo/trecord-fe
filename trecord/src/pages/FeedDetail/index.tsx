@@ -37,11 +37,9 @@ export const FeedDetail = () => {
   return (
     <S.Layout>
       <NavBarBackBtn
-        isDark={false}
-        isRegister={false}
-        onClick={() => navigate('/home')}
+        onBackBtnClick={() => navigate('/home')}
+        isCategory={false}
       />
-
       <S.ImgBox>
         <img src={detailData?.imageUrl} />
       </S.ImgBox>

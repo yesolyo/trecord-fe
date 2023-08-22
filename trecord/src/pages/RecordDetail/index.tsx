@@ -1,10 +1,10 @@
-import { NavBarCategory } from '@components/common/NavBar/NavBarCategory';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { recordDetailList } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';
+import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 export const RecordDetail = () => {
   const { id } = useParams();
   const [recordData, setRecordData] = useState<recordDetailList | null>(null);
@@ -29,7 +29,7 @@ export const RecordDetail = () => {
   }, []);
   return (
     <S.Layout>
-      <NavBarCategory />
+      <NavBarBackBtn isCategory={true} />
       <S.DataBox>
         {recordData && <RecordDetailTitle recordData={recordData} />}
         {recordData && <RecordDetailSub recordData={recordData} />}
