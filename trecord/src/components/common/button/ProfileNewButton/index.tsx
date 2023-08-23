@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import * as S from './style';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { SquareBtn } from '../../SquareBtn';
 
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
@@ -18,7 +18,7 @@ interface PostDataProps {
   introduce: string;
 }
 
-export const ImgUploadBtn = ({
+export const ProfileNewButton = ({
   imageFile,
   saveImageUrl,
   nickNameValue,
@@ -109,13 +109,15 @@ export const ImgUploadBtn = ({
     handleUploadPost();
   };
 
-  return (
-    <S.BtnBox
-      type="button"
-      disabled={nickNameValue.length <= 0}
-      onClick={handlePost}
-    >
-      {title}
-    </S.BtnBox>
-  );
+  const constant = {
+    sqare: {
+      title: title,
+      width: '342px',
+      height: '56px',
+      disabled: nickNameValue.length <= 0,
+      onClick: handlePost,
+    },
+  };
+
+  return <SquareBtn {...constant.sqare} />;
 };
