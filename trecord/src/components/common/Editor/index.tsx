@@ -1,7 +1,8 @@
-import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import { ReactElement, useMemo, useRef } from 'react';
+import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
-import Quill from 'quill';
+import { uploadS3 } from '@/utils/image';
+import ReactQuill from 'react-quill';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -42,38 +43,53 @@ const Editor = ({
 }: {
   contentSetter: React.Dispatch<React.SetStateAction<string>>;
 }): ReactElement => {
-  const editorRef = useRef<HTMLDivElement | null>(null);
-  const [quill, setQuill] = useState<Quill | null>(null);
+  const quillRef = useRef<ReactQuill>(null);
 
-  const handleTextChange = useCallback(() => {
-    setContent(editorRef.current?.querySelector('.ql-editor')?.innerHTML ?? '');
-  }, [editorRef.current?.querySelector('.ql-editor')?.innerHTML]);
+  const imageHandler = async () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
 
-  useEffect(() => {
-    if (editorRef.current) {
-      const quillInstance = new Quill(editorRef.current, {
-        theme: 'snow',
-        placeholder: '당신만의 여행 기록을 남겨보세요!',
-        modules: {
-          toolbar: [['image']],
-        },
-      });
-
-      setQuill(quillInstance);
-
-      quillInstance.on('text-change', handleTextChange);
-    }
-
-    return () => {
-      if (quill) {
-        quill.off('text-change', handleTextChange);
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      try {
+        if (file) {
+          const imgUrl = await uploadS3({ imageFile: file });
+          const editor = quillRef.current?.getEditor();
+          const range = editor?.getSelection();
+          if (range) {
+            editor?.insertEmbed(range.index, 'image', imgUrl);
+            editor?.setSelection({ index: range.index + 1, length: 0 });
+          }
+        }
+      } catch (error) {
+        console.log(error);
       }
-    };
-  }, []);
+    });
+  };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [['image']],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+    }),
+    [],
+  );
 
   return (
     <StyledContainer>
-      <div ref={editorRef}></div>
+      <ReactQuill
+        ref={quillRef}
+        theme="snow"
+        placeholder="당신만의 여행 기록을 남겨보세요!"
+        modules={modules}
+        onChange={setContent}
+      />
     </StyledContainer>
   );
 };
