@@ -9,14 +9,20 @@ import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/navBar/NavBarNew';
-export const NewRecord = () => {
-  const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [weather, setWeather] = useState('');
-  const [place, setPlace] = useState('');
-  const [feel, setFeel] = useState('');
-  const [move, setMove] = useState('');
-  const [withPeople, setWithPeople] = useState('');
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/stores';
+
+export const NewRecord = observer(() => {
+  const { recordStore } = useStore();
+
+  const [title, setTitle] = useState(recordStore.title);
+  const [startDate, setStartDate] = useState(recordStore.startDate);
+  const [weather, setWeather] = useState(recordStore.weather);
+  const [place, setPlace] = useState(recordStore.place);
+  const [feel, setFeel] = useState(recordStore.feel);
+  const [move, setMove] = useState(recordStore.move);
+  const [withPeople, setWithPeople] = useState(recordStore.withPeople);
+
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state;
@@ -31,12 +37,38 @@ export const NewRecord = () => {
     withPeople.length > 0
   );
 
+  const handleClickNext = () => {
+    recordStore.setTitle(title);
+    recordStore.setStartDate(title);
+    recordStore.setWeather(weather);
+    recordStore.setPlace(place);
+    recordStore.setFeel(feel);
+    recordStore.setMove(move);
+    recordStore.setWithPeople(withPeople);
+
+    navigate('./newWrite', {
+      state: {
+        feedId: id,
+        title: title,
+        startDate: startDate,
+        weather: weather,
+        place: place,
+        feel: feel,
+        move: move,
+        withPeople: withPeople,
+      },
+    });
+  };
+
   return (
     <S.Layout>
       <NavBarNew
         title="기록 남기기"
         isRegister={false}
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          recordStore.resetAll();
+          navigate(-1);
+        }}
       />
       <TextInput
         inputValue={title}
@@ -75,22 +107,9 @@ export const NewRecord = () => {
           width="342px"
           height="56px"
           disabled={isDisabled}
-          onClick={() => {
-            navigate('./newWrite', {
-              state: {
-                feedId: id,
-                title: title,
-                startDate: startDate,
-                weather: weather,
-                place: place,
-                feel: feel,
-                move: move,
-                withPeople: withPeople,
-              },
-            });
-          }}
+          onClick={handleClickNext}
         />
       </div>
     </S.Layout>
   );
-};
+});
