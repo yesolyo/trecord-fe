@@ -8,6 +8,7 @@ import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
@@ -30,9 +31,8 @@ export const NewFeed = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn
+      <NavBarNew
         title="피드 만들기"
-        isDark={true}
         isRegister={false}
         onClick={() => navigate('/home')}
       />

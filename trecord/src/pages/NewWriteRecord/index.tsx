@@ -2,6 +2,7 @@ import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 export const NewWriteRecord = () => {
   const [write, setWrite] = useState('');
   const location = useLocation();
@@ -42,9 +43,8 @@ export const NewWriteRecord = () => {
   };
   return (
     <S.Layout>
-      <NavBarBackBtn
+      <NavBarNew
         title="기록 남기기"
-        isDark={true}
         isRegister={true}
         disabled={write.length <= 0}
         registerClick={postData}

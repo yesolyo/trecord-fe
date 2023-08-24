@@ -7,6 +7,17 @@ export const Layout = styled.div`
     height: 509px;
   }
 `;
+
+export const EditButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-right: 20px;
+  position: fixed;
+  right: 0;
+  bottom: 5%;
+`;
 export const ImgBox = styled.div``;
 export const IconBox = styled.div`
   display: flex;
