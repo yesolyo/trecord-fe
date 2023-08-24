@@ -11,10 +11,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
+import ImgInput from '@components/common/ImgInput';
 
 export const NewRecord = observer(() => {
   const { recordStore } = useStore();
 
+  const [thumbNail, setThumbNail] = useState<{
+    data: File | null;
+    url: string | null;
+  }>(recordStore.thumbNail);
   const [title, setTitle] = useState(recordStore.title);
   const [startDate, setStartDate] = useState(recordStore.startDate);
   const [weather, setWeather] = useState(recordStore.weather);
@@ -38,26 +43,17 @@ export const NewRecord = observer(() => {
   );
 
   const handleClickNext = () => {
+    recordStore.setId(id);
+    recordStore.setThumbNail(thumbNail);
     recordStore.setTitle(title);
-    recordStore.setStartDate(title);
+    recordStore.setStartDate(startDate);
     recordStore.setWeather(weather);
     recordStore.setPlace(place);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
     recordStore.setWithPeople(withPeople);
 
-    navigate('./newWrite', {
-      state: {
-        feedId: id,
-        title: title,
-        startDate: startDate,
-        weather: weather,
-        place: place,
-        feel: feel,
-        move: move,
-        withPeople: withPeople,
-      },
-    });
+    navigate('./newWrite');
   };
 
   return (
@@ -70,6 +66,7 @@ export const NewRecord = observer(() => {
           navigate(-1);
         }}
       />
+      <ImgInput imgFile={thumbNail} imgFileSetter={setThumbNail} />
       <TextInput
         inputValue={title}
         inputSetValue={setTitle}
