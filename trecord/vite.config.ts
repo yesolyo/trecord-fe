@@ -16,7 +16,6 @@
 // });
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import { resolve } from 'path'; // import 추가
 
 export default {
   define: {
