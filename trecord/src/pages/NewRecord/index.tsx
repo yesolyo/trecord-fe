@@ -6,9 +6,9 @@ import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
 import { NewPlace } from '@components/NewRecord/NewFirstRecord/NewPlace';
 import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
-import { SquareBtn } from '@components/common/SquareBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { SquareButton } from '@components/common/button/SquareButton';
 export const NewRecord = () => {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -70,11 +70,12 @@ export const NewRecord = () => {
         labelTitle="같이 간 사람"
       />
       <div className="new_btn">
-        <SquareBtn
+        <SquareButton
           title="다음"
           width="342px"
           height="56px"
           disabled={isDisabled}
+          isDark={true}
           onClick={() => {
             navigate('./newWrite', {
               state: {

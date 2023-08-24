@@ -1,5 +1,4 @@
 import { TextareaInput } from '@components/common/input/TextareaInput';
-import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { TextInput } from '@components/common/input/TextInput';
 import { useState } from 'react';
 import * as S from './style';

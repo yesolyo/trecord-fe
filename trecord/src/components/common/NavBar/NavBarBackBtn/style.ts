@@ -9,6 +9,5 @@ export const Layout = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-left: 20px;
-  background-color: #fff;
   z-index: 10;
 `;

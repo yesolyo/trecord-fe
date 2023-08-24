@@ -5,7 +5,7 @@ interface SquareBtnProps {
   width: string;
   height: string;
   disabled?: boolean;
-  onClick: () => void;
+  onClick: (e: any) => void;
 }
 export const SquareBtn = ({
   title,
@@ -16,6 +16,7 @@ export const SquareBtn = ({
 }: SquareBtnProps) => {
   return (
     <S.BtnBox
+      type="button"
       boxWidth={width}
       boxHeight={height}
       onClick={onClick}
