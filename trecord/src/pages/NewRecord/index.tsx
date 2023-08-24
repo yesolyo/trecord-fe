@@ -9,6 +9,7 @@ import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
+
 export const NewRecord = () => {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
