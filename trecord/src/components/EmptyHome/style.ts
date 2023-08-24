@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Layout = styled.div`
   display: flex;
@@ -7,6 +7,7 @@ export const Layout = styled.div`
   height: 750px;
   justify-content: center;
   width: 100%;
+  gap: 15px;
 `;
 
 export const TextBox = styled.span`
@@ -15,9 +16,9 @@ export const TextBox = styled.span`
   ${({ theme }) => theme.colors.colorStyles.gray900};
 `;
 export const ExplainBox = styled.div`
-  display: block;
-  span {
-    display: block;
+  div {
+    display: flex;
+    justify-content: center;
     ${({ theme }) => theme.font.fontSize.Body_M};
     ${({ theme }) => theme.font.fontType.R};
     ${({ theme }) => theme.colors.colorStyles.gray900};

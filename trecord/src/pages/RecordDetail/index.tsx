@@ -1,14 +1,15 @@
-import { NavBarCategory } from '@components/common/NavBar/NavBarCategory';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { recordDetailList } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 export const RecordDetail = () => {
   const { id } = useParams();
   const [recordData, setRecordData] = useState<recordDetailList | null>(null);
   const getToken = localStorage.getItem('acessToken');
+  const navigate = useNavigate();
   useEffect(() => {
     if (getToken) {
       fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/records/${id}`, {
@@ -29,7 +30,10 @@ export const RecordDetail = () => {
   }, []);
   return (
     <S.Layout>
-      <NavBarCategory />
+      <NavBarBackBtn
+        isCategory={true}
+        onBackBtnClick={() => navigate('/home')}
+      />
       <S.DataBox>
         {recordData && <RecordDetailTitle recordData={recordData} />}
         {recordData && <RecordDetailSub recordData={recordData} />}

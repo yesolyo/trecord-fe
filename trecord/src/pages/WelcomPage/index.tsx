@@ -1,28 +1,49 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
-import { SquareBtn } from '@components/common/SquareBtn';
 import { useNavigate } from 'react-router-dom';
+import { SquareButton } from '@components/common/button/SquareButton';
+import { Fragment } from 'react';
+
 export const WelcomePage = () => {
   const navigate = useNavigate();
+  const constant = {
+    character: {
+      width: 74,
+      height: 98,
+    },
+    logo: {
+      width: 142,
+      height: 22,
+    },
+    explain: [
+      { id: 1, text: '트레코드는 소중한 여행 기억을 더 오래' },
+      { id: 2, text: '간직할 수 있도록 도와줘요.' },
+      { id: 3, text: '함께 간 친구와도 여행을 공유해보세요!' },
+    ],
+    sqaureBtn: {
+      title: '기록하기',
+      width: '212px',
+      isDark: true,
+      height: '46px',
+      onClick: () => navigate('/login'),
+    },
+  };
   return (
     <S.Layout>
       <S.CharcterBox>
-        <Icon iconType="welcomeCharacter" width={74} height={98} />
+        <Icon iconType="welcomeCharacter" {...constant.character} />
       </S.CharcterBox>
       <S.LogoBox>
-        <Icon iconType="trecordLogo" width={142} height={22} />
+        <Icon iconType="trecordLogo" {...constant.logo} />
       </S.LogoBox>
       <S.ExplainBox>
-        <span>트레코드는 소중한 여행 기억을 더 오래</span>
-        <span>간직할 수 있도록 도와줘요.</span>
-        <span>함께 간 친구와도 여행을 공유해보세요!</span>
+        {constant.explain.map((text) => (
+          <Fragment key={text.id}>
+            <span>{text.text}</span>
+          </Fragment>
+        ))}
       </S.ExplainBox>
-      <SquareBtn
-        title="기록하기"
-        width="212px"
-        height="46px"
-        onClick={() => navigate('/login')}
-      />
+      <SquareButton {...constant.sqaureBtn} />
     </S.Layout>
   );
 };

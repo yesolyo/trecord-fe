@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './style';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useEffect, useState } from 'react';
+import { SquareButton } from '@components/common/button/SquareButton';
 interface NewFeedBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
@@ -117,9 +117,16 @@ export const NewFeedBtn = ({
     endAtValue.length > 0
   );
 
-  return (
-    <S.BtnBox disabled={isDisabled} onClick={handlePost}>
-      {title}
-    </S.BtnBox>
-  );
+  const constant = {
+    square: {
+      title: title,
+      width: '342px',
+      height: '56px',
+      disabled: isDisabled,
+      isDark: true,
+      onClick: handlePost,
+    },
+  };
+
+  return <SquareButton {...constant.square} />;
 };

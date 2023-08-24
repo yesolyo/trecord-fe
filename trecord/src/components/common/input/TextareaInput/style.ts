@@ -1,23 +1,21 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
-interface DateInputProps {
-  width: string;
-  height: string;
-}
-export const Layout = styled.div<DateInputProps>`
+export const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+
   label {
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
-  margin-bottom:5px;
+    margin-bottom:5px;
   }
 
-  input {
-    height: ${({ height }) => height};
-    width: ${({ width }) => width};
+  textarea {
+    width: 332px;
+    height: 93px;
     padding-left: 12px;
-    padding-top: 2px;
+    padding-top: 10px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     border-radius: 8px;
     color: ${({ theme }) => theme.colors.colorStyles.gray600};

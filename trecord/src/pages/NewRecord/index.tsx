@@ -1,14 +1,14 @@
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
-import { TextInput } from '@components/common/TextInput';
+import { TextInput } from '@components/common/input/TextInput';
 import { useState } from 'react';
 import * as S from './style';
-import { DateInput } from '@components/common/DateInput';
+import { DateInput } from '@components/common/input/DateInput';
 import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
 import { NewPlace } from '@components/NewRecord/NewFirstRecord/NewPlace';
 import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 export const NewRecord = () => {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -33,9 +33,8 @@ export const NewRecord = () => {
 
   return (
     <S.Layout>
-      <NavBarBackBtn
+      <NavBarNew
         title="기록 남기기"
-        isDark={true}
         isRegister={false}
         onClick={() => navigate(-1)}
       />

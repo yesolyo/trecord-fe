@@ -2,12 +2,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import { feedDetailProps } from '@/types';
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
-import { NewRecordBtn } from '@components/common/NewBtn/NewRecordBtn';
 import { feelCategory } from '@/utils';
+import { CircularButton } from '@components/common/button/CircularButton';
 
 export const FeedDetail = () => {
   const { id } = useParams();
@@ -27,7 +27,6 @@ export const FeedDetail = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data.data);
           setDetailData(data.data);
         })
         .catch((err) => console.log(err));
@@ -37,11 +36,9 @@ export const FeedDetail = () => {
   return (
     <S.Layout>
       <NavBarBackBtn
-        isDark={false}
-        isRegister={false}
-        onClick={() => navigate('/home')}
+        onBackBtnClick={() => navigate('/home')}
+        isCategory={false}
       />
-
       <S.ImgBox>
         <img src={detailData?.imageUrl} />
       </S.ImgBox>
@@ -50,7 +47,6 @@ export const FeedDetail = () => {
           <div className="detail_name">{detailData?.name}</div>
           <Icon iconType="more" width={24} />
         </S.IconBox>
-        {/* <FeedCategoryList></FeedCategoryList> */}
         <div className="detail_place">
           {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
         </div>
@@ -70,17 +66,19 @@ export const FeedDetail = () => {
         <div className="detail_description">{detailData?.description}</div>
         {detailData?.records && <ViewRecord listData={detailData?.records} />}
       </S.ExplainBox>
-      <NewRecordBtn
-        type="edit"
-        iconWidth={24}
-        onClick={() =>
-          navigate('/newRecord', {
-            state: {
-              id: id,
-            },
-          })
-        }
-      />
+      <S.EditButtonBox>
+        <CircularButton
+          iconType="edit"
+          width={24}
+          onClick={() =>
+            navigate('/newRecord', {
+              state: {
+                id: id,
+              },
+            })
+          }
+        />
+      </S.EditButtonBox>
     </S.Layout>
   );
 };

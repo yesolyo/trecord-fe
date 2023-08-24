@@ -16,6 +16,7 @@ export const LoginProfileImg = ({
 }: LoginProfileImgPrpos) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [isProfileActive, setIsProfileActive] = useState(false);
+
   const handleSaveImgFile = () => {
     if (fileInput.current && fileInput.current.files) {
       const file = fileInput.current?.files[0];

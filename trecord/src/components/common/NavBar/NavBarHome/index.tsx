@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '../Icon';
+import { Icon } from '../../Icon';
 import * as S from './style';
 interface NavBarProps {
   totalPage: number;
 }
-export const NavBar = ({ totalPage }: NavBarProps) => {
+export const NavBarHome = ({ totalPage }: NavBarProps) => {
   const navigate = useNavigate();
   return (
     <S.Layout>

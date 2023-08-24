@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Layout = styled.div`
   position: relative;
@@ -6,6 +6,17 @@ export const Layout = styled.div`
     width: 100%;
     height: 509px;
   }
+`;
+
+export const EditButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-right: 20px;
+  position: fixed;
+  right: 0;
+  bottom: 5%;
 `;
 export const ImgBox = styled.div``;
 export const IconBox = styled.div`

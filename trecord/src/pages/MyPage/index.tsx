@@ -3,9 +3,10 @@ import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
-import { ImgUploadBtn } from '@components/common/ImgUploadBtn';
+import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
 import { MyPageBtn } from '@components/MyPage/MyPageBtn';
+import { NavBarProfile } from '@components/common/navBar/NavBarProfile';
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -39,11 +40,13 @@ export const MyPage = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  const constant = {
+    navBarProfile: { mainTitle: '마이페이지' },
+  };
   return (
     <S.Layout>
-      <S.TextBox>
-        <span className="profileTitle">마이페이지</span>
-      </S.TextBox>
+      <NavBarProfile {...constant.navBarProfile} />
       <S.ProfileBox>
         <LoginProfileImg
           profileFile={setProfileFile}
@@ -59,14 +62,14 @@ export const MyPage = () => {
           introduceSetValue={setIntroduce}
         />
         <S.BtnBox>
-          <ImgUploadBtn
+          <ProfileNewButton
             imageFile={profileFile}
             saveImageUrl={setProfilUrl}
             imageUrl={profileUrl}
             nickNameValue={nickName}
             intrduceValue={introduce}
             title="변경하기"
-          ></ImgUploadBtn>
+          ></ProfileNewButton>
         </S.BtnBox>
 
         <MyPageBtn />

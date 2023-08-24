@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Layout = styled.div``;
 
@@ -7,4 +7,5 @@ export const DataBox = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  padding-top: 65px;
 `;

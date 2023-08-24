@@ -1,37 +1,33 @@
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
-
 interface NavBarBackBtnProps {
-  title?: string;
-  isDark: boolean;
-  isRegister: boolean;
-  disabled?: boolean;
-  onClick: () => void;
-  registerClick?: () => void;
+  isCategory: boolean;
+  onBackBtnClick?: () => void;
+  onCategoryClick?: () => void;
 }
 export const NavBarBackBtn = ({
-  title,
-  isDark,
-  isRegister,
-  disabled,
-  registerClick,
-  onClick,
+  isCategory,
+  onBackBtnClick,
+  onCategoryClick,
 }: NavBarBackBtnProps) => {
+  const constant = {
+    backBtn: {
+      width: 24,
+      fill: isCategory ? colorStyles.gray900 : colorStyles.gray100,
+      onClick: onBackBtnClick,
+    },
+    categoryBtn: {
+      width: 24,
+      fill: isCategory ? colorStyles.gray900 : colorStyles.gray100,
+      onClick: onCategoryClick,
+    },
+  };
+
   return (
-    <S.Layout isRegister={isRegister}>
-      <Icon
-        iconType="arrow"
-        width={24}
-        fill={isDark ? colorStyles.gray900 : colorStyles.gray100}
-        onClick={onClick}
-      />
-      <S.TitleBox>{title}</S.TitleBox>
-      {isRegister && (
-        <S.SaveBox disabled={disabled} onClick={registerClick}>
-          등록
-        </S.SaveBox>
-      )}
+    <S.Layout>
+      <Icon iconType="arrow" {...constant.backBtn} />
+      {isCategory && <Icon iconType="more" {...constant.categoryBtn} />}
     </S.Layout>
   );
 };
