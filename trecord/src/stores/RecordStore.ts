@@ -1,7 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
 class RecordStore {
-  thumbNailUrl: string;
+  id: string;
+  thumbNail: { data: File | null; url: string | null };
   title: string;
   startDate: string;
   weather: string;
@@ -11,7 +12,8 @@ class RecordStore {
   withPeople: string;
 
   constructor() {
-    this.thumbNailUrl = '';
+    this.id = '';
+    this.thumbNail = { data: null, url: null };
     this.title = '';
     this.startDate = '';
     this.weather = '';
@@ -23,8 +25,12 @@ class RecordStore {
     makeAutoObservable(this);
   }
 
-  setThumbNailUrl(url: string) {
-    this.thumbNailUrl = url;
+  setId(id: string) {
+    this.id = id;
+  }
+
+  setThumbNail(thumbNail: { data: File | null; url: string | null }) {
+    this.thumbNail = thumbNail;
   }
 
   setTitle(title: string) {
@@ -56,7 +62,8 @@ class RecordStore {
   }
 
   resetAll() {
-    this.thumbNailUrl = '';
+    this.id = '';
+    this.thumbNail = { data: null, url: null };
     this.title = '';
     this.startDate = '';
     this.weather = '';
