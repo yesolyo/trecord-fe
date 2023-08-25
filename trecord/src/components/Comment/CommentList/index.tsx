@@ -1,6 +1,8 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
+import { CommentModal } from '../CommentModal';
+import { CommentCateogory } from '../CommentCategory';
 export const CommentList = () => {
   const userList = [
     {
@@ -26,7 +28,7 @@ export const CommentList = () => {
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.userName}</div>
-                <Icon iconType="more" width={16} />
+                <CommentCateogory />
               </S.CommentMainDataBox>
               <div className="user_data">{user.comment}</div>
               <div className="user_date">{user.date}</div>

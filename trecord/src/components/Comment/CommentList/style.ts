@@ -11,7 +11,7 @@ export const Layout = styled.div`
   padding-bottom: 100px;
 `;
 export const LineBox = styled.hr`
-  width: 380px;
+  width: 390px;
   height: 1px;
   border: none;
   background: ${({ theme }) => theme.colors.colorStyles.gray300};
