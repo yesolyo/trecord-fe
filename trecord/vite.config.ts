@@ -18,12 +18,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   // define: {
   //   global: {},
   // },
-  plugins: [react(), svgr()],
+
+  plugins: [react(), svgr(), dts()],
   resolve: {
     alias: [
       { find: '@components', replacement: '/src/components' },
