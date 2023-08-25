@@ -4,7 +4,10 @@ import { SquareButton } from '@components/common/button/SquareButton';
 import { useState } from 'react';
 import { usePostNewComment } from '@/apis/Comment/postNewComment';
 import { useParams } from 'react-router-dom';
-export const TabBarComment = () => {
+interface tabBarCommentProps {
+  isSend: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const TabBarComment = ({ isSend }: tabBarCommentProps) => {
   const { id } = useParams();
   const [comment, setComment] = useState('');
   const { mutate } = usePostNewComment();
@@ -19,7 +22,8 @@ export const TabBarComment = () => {
         },
         {
           onSuccess: (data) => {
-            console.log('data전송성공', data);
+            isSend(true);
+            setComment('');
           },
         },
       );

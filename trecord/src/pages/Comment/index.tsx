@@ -11,11 +11,14 @@ export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [comment, setComment] = useState<GetCommentProps[]>([]);
+  const [isSend, setIsSend] = useState<boolean>(false);
+  //TODO:get 두번 보내는 에러 해결 필요
   useEffect(() => {
     getNewComment({ recordId: Number(id) }).then((data) => {
       setComment(data.comments);
     });
-  }, []);
+    return () => setIsSend(false);
+  }, [isSend]);
 
   const constant = {
     title: '댓글',
@@ -28,7 +31,7 @@ export const Comment = () => {
     <S.Layout>
       <NavBarNew {...constant} />
       <CommentList commentData={comment} />
-      <TabBarComment />
+      <TabBarComment isSend={setIsSend} />
     </S.Layout>
   );
 };

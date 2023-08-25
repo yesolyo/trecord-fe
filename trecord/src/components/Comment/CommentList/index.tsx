@@ -12,7 +12,7 @@ interface commentListProps {
 
 export const CommentList = ({ commentData }: commentListProps) => {
   return (
-    //TODO:api 변경되면 날짜, 닉네임 , 이미지 반영 예정
+    //TODO:이미지 반영 예정
     <S.Layout>
       {commentData.map((user, index) => (
         <Fragment key={user.commentId}>
