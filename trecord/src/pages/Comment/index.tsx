@@ -1,6 +1,8 @@
+import { CommentList } from '@components/Comment/CommentList';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
 import { useNavigate } from 'react-router-dom';
+import * as S from './style';
 
 export const Comment = () => {
   const navigate = useNavigate();
@@ -12,9 +14,10 @@ export const Comment = () => {
     onClick: () => navigate(-1),
   };
   return (
-    <>
+    <S.Layout>
       <NavBarNew {...constant} />
+      <CommentList />
       <TabBarComment />
-    </>
+    </S.Layout>
   );
 };
