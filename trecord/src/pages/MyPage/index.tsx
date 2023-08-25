@@ -6,7 +6,7 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
 import { MyPageBtn } from '@components/MyPage/MyPageBtn';
-import { NavBarProfile } from '@components/common/navBar/NavBarProfile';
+import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;

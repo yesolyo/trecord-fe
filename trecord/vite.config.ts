@@ -14,15 +14,18 @@
 //     ],
 //   },
 // });
+
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import { resolve } from 'path'; // import 추가
+import dts from 'vite-plugin-dts';
 
-export default {
-  define: {
-    global: {},
-  },
-  plugins: [react(), svgr()],
+export default defineConfig({
+  // define: {
+  //   global: {},
+  // },
+
+  plugins: [react(), svgr(), dts()],
   resolve: {
     alias: [
       { find: '@components', replacement: '/src/components' },
@@ -32,4 +35,4 @@ export default {
   optimizeDeps: {
     include: ['styled-components'], // styled-components 추가
   },
-};
+});

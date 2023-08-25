@@ -101,12 +101,14 @@ export const ProfileNewButton = ({
     }
   };
 
-  const handlePost = () => {
+  const handlePost = (e: any) => {
     if (imageFile.originFile) {
       uploadS3();
+      e.preventDefault();
       return;
     }
     handleUploadPost();
+    e.preventDefault();
   };
 
   const constant = {

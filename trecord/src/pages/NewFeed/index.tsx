@@ -1,5 +1,4 @@
 import { TextareaInput } from '@components/common/input/TextareaInput';
-import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { TextInput } from '@components/common/input/TextInput';
 import { useState } from 'react';
 import * as S from './style';
@@ -8,7 +7,7 @@ import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;

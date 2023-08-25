@@ -3,6 +3,7 @@ interface navBarProfileProps {
   mainTitle: string;
   subTitle?: string;
 }
+
 export const NavBarProfile = ({ mainTitle, subTitle }: navBarProfileProps) => {
   return (
     <S.TextBox>

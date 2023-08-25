@@ -9,7 +9,7 @@ export const TabBar = ({ currentPage }: TabBarProps) => {
   const navigate = useNavigate();
   return (
     <S.Layout>
-      <S.menuBox>
+      <S.menuBox type="button">
         <Icon
           iconType="alarm"
           width={24}
@@ -19,7 +19,7 @@ export const TabBar = ({ currentPage }: TabBarProps) => {
         />
         <S.menuNameBox isSlected={currentPage === 'alarm'}>알림</S.menuNameBox>
       </S.menuBox>
-      <S.menuBox onClick={() => navigate('/home')}>
+      <S.menuBox type="button" onClick={() => navigate('/home')}>
         <Icon
           iconType="book"
           width={24}
@@ -29,7 +29,7 @@ export const TabBar = ({ currentPage }: TabBarProps) => {
         />
         <S.menuNameBox isSlected={currentPage === 'home'}>피드</S.menuNameBox>
       </S.menuBox>
-      <S.menuBox onClick={() => navigate('/mypage')}>
+      <S.menuBox type="button" onClick={() => navigate('/mypage')}>
         <Icon
           iconType="user"
           width={24}
