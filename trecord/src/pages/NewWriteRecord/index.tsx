@@ -2,7 +2,7 @@ import { useState, ReactElement } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';
 import Editor from '@components/common/Editor';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew/index';
 import { usePostNewRecord } from '@/apis';
 
 export const NewWriteRecord = (): ReactElement => {
