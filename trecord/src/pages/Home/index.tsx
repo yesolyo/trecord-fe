@@ -1,6 +1,6 @@
 import { EmptyHome } from '@components/EmptyHome';
 import { FeedHome } from '@components/FeedHome';
-import { NavBarHome } from '@components/common/navBar/NavBarHome/index.tsx';
+import { NavBarHome } from '@components/common/NavBar/NavBarHome';
 import { TabBar } from '@components/common/TabBar';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

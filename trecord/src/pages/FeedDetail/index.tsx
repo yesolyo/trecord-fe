@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import { feedDetailProps } from '@/types';
-import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn/index.tsx';
+import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';

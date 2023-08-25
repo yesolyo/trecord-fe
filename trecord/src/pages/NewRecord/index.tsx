@@ -7,7 +7,7 @@ import { NewPlace } from '@components/NewRecord/NewFirstRecord/NewPlace';
 import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { NavBarNew } from '@components/common/navBar/NavBarNew/index.tsx';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 
 export const NewRecord = () => {

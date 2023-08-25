@@ -4,7 +4,7 @@ import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
-import { NavBarProfile } from '@components/common/navBar/NavBarProfile/index.tsx';
+import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 
 export const LoginProfile = () => {
   const [profileFile, setProfileFile] = useState<{
