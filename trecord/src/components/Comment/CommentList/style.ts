@@ -33,7 +33,7 @@ export const CommentDataBox = styled.div`
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
     display: inline-block;
-    width: 288px;
+    width: 280px;
     word-wrap: break-word;
   }
   .user_date {

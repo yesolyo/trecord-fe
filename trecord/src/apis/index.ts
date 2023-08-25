@@ -1,1 +1,1 @@
-export { default as usePostNewRecord } from "./Record/postNewRecord";
+export { default as usePostNewRecord } from './Record/postNewRecord';
