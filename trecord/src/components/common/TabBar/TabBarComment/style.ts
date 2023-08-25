@@ -13,8 +13,9 @@ export const Layout = styled.div`
 `;
 
 export const InputBox = styled.input`
-  width: 225px;
+  width: 210px;
   height: 48px;
+  padding-left: 15px;
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
   border-radius: 8px;
 `;
