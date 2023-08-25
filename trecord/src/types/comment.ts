@@ -12,4 +12,6 @@ export interface GetCommentProps {
   commenterImageUrl: string;
   isUpdatable: boolean;
   content: string;
+  commentCreatedDate: string;
+  commenterNickname: string;
 }
