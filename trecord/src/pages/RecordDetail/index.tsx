@@ -5,6 +5,7 @@ import { recordDetailList } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
+import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 export const RecordDetail = () => {
   const { id } = useParams();
   const [recordData, setRecordData] = useState<recordDetailList | null>(null);
@@ -38,6 +39,10 @@ export const RecordDetail = () => {
         {recordData && <RecordDetailTitle recordData={recordData} />}
         {recordData && <RecordDetailSub recordData={recordData} />}
       </S.DataBox>
+      <TabBarRecord
+        isRegister={false}
+        onNextClick={() => navigate(`/comment/${id}`)}
+      />
     </S.Layout>
   );
 };
