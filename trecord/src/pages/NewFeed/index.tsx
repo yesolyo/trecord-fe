@@ -7,7 +7,7 @@ import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
-import { NavBarNew } from '@components/common/navBar/NavBarNew/index';
+import { NavBarNew } from '@components/common/navBar/NavBarNew/index.tsx';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
