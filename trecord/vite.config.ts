@@ -20,9 +20,9 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  define: {
-    _global: {},
-  },
+  // define: {
+  //   global: {},
+  // },
   plugins: [react(), svgr()],
   resolve: {
     alias: [
