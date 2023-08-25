@@ -11,6 +11,7 @@ import { FeedDetail } from './pages/FeedDetail';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
+import { Comment } from './pages/Comment';
 
 export const router = createBrowserRouter(
   [
@@ -56,6 +57,10 @@ export const router = createBrowserRouter(
         {
           path: '/recordDetail/:id',
           element: <RecordDetail />,
+        },
+        {
+          path: '/comment/:id',
+          element: <Comment />,
         },
         {
           path: '/mypage',
