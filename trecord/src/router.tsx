@@ -48,6 +48,13 @@ export const router = createBrowserRouter(
           },
         },
         {
+          path: '/modify-feed/:id',
+          async lazy() {
+            const ModifyFeed = await import('./pages/ModifyFeed');
+            return { Component: ModifyFeed.default };
+          },
+        },
+        {
           path: '/newRecord',
           element: <NewRecord />,
         },
