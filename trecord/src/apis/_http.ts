@@ -34,6 +34,32 @@ class Http {
       })
       .then((res) => res.data.data);
   }
+
+  async put<Request = any, Response = unknown>(
+    url: string,
+    data?: Request,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .put<TrecordResponse<Response>>(url, data, {
+        ...conf,
+      })
+      .then((res) => res.data.data);
+  }
+  async delete<Request = any, Response = unknown>(
+    url: string,
+    data?: Request,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .delete<TrecordResponse<Response>>(url, {
+        data: {
+          data,
+        },
+        ...conf,
+      })
+      .then((res) => res.data.data);
+  }
 }
 
 export const http = new Http();

@@ -2,7 +2,13 @@ import { Icon } from '@components/common/Icon';
 import { CommentModal } from '../CommentModal';
 import * as S from './style';
 import { useEffect, useRef, useState } from 'react';
-export const CommentCateogory = () => {
+interface commentCateogoryProps {
+  id: number;
+  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
   const [isCategory, setIsCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,7 +36,7 @@ export const CommentCateogory = () => {
         width={16}
         onClick={() => setIsCategory(!isCategory)}
       />
-      {isCategory && <CommentModal />}
+      {isCategory && <CommentModal {...props} />}
     </S.Layout>
   );
 };

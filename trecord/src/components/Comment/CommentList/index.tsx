@@ -2,32 +2,39 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment, useEffect, useState } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import { getNewComment } from '@/apis/Comment/postNewComment';
-import { useParams } from 'react-router-dom';
+import {
+  getNewComment,
+  useDeleteNewComment,
+} from '@/apis/Comment/postNewComment';
+import { useNavigate, useParams } from 'react-router-dom';
 import { GetCommentProps } from '@/types/comment';
 
 interface commentListProps {
   commentData: GetCommentProps[];
+  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export const CommentList = ({ commentData }: commentListProps) => {
+// interface deleteDataProps {
+//   id: number;
+// }
+export const CommentList = ({ ...props }: commentListProps) => {
   return (
     //TODO:이미지 반영 예정
     <S.Layout>
-      {commentData.map((user, index) => (
+      {props.commentData.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
             <Icon iconType="profile" width={28} />
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.commenterNickname}</div>
-                <CommentCateogory />
+                <CommentCateogory id={user.commentId} {...props} />
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>
             </S.CommentDataBox>
           </S.CommentBox>
-          {commentData.length !== index + 1 && <S.LineBox />}
+          {props.commentData.length !== index + 1 && <S.LineBox />}
         </Fragment>
       ))}
     </S.Layout>

@@ -15,3 +15,11 @@ export interface GetCommentProps {
   commentCreatedDate: string;
   commenterNickname: string;
 }
+
+export interface PutNewCommentResponse {
+  commentId: number;
+  content: string;
+}
+export interface DeleteNewCommentResponse {
+  commentId: number;
+}
