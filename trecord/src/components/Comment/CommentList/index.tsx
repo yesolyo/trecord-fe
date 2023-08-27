@@ -7,24 +7,47 @@ import {
   useDeleteNewComment,
 } from '@/apis/Comment/postNewComment';
 import { useNavigate, useParams } from 'react-router-dom';
-import { GetCommentProps } from '@/types/comment';
+import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
 
 interface commentListProps {
   commentData: GetCommentProps[];
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
   isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
 }
-// interface deleteDataProps {
-//   id: number;
+// interface handleUserProfileProps {
+//   isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
+//   userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
 // }
+
 export const CommentList = ({ ...props }: commentListProps) => {
+  const handleUserProfile = ({ ...userProps }: CommentUserModalProps) => {
+    props.isUserProfile(true);
+    props.userProfileData({
+      imgUrl: userProps.imgUrl,
+      nickName: userProps.nickName,
+      content: userProps.content,
+    });
+  };
+
   return (
     //TODO:이미지 반영 예정
     <S.Layout>
       {props.commentData.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
-            <Icon iconType="profile" width={28} />
+            <Icon
+              iconType="profile"
+              width={28}
+              onClick={() =>
+                handleUserProfile({
+                  imgUrl: user.commenterImageUrl,
+                  nickName: user.commenterNickname,
+                  content: user.content,
+                })
+              }
+            />
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.commenterNickname}</div>

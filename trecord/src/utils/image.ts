@@ -1,5 +1,5 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import uuid from 'react-uuid';
 export const uploadS3 = async ({
   imageFile,
   afterUploadSuccess = undefined,
@@ -15,10 +15,7 @@ export const uploadS3 = async ({
     },
   });
 
-  const key =
-    imageFile instanceof File
-      ? imageFile.name
-      : Date.now(); // 이름이 없을 경우 현재 시간을 이름으로 지정
+  const key = imageFile instanceof File ? uuid() : Date.now(); // 이름이 없을 경우 현재 시간을 이름으로 지정
 
   const params = {
     ACL: 'public-read',

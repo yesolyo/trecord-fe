@@ -23,3 +23,9 @@ export interface PutNewCommentResponse {
 export interface DeleteNewCommentResponse {
   commentId: number;
 }
+
+export interface CommentUserModalProps {
+  imgUrl: string;
+  nickName: string;
+  content: string;
+}

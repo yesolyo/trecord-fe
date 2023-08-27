@@ -6,7 +6,6 @@ export const Layout = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 10px;
-
   padding-top: 90px;
   padding-bottom: 100px;
 `;
