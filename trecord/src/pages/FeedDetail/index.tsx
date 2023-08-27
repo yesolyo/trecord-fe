@@ -9,11 +9,21 @@ import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
 import { FEED_SELECT_INFOS } from '@/types/feed';
 import { useGetFeedDetail } from '@/apis';
+import { useCallback } from 'react';
 
 export const FeedDetail = () => {
   const { id } = useParams();
   const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
   const navigate = useNavigate();
+
+  const handleChangeSelect = useCallback((v: string) => {
+    switch (v) {
+      case 'MODIFY':
+        navigate(`/modify-feed/${id}`);
+        return;
+      default:
+    }
+  }, []);
 
   return (
     <S.Layout>
@@ -27,7 +37,10 @@ export const FeedDetail = () => {
       <S.ExplainBox>
         <S.IconBox>
           <div className="detail_name">{detailData?.name}</div>
-          <Icon iconType="more" width={24} />
+          <SelectButton
+            options={FEED_SELECT_INFOS}
+            onSelect={handleChangeSelect}
+          />
         </S.IconBox>
         <div className="detail_place">
           {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
