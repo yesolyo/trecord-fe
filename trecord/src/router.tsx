@@ -7,7 +7,6 @@ import { Home } from './pages/Home';
 import { MyPage } from './pages/MyPage';
 import { WelcomePage } from './pages/WelcomPage';
 import { NewFeed } from './pages/NewFeed';
-import { FeedDetail } from './pages/FeedDetail';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
@@ -43,7 +42,17 @@ export const router = createBrowserRouter(
         },
         {
           path: '/feedDetail/:id',
-          element: <FeedDetail />,
+          async lazy() {
+            const { FeedDetail } = await import('./pages/FeedDetail');
+            return { Component: FeedDetail };
+          },
+        },
+        {
+          path: '/modify-feed/:id',
+          async lazy() {
+            const ModifyFeed = await import('./pages/ModifyFeed');
+            return { Component: ModifyFeed.default };
+          },
         },
         {
           path: '/newRecord',
