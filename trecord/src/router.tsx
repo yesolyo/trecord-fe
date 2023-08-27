@@ -9,7 +9,6 @@ import { WelcomePage } from './pages/WelcomPage';
 import { NewFeed } from './pages/NewFeed';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
-import { RecordDetail } from './pages/RecordDetail';
 import { Comment } from './pages/Comment';
 
 export const router = createBrowserRouter(
@@ -65,7 +64,10 @@ export const router = createBrowserRouter(
         },
         {
           path: '/recordDetail/:id',
-          element: <RecordDetail />,
+          async lazy() {
+            const { RecordDetail } = await import('./pages/RecordDetail');
+            return { Component: RecordDetail };
+          },
         },
         {
           path: '/comment/:id',

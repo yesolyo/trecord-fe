@@ -6,4 +6,5 @@ export { default as useModifyFeed } from './Feed/modifyFeed';
 export { default as useDeleteFeed } from './Feed/deleteFeed';
 
 /** Record */
+export { default as useGetRecord } from './Record/getRecord';
 export { default as usePostNewRecord } from './Record/postNewRecord';
