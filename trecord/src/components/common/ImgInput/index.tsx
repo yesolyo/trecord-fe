@@ -17,6 +17,7 @@ const Layout = styled.div`
   align-items: center;
 
   min-height: 135px;
+  max-height: 135px;
   width: 340px;
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
   border-radius: 8px;
@@ -98,7 +99,7 @@ const ImgInput = ({ imgFile, imgFileSetter: setImgFile }: Props) => {
   const dragRef = useRef<HTMLLabelElement | null>(null);
 
   const labelClassName = useMemo(() => {
-    if (imgFile.url && imgFile.data) return 'no-display';
+    if (imgFile.url) return 'no-display';
     if (isDragging) return 'dragging';
     return undefined;
   }, [imgFile, isDragging]);
@@ -190,9 +191,9 @@ const ImgInput = ({ imgFile, imgFileSetter: setImgFile }: Props) => {
         <div>썸네일 사진을 골라주세요</div>
       </label>
 
-      {imgFile && imgFile.data && imgFile.url && (
+      {imgFile && imgFile.url && (
         <div className="pic">
-          <img src={imgFile.url} alt={imgFile.data.name} />{' '}
+          <img src={imgFile.url} alt={imgFile.data?.name ?? 'image'} />
           <div
             className="close-button"
             onClick={() => {
