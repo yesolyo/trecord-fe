@@ -103,6 +103,8 @@ export const Comment = () => {
         newCommentValue={newComment}
         newComment={setNewComment}
         handlePostNewComment={HandlePostData}
+        isEditValue={isEdit}
+        isEdit={setIsEdit}
       />
     </S.Layout>
   );
