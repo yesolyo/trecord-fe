@@ -29,3 +29,11 @@ export interface CommentUserModalProps {
   nickName: string;
   content: string;
 }
+
+export interface deletDataProps {
+  id: number;
+}
+export interface postDataProps {
+  id: number;
+  comment: string;
+}

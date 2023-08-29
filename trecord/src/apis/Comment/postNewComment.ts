@@ -61,10 +61,8 @@ export const putNewComment = async ({
 export const deleteNewComment = async ({
   commentId,
 }: deleteCommentProps): Promise<deleteCommentProps> => {
-  const url = `/api/v1/comments`;
-  const response: DeleteNewCommentResponse = await http.delete(url, {
-    commentId,
-  });
+  const url = `/api/v1/comments/${commentId}`;
+  const response: DeleteNewCommentResponse = await http.delete(url);
 
   return response;
 };

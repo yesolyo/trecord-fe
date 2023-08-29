@@ -1,31 +1,78 @@
 import { CommentList } from '@components/Comment/CommentList';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
-import { getNewComment } from '@/apis/Comment/postNewComment';
+import {
+  CommentUserModalProps,
+  GetCommentProps,
+  deletDataProps,
+  postDataProps,
+} from '@/types/comment';
+import {
+  getNewComment,
+  useDeleteNewComment,
+  usePostNewComment,
+} from '@/apis/Comment/postNewComment';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { mutate: deleteComment } = useDeleteNewComment();
+  const { mutate: postComment } = usePostNewComment();
   const [comment, setComment] = useState<GetCommentProps[]>([]);
-  const [isSend, setIsSend] = useState<boolean>(false);
-  const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [newComment, setNewComment] = useState('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
     { imgUrl: '', nickName: '', content: '' },
   );
-  //TODO:get 두번 보내는 에러 해결 필요
+
   useEffect(() => {
+    HandleGetData();
+  }, []);
+
+  const HandleGetData = () => {
     getNewComment({ recordId: Number(id) }).then((data) => {
       setComment(data.comments);
     });
-    return () => setIsSend(false);
-  }, [isSend, isDelete]);
+  };
+
+  const HandleDeleteData = ({ id }: deletDataProps) => {
+    deleteComment(
+      {
+        commentId: id,
+      },
+      {
+        onSuccess: () => {
+          HandleGetData();
+        },
+      },
+    );
+  };
+
+  const HandlePostData = ({ id, comment }: postDataProps) => {
+    const getToken = localStorage.getItem('acessToken');
+
+    if (getToken) {
+      postComment(
+        {
+          recordId: Number(id),
+          content: comment,
+        },
+        {
+          onSuccess: () => {
+            HandleGetData();
+            setNewComment('');
+          },
+        },
+      );
+    }
+  };
+
+  const HandlePutData = () => {};
 
   const constant = {
     title: '댓글',
@@ -46,13 +93,17 @@ export const Comment = () => {
       <NavBarNew {...constant} />
       <CommentList
         commentData={comment}
-        isDelete={setIsDelete}
-        isEdit={setIsEdit}
         isUserProfile={setIsUserProfile}
         userProfileData={setUserProfileData}
+        handleDeleteClick={HandleDeleteData}
+        isEdit={setIsEdit}
       />
 
-      <TabBarComment isSend={setIsSend} />
+      <TabBarComment
+        newCommentValue={newComment}
+        newComment={setNewComment}
+        handlePostNewComment={HandlePostData}
+      />
     </S.Layout>
   );
 };

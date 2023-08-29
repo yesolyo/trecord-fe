@@ -46,16 +46,9 @@ class Http {
       })
       .then((res) => res.data.data);
   }
-  async delete<Request = any, Response = unknown>(
-    url: string,
-    data?: Request,
-    conf: AxiosRequestConfig = {},
-  ) {
+  async delete<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
     return this.axios
       .delete<TrecordResponse<Response>>(url, {
-        data: {
-          data,
-        },
         ...conf,
       })
       .then((res) => res.data.data);

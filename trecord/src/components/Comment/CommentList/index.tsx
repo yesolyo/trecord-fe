@@ -8,18 +8,15 @@ import {
 } from '@/apis/Comment/postNewComment';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
+import { deletDataProps } from '../CommentModal';
 
 interface commentListProps {
   commentData: GetCommentProps[];
-  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
   isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
   userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
+  handleDeleteClick: ({}: deletDataProps) => void;
+  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
-// interface handleUserProfileProps {
-//   isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
-//   userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
-// }
 
 export const CommentList = ({ ...props }: commentListProps) => {
   const handleUserProfile = ({ ...userProps }: CommentUserModalProps) => {

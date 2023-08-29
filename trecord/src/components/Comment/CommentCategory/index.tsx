@@ -1,11 +1,11 @@
 import { Icon } from '@components/common/Icon';
-import { CommentModal } from '../CommentModal';
+import { CommentModal, deletDataProps } from '../CommentModal';
 import * as S from './style';
 import { useEffect, useRef, useState } from 'react';
 interface commentCateogoryProps {
   id: number;
+  handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
