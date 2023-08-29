@@ -16,29 +16,8 @@ export const TabBarComment = ({
   handlePostNewComment,
 }: tabBarCommentProps) => {
   const { id } = useParams();
-  // const [comment, setComment] = useState('');
-  // const { mutate } = usePostNewComment();
-  // const postData = () => {
-  //   const getToken = localStorage.getItem('acessToken');
-
-  //   if (getToken) {
-  //     mutate(
-  //       {
-  //         recordId: Number(id),
-  //         content: comment,
-  //       },
-  //       {
-  //         onSuccess: (data) => {
-  //           isSend(true);
-  //           setComment('');
-  //         },
-  //       },
-  //     );
-  //   }
-  // };
   return (
     <S.Layout>
-      <Icon iconType="profile" width={28} />
       <S.InputBox
         placeholder="댓글을 남겨보세요"
         value={newCommentValue}
