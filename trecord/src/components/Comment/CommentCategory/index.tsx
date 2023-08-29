@@ -6,6 +6,7 @@ interface commentCateogoryProps {
   id: number;
   handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  commentId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {

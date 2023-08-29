@@ -9,11 +9,13 @@ import {
   GetCommentProps,
   deletDataProps,
   postDataProps,
+  putDataProps,
 } from '@/types/comment';
 import {
   getNewComment,
   useDeleteNewComment,
   usePostNewComment,
+  usePutNewComment,
 } from '@/apis/Comment/postNewComment';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 
@@ -22,9 +24,11 @@ export const Comment = () => {
   const { id } = useParams();
   const { mutate: deleteComment } = useDeleteNewComment();
   const { mutate: postComment } = usePostNewComment();
+  const { mutate: putComment } = usePutNewComment();
   const [comment, setComment] = useState<GetCommentProps[]>([]);
   const [newComment, setNewComment] = useState('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
     { imgUrl: '', nickName: '', content: '' },
@@ -72,7 +76,23 @@ export const Comment = () => {
     }
   };
 
-  const HandlePutData = () => {};
+  const HandlePutData = ({ id, content }: putDataProps) => {
+    const getToken = localStorage.getItem('acessToken');
+    if (getToken) {
+      putComment(
+        {
+          commentId: id,
+          content: content,
+        },
+        {
+          onSuccess: () => {
+            HandleGetData();
+            setNewComment('');
+          },
+        },
+      );
+    }
+  };
 
   const constant = {
     title: '댓글',
@@ -90,12 +110,15 @@ export const Comment = () => {
           {...userProfileData}
         />
       )}
+
       <NavBarNew {...constant} />
+
       <CommentList
         commentData={comment}
         isUserProfile={setIsUserProfile}
         userProfileData={setUserProfileData}
         handleDeleteClick={HandleDeleteData}
+        commentId={setCommentId}
         isEdit={setIsEdit}
       />
 
@@ -103,7 +126,9 @@ export const Comment = () => {
         newCommentValue={newComment}
         newComment={setNewComment}
         handlePostNewComment={HandlePostData}
+        handlePutNewComment={HandlePutData}
         isEditValue={isEdit}
+        commentId={commentId}
         isEdit={setIsEdit}
       />
     </S.Layout>

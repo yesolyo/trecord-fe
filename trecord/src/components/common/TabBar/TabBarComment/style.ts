@@ -57,4 +57,7 @@ export const ButtonNextBox = styled.button<buttonBoxProps>`
     isDark
       ? theme.colors.colorStyles.gray900
       : theme.colors.colorStyles.gray100};
+  &:disabled {
+    background: ${({ theme }) => theme.colors.colorStyles.gray600};
+  }
 `;

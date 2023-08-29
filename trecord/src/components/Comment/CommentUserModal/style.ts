@@ -6,18 +6,6 @@ export const Layout = styled.div`
   height: 844px;
   justify-content: center;
   align-items: center;
-  /* display: flex;
-  width: 286px;
-  height: 284px;
-  border: 1px solid;
-  border-radius: 8px;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  background: ${({ theme }) => theme.colors.colorStyles.gray100};
-  position: absolute;
-  z-index: 25; */
 `;
 
 export const ProfileBox = styled.div`

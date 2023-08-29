@@ -37,3 +37,8 @@ export interface postDataProps {
   id: number;
   comment: string;
 }
+
+export interface putDataProps {
+  id: number;
+  content: string;
+}

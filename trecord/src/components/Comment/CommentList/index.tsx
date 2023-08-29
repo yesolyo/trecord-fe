@@ -1,12 +1,7 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import {
-  getNewComment,
-  useDeleteNewComment,
-} from '@/apis/Comment/postNewComment';
-import { useNavigate, useParams } from 'react-router-dom';
 import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 
@@ -16,6 +11,7 @@ interface commentListProps {
   userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
   handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  commentId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {

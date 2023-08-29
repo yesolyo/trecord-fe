@@ -1,25 +1,27 @@
-import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { SquareButton } from '@components/common/button/SquareButton';
-import { useState } from 'react';
-import { usePostNewComment } from '@/apis/Comment/postNewComment';
 import { useParams } from 'react-router-dom';
-import { postDataProps } from '@/types/comment';
+import { postDataProps, putDataProps } from '@/types/comment';
 interface tabBarCommentProps {
   newCommentValue: string;
   newComment: React.Dispatch<React.SetStateAction<string>>;
   handlePostNewComment: ({ id, comment }: postDataProps) => void;
+  handlePutNewComment: ({ id, content }: putDataProps) => void;
   isEditValue: boolean;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  commentId: number;
 }
 export const TabBarComment = ({
   newCommentValue,
   newComment,
   handlePostNewComment,
+  handlePutNewComment,
   isEditValue,
   isEdit,
+  commentId,
 }: tabBarCommentProps) => {
   const { id } = useParams();
+
   return (
     <S.Layout>
       <S.InputBox
@@ -33,7 +35,16 @@ export const TabBarComment = ({
           <S.ButtonPrevBox isDark={true} onClick={() => isEdit(false)}>
             취소
           </S.ButtonPrevBox>
-          <S.ButtonNextBox isDark={true}>등록</S.ButtonNextBox>
+          <S.ButtonNextBox
+            isDark={true}
+            onClick={() => {
+              handlePutNewComment({ id: commentId, content: newCommentValue });
+              isEdit(false);
+            }}
+            disabled={newCommentValue.length <= 0}
+          >
+            등록
+          </S.ButtonNextBox>
         </S.EditBox>
       ) : (
         <SquareButton

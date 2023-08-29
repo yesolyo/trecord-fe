@@ -49,9 +49,8 @@ export const putNewComment = async ({
   commentId,
   content,
 }: putCommentProps): Promise<putCommentProps> => {
-  const url = `/api/v1/comments`;
+  const url = `/api/v1/comments/${commentId}`;
   const response: PutNewCommentResponse = await http.put(url, {
-    commentId,
     content,
   });
 
