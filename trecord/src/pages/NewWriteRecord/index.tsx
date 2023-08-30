@@ -41,7 +41,11 @@ export const NewWriteRecord = observer((): ReactElement => {
         {
           onSuccess: (data) => {
             recordStore.resetAll();
-            navigate(`/recordDetail/${data.recordId}`);
+            navigate(`/recordDetail/${data.recordId}`, {
+              state: {
+                feedId: recordStore.id,
+              },
+            });
           },
         },
       );
