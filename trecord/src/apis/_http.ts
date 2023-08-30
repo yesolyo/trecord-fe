@@ -13,6 +13,15 @@ class Http {
         Authorization: localStorage.getItem('acessToken'),
       },
     });
+
+  }
+
+  async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
+    return this.axios
+      .get<TrecordResponse<Response>>(url, {
+        ...conf,
+      })
+      .then((res) => res.data.data);
   }
 
   async post<Request = any, Response = unknown>(
@@ -26,6 +35,7 @@ class Http {
       })
       .then((res) => res.data.data);
   }
+
 
   async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
     return this.axios
@@ -46,11 +56,14 @@ class Http {
       })
       .then((res) => res.data.data);
   }
-  async delete<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
+
+  async delete<Request = any, Response = unknown>(
+    url: string,
+    data?: Request,
+    conf: AxiosRequestConfig = {},
+  ) {
     return this.axios
-      .delete<TrecordResponse<Response>>(url, {
-        ...conf,
-      })
+      .delete<TrecordResponse<Response>>(url, { ...conf, data })
       .then((res) => res.data.data);
   }
 }
