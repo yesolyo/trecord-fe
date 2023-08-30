@@ -6,10 +6,12 @@ export const Layout = styled.div<NavBarBackProps>`
   display: flex;
   position: fixed;
   top: 0;
+  z-index: 15;
   height: 70px;
   width: 100%;
   justify-content: center;
   gap: 80px;
+  background: ${({ theme }) => theme.colors.colorStyles.gray100};
 `;
 
 export const NavBarBox = styled.div`

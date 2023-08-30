@@ -27,6 +27,9 @@ import { ReactComponent as sun } from '@/assets/sun.svg';
 import { ReactComponent as wind } from '@/assets/wind.svg';
 import { ReactComponent as cloud } from '@/assets/cloud.svg';
 import { ReactComponent as star } from '@/assets/star.svg';
+import { ReactComponent as message } from '@/assets/message.svg';
+import { ReactComponent as camera } from '@/assets/camera.svg';
+import { ReactComponent as heart } from '@/assets/heart.svg';
 export default {
   addSquare,
   cloud,
@@ -57,4 +60,7 @@ export default {
   gallery,
   more,
   star,
+  message,
+  camera,
+  heart,
 };
