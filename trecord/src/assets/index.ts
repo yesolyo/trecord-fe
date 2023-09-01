@@ -32,7 +32,9 @@ import { ReactComponent as camera } from '@/assets/camera.svg';
 import { ReactComponent as heart } from '@/assets/heart.svg';
 import { ReactComponent as userEdit } from '@/assets/userEdit.svg';
 import { ReactComponent as arrowRight } from '@/assets/arrowRight.svg';
+import { ReactComponent as close } from '@/assets/close.svg';
 export default {
+  close,
   addSquare,
   cloud,
   flash,

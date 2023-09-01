@@ -51,7 +51,7 @@ export const MyPage = () => {
         id: 1,
         btnIcon: 'userEdit',
         btnTitle: '프로필 변경',
-        onClick: () => navigate('./mypageProfile'),
+        onClick: () => navigate('/mypageProfile'),
       },
     ],
   };
@@ -68,6 +68,7 @@ export const MyPage = () => {
         id: 2,
         btnIcon: 'message',
         btnTitle: '댓글',
+        onClick: () => navigate('/mypageComment'),
       },
     ],
   };
@@ -78,10 +79,7 @@ export const MyPage = () => {
       {
         id: 1,
         btnTitle: '로그아웃',
-      },
-      {
-        id: 2,
-        btnTitle: '회원탈퇴',
+        onClick: () => navigate('/login'),
       },
     ],
   };

@@ -6,6 +6,16 @@ export interface PostNewCommentResponse {
 export interface GetNewCommentResponse {
   comments: GetCommentProps[];
 }
+export interface GetMypageCommentResponse {
+  comments: GetMypageComment[];
+}
+
+export interface GetMypageComment {
+  recordId: number;
+  recordTitle: string;
+  commentId: number;
+  content: string;
+}
 export interface GetCommentProps {
   commentId: number;
   commenterId: number;
@@ -37,7 +47,6 @@ export interface postDataProps {
   id: number;
   comment: string;
 }
-
 export interface putDataProps {
   id: number;
   content: string;

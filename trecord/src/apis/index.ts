@@ -1,3 +1,4 @@
+/** comment */
 
 /** Feed */
 export { default as useGetFeeds } from './Feed/getFeeds';

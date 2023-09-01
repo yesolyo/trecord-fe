@@ -41,12 +41,9 @@ export const MyPageProfile = () => {
     }
   }, []);
 
-  const constant = {
-    navBarProfile: { mainTitle: '마이페이지' },
-  };
   return (
     <S.Layout>
-      <NavBarProfile {...constant.navBarProfile} />
+      <NavBarProfile mainTitle="마이페이지" />
       <S.ProfileBox>
         <LoginProfileImg
           profileFile={setProfileFile}
