@@ -5,10 +5,9 @@ import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
-import { MyPageBtn } from '@components/MyPage/MyPageBtn';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
-import { MyPageTitle } from '@components/MyPage/MyPageTitle';
-export const MyPage = () => {
+
+export const MyPageProfile = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
     originFile: File | Blob | string;
@@ -42,15 +41,38 @@ export const MyPage = () => {
     }
   }, []);
 
+  const constant = {
+    navBarProfile: { mainTitle: '마이페이지' },
+  };
   return (
     <S.Layout>
-      <NavBarProfile mainTitle="마이페이지" />
-      <MyPageTitle
-        imgUrl={profileUrl}
-        nickname={nickName}
-        introduce={introduce}
-      />
-      <S.LineBox />
+      <NavBarProfile {...constant.navBarProfile} />
+      <S.ProfileBox>
+        <LoginProfileImg
+          profileFile={setProfileFile}
+          profileFileValue={profileFile}
+          profileUrl={profileUrl}
+        />
+        <LoginProfileName
+          nickNameValue={nickName}
+          nickNameSetValue={setNickName}
+        />
+        <LoginProfileIntroduce
+          introduceValue={introduce}
+          introduceSetValue={setIntroduce}
+        />
+        <S.BtnBox>
+          <ProfileNewButton
+            imageFile={profileFile}
+            saveImageUrl={setProfilUrl}
+            imageUrl={profileUrl}
+            nickNameValue={nickName}
+            intrduceValue={introduce}
+            title="변경하기"
+          ></ProfileNewButton>
+        </S.BtnBox>
+      </S.ProfileBox>
+
       <TabBar currentPage="mypage" />
     </S.Layout>
   );
