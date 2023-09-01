@@ -53,6 +53,7 @@ export type recordList = {
 };
 
 export type recordDetailList = {
+  imageUrl: null | string;
   comments: commentList[];
   companion: string;
   content: string;

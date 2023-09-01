@@ -1,5 +1,5 @@
 import { TextInput } from '@components/common/input/TextInput';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
@@ -38,7 +38,6 @@ const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
 
   const { data } = useGetRecord({ id: recordId });
-  console.log('modify', data);
 
   const { recordStore } = useStore();
 
@@ -66,7 +65,8 @@ const ModifyRecord = observer((): ReactElement => {
       move.length > 0 &&
       withPeople.length > 0
     ) ||
-    (title === data?.title &&
+    (thumbNail.url === data?.imageUrl &&
+      title === data?.title &&
       startDate === data.date &&
       weather === data.weather &&
       place === data.place &&
@@ -87,6 +87,13 @@ const ModifyRecord = observer((): ReactElement => {
 
     navigate(`./modify-write`);
   };
+
+  useEffect(() => {
+    if (data) {
+      recordStore.setContent(data.content);
+      recordStore.setFeedId(data.feedId.toString());
+    }
+  }, [data]);
 
   return (
     <Layout>

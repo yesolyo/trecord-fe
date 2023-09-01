@@ -10,6 +10,8 @@ class RecordStore {
   feel: string;
   move: string;
   withPeople: string;
+  feedId: string;
+  content: string;
 
   constructor() {
     this.id = '';
@@ -21,6 +23,8 @@ class RecordStore {
     this.feel = '';
     this.move = '';
     this.withPeople = '';
+    this.feedId = '';
+    this.content = '';
 
     makeAutoObservable(this);
   }
@@ -61,6 +65,14 @@ class RecordStore {
     this.withPeople = withPeople;
   }
 
+  setFeedId(feedId: string) {
+    this.feedId = feedId;
+  }
+
+  setContent(content: string) {
+    this.content = content;
+  }
+
   resetAll() {
     this.id = '';
     this.thumbNail = { data: null, url: null };
@@ -71,6 +83,8 @@ class RecordStore {
     this.feel = '';
     this.move = '';
     this.withPeople = '';
+    this.feedId = '';
+    this.content = '';
   }
 }
 

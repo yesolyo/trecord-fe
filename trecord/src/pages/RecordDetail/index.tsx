@@ -41,7 +41,7 @@ export const RecordDetail = () => {
     (v: string) => {
       switch (v) {
         case 'MODIFY':
-          // navigate(`/modify-feed/${id}`);
+          navigate(`/modify-record/${recordId}`);
           return;
         case 'DELETE':
           setOpenModal(true);

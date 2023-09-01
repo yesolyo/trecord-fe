@@ -3,13 +3,16 @@ import App from './App';
 import { Login } from './pages/Login';
 import { LoginProfile } from './pages/LoginProfile';
 import { Auth } from './pages/Auth';
-import { Home } from './pages/Home';
 import { MyPage } from './pages/MyPage';
 import { WelcomePage } from './pages/WelcomPage';
-import { NewFeed } from './pages/NewFeed';
+import { Suspense } from 'react';
+import ModifyRecord from './pages/ModifyRecord';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { Comment } from './pages/Comment';
+import ModifyFeed from './pages/ModifyFeed';
+import ModifyWriteRecord from './pages/ModifyWriteRecord';
+import { RecordDetail } from './pages/RecordDetail';
 
 export const router = createBrowserRouter(
   [
@@ -34,11 +37,17 @@ export const router = createBrowserRouter(
         },
         {
           path: '/home',
-          element: <Home />,
+          async lazy() {
+            const { Home } = await import('./pages/Home');
+            return { Component: Home };
+          },
         },
         {
           path: '/newfeed',
-          element: <NewFeed />,
+          async lazy() {
+            const { NewFeed } = await import('./pages/NewFeed');
+            return { Component: NewFeed };
+          },
         },
         {
           path: '/feedDetail/:id',
@@ -49,10 +58,11 @@ export const router = createBrowserRouter(
         },
         {
           path: '/modify-feed/:id',
-          async lazy() {
-            const ModifyFeed = await import('./pages/ModifyFeed');
-            return { Component: ModifyFeed.default };
-          },
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ModifyFeed />
+            </Suspense>
+          ),
         },
         {
           path: '/newRecord',
@@ -63,11 +73,28 @@ export const router = createBrowserRouter(
           element: <NewWriteRecord />,
         },
         {
+          path: '/modify-record/:id',
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ModifyRecord />
+            </Suspense>
+          ),
+        },
+        {
+          path: '/modify-record/:id/modify-write',
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <ModifyWriteRecord />
+            </Suspense>
+          ),
+        },
+        {
           path: '/recordDetail/:id',
-          async lazy() {
-            const { RecordDetail } = await import('./pages/RecordDetail');
-            return { Component: RecordDetail };
-          },
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <RecordDetail />
+            </Suspense>
+          ),
         },
         {
           path: '/comment/:id',
