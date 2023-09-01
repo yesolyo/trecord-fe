@@ -8,6 +8,8 @@ import { TabBar } from '@components/common/TabBar';
 import { MyPageBtn } from '@components/MyPage/MyPageBtn';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
+import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
+import { useNavigate } from 'react-router-dom';
 export const MyPage = () => {
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -20,6 +22,7 @@ export const MyPage = () => {
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
   const getToken = localStorage.getItem('acessToken');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (getToken) {
@@ -41,6 +44,47 @@ export const MyPage = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+  const menuServiceConstant: mypageMenuProps = {
+    title: '서비스 설정',
+    menuList: [
+      {
+        id: 1,
+        btnIcon: 'userEdit',
+        btnTitle: '프로필 변경',
+        onClick: () => navigate('./mypageProfile'),
+      },
+    ],
+  };
+
+  const menuActiveConstant: mypageMenuProps = {
+    title: '나의 활동',
+    menuList: [
+      {
+        id: 1,
+        btnIcon: 'heart',
+        btnTitle: '좋아요',
+      },
+      {
+        id: 2,
+        btnIcon: 'message',
+        btnTitle: '댓글',
+      },
+    ],
+  };
+
+  const menuEtcConstant: mypageMenuProps = {
+    title: '기타',
+    menuList: [
+      {
+        id: 1,
+        btnTitle: '로그아웃',
+      },
+      {
+        id: 2,
+        btnTitle: '회원탈퇴',
+      },
+    ],
+  };
 
   return (
     <S.Layout>
@@ -50,7 +94,12 @@ export const MyPage = () => {
         nickname={nickName}
         introduce={introduce}
       />
-      <S.LineBox />
+      <S.ThickLineBox />
+      <MyPageMenu {...menuServiceConstant} />
+      <S.ThinLineBox />
+      <MyPageMenu {...menuActiveConstant} />
+      <S.ThinLineBox />
+      <MyPageMenu {...menuEtcConstant} />
       <TabBar currentPage="mypage" />
     </S.Layout>
   );

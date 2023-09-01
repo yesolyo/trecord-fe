@@ -11,6 +11,7 @@ import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
 import { Comment } from './pages/Comment';
+import { MyPageProfile } from './pages/MyPageProfile';
 
 export const router = createBrowserRouter(
   [
@@ -74,6 +75,10 @@ export const router = createBrowserRouter(
         {
           path: '/mypage',
           element: <MyPage />,
+        },
+        {
+          path: '/mypageProfile',
+          element: <MyPageProfile />,
         },
       ],
     },
