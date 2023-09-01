@@ -13,7 +13,6 @@ class Http {
         Authorization: localStorage.getItem('acessToken'),
       },
     });
-
   }
 
   async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
@@ -31,15 +30,6 @@ class Http {
   ) {
     return this.axios
       .post<TrecordResponse<Response>>(url, data, {
-        ...conf,
-      })
-      .then((res) => res.data.data);
-  }
-
-
-  async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
-    return this.axios
-      .get<TrecordResponse<Response>>(url, {
         ...conf,
       })
       .then((res) => res.data.data);
