@@ -4,6 +4,7 @@ interface ItemNamePrps {
   isSlected: boolean;
 }
 export const Layout = styled.div`
+  position: absolute;
   display: flex;
   width: 390px;
   height: 92px;
@@ -11,7 +12,6 @@ export const Layout = styled.div`
   align-items: center;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.12);
   border-radius: 20px 20px 0 0;
-  position: fixed;
   bottom: 0;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
 `;

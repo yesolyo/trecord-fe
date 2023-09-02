@@ -5,9 +5,13 @@ import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const MobileLikeDiv = styled.div`
+  position: relative;
+  overflow: hidden;
   background-color: #ffffff;
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
+
   @media (min-width: 501px) and (min-height: 1000px) {
     border-radius: 40px;
     box-shadow: 0px 0px 10px 5px #777777;
