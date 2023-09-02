@@ -10,7 +10,6 @@ class Http {
       baseURL: `${import.meta.env.VITE_BASE_URL}`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('acessToken'),
       },
     });
 
@@ -24,6 +23,20 @@ class Http {
       .then((res) => res.data.data);
   }
 
+  async authGet<Response = unknown>(
+    url: string,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .get<TrecordResponse<Response>>(url, {
+        ...conf,
+        headers: {
+          Authorization: localStorage.getItem('acessToken'),
+        },
+      })
+      .then((res) => res.data.data);
+  }
+
   async post<Request = any, Response = unknown>(
     url: string,
     data?: Request,
@@ -32,6 +45,9 @@ class Http {
     return this.axios
       .post<TrecordResponse<Response>>(url, data, {
         ...conf,
+        headers: {
+          Authorization: localStorage.getItem('acessToken'),
+        },
       })
       .then((res) => res.data.data);
   }
@@ -53,6 +69,9 @@ class Http {
     return this.axios
       .put<TrecordResponse<Response>>(url, data, {
         ...conf,
+        headers: {
+          Authorization: localStorage.getItem('acessToken'),
+        },
       })
       .then((res) => res.data.data);
   }
@@ -63,7 +82,13 @@ class Http {
     conf: AxiosRequestConfig = {},
   ) {
     return this.axios
-      .delete<TrecordResponse<Response>>(url, { ...conf, data })
+      .delete<TrecordResponse<Response>>(url, {
+        ...conf,
+        headers: {
+          Authorization: localStorage.getItem('acessToken'),
+        },
+        data,
+      })
       .then((res) => res.data.data);
   }
 }

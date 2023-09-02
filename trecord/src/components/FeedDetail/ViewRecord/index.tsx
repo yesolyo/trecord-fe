@@ -5,9 +5,10 @@ import { RecordList } from '../RecordList';
 import { RecordSummary } from '../RecordSummary';
 import { recordList } from '@/types';
 interface ViewRecordProps {
+  feedId: string;
   listData: recordList[];
 }
-export const ViewRecord = ({ listData }: ViewRecordProps) => {
+export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
   const [activeList, setActiveList] = useState('기록리스트');
   const [isActive, setIsActive] = useState(true);
   return (
@@ -31,7 +32,7 @@ export const ViewRecord = ({ listData }: ViewRecordProps) => {
         />
       </S.BtnBox>
       {isActive ? (
-        <RecordList listData={listData} />
+        <RecordList feedId={feedId} listData={listData} />
       ) : (
         <RecordSummary listData={listData} />
       )}

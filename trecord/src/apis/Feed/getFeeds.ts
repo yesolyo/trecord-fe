@@ -5,7 +5,7 @@ import FEED_API_KEY from './constants';
 
 const getFeeds = async (): Promise<feedList[]> => {
   const url = `/api/v1/feeds`;
-  const response: { feeds: feedList[] } = await http.get(url);
+  const response: { feeds: feedList[] } = await http.authGet(url);
 
   return response.feeds;
 };
