@@ -1,8 +1,21 @@
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const MobileLikeDiv = styled.div`
+  background-color: #ffffff;
+  width: 100vw;
+  height: 100vh;
+  @media (min-width: 501px) and (min-height: 1000px) {
+    border-radius: 40px;
+    box-shadow: 0px 0px 10px 5px #777777;
+    /** iphone pro 12 */
+    width: 390px;
+    height: 844px;
+  }
+`;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +36,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Outlet />
+        <MobileLikeDiv id="frame">
+          <Outlet />
+        </MobileLikeDiv>
       </ThemeProvider>
     </QueryClientProvider>
   );
