@@ -12,7 +12,7 @@ export const MypageCommentList = ({ ...props }: GetMypageCommentResponse) => {
             <Icon iconType="message" width={24} />
             <S.TextBox>
               <S.ContentBox>{comment.content}</S.ContentBox>
-              <S.DateBox>{comment.recordTitle}</S.DateBox>
+              <S.DateBox>{comment.commentCreatedDateTime}</S.DateBox>
             </S.TextBox>
             <Icon
               iconType="close"

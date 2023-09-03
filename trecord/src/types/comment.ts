@@ -17,6 +17,7 @@ export interface GetMypageComment {
   recordTitle: string;
   commentId: number;
   content: string;
+  commentCreatedDateTime: string;
 }
 export interface GetCommentProps {
   commentId: number;
