@@ -7,10 +7,10 @@ import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
-import { FEED_SELECT_INFOS } from '@/types/feed';
 import { useDeleteFeed, useGetFeedDetail } from '@/apis';
 import { useCallback, useState } from 'react';
 import Modal from '@components/common/Modal';
+import { SELECT_INFOS } from '@/types';
 
 export const FeedDetail = () => {
   const { id = '' } = useParams();
@@ -31,17 +31,20 @@ export const FeedDetail = () => {
     );
   }, [id, deleteFeed, navigate]);
 
-  const handleChangeSelect = useCallback((v: string) => {
-    switch (v) {
-      case 'MODIFY':
-        navigate(`/modify-feed/${id}`);
-        return;
-      case 'DELETE':
-        setOpenModal(true);
-        return;
-      default:
-    }
-  }, []);
+  const handleChangeSelect = useCallback(
+    (v: string) => {
+      switch (v) {
+        case 'MODIFY':
+          navigate(`/modify-feed/${id}`);
+          return;
+        case 'DELETE':
+          setOpenModal(true);
+          return;
+        default:
+      }
+    },
+    [navigate],
+  );
 
   return (
     <>
@@ -57,7 +60,7 @@ export const FeedDetail = () => {
           <S.IconBox>
             <div className="detail_name">{detailData?.name}</div>
             <SelectButton
-              options={FEED_SELECT_INFOS}
+              options={SELECT_INFOS}
               onSelect={handleChangeSelect}
             />
           </S.IconBox>
@@ -78,7 +81,9 @@ export const FeedDetail = () => {
             </S.EmojiBox>
           )}
           <div className="detail_description">{detailData?.description}</div>
-          {detailData?.records && <ViewRecord listData={detailData?.records} />}
+          {detailData?.records && (
+            <ViewRecord feedId={id} listData={detailData?.records} />
+          )}
         </S.ExplainBox>
         <S.EditButtonBox>
           <CircularButton

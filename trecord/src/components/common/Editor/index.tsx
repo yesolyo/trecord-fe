@@ -39,8 +39,10 @@ const StyledContainer = styled.div`
 `;
 
 const Editor = ({
+  content,
   contentSetter: setContent,
 }: {
+  content: string;
   contentSetter: React.Dispatch<React.SetStateAction<string>>;
 }): ReactElement => {
   const quillRef = useRef<ReactQuill>(null);
@@ -88,6 +90,7 @@ const Editor = ({
         theme="snow"
         placeholder="당신만의 여행 기록을 남겨보세요!"
         modules={modules}
+        value={content}
         onChange={setContent}
       />
     </StyledContainer>

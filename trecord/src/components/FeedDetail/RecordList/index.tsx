@@ -2,9 +2,10 @@ import { recordList } from '@/types';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 interface RecordListProps {
+  feedId: string;
   listData: recordList[];
 }
-export const RecordList = ({ listData }: RecordListProps) => {
+export const RecordList = ({ feedId, listData }: RecordListProps) => {
   const navigate = useNavigate();
   const result = listData.reduce(
     (acc, curr) => {
@@ -24,7 +25,13 @@ export const RecordList = ({ listData }: RecordListProps) => {
           {dayData.map((record) => (
             <S.ItemBox
               key={record.id}
-              onClick={() => navigate(`/recordDetail/${record.id}`)}
+              onClick={() =>
+                navigate(`/recordDetail/${record.id}`, {
+                  state: {
+                    feedId,
+                  },
+                })
+              }
             >
               <S.DataBox>
                 <div className="record_title">{record.title}</div>

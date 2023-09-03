@@ -32,6 +32,7 @@ const StyledDropdown = styled.div`
 `;
 
 interface Props {
+  right?: string;
   options: {
     label: string;
     value: string;
@@ -58,17 +59,17 @@ const Dropdown = ({ options, onSelect }: Props) => {
   );
 };
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.div<{ right?: string }>`
   position: 'relative';
 
   > div {
     position: absolute;
-    right: 10%;
+    right: ${({ right = '10%' }) => right};
     z-index: 100;
   }
 `;
 
-const SelectButton = ({ options, onSelect }: Props): ReactElement => {
+const SelectButton = ({ right, options, onSelect }: Props): ReactElement => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -104,7 +105,7 @@ const SelectButton = ({ options, onSelect }: Props): ReactElement => {
   }, [isDropdownVisible]);
 
   return (
-    <StyledDiv onClick={handleClickButton}>
+    <StyledDiv right={right} onClick={handleClickButton}>
       <Icon iconType="more" width={24} />
       {isDropdownVisible && (
         <div ref={dropdownRef}>

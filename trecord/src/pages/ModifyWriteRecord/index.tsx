@@ -1,22 +1,23 @@
 import { useState, ReactElement } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as S from './style';
+import { useNavigate, useParams } from 'react-router-dom';
+import * as S from '@/pages/NewWriteRecord/style';
 import Editor from '@components/common/Editor';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { usePostNewRecord } from '@/apis';
+import { useModifyRecord } from '@/apis';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { uploadS3 } from '@/utils/image';
 
-export const NewWriteRecord = observer((): ReactElement => {
+const ModifyWriteRecord = observer((): ReactElement => {
   const { recordStore } = useStore();
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(recordStore.content);
+  const { id: recordId = '' } = useParams();
   const navigate = useNavigate();
 
-  const { mutate } = usePostNewRecord();
+  const { mutate } = useModifyRecord({ id: recordId });
 
-  const postData = async () => {
+  const putData = async () => {
     const getToken = localStorage.getItem('acessToken');
 
     if (getToken) {
@@ -27,7 +28,8 @@ export const NewWriteRecord = observer((): ReactElement => {
 
       mutate(
         {
-          feedId: recordStore.id,
+          recordId,
+          imageUrl: imgUrl,
           title: recordStore.title,
           date: `${recordStore.startDate}T00:00`,
           place: recordStore.place,
@@ -36,14 +38,13 @@ export const NewWriteRecord = observer((): ReactElement => {
           transportation: recordStore.move,
           content,
           companion: recordStore.withPeople,
-          imageUrl: imgUrl,
         },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             recordStore.resetAll();
-            navigate(`/recordDetail/${data.recordId}`, {
+            navigate(`/recordDetail/${recordId}`, {
               state: {
-                feedId: recordStore.id,
+                feedId: recordStore.feedId,
               },
             });
           },
@@ -55,13 +56,19 @@ export const NewWriteRecord = observer((): ReactElement => {
   return (
     <S.Layout pt="70px">
       <NavBarNew
-        title="기록 남기기"
+        title="기록 수정하기"
         isRegister={true}
-        disabled={content.length <= 0 || content === '<p><br></p>'}
-        registerClick={postData}
+        disabled={
+          content.length <= 0 ||
+          content === '<p><br></p>' ||
+          content === recordStore.content
+        }
+        registerClick={putData}
         onClick={() => navigate(-1)}
       />
-      <Editor contentSetter={setContent} />
+      <Editor content={content} contentSetter={setContent} />
     </S.Layout>
   );
 });
+
+export default ModifyWriteRecord;
