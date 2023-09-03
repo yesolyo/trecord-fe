@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
+  position: absolute;
   display: flex;
-  position: fixed;
   top: 0;
   height: 70px;
   width: 350px;

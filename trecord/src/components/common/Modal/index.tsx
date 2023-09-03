@@ -19,7 +19,7 @@ const StyledDiv = styled.div<{ display: string }>`
     justify-content: center;
     align-items: center;
     width: calc(100vw * 0.6);
-    @media (min-width: 501px) {
+    @media (min-width: 431px) {
       width: calc(330px * 0.85);
     }
 

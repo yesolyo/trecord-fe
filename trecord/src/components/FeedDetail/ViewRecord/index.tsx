@@ -4,6 +4,34 @@ import * as S from './style';
 import { RecordList } from '../RecordList';
 import { RecordSummary } from '../RecordSummary';
 import { recordList } from '@/types';
+import styled from 'styled-components';
+import EmptyIcon from '@/assets/components/EmptyIcon';
+
+const StyledEmptyDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 60px;
+  color: var(--gray-900, #1e1e1e);
+  text-align: center;
+  font-family: Pretendard;
+  font-style: normal;
+
+  .big {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 42px; /* 150% */
+  }
+
+  .small {
+    color: #1e1e1e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+`;
 interface ViewRecordProps {
   feedId: string;
   listData: recordList[];
@@ -31,10 +59,20 @@ export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
           }}
         />
       </S.BtnBox>
-      {isActive ? (
+      {isActive && listData.length > 0 ? (
         <RecordList feedId={feedId} listData={listData} />
       ) : (
         <RecordSummary listData={listData} />
+      )}
+      {listData.length === 0 && (
+        <StyledEmptyDiv>
+          <EmptyIcon />
+          <p className="big">앗!</p>
+          <div>
+            <p className="small">아직 생성된 기록이 없어요.</p>
+            <p className="small">여행 기록을 작성해 보세요.</p>
+          </div>
+        </StyledEmptyDiv>
       )}
     </S.Layout>
   );

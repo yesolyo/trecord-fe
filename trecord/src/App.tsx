@@ -12,7 +12,7 @@ const MobileLikeDiv = styled.div`
   height: 100vh;
   box-sizing: border-box;
 
-  @media (min-width: 431px) and (min-height: 951px) {
+  @media (min-width: 431px) {
     border-radius: 40px;
     box-shadow: 0px 0px 10px 5px #777777;
     /** iphone pro 12 */
