@@ -19,7 +19,6 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 464px;
   padding-top: 100px;
   gap: 19px;
   .new_feel {
@@ -31,6 +30,23 @@ const Layout = styled.div`
   }
   .new_btn {
     padding-top: 30px;
+  }
+`;
+
+const StyledFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  overflow: auto;
+  @media (min-width: 431px) {
+    height: calc(844px - 120px);
+  }
+  width: 100%;
+  scrollbar-width: none;
+  align-items: center;
+  padding-bottom: 20px;
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -105,48 +121,50 @@ const ModifyRecord = observer((): ReactElement => {
           navigate(-1);
         }}
       />
-      <ImgInput imgFile={thumbNail} imgFileSetter={setThumbNail} />
-      <TextInput
-        inputValue={title}
-        inputSetValue={setTitle}
-        labelTitle="제목"
-        inputTitle="제목을 입력해주세요"
-      />
-      <DateInput
-        inputValue={startDate}
-        inputSetValue={setStartDate}
-        labelTitle="여행 시작 날짜"
-        inputWidth="342px"
-        inputHeight="46px"
-      />
-      <NewWeater isActive={weather} setIsActive={setWeather} />
-      <NewPlace
-        inputValue={place}
-        inputSetValue={setPlace}
-        labelTitle="장소"
-        inputTitle="장소를 입력해주세요"
-      />
-      <div className="new_feel">
-        <NewFeel isActive={feel} setIsActive={setFeel} />
-        <NewMove isActive={move} setIsActive={setMove} />
-      </div>
-
-      <TextInput
-        inputValue={withPeople}
-        inputSetValue={setWithPeople}
-        inputTitle="누구와 같이 갔나요?"
-        labelTitle="같이 간 사람"
-      />
-      <div className="new_btn">
-        <SquareButton
-          title="다음"
-          width="342px"
-          height="56px"
-          disabled={isDisabled}
-          isDark={true}
-          onClick={handleClickNext}
+      <StyledFrame>
+        <ImgInput imgFile={thumbNail} imgFileSetter={setThumbNail} />
+        <TextInput
+          inputValue={title}
+          inputSetValue={setTitle}
+          labelTitle="제목"
+          inputTitle="제목을 입력해주세요"
         />
-      </div>
+        <DateInput
+          inputValue={startDate}
+          inputSetValue={setStartDate}
+          labelTitle="여행 시작 날짜"
+          inputWidth="342px"
+          inputHeight="46px"
+        />
+        <NewWeater isActive={weather} setIsActive={setWeather} />
+        <NewPlace
+          inputValue={place}
+          inputSetValue={setPlace}
+          labelTitle="장소"
+          inputTitle="장소를 입력해주세요"
+        />
+        <div className="new_feel">
+          <NewFeel isActive={feel} setIsActive={setFeel} />
+          <NewMove isActive={move} setIsActive={setMove} />
+        </div>
+
+        <TextInput
+          inputValue={withPeople}
+          inputSetValue={setWithPeople}
+          inputTitle="누구와 같이 갔나요?"
+          labelTitle="같이 간 사람"
+        />
+        <div className="new_btn">
+          <SquareButton
+            title="다음"
+            width="342px"
+            height="56px"
+            disabled={isDisabled}
+            isDark={true}
+            onClick={handleClickNext}
+          />
+        </div>
+      </StyledFrame>
     </Layout>
   );
 });
