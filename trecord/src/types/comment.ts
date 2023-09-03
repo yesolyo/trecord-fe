@@ -6,6 +6,19 @@ export interface PostNewCommentResponse {
 export interface GetNewCommentResponse {
   comments: GetCommentProps[];
 }
+export interface GetMypageCommentResponse {
+  commentData: React.Dispatch<React.SetStateAction<number>>;
+  onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
+  comments: GetMypageComment[];
+}
+
+export interface GetMypageComment {
+  recordId: number;
+  recordTitle: string;
+  commentId: number;
+  content: string;
+  commentCreatedDateTime: string;
+}
 export interface GetCommentProps {
   commentId: number;
   commenterId: number;
@@ -37,7 +50,6 @@ export interface postDataProps {
   id: number;
   comment: string;
 }
-
 export interface putDataProps {
   id: number;
   content: string;

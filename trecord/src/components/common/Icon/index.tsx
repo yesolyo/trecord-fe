@@ -1,7 +1,6 @@
 import { colorStyles } from '@/styles/color';
 import icons from '@/assets/index';
 import { ReactElement } from 'react';
-
 interface IconProps {
   iconType: keyof typeof icons;
   width?: number;

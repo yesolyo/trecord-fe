@@ -10,6 +10,8 @@ import ModifyRecord from './pages/ModifyRecord';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { Comment } from './pages/Comment';
+import { MyPageProfile } from './pages/MyPageProfile';
+import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
@@ -103,6 +105,14 @@ export const router = createBrowserRouter(
         {
           path: '/mypage',
           element: <MyPage />,
+        },
+        {
+          path: '/mypageProfile',
+          element: <MyPageProfile />,
+        },
+        {
+          path: '/mypageComment',
+          element: <MyPageComment />,
         },
       ],
     },

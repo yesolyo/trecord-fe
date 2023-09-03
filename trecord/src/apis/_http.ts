@@ -12,7 +12,6 @@ class Http {
         'Content-Type': 'application/json',
       },
     });
-
   }
 
   async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
@@ -48,15 +47,6 @@ class Http {
         headers: {
           Authorization: localStorage.getItem('acessToken'),
         },
-      })
-      .then((res) => res.data.data);
-  }
-
-
-  async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
-    return this.axios
-      .get<TrecordResponse<Response>>(url, {
-        ...conf,
       })
       .then((res) => res.data.data);
   }

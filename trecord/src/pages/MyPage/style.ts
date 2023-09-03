@@ -7,45 +7,15 @@ export const Layout = styled.form`
   height: 844px;
 `;
 
-export const TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 22px;
-  margin-top: 50px;
-  .profileTitle {
-    ${({ theme }) => theme.font.fontSize.Title_BL}
-    ${({ theme }) => theme.font.fontType.B}
-  }
-  .profileText {
-    ${({ theme }) => theme.font.fontSize.Body_S}
-    ${({ theme }) => theme.font.fontType.R}
-  }
+export const ThickLineBox = styled.hr`
+  width: 390px;
+  height: 10px;
+  border: none;
+  background: ${({ theme }) => theme.colors.colorStyles.gray300};
 `;
-
-export const ProfileBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
-`;
-
-export const BtnBox = styled.div`
-  padding-top: 17px;
-`;
-
-export const EmptyBox = styled.div`
-  background: ${({ theme }) => theme.colors.colorStyles.gray900};
-  opacity: 0.2;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-`;
-
-export const ModalBox = styled.div`
-  position: absolute;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+export const ThinLineBox = styled.hr`
+  width: 390px;
+  height: 2px;
+  border: none;
+  background: ${({ theme }) => theme.colors.colorStyles.gray300};
 `;
