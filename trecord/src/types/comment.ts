@@ -7,6 +7,8 @@ export interface GetNewCommentResponse {
   comments: GetCommentProps[];
 }
 export interface GetMypageCommentResponse {
+  commentData: React.Dispatch<React.SetStateAction<number>>;
+  onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
   comments: GetMypageComment[];
 }
 
