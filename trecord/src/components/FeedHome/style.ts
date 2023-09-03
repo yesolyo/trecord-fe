@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
+  height: calc(100% - 190px);
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  gap: 10px;
+  gap: 18px;
   padding-top: 90px;
   padding-bottom: 100px;
 `;

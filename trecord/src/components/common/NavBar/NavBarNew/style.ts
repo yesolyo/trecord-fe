@@ -3,8 +3,8 @@ interface NavBarBackProps {
   isRegister: boolean;
 }
 export const Layout = styled.div<NavBarBackProps>`
+  position: absolute;
   display: flex;
-  position: fixed;
   top: 0;
   z-index: 15;
   height: 70px;

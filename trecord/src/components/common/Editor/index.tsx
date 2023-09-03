@@ -18,6 +18,9 @@ const StyledContainer = styled.div`
     justify-content: end;
     position: fixed;
     width: 100%;
+    @media (min-width: 431px) {
+      width: 390px;
+    }
     background: #fff;
     z-index: 1;
     height: 42px;

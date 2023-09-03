@@ -1,8 +1,5 @@
 import { ReactElement } from 'react';
-
-interface Props {
-  fill?: string;
-}
+import { Props } from './interface';
 
 const CloseIcon = ({ fill = 'none' }: Props): ReactElement => {
   return (

@@ -5,7 +5,6 @@ export const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 464px;
   padding-top: 100px;
   gap: 19px;
   .new_feel {

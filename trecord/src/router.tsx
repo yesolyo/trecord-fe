@@ -15,6 +15,7 @@ import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
+import { FeedDetail } from './pages/FeedDetail';
 
 export const router = createBrowserRouter(
   [
@@ -53,10 +54,11 @@ export const router = createBrowserRouter(
         },
         {
           path: '/feedDetail/:id',
-          async lazy() {
-            const { FeedDetail } = await import('./pages/FeedDetail');
-            return { Component: FeedDetail };
-          },
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <FeedDetail />
+            </Suspense>
+          ),
         },
         {
           path: '/modify-feed/:id',

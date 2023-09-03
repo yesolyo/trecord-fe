@@ -1,5 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Auth = () => {
   const navigate = useNavigate();
@@ -32,5 +41,5 @@ export const Auth = () => {
       .catch((err) => console.log(err));
   });
 
-  return <div>로그인 중입니다.</div>;
+  return <StyledDiv>로그인 중입니다.</StyledDiv>;
 };

@@ -18,7 +18,11 @@ const StyledDiv = styled.div<{ display: string }>`
     gap: 16px;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: calc(100vw * 0.6);
+    @media (min-width: 431px) {
+      width: calc(330px * 0.85);
+    }
+
     border-radius: 8px;
     background: var(--gray-100, #fff);
     padding: 24px;

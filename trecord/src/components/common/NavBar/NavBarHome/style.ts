@@ -1,16 +1,14 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px 20px 28px 20px;
   display: flex;
-  position: fixed;
   top: 0;
-  width: 330px;
-  height: 80px;
   align-items: flex-end;
   justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
 `;
 

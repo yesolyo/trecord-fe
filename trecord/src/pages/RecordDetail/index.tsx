@@ -13,7 +13,7 @@ import Modal from '@components/common/Modal';
 
 const StyledNavbar = styled.div`
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 0;
   height: 70px;
   width: 350px;
@@ -34,7 +34,7 @@ export const RecordDetail = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleClickGoback = useCallback(() => {
-    navigate(`/feedDetail/${feedId}`);
+    navigate(`/feedDetail/${feedId ?? recordData?.feedId}`);
   }, [navigate]);
 
   const handleChangeSelect = useCallback(
