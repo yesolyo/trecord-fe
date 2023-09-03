@@ -61,7 +61,7 @@ export const NewWriteRecord = observer((): ReactElement => {
         registerClick={postData}
         onClick={() => navigate(-1)}
       />
-      <Editor contentSetter={setContent} />
+      <Editor content={content} contentSetter={setContent} />
     </S.Layout>
   );
 });
