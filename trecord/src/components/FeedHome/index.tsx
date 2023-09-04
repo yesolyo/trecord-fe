@@ -1,8 +1,31 @@
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useGetFeeds } from '@/apis';
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { EmptyHome } from '@components/EmptyHome';
+import styled from 'styled-components';
+import Skeleton from '@components/common/skeleton';
+
+const StyledFallback = styled.div`
+  height: calc(100% - 190px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 18px;
+  padding-top: 90px;
+  padding-bottom: 100px;
+`;
+
+export const Fallback = (): ReactElement => {
+  return (
+    <StyledFallback>
+      <Skeleton num={6} />
+    </StyledFallback>
+  );
+};
 
 const constant = {
   width: 342,

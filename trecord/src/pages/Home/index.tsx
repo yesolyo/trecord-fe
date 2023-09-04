@@ -1,4 +1,4 @@
-import { FeedHome } from '@components/FeedHome';
+import { FeedHome, Fallback as FeedHomeFallback } from '@components/FeedHome';
 import { NavBarHome } from '@components/common/NavBar/NavBarHome';
 import { TabBar } from '@components/common/TabBar';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const Home = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<FeedHomeFallback />}>
         <FeedHome totalFeedsSetter={setTotalFeeds} />
       </Suspense>
       <S.ButtonBox>
