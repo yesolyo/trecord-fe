@@ -1,23 +1,11 @@
-import { LoginProfileImg } from '@components/LoginProfile/LoginProfileImg';
-import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useEffect, useState } from 'react';
 import * as S from './style';
-import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
-import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
-import { MyPageBtn } from '@components/MyPage/MyPageBtn';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
 import { useNavigate } from 'react-router-dom';
 export const MyPage = () => {
-  const [profileFile, setProfileFile] = useState<{
-    imgFile: string;
-    originFile: File | Blob | string;
-  }>({
-    imgFile: '',
-    originFile: '',
-  });
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');

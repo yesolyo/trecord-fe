@@ -31,7 +31,7 @@ const DateBox = styled.div`
 const ModifyFeed = (): ReactElement => {
   const navigate = useNavigate();
   const { id = '' } = useParams();
-  const { data, isFetching, isLoading } = useGetFeedDetail({ id });
+  const { data } = useGetFeedDetail({ id });
   const { mutate } = useModifyFeed({ id });
 
   const [imgFile, setImgFile] = useState<{

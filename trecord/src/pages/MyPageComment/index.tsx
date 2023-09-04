@@ -1,13 +1,11 @@
 import { getMypageComment } from '@/apis/Comment/getMypageComment';
 import { GetMypageCommentResponse } from '@/types/comment';
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
 import { useDeleteNewComment } from '@/apis/Comment/postNewComment';
-import { CommentModal, deletDataProps } from '@components/Comment/CommentModal';
-import { CommentUserModal } from '@components/Comment/CommentUserModal';
+import { deletDataProps } from '@components/Comment/CommentModal';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 export const MyPageComment = () => {

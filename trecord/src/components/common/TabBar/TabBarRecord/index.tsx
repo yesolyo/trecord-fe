@@ -1,6 +1,5 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
-import { useNavigate, useParams } from 'react-router-dom';
 interface TabBarRecordProps {
   isRegister: boolean;
   onPrevClick?: () => void;
