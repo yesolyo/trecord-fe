@@ -49,6 +49,8 @@ export const ExplainBox = styled.div`
     ${({ theme }) => theme.font.fontType.S}
   }
   .detail_place {
+    display: inline-flex;
+    gap: 4px;
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
     padding-bottom:10px;
