@@ -32,6 +32,7 @@ export const MyPage = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
   const menuServiceConstant: mypageMenuProps = {
     title: '서비스 설정',
     menuList: [
