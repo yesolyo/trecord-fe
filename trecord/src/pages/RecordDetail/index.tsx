@@ -1,5 +1,5 @@
 import * as S from './style';
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { SELECT_INFOS } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
@@ -10,6 +10,7 @@ import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
 import SelectButton from '@components/common/button/SelectButton';
 import Modal from '@components/common/Modal';
+import Skeleton from '@components/common/skeleton';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -22,6 +23,48 @@ const StyledNavbar = styled.div`
   padding-left: 20px;
   z-index: 10;
 `;
+
+export const Fallback = (): ReactElement => {
+  const { state } = useLocation();
+  const { feedId } = state;
+  const navigate = useNavigate();
+
+  return (
+    <S.Layout>
+      <StyledNavbar>
+        <Icon
+          iconType="arrow"
+          width={24}
+          fill={colorStyles.gray900}
+          onClick={() => navigate(`/feedDetail/${feedId}`)}
+        />
+      </StyledNavbar>
+      <S.DataBox>
+        <div className="loading">
+          <Skeleton width="80%" height="20px" />
+          <div className="loading-title-area">
+            <div className="title">
+              <div>여행 날짜</div>
+              <div>장소</div>
+              <div>오늘의 기분</div>
+              <div>이동 수단</div>
+              <div>같이 간 사람</div>
+            </div>
+            <div className="content">
+              <Skeleton width="70%" height="20px" num={5} />
+            </div>
+          </div>
+          <hr />
+          <div className="content">
+            <Skeleton width="100%" height="300px" />
+          </div>
+        </div>
+        {/* {recordData && <RecordDetailTitle recordData={recordData} />} */}
+        {/* {recordData && <RecordDetailSub recordData={recordData} />} */}
+      </S.DataBox>
+    </S.Layout>
+  );
+};
 
 export const RecordDetail = () => {
   const { state } = useLocation();

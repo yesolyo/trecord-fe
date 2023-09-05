@@ -8,9 +8,57 @@ import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
 import { useDeleteFeed, useGetFeedDetail } from '@/apis';
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
+import Skeleton from '@components/common/skeleton';
+
+export const Fallback = (): ReactElement => {
+  const navigate = useNavigate();
+  return (
+    <S.Layout>
+      <NavBarBackBtn
+        onBackBtnClick={() => navigate('/home')}
+        isCategory={false}
+      />
+      <S.ImgBox>
+        <Skeleton width="100%" height="509px" />
+      </S.ImgBox>
+      <S.ExplainBox>
+        <S.IconBox>
+          <div className="detail_name">
+            <Skeleton height="20px" width="250px" />
+          </div>
+        </S.IconBox>
+        <div className="detail_place">
+          <Skeleton height="20px" width="40px" /> |{' '}
+          <Skeleton height="20px" width="100px" /> ~{' '}
+          <Skeleton height="20px" width="100px" />
+        </div>
+        <div className="detail_place">
+          <Skeleton num={3} height="20px" width="50px" />
+        </div>
+        <S.EmojiBox>
+          <div>만족도</div>
+          <S.FeelBox>
+            <Skeleton height="20px" width="24px" />
+            <Skeleton height="20px" width="50px" />
+          </S.FeelBox>
+        </S.EmojiBox>
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+            flexDirection: 'column',
+            marginTop: '18px',
+          }}
+        >
+          <Skeleton num={3} height="20px" width="100%" />
+        </div>
+      </S.ExplainBox>
+    </S.Layout>
+  );
+};
 
 export const FeedDetail = () => {
   const { id = '' } = useParams();

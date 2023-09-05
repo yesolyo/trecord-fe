@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   height: calc(100% - 190px);
   overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
