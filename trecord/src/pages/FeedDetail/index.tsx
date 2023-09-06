@@ -97,20 +97,24 @@ export const FeedDetail = () => {
   return (
     <>
       <S.Layout>
-        <NavBarBackBtn
-          onBackBtnClick={() => navigate('/home')}
-          isCategory={false}
-        />
+        {detailData?.isUpdatable && (
+          <NavBarBackBtn
+            onBackBtnClick={() => navigate('/home')}
+            isCategory={false}
+          />
+        )}
         <S.ImgBox>
           <img src={detailData?.imageUrl} />
         </S.ImgBox>
         <S.ExplainBox>
           <S.IconBox>
             <div className="detail_name">{detailData?.name}</div>
-            <SelectButton
-              options={SELECT_INFOS}
-              onSelect={handleChangeSelect}
-            />
+            {detailData?.isUpdatable && (
+              <SelectButton
+                options={SELECT_INFOS}
+                onSelect={handleChangeSelect}
+              />
+            )}
           </S.IconBox>
           <div className="detail_place">
             {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
@@ -135,15 +139,18 @@ export const FeedDetail = () => {
         </S.ExplainBox>
         <S.EditButtonBox>
           <CircularButton
-            iconType="edit"
+            iconType={detailData?.isUpdatable ? 'edit' : 'login'}
             width={24}
-            onClick={() =>
-              navigate('/newRecord', {
-                state: {
-                  id: id,
-                },
-              })
-            }
+            onClick={() => {
+              const path = detailData?.isUpdatable ? '/newRecord' : '/login';
+              navigate(path, {
+                ...(detailData?.isUpdatable && {
+                  state: {
+                    id: id,
+                  },
+                }),
+              });
+            }}
           />
         </S.EditButtonBox>
       </S.Layout>
