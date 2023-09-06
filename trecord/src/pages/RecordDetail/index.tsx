@@ -1,5 +1,5 @@
 import * as S from './style';
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { SELECT_INFOS } from '@/types';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
@@ -25,20 +25,8 @@ const StyledNavbar = styled.div`
 `;
 
 export const Fallback = (): ReactElement => {
-  const { state } = useLocation();
-  const { feedId } = state;
-  const navigate = useNavigate();
-
   return (
     <S.Layout>
-      <StyledNavbar>
-        <Icon
-          iconType="arrow"
-          width={24}
-          fill={colorStyles.gray900}
-          onClick={() => navigate(`/feedDetail/${feedId}`)}
-        />
-      </StyledNavbar>
       <S.DataBox>
         <div className="loading">
           <Skeleton width="80%" height="20px" />
@@ -66,9 +54,13 @@ export const Fallback = (): ReactElement => {
 
 export const RecordDetail = () => {
   const { state } = useLocation();
-  const { feedId } = state;
   const { id: recordId = '' } = useParams();
   const { data: recordData } = useGetRecord({ id: recordId });
+  const feedId = useMemo(() => recordData?.feedId, [recordData]);
+  const isFromRecordShare = useMemo(() => {
+    const fId = state ? state.feedId : undefined;
+    return fId !== feedId;
+  }, [state, feedId]);
   const { mutate: deleteRecord } = useDeleteRecord({ recordId });
   const navigate = useNavigate();
 
@@ -108,12 +100,16 @@ export const RecordDetail = () => {
     <>
       <S.Layout>
         <StyledNavbar>
-          <Icon
-            iconType="arrow"
-            width={24}
-            fill={colorStyles.gray900}
-            onClick={handleClickGoback}
-          />
+          {((!recordData?.isUpdatable && !isFromRecordShare) ||
+            recordData?.isUpdatable) && (
+            <Icon
+              iconType="arrow"
+              width={24}
+              fill={colorStyles.gray900}
+              onClick={handleClickGoback}
+            />
+          )}
+
           {recordData?.isUpdatable && (
             <SelectButton
               right="3%"
