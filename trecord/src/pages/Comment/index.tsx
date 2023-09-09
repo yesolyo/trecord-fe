@@ -106,12 +106,11 @@ export const Comment = () => {
   //TODO: commentUserModal창이 나오면 댓글이 사라지는 현상 고침 필요
   return (
     <>
-      {/* {isUserProfile && (
-        <CommentUserModal
-          isUserProfile={setIsUserProfile}
-          {...userProfileData}
-        />
-      )} */}
+      <CommentUserModal
+        openModal={isUserProfile}
+        isUserProfile={setIsUserProfile}
+        {...userProfileData}
+      />
 
       <NavBarNew {...constant} />
 

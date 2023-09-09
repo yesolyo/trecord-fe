@@ -11,6 +11,11 @@ export const Layout = styled.div`
   width: 100%;
   height: calc(100% - 190px);
   overflow: auto;
+  .user-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
 `;
 export const LineBox = styled.hr`
   width: 390px;
