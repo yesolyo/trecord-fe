@@ -3,11 +3,14 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   gap: 10px;
   padding-top: 90px;
   padding-bottom: 100px;
+  width: 100%;
+  height: calc(100% - 190px);
+  overflow: auto;
 `;
 export const LineBox = styled.hr`
   width: 390px;
@@ -17,8 +20,8 @@ export const LineBox = styled.hr`
 `;
 export const CommentBox = styled.div`
   display: flex;
-  padding-left: 30px;
   gap: 25px;
+  width: 350px;
 `;
 export const CommentDataBox = styled.div`
   display: flex;

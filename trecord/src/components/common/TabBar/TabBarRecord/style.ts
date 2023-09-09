@@ -7,7 +7,7 @@ export const Layout = styled.div`
   padding-top: 10px;
   padding-right: 20px;
   justify-content: flex-end;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   gap: 10px;
   border-top: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};

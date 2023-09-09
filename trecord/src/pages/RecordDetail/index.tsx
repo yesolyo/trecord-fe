@@ -10,6 +10,8 @@ import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
 import SelectButton from '@components/common/button/SelectButton';
 import Modal from '@components/common/Modal';
+import { TabBarComment } from '@components/common/TabBar/TabBarComment';
+import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -82,6 +84,10 @@ export const RecordDetail = () => {
         <S.DataBox>
           {recordData && <RecordDetailTitle recordData={recordData} />}
           {recordData && <RecordDetailSub recordData={recordData} />}
+          <TabBarRecord
+            isRegister={false}
+            onNextClick={() => navigate(`/comment/${recordId}`)}
+          />
         </S.DataBox>
       </S.Layout>
       <Modal

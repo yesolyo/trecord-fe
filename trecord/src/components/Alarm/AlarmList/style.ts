@@ -7,6 +7,8 @@ export const Layout = styled.div`
   gap: 15px;
   width: 100%;
   align-items: center;
+  height: calc(100% - 190px);
+  overflow: auto;
 
   .container {
     display: flex;

@@ -12,6 +12,8 @@ interface commentListProps {
   handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
   commentId: React.Dispatch<React.SetStateAction<number>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewComment: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {

@@ -9,7 +9,7 @@ export const Layout = styled.div`
   display: flex;
   width: 390px;
   height: 100px;
-  position: fixed;
+  position: absolute;
   justify-content: center;
   align-items: center;
   gap: 10px;

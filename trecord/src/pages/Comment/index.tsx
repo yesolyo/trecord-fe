@@ -18,6 +18,7 @@ import {
   usePutNewComment,
 } from '@/apis/Comment/postNewComment';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
+import Modal from '@components/common/Modal';
 
 export const Comment = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export const Comment = () => {
   const [comment, setComment] = useState<GetCommentProps[]>([]);
   const [newComment, setNewComment] = useState('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [isNewComment, setIsNewComment] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
@@ -102,14 +105,13 @@ export const Comment = () => {
   };
   //TODO: commentUserModal창이 나오면 댓글이 사라지는 현상 고침 필요
   return (
-    <S.Layout>
-      {isUserProfile && <S.DimBox />}
-      {isUserProfile && (
+    <>
+      {/* {isUserProfile && (
         <CommentUserModal
           isUserProfile={setIsUserProfile}
           {...userProfileData}
         />
-      )}
+      )} */}
 
       <NavBarNew {...constant} />
 
@@ -120,6 +122,20 @@ export const Comment = () => {
         handleDeleteClick={HandleDeleteData}
         commentId={setCommentId}
         isEdit={setIsEdit}
+        isDelete={setIsDelete}
+        isNewComment={setIsNewComment}
+      />
+      <Modal
+        openModal={isDelete}
+        body="한 번 삭제하면 되돌릴 수 없어요"
+        title="댓글을 삭제할까요?"
+        closeText="취소"
+        confirmText="삭제"
+        onClose={() => setIsDelete(false)}
+        onConfirm={() => {
+          HandleDeleteData({ id: commentId });
+          setIsDelete(false);
+        }}
       />
 
       <TabBarComment
@@ -131,6 +147,6 @@ export const Comment = () => {
         commentId={commentId}
         isEdit={setIsEdit}
       />
-    </S.Layout>
+    </>
   );
 };
