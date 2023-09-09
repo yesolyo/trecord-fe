@@ -39,7 +39,7 @@ export const Auth = () => {
         }
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   return <StyledDiv>로그인 중입니다.</StyledDiv>;
 };

@@ -16,6 +16,7 @@ import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
 import { RecordDetail } from './pages/RecordDetail';
 import { FeedDetail } from './pages/FeedDetail';
+import { Alarm } from './pages/Alarm';
 
 export const router = createBrowserRouter(
   [
@@ -103,6 +104,10 @@ export const router = createBrowserRouter(
         {
           path: '/comment/:id',
           element: <Comment />,
+        },
+        {
+          path: '/alarm',
+          element: <Alarm />,
         },
         {
           path: '/mypage',

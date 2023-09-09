@@ -2,14 +2,16 @@ import { colorStyles } from '@/styles/color';
 import { Icon } from '../Icon';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
+
 interface TabBarProps {
   currentPage: string;
 }
 export const TabBar = ({ currentPage }: TabBarProps) => {
   const navigate = useNavigate();
+
   return (
     <S.Layout>
-      <S.menuBox type="button">
+      <S.menuBox type="button" onClick={() => navigate('/alarm')}>
         <Icon
           iconType="alarm"
           width={24}

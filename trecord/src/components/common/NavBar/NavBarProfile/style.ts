@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-
+export const Layout = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
 export const TextBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 22px;
-  margin-top: 50px;
 
   .profile_main-title {
     ${({ theme }) => theme.font.fontSize.Title_BL}
@@ -14,4 +16,19 @@ export const TextBox = styled.div`
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
   }
+`;
+export const BarBox = styled.div`
+  margin-top: 50px;
+  display: flex;
+  width: 350px;
+  justify-content: space-between;
+`;
+export const ButtonBox = styled.button`
+  ${({ theme }) => theme.font.fontSize.Caption_S}
+  ${({ theme }) => theme.font.fontType.M}
+  background:none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 `;
