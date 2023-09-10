@@ -83,8 +83,9 @@ export const RecordDetail = () => {
           setOpenModal(true);
           return;
         case 'SHARE':
-        default:
           setOpenShareModal(true);
+          return;
+        default:
       }
     },
     [navigate],

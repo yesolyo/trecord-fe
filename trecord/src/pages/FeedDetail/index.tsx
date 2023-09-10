@@ -12,6 +12,7 @@ import { ReactElement, useCallback, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
+import ShareModalBody from '@components/common/Modal/ShareModalBody';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -67,6 +68,8 @@ export const FeedDetail = () => {
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [shareInput, setShareInput] = useState('');
 
   const handleConfirmDelete = useCallback(() => {
     deleteFeed(
@@ -87,6 +90,9 @@ export const FeedDetail = () => {
           return;
         case 'DELETE':
           setOpenModal(true);
+          return;
+        case 'SHARE':
+          setOpenShareModal(true);
           return;
         default:
       }
@@ -163,6 +169,15 @@ export const FeedDetail = () => {
         confirmText="삭제"
         onConfirm={handleConfirmDelete}
       />
+      <Modal
+        openModal={openShareModal}
+        onClose={() => setOpenShareModal(false)}
+      >
+        <ShareModalBody
+          inputValue={shareInput}
+          inputValueSetter={setShareInput}
+        />
+      </Modal>
     </>
   );
 };
