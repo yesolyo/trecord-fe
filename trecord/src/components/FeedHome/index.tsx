@@ -1,8 +1,9 @@
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useGetFeeds } from '@/apis';
+import { useEffect } from 'react';
+import { Empty } from '@components/common/Empty';
 import { ReactElement, useEffect } from 'react';
-import { EmptyHome } from '@components/EmptyHome';
 import styled from 'styled-components';
 import Skeleton from '@components/common/skeleton';
 
@@ -46,7 +47,25 @@ export const FeedHome = ({
     if (pageData) setTotalFeeds(pageData.length);
   }, [pageData]);
 
-  if (pageData?.length === 0) return <EmptyHome />;
+  const constant = {
+    icon: {
+      width: 111.37,
+      height: 73,
+    },
+    title: '앗!',
+    subTitle: [
+      {
+        id: 1,
+        body: '아직 생성된 페이지가 없어요.',
+      },
+      {
+        id: 2,
+        body: '소중한 여행 추억을 기록해보세요.',
+      },
+    ],
+  };
+
+  if (pageData?.length === 0) return <Empty {...constant} />;
 
   return (
     <S.Layout>
@@ -55,7 +74,7 @@ export const FeedHome = ({
           key={feed.id}
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
-          <img src={feed.imageUrl} {...constant} />
+          <img src={feed.imageUrl} width={342} height={180} />
           <div className="img_oppacity"></div>
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>

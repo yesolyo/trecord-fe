@@ -33,6 +33,7 @@ import { ReactComponent as heart } from '@/assets/heart.svg';
 import { ReactComponent as userEdit } from '@/assets/userEdit.svg';
 import { ReactComponent as arrowRight } from '@/assets/arrowRight.svg';
 import { ReactComponent as close } from '@/assets/close.svg';
+import { ReactComponent as arrowDown } from '@/assets/arrowDown.svg';
 import { ReactComponent as login } from '@/assets/login.svg';
 import { ReactComponent as share } from '@/assets/share.svg';
 
@@ -72,6 +73,7 @@ export default {
   heart,
   userEdit,
   arrowRight,
+  arrowDown,
   login,
   share,
 };

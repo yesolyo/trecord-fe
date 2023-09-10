@@ -10,6 +10,7 @@ import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
 import SelectButton from '@components/common/button/SelectButton';
 import Modal from '@components/common/Modal';
+import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ShareModalBody';
 
@@ -127,6 +128,10 @@ export const RecordDetail = () => {
         <S.DataBox>
           {recordData && <RecordDetailTitle recordData={recordData} />}
           {recordData && <RecordDetailSub recordData={recordData} />}
+          <TabBarRecord
+            isRegister={false}
+            onNextClick={() => navigate(`/comment/${recordId}`)}
+          />
         </S.DataBox>
       </S.Layout>
       <Modal

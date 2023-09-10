@@ -14,6 +14,7 @@ import { MyPageProfile } from './pages/MyPageProfile';
 import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
+import { Alarm } from './pages/Alarm';
 import {
   RecordDetail,
   Fallback as RecordDetailFallback,
@@ -106,6 +107,10 @@ export const router = createBrowserRouter(
         {
           path: '/comment/:id',
           element: <Comment />,
+        },
+        {
+          path: '/alarm',
+          element: <Alarm />,
         },
         {
           path: '/mypage',

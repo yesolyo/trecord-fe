@@ -12,6 +12,8 @@ interface commentListProps {
   handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
   commentId: React.Dispatch<React.SetStateAction<number>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {
@@ -30,17 +32,32 @@ export const CommentList = ({ ...props }: commentListProps) => {
       {props.commentData.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
-            <Icon
-              iconType="profile"
-              width={28}
-              onClick={() =>
-                handleUserProfile({
-                  imgUrl: user.commenterImageUrl,
-                  nickName: user.commenterNickname,
-                  content: user.content,
-                })
-              }
-            />
+            {user.commenterImageUrl.length >= 1 ? (
+              <img
+                src={user.commenterImageUrl}
+                className="user-img"
+                onClick={() =>
+                  handleUserProfile({
+                    imgUrl: user.commenterImageUrl,
+                    nickName: user.commenterNickname,
+                    content: user.content,
+                  })
+                }
+              />
+            ) : (
+              <Icon
+                iconType="profile"
+                width={28}
+                onClick={() =>
+                  handleUserProfile({
+                    imgUrl: user.commenterImageUrl,
+                    nickName: user.commenterNickname,
+                    content: user.content,
+                  })
+                }
+              />
+            )}
+
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.commenterNickname}</div>

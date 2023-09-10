@@ -7,6 +7,8 @@ interface commentCateogoryProps {
   handleDeleteClick: ({}: deletDataProps) => void;
   isEdit: React.Dispatch<React.SetStateAction<boolean>>;
   commentId: React.Dispatch<React.SetStateAction<number>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
@@ -35,7 +37,10 @@ export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
       <Icon
         iconType="more"
         width={16}
-        onClick={() => setIsCategory(!isCategory)}
+        onClick={() => {
+          props.commentId(props.id);
+          setIsCategory(!isCategory);
+        }}
       />
       {isCategory && <CommentModal {...props} />}
     </S.Layout>
