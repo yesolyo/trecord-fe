@@ -11,6 +11,7 @@ import { colorStyles } from '@/styles/color';
 import SelectButton from '@components/common/button/SelectButton';
 import Modal from '@components/common/Modal';
 import Skeleton from '@components/common/skeleton';
+import ShareModalBody from '@components/common/Modal/ShareModalBody';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -65,6 +66,8 @@ export const RecordDetail = () => {
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [shareInput, setShareInput] = useState('');
 
   const handleClickGoback = useCallback(() => {
     navigate(`/feedDetail/${feedId ?? recordData?.feedId}`);
@@ -79,7 +82,9 @@ export const RecordDetail = () => {
         case 'DELETE':
           setOpenModal(true);
           return;
+        case 'SHARE':
         default:
+          setOpenShareModal(true);
       }
     },
     [navigate],
@@ -132,6 +137,12 @@ export const RecordDetail = () => {
         confirmText="삭제"
         onConfirm={handleConfirmDelete}
       />
+      <Modal openModal={openShareModal}>
+        <ShareModalBody
+          inputValue={shareInput}
+          inputValueSetter={setShareInput}
+        />
+      </Modal>
     </>
   );
 };
