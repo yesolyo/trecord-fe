@@ -12,6 +12,7 @@ import { ReactElement, useCallback, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
+import ShareModalBody from '@components/common/Modal/ShareModalBody';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -67,6 +68,8 @@ export const FeedDetail = () => {
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [shareInput, setShareInput] = useState('');
 
   const handleConfirmDelete = useCallback(() => {
     deleteFeed(
@@ -88,6 +91,9 @@ export const FeedDetail = () => {
         case 'DELETE':
           setOpenModal(true);
           return;
+        case 'SHARE':
+          setOpenShareModal(true);
+          return;
         default:
       }
     },
@@ -97,20 +103,24 @@ export const FeedDetail = () => {
   return (
     <>
       <S.Layout>
-        <NavBarBackBtn
-          onBackBtnClick={() => navigate('/home')}
-          isCategory={false}
-        />
+        {detailData?.isUpdatable && (
+          <NavBarBackBtn
+            onBackBtnClick={() => navigate('/home')}
+            isCategory={false}
+          />
+        )}
         <S.ImgBox>
           <img src={detailData?.imageUrl} />
         </S.ImgBox>
         <S.ExplainBox>
           <S.IconBox>
             <div className="detail_name">{detailData?.name}</div>
-            <SelectButton
-              options={SELECT_INFOS}
-              onSelect={handleChangeSelect}
-            />
+            {detailData?.isUpdatable && (
+              <SelectButton
+                options={SELECT_INFOS}
+                onSelect={handleChangeSelect}
+              />
+            )}
           </S.IconBox>
           <div className="detail_place">
             {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
@@ -135,15 +145,18 @@ export const FeedDetail = () => {
         </S.ExplainBox>
         <S.EditButtonBox>
           <CircularButton
-            iconType="edit"
+            iconType={detailData?.isUpdatable ? 'edit' : 'login'}
             width={24}
-            onClick={() =>
-              navigate('/newRecord', {
-                state: {
-                  id: id,
-                },
-              })
-            }
+            onClick={() => {
+              const path = detailData?.isUpdatable ? '/newRecord' : '/login';
+              navigate(path, {
+                ...(detailData?.isUpdatable && {
+                  state: {
+                    id: id,
+                  },
+                }),
+              });
+            }}
           />
         </S.EditButtonBox>
       </S.Layout>
@@ -156,6 +169,15 @@ export const FeedDetail = () => {
         confirmText="삭제"
         onConfirm={handleConfirmDelete}
       />
+      <Modal
+        openModal={openShareModal}
+        onClose={() => setOpenShareModal(false)}
+      >
+        <ShareModalBody
+          inputValue={shareInput}
+          inputValueSetter={setShareInput}
+        />
+      </Modal>
     </>
   );
 };
