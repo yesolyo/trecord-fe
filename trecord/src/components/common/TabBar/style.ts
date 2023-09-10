@@ -6,7 +6,7 @@ interface ItemNamePrps {
 export const Layout = styled.div`
   position: absolute;
   display: flex;
-  width: 390px;
+  width: 100%;
   height: 92px;
   justify-content: space-around;
   align-items: center;

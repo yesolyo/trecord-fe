@@ -14,9 +14,12 @@ import { MyPageProfile } from './pages/MyPageProfile';
 import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
-import { RecordDetail } from './pages/RecordDetail';
-import { FeedDetail } from './pages/FeedDetail';
 import { Alarm } from './pages/Alarm';
+import {
+  RecordDetail,
+  Fallback as RecordDetailFallback,
+} from './pages/RecordDetail';
+import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
 
 export const router = createBrowserRouter(
   [
@@ -56,7 +59,7 @@ export const router = createBrowserRouter(
         {
           path: '/feedDetail/:id',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<FeedDetailFallback />}>
               <FeedDetail />
             </Suspense>
           ),
@@ -96,7 +99,7 @@ export const router = createBrowserRouter(
         {
           path: '/recordDetail/:id',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<RecordDetailFallback />}>
               <RecordDetail />
             </Suspense>
           ),

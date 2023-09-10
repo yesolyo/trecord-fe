@@ -14,10 +14,18 @@ class Http {
     });
   }
 
+  /**
+   * 토큰이 있는 경우에만 헤더에 Authorization을 보냅니다.
+   */
   async get<Response = unknown>(url: string, conf: AxiosRequestConfig = {}) {
     return this.axios
       .get<TrecordResponse<Response>>(url, {
         ...conf,
+        ...(localStorage.getItem('acessToken') && {
+          headers: {
+            Authorization: localStorage.getItem('acessToken'),
+          },
+        }),
       })
       .then((res) => res.data.data);
   }
