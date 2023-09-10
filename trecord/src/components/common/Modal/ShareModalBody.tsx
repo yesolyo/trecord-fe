@@ -124,7 +124,7 @@ const ShareModalBody = ({
       <hr />
       <div className="share">
         <CopyToClipboard
-          text="초대 링크 복사"
+          text={window.location.href}
           onCopy={() => showToast('클립 보드에 복사되었습니다.')}
         >
           <div className="button">
