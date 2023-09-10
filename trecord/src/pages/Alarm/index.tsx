@@ -2,7 +2,7 @@ import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
 import * as S from './style';
 
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import useGetAllAlarm from '@/apis/Alarm/getAlarm';
 import { AlarmList } from '@components/Alarm/AlarmList';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
@@ -23,7 +23,7 @@ export const Alarm = () => {
   const { data: allAlarmData } = useGetAllAlarm();
   const { data: commentAlarmData } = useGetCommentAlarm();
   const { data: likeAlarmData } = useGetLikeAlarm();
-  console.log(allAlarmData);
+
   const handleAllAlarm = () => {
     setIsAlarm({
       isAll: true,
@@ -84,14 +84,11 @@ export const Alarm = () => {
         onComment={handleCommentAlarm}
         onLike={handleLikeAlarm}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        {isAlarm.isAll && allAlarmData && <AlarmList {...allAlarmData} />}
-        {isAlarm.isComment && commentAlarmData && (
-          <AlarmList {...commentAlarmData} />
-        )}
-        {isAlarm.isLike && likeAlarmData && <AlarmList {...likeAlarmData} />}
-      </Suspense>
-
+      {isAlarm.isAll && allAlarmData && <AlarmList {...allAlarmData} />}
+      {isAlarm.isComment && commentAlarmData && (
+        <AlarmList {...commentAlarmData} />
+      )}
+      {isAlarm.isLike && likeAlarmData && <AlarmList {...likeAlarmData} />}
       <TabBar currentPage={'alarm'} />
     </S.Layout>
   );

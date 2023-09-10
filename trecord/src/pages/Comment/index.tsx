@@ -29,7 +29,6 @@ export const Comment = () => {
   const [newComment, setNewComment] = useState('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDelete, setIsDelete] = useState<boolean>(false);
-  const [isNewComment, setIsNewComment] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
