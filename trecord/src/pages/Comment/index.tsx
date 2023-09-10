@@ -2,7 +2,6 @@ import { CommentList } from '@components/Comment/CommentList';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as S from './style';
 import { useEffect, useState } from 'react';
 import {
   CommentUserModalProps,
@@ -111,9 +110,7 @@ export const Comment = () => {
         isUserProfile={setIsUserProfile}
         {...userProfileData}
       />
-
       <NavBarNew {...constant} />
-
       <CommentList
         commentData={comment}
         isUserProfile={setIsUserProfile}
@@ -122,7 +119,6 @@ export const Comment = () => {
         commentId={setCommentId}
         isEdit={setIsEdit}
         isDelete={setIsDelete}
-        isNewComment={setIsNewComment}
       />
       <Modal
         openModal={isDelete}

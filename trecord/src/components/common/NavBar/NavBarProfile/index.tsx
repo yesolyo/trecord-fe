@@ -4,7 +4,7 @@ import * as S from './style';
 interface navBarProfileProps {
   mainTitle: string;
   subTitle?: string;
-  filterText: string;
+  filterText?: string;
   isButton?: boolean;
   onClick?: () => void;
 }

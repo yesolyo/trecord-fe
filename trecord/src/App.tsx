@@ -3,8 +3,8 @@ import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+// import { useEffect, useState } from 'react';
+// import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 const MobileLikeDiv = styled.div`
   position: relative;
@@ -38,7 +38,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const getToken = localStorage.getItem('acessToken');
+  //TODO:sse 이벤트 연결 부분 로직(차후 기능 완성 시 연결 예정)
+  // const getToken = localStorage.getItem('acessToken');
   // const EventSource = EventSourcePolyfill || NativeEventSource;
   // useEffect(() => {
   //   if (getToken) {

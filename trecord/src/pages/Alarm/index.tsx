@@ -5,7 +5,6 @@ import * as S from './style';
 import { Suspense, useState } from 'react';
 import useGetAllAlarm from '@/apis/Alarm/getAlarm';
 import { AlarmList } from '@components/Alarm/AlarmList';
-import { GetAllAlarmResponse } from '@/types/alarm';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
 import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
 import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
@@ -48,44 +47,6 @@ export const Alarm = () => {
       isLike: true,
     });
     setIsFilterActive(false);
-  };
-
-  const mockdata: GetAllAlarmResponse = {
-    notifications: [
-      {
-        type: 'RECORD_LIKE',
-        status: 'UNREAD',
-        content: 'nickname1님이 회원님의 기록을 좋아합니다.',
-        userFrom: {
-          id: 1,
-          nickname: '하혜림',
-        },
-        record: {
-          id: 1,
-          title: 'title',
-        },
-        comment: {
-          id: 1,
-          parentId: 'ㅇㄹㅇㄹ',
-          content: 'ㅎㅇㄴㄹ',
-        },
-        date: '2023-09-08T19:57',
-      },
-      {
-        type: 'RECORD_LIKE',
-        status: 'UNREAD',
-        content: 'nickname3님이 회원님의 기록을 좋아합니다.',
-        userFrom: {
-          id: 2,
-          nickname: '안예림',
-        },
-        record: {
-          id: 1,
-          title: 'title',
-        },
-        date: '2023-09-08T19:57',
-      },
-    ],
   };
 
   return (
