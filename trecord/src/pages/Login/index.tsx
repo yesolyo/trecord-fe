@@ -7,6 +7,7 @@ export const Login = () => {
     width: 133,
     height: 21,
   };
+
   return (
     <S.Layout>
       <S.LogoBox>
