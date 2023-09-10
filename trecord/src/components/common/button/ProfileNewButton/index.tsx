@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { SquareBtn } from '../../SquareBtn';
+import uuid from 'react-uuid';
 
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
@@ -44,10 +45,7 @@ export const ProfileNewButton = ({
       },
     });
 
-    const key =
-      imageFile.originFile instanceof File
-        ? imageFile.originFile.name
-        : 'default-name';
+    const key = imageFile instanceof File ? uuid() : Date.now();
 
     const params = {
       ACL: 'public-read',

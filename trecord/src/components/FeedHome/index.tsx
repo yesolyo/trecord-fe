@@ -1,7 +1,6 @@
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useGetFeeds } from '@/apis';
-import { useEffect } from 'react';
 import { Empty } from '@components/common/Empty';
 import { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
@@ -26,11 +25,6 @@ export const Fallback = (): ReactElement => {
       <Skeleton num={6} />
     </StyledFallback>
   );
-};
-
-const constant = {
-  width: 342,
-  height: 180,
 };
 
 interface FeedHomeProps {
