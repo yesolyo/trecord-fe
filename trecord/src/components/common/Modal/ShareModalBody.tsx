@@ -1,6 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../Icon';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ToastContext } from '../Toast';
 
 const StyledModalBody = styled.div`
   display: flex;
@@ -71,15 +73,17 @@ const StyledModalBody = styled.div`
   .share {
     display: inline-flex;
     justify-content: flex-end;
-    gap: 5px;
-    color: var(--Gray900, #1e1e1e);
 
-    /* Body-M */
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
+    .button {
+      display: inline-flex;
+      gap: 5px;
+      color: var(--Gray900, #1e1e1e);
+      font-family: Pretendard;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px; /* 150% */
+    }
   }
 `;
 
@@ -92,6 +96,14 @@ const ShareModalBody = ({
   inputValue,
   inputValueSetter: setInputValue,
 }: Props): ReactElement => {
+  const toastContext = useContext(ToastContext);
+
+  if (!toastContext) {
+    throw new Error('ToastProvider 필요');
+  }
+
+  const { showToast } = toastContext;
+
   return (
     <StyledModalBody>
       <div className="invite">
@@ -111,8 +123,15 @@ const ShareModalBody = ({
       </div>
       <hr />
       <div className="share">
-        <Icon iconType="share" width={24} height={24} />
-        <div>초대 링크 복사</div>
+        <CopyToClipboard
+          text="초대 링크 복사"
+          onCopy={() => showToast('클립 보드에 복사되었습니다.')}
+        >
+          <div className="button">
+            <Icon iconType="share" width={24} height={24} />
+            <div>초대 링크 복사</div>
+          </div>
+        </CopyToClipboard>
       </div>
     </StyledModalBody>
   );
