@@ -1,11 +1,13 @@
 import { recordList } from '@/types';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from '@components/common/Icon';
 interface RecordListProps {
   feedId: string;
   listData: recordList[];
 }
 export const RecordList = ({ feedId, listData }: RecordListProps) => {
+  console.log(listData);
   const navigate = useNavigate();
   const result = listData.reduce(
     (acc, curr) => {
@@ -36,6 +38,9 @@ export const RecordList = ({ feedId, listData }: RecordListProps) => {
               <S.DataBox>
                 {record.imageUrl && <S.ImgBox src={record.imageUrl}></S.ImgBox>}
                 <div className="record_title">{record.title}</div>
+                <div className="icon-container">
+                  <Icon iconType="change" width={24} height={24} />
+                </div>
               </S.DataBox>
             </S.ItemBox>
           ))}

@@ -56,4 +56,10 @@ export const DataBox = styled.div`
     ${({ theme }) => theme.font.fontSize.Body_M};
     color: ${({ theme }) => theme.colors.colorStyles.gray900};
   }
+  .icon-container {
+    flex: 1;
+    display: inline-flex;
+    justify-content: end;
+    align-items: center;
+  }
 `;
