@@ -34,6 +34,7 @@ export const RecordList = ({ feedId, listData }: RecordListProps) => {
               }
             >
               <S.DataBox>
+                {record.imageUrl && <S.ImgBox src={record.imageUrl}></S.ImgBox>}
                 <div className="record_title">{record.title}</div>
               </S.DataBox>
             </S.ItemBox>

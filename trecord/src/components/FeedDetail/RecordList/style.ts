@@ -22,29 +22,36 @@ export const ItemBox = styled.div`
   display: flex;
   align-items: center;
   width: 312px;
-  height: 50px;
   border-radius: 8px;
   box-shadow: 0px -2px 10px rgba(0, 0, 8, 0.12);
   gap: 15px;
-  padding-left: 15px;
+  padding: 8px 15px;
 `;
 
-export const ImgBox = styled.div`
+export const ImgBox = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray600};
+  img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export const DataBox = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 15px;
   .record_date {
     ${({ theme }) => theme.font.fontType.R};
     ${({ theme }) => theme.font.fontSize.Body_S};
     color: ${({ theme }) => theme.colors.colorStyles.gray600};
   }
   .record_title {
+    display: inline-flex;
+    align-items: center;
     ${({ theme }) => theme.font.fontType.R};
     ${({ theme }) => theme.font.fontSize.Body_M};
     color: ${({ theme }) => theme.colors.colorStyles.gray900};
