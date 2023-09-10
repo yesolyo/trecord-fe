@@ -158,12 +158,6 @@ const Modal = ({
     const handleOutsideClick = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
       if (target?.lastChild === modalRef.current) onClose?.();
-
-      let flag = false;
-      modalRef.current?.childNodes.forEach((node) => {
-        if (node === event.target) flag = true;
-      });
-      if (!flag) onClose?.();
     };
 
     if (openModal) {

@@ -137,7 +137,10 @@ export const RecordDetail = () => {
         confirmText="삭제"
         onConfirm={handleConfirmDelete}
       />
-      <Modal openModal={openShareModal}>
+      <Modal
+        openModal={openShareModal}
+        onClose={() => setOpenShareModal(false)}
+      >
         <ShareModalBody
           inputValue={shareInput}
           inputValueSetter={setShareInput}
