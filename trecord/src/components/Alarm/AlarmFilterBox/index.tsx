@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div<{ display: string }>`
   display: ${({ display }) => display};
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,6 +15,7 @@ const StyledDiv = styled.div<{ display: string }>`
 
   .modal {
     display: flex;
+
     flex-direction: column;
     gap: 30px;
 
@@ -27,25 +28,47 @@ const StyledDiv = styled.div<{ display: string }>`
     padding: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+  .select {
+    background: none;
+    border: none;
+    display: flex;
+    ${({ theme }) => theme.font.fontSize.Body_M}
+    ${({ theme }) => theme.font.fontType.R};
+  }
 `;
 
 interface Props {
   openModal: boolean;
-  title?: string;
-  body: string;
-  closeText?: string;
-  confirmText?: string;
-  onClose?: () => void;
-  onConfirm?: () => void;
+  allText: string;
+  commentText: string;
+  likeText: string;
+  onAll?: () => void;
+  onComment?: () => void;
+  onLike?: () => void;
 }
 
-const AlarmFilterBox = ({ openModal }: Props): ReactElement => {
+const AlarmFilterBox = ({
+  openModal,
+  allText,
+  commentText,
+  likeText,
+  onAll,
+  onComment,
+  onLike,
+}: Props): ReactElement => {
   return (
     <StyledDiv display={openModal ? 'flex' : 'none'}>
       <div className="modal">
-        <div className="select">수정하기</div>
-        <div className="select">수정하기</div>
-        <div className="select">수정하기</div>
+        <button className="select" onClick={onAll}>
+          {allText}
+        </button>
+        <button className="select" onClick={onComment}>
+          {commentText}
+        </button>
+        <button className="select" onClick={onLike}>
+          {likeText}
+        </button>
       </div>
     </StyledDiv>
   );

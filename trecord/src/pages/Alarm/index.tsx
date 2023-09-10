@@ -1,85 +1,136 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
-
 import * as S from './style';
 
-import { useEffect, useState } from 'react';
-import { getAlarm } from '@/apis/Alarm/getAlarm';
+import { Suspense, useState } from 'react';
+import useGetAllAlarm from '@/apis/Alarm/getAlarm';
 import { AlarmList } from '@components/Alarm/AlarmList';
-import { GetAlarm, GetAlarmResponse } from '@/types/alarm';
+import { GetAllAlarmResponse } from '@/types/alarm';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
+import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
+import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
+interface alarmProps {
+  isAll: boolean;
+  isComment: boolean;
+  isLike: boolean;
+}
 export const Alarm = () => {
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [alarm, setAlarm] = useState<GetAlarmResponse>();
-  // const getToken = localStorage.getItem('acessToken');
-  // const EventSource = EventSourcePolyfill || NativeEventSource;
-  // useEffect(() => {
-  //   if (!isLoading && getToken) {
-  //     const fetchSse = async () => {
-  //       try {
-  //         const sse = new EventSource(
-  //           `${
-  //             import.meta.env.VITE_BASE_URL
-  //           }/api/v1/notifications/subscribe?token=${getToken}`,
-  //           {
-  //             withCredentials: true,
-  //           },
-  //         );
-  //         sse.onmessage = async (e) => {
-  //           console.log('데이터입니다', e);
-  //         };
-  //         sse.onerror = async (e) => {
-  //           console.log('에러입니다', e);
-  //           sse.close();
-  //         };
-  //       } catch (error) {}
-  //     };
-  //     fetchSse();
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    getAlarm().then((e) => {
-      setAlarm(e);
+  const [isAlarm, setIsAlarm] = useState<alarmProps>({
+    isAll: true,
+    isComment: false,
+    isLike: false,
+  });
+  const { data: allAlarmData } = useGetAllAlarm();
+  const { data: commentAlarmData } = useGetCommentAlarm();
+  const { data: likeAlarmData } = useGetLikeAlarm();
+  console.log(allAlarmData);
+  const handleAllAlarm = () => {
+    setIsAlarm({
+      isAll: true,
+      isComment: false,
+      isLike: false,
     });
-  }, []);
+    setIsFilterActive(false);
+  };
+  const handleCommentAlarm = () => {
+    setIsAlarm({
+      isAll: false,
+      isComment: true,
+      isLike: false,
+    });
+    setIsFilterActive(false);
+  };
+  const handleLikeAlarm = () => {
+    setIsAlarm({
+      isAll: false,
+      isComment: false,
+      isLike: true,
+    });
+    setIsFilterActive(false);
+  };
 
-  // const mockdata: GetAlarmResponse = {
-  //   notifications: [
-  //     {
-  //       type: 'COMMENT',
-  //       status: 'READ',
-  //       recordId: 1,
-  //       commentId: 2,
-  //       senderId: 1,
-  //       senderNickname: '짱구',
-  //       content:
-  //         'ㅋㅋㅋㅋㅋ웃기네ㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴ',
-  //       date: '2023-08-10T14:00',
-  //     },
-  //     {
-  //       type: 'RECORD_LIKE',
-  //       status: 'READ',
-  //       recordId: 1,
-  //       commentId: 3,
-  //       senderId: 1,
-  //       senderNickname: '짱구',
-  //       content: '짱구님이 회원의 기록을 좋아합니다',
-  //       date: '2023-08-10T14:00',
-  //     },
-  //   ],
-  // };
+  const mockdata: GetAllAlarmResponse = {
+    notifications: [
+      {
+        type: 'RECORD_LIKE',
+        status: 'UNREAD',
+        content: 'nickname1님이 회원님의 기록을 좋아합니다.',
+        userFrom: {
+          id: 1,
+          nickname: '하혜림',
+        },
+        record: {
+          id: 1,
+          title: 'title',
+        },
+        comment: {
+          id: 1,
+          parentId: 'ㅇㄹㅇㄹ',
+          content: 'ㅎㅇㄴㄹ',
+        },
+        date: '2023-09-08T19:57',
+      },
+      {
+        type: 'RECORD_LIKE',
+        status: 'UNREAD',
+        content: 'nickname3님이 회원님의 기록을 좋아합니다.',
+        userFrom: {
+          id: 2,
+          nickname: '안예림',
+        },
+        record: {
+          id: 1,
+          title: 'title',
+        },
+        date: '2023-09-08T19:57',
+      },
+    ],
+  };
 
   return (
     <S.Layout>
-      <NavBarProfile
-        mainTitle="알림"
-        isButton={true}
-        onClick={() => setIsFilterActive(true)}
+      {isAlarm.isAll && (
+        <NavBarProfile
+          mainTitle="알림"
+          isButton={true}
+          filterText="전체"
+          onClick={() => setIsFilterActive(true)}
+        />
+      )}
+      {isAlarm.isComment && (
+        <NavBarProfile
+          mainTitle="알림"
+          isButton={true}
+          filterText="댓글"
+          onClick={() => setIsFilterActive(true)}
+        />
+      )}
+      {isAlarm.isLike && (
+        <NavBarProfile
+          mainTitle="알림"
+          isButton={true}
+          filterText="좋아요"
+          onClick={() => setIsFilterActive(true)}
+        />
+      )}
+      <AlarmFilterBox
+        openModal={isFilterActive}
+        allText="전체"
+        commentText="댓글"
+        likeText="좋아요"
+        onAll={handleAllAlarm}
+        onComment={handleCommentAlarm}
+        onLike={handleLikeAlarm}
       />
-      <AlarmFilterBox openModal={isFilterActive} body={'d'} />
-      {alarm && <AlarmList {...alarm} />}
+      <Suspense fallback={<div>Loading...</div>}>
+        {isAlarm.isAll && allAlarmData && <AlarmList {...allAlarmData} />}
+        {isAlarm.isComment && commentAlarmData && (
+          <AlarmList {...commentAlarmData} />
+        )}
+        {isAlarm.isLike && likeAlarmData && <AlarmList {...likeAlarmData} />}
+      </Suspense>
+
       <TabBar currentPage={'alarm'} />
     </S.Layout>
   );

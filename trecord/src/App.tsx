@@ -39,31 +39,31 @@ const queryClient = new QueryClient({
 
 function App() {
   const getToken = localStorage.getItem('acessToken');
-  const EventSource = EventSourcePolyfill || NativeEventSource;
-  useEffect(() => {
-    if (getToken) {
-      const fetchSse = async () => {
-        try {
-          const sse = new EventSource(
-            `${
-              import.meta.env.VITE_BASE_URL
-            }/api/v1/notifications/subscribe?token=${getToken}`,
-            {
-              withCredentials: true,
-            },
-          );
-          sse.onmessage = async (e) => {
-            console.log('데이터입니다', e);
-          };
-          sse.onerror = async (e) => {
-            console.log('에러입니다', e);
-            sse.close();
-          };
-        } catch (error) {}
-      };
-      fetchSse();
-    }
-  }, []);
+  // const EventSource = EventSourcePolyfill || NativeEventSource;
+  // useEffect(() => {
+  //   if (getToken) {
+  //     const fetchSse = async () => {
+  //       try {
+  //         const sse = new EventSource(
+  //           `${
+  //             import.meta.env.VITE_BASE_URL
+  //           }/api/v1/notifications/subscribe?token=${getToken}`,
+  //           {
+  //             withCredentials: true,
+  //           },
+  //         );
+  //         sse.onmessage = async (e) => {
+  //           console.log('데이터입니다', e);
+  //         };
+  //         sse.onerror = async (e) => {
+  //           console.log('에러입니다', e);
+  //           sse.close();
+  //         };
+  //       } catch (error) {}
+  //     };
+  //     fetchSse();
+  //   }
+  // }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
