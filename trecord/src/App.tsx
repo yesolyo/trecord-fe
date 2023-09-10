@@ -3,6 +3,7 @@ import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastProvider } from '@components/common/Toast';
 
 const MobileLikeDiv = styled.div`
   position: relative;
@@ -41,7 +42,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MobileLikeDiv id="frame">
-          <Outlet />
+          <ToastProvider>
+            <Outlet />
+          </ToastProvider>
         </MobileLikeDiv>
       </ThemeProvider>
     </QueryClientProvider>
