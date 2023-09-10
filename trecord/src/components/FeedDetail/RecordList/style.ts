@@ -29,14 +29,10 @@ export const ItemBox = styled.div`
 `;
 
 export const ImgBox = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 64px !important;
+  height: 64px !important;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray600};
-  img {
-    height: 100%;
-    width: 100%;
-  }
 `;
 
 export const DataBox = styled.div`
