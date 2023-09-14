@@ -12,9 +12,9 @@ interface postNewCommentProps {
   content: string;
 }
 
-interface getCommentProps {
-  recordId: number;
-}
+// interface getCommentProps {
+//   recordId: number;
+// }
 
 interface putCommentProps {
   commentId: number;
@@ -37,13 +37,13 @@ export const postNewComment = async ({
   return response;
 };
 
-export const getNewComment = async ({
-  recordId,
-}: getCommentProps): Promise<GetNewCommentResponse> => {
-  const url = `/api/v1/records/${recordId}/comments`;
-  const response: GetNewCommentResponse = await http.get(url);
-  return response;
-};
+// export const getNewComment = async ({
+//   recordId,
+// }: getCommentProps): Promise<GetNewCommentResponse> => {
+//   const url = `/api/v1/records/${recordId}/comments`;
+//   const response: GetNewCommentResponse = await http.get(url);
+//   return response;
+// };
 
 export const putNewComment = async ({
   commentId,
@@ -86,5 +86,3 @@ export const useDeleteNewComment = () => {
     onError: (e) => console.log(e),
   });
 };
-
-export const useGetNewComment = () => {};

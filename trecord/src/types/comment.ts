@@ -27,6 +27,7 @@ export interface GetCommentProps {
   content: string;
   commentCreatedDate: string;
   commenterNickname: string;
+  replyCount: number;
 }
 
 export interface PutNewCommentResponse {
@@ -46,9 +47,9 @@ export interface CommentUserModalProps {
 export interface deletDataProps {
   id: number;
 }
-export interface postDataProps {
+export interface postNewCommentProps {
   id: number;
-  comment: string;
+  content: string;
 }
 export interface putDataProps {
   id: number;

@@ -1,63 +1,93 @@
 import * as S from './style';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { useParams } from 'react-router-dom';
-import { postDataProps, putDataProps } from '@/types/comment';
+import { postNewCommentProps, putDataProps } from '@/types/comment';
+import { postReplyCommentProps } from '@/apis/Comment/postReplyComment';
+import { TabBarCommentEdit } from './TabBarCommentEdit';
 interface tabBarCommentProps {
-  newCommentValue: string;
-  newComment: React.Dispatch<React.SetStateAction<string>>;
-  handlePostNewComment: ({ id, comment }: postDataProps) => void;
-  handlePutNewComment: ({ id, content }: putDataProps) => void;
-  isEditValue: boolean;
-  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  newComment: string;
+  onNewComment: (content: string) => void;
+  onPostNewComment: ({ id, content }: postNewCommentProps) => void;
+  onPutNewComment: ({ id, content }: putDataProps) => void;
+  onPostReplyComment: ({
+    recordId,
+    parentId,
+    content,
+  }: postReplyCommentProps) => void;
+  onClose: () => void;
+  isEdit: boolean;
+  isReply: boolean;
   commentId: number;
 }
 export const TabBarComment = ({
-  newCommentValue,
   newComment,
-  handlePostNewComment,
-  handlePutNewComment,
-  isEditValue,
+  onNewComment,
+  onPostNewComment,
+  onPutNewComment,
+  onPostReplyComment,
   isEdit,
+  isReply,
+  onClose,
   commentId,
 }: tabBarCommentProps) => {
   const { id } = useParams();
 
-  return (
-    <S.Layout>
-      <S.InputBox
-        isEdit={isEditValue}
-        placeholder="댓글을 남겨보세요"
-        value={newCommentValue}
-        onChange={(e) => newComment(e.target.value)}
-      />
-      {isEditValue ? (
-        <S.EditBox>
-          <S.ButtonPrevBox isDark={true} onClick={() => isEdit(false)}>
-            취소
-          </S.ButtonPrevBox>
-          <S.ButtonNextBox
-            isDark={true}
-            onClick={() => {
-              handlePutNewComment({ id: commentId, content: newCommentValue });
-              isEdit(false);
-            }}
-            disabled={newCommentValue.length <= 0}
-          >
-            등록
-          </S.ButtonNextBox>
-        </S.EditBox>
-      ) : (
+  const button_Type = () => {
+    if (isEdit)
+      return (
+        <TabBarCommentEdit
+          closeText="취소"
+          confirmText="등록"
+          disabled={newComment.length <= 0}
+          onClose={onClose}
+          onConfirm={() =>
+            onPutNewComment({
+              id: commentId,
+              content: newComment,
+            })
+          }
+        />
+      );
+    else if (isReply)
+      return (
+        <TabBarCommentEdit
+          closeText="취소"
+          confirmText="등록"
+          disabled={newComment.length <= 0}
+          onClose={onClose}
+          onConfirm={() =>
+            onPostReplyComment({
+              recordId: Number(id),
+              parentId: commentId,
+              content: newComment,
+            })
+          }
+        />
+      );
+    else
+      return (
         <SquareButton
           title="등록"
           width="61px"
           height="48px"
           isDark={true}
-          disabled={newCommentValue.length <= 0}
+          disabled={newComment.length <= 0}
           onClick={() =>
-            handlePostNewComment({ id: Number(id), comment: newCommentValue })
+            onPostNewComment({ id: Number(id), content: newComment })
           }
         />
-      )}
+      );
+  };
+
+  return (
+    <S.Layout>
+      <S.InputBox
+        isEdit={isEdit}
+        placeholder="댓글을 남겨보세요"
+        value={newComment}
+        onChange={(e) => onNewComment(e.target.value)}
+      />
+      {button_Type()}
     </S.Layout>
   );
 };

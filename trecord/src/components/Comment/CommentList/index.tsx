@@ -7,19 +7,24 @@ import { deletDataProps } from '../CommentModal';
 
 interface commentListProps {
   commentData: GetCommentProps[];
-  isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
-  userProfileData: React.Dispatch<React.SetStateAction<CommentUserModalProps>>;
+  onUserProfile: () => void;
+  onUserProfileData: ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => void;
   handleDeleteClick: ({}: deletDataProps) => void;
-  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  commentId: React.Dispatch<React.SetStateAction<number>>;
-  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  onEdit: () => void;
+  onReplyEdit: () => void;
+  onCommentId: (id: number) => void;
+  onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {
   const handleUserProfile = ({ ...userProps }: CommentUserModalProps) => {
-    props.isUserProfile(true);
-    props.userProfileData({
+    props.onUserProfile();
+    props.onUserProfileData({
       imgUrl: userProps.imgUrl,
       nickName: userProps.nickName,
       content: userProps.content,
@@ -65,6 +70,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>
+              <div>{user.replyCount}</div>
             </S.CommentDataBox>
           </S.CommentBox>
           {props.commentData.length !== index + 1 && <S.LineBox />}

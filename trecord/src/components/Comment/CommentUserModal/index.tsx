@@ -5,7 +5,7 @@ interface commentUserModalProps {
   imgUrl: string;
   nickName: string;
   content: string;
-  isUserProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  onUserProfile: () => void;
 }
 export const CommentUserModal = ({ ...props }: commentUserModalProps) => {
   return (
@@ -19,7 +19,7 @@ export const CommentUserModal = ({ ...props }: commentUserModalProps) => {
           width="238px"
           height="41px"
           isDark={true}
-          onClick={() => props.isUserProfile(false)}
+          onClick={props.onUserProfile}
         />
       </div>
     </S.Layout>
