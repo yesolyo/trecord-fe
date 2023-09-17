@@ -51,6 +51,7 @@ export type recordList = {
   title: string;
   place: string;
   date: string;
+  imageUrl?: string;
 };
 
 export type recordDetailList = {

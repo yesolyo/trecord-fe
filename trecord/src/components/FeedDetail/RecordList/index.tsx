@@ -1,12 +1,14 @@
 import { recordList } from '@/types';
 import * as S from './style';
-import { useNavigate } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import DndContainer from './DndContainer';
+
 interface RecordListProps {
   feedId: string;
   listData: recordList[];
 }
 export const RecordList = ({ feedId, listData }: RecordListProps) => {
-  const navigate = useNavigate();
   const result = listData.reduce(
     (acc, curr) => {
       const { date } = curr;
@@ -22,22 +24,9 @@ export const RecordList = ({ feedId, listData }: RecordListProps) => {
       {Object.entries(result).map(([dayKey, dayData]) => (
         <S.GroupBox key={dayKey}>
           <h2>{dayKey}</h2>
-          {dayData.map((record) => (
-            <S.ItemBox
-              key={record.id}
-              onClick={() =>
-                navigate(`/recordDetail/${record.id}`, {
-                  state: {
-                    feedId,
-                  },
-                })
-              }
-            >
-              <S.DataBox>
-                <div className="record_title">{record.title}</div>
-              </S.DataBox>
-            </S.ItemBox>
-          ))}
+          <DndProvider backend={HTML5Backend}>
+            <DndContainer feedId={feedId} records={dayData} />
+          </DndProvider>
         </S.GroupBox>
       ))}
     </S.Layout>
