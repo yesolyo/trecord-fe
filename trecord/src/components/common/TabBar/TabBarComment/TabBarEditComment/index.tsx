@@ -1,6 +1,5 @@
 import { putDataProps } from '@/types/comment';
 import * as S from './style';
-import { useParams } from 'react-router-dom';
 interface Props {
   closeText: string;
   confirmText: string;

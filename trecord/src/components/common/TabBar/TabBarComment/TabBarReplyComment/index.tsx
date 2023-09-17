@@ -1,4 +1,3 @@
-import { putDataProps } from '@/types/comment';
 import * as S from './style';
 import { postReplyCommentProps } from '@/apis/Comment/postReplyComment';
 import { useParams } from 'react-router-dom';

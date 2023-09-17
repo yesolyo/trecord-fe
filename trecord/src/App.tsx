@@ -3,8 +3,6 @@ import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-import { Suspense } from 'react';
 // import { useEffect, useState } from 'react';
 // import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 import { ToastProvider } from '@components/common/Toast';

@@ -2,13 +2,8 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment, useState } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import {
-  CommentUserModalProps,
-  GetCommentProps,
-  GetNewCommentResponse,
-} from '@/types/comment';
+import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
-import { CommentReplyList } from '../CommentReplyList';
 import { CommentReplyBtn } from '../CommentReplyBtn';
 
 interface commentListProps {

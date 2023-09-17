@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { http } from '../_http';
 import {
   DeleteNewCommentResponse,
-  GetNewCommentResponse,
   PostNewCommentResponse,
   PutNewCommentResponse,
 } from '@/types/comment';

@@ -1,7 +1,5 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { http } from '../_http';
-import { GetAllAlarmResponse } from '@/types/alarm';
-import ALARM_API_KEY from './constants';
 import { GetNewCommentResponse } from '@/types/comment';
 import COMMENT_API_KEY from './constants';
 

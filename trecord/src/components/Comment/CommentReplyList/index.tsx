@@ -1,6 +1,5 @@
-import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import * as S from './style';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';

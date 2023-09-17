@@ -1,6 +1,6 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { http } from '../_http';
-import { GetReplyCommentProps, GetReplyCommentResponse } from '@/types/comment';
+import { GetReplyCommentResponse } from '@/types/comment';
 import COMMENT_API_KEY from './constants';
 
 interface Props {

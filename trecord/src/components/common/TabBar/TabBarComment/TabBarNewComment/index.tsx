@@ -1,7 +1,7 @@
 import * as S from './style';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { useParams } from 'react-router-dom';
-import { postNewCommentProps, putDataProps } from '@/types/comment';
+import { postNewCommentProps } from '@/types/comment';
 interface Props {
   newComment: string;
   onNewComment: (content: string) => void;
