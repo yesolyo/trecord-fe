@@ -24,7 +24,6 @@ export interface commentProps {
     content,
   }: postReplyCommentProps) => void;
   onPutData: ({ id, content }: putDataProps) => void;
-  onCloseEidt: () => void;
   onReplyEdit: () => void;
   onEdit: () => void;
   onDelete: () => void;

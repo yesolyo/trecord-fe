@@ -41,20 +41,6 @@ export const CommentContainer = () => {
     });
   };
 
-  const handleDeleteData = ({ id }: deletDataProps) => {
-    deleteComment(
-      {
-        commentId: id,
-      },
-      {
-        onSuccess: () => {
-          handleGetData();
-        },
-      },
-    );
-    handleDelete();
-  };
-
   const handlePostNewData = ({ id, content }: postNewCommentProps) => {
     postComment(
       {
@@ -84,6 +70,7 @@ export const CommentContainer = () => {
       {
         onSuccess: () => {
           handleGetData();
+          handleReplyEdit();
           setNewComment('');
         },
       },
@@ -99,6 +86,7 @@ export const CommentContainer = () => {
       {
         onSuccess: () => {
           handleGetData();
+          handleEdit();
           setNewComment('');
         },
       },
@@ -106,13 +94,22 @@ export const CommentContainer = () => {
     setIsEdit(false);
   };
 
-  const handleCloseEdit = () => {
-    setIsEdit(false);
-    setIsReplyEdit(false);
+  const handleDeleteData = ({ id }: deletDataProps) => {
+    deleteComment(
+      {
+        commentId: id,
+      },
+      {
+        onSuccess: () => {
+          handleGetData();
+        },
+      },
+    );
+    handleDelete();
   };
 
   const handleReplyEdit = () => {
-    setIsReplyEdit(true);
+    setIsReplyEdit((prev) => !prev);
   };
 
   const handleEdit = () => {
@@ -122,12 +119,12 @@ export const CommentContainer = () => {
     setIsDelete((prevData) => !prevData);
   };
 
-  const handleNavigate = () => {
-    navigate(-1);
+  const handleSelectUserProfile = () => {
+    setIsUserProfile((prev) => !prev);
   };
 
-  const handleSelectUserProfile = () => {
-    setIsUserProfile(false);
+  const handleNavigate = () => {
+    navigate(-1);
   };
 
   const handelUserProfileData = ({
@@ -167,7 +164,6 @@ export const CommentContainer = () => {
       onPostNewData={handlePostNewData}
       onPostReplyData={handlePostReplyData}
       onPutData={handlePutData}
-      onCloseEidt={handleCloseEdit}
       onReplyEdit={handleReplyEdit}
       onEdit={handleEdit}
       onDelete={handleDelete}

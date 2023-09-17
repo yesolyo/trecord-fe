@@ -14,7 +14,8 @@ interface tabBarCommentProps {
     parentId,
     content,
   }: postReplyCommentProps) => void;
-  onClose: () => void;
+  onCloseEdit: () => void;
+  onCloseReplyEdit: () => void;
   isEdit: boolean;
   isReply: boolean;
   commentId: number;
@@ -27,7 +28,8 @@ export const TabBarComment = ({
   onPostReplyComment,
   isEdit,
   isReply,
-  onClose,
+  onCloseEdit,
+  onCloseReplyEdit,
   commentId,
 }: tabBarCommentProps) => {
   const { id } = useParams();
@@ -39,7 +41,7 @@ export const TabBarComment = ({
           closeText="취소"
           confirmText="등록"
           disabled={newComment.length <= 0}
-          onClose={onClose}
+          onClose={onCloseEdit}
           onConfirm={() =>
             onPutNewComment({
               id: commentId,
@@ -54,7 +56,7 @@ export const TabBarComment = ({
           closeText="취소"
           confirmText="등록"
           disabled={newComment.length <= 0}
-          onClose={onClose}
+          onClose={onCloseReplyEdit}
           onConfirm={() =>
             onPostReplyComment({
               recordId: Number(id),

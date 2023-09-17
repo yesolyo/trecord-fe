@@ -70,7 +70,11 @@ export const CommentList = ({ ...props }: commentListProps) => {
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>
-              <div>{user.replyCount}</div>
+              {user.replyCount > 0 && (
+                <button className="reply_count">
+                  {user.replyCount}개의 댓글 보기
+                </button>
+              )}
             </S.CommentDataBox>
           </S.CommentBox>
           {props.commentData.length !== index + 1 && <S.LineBox />}

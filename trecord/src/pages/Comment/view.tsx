@@ -18,7 +18,7 @@ export const CommentView = ({
   onPostNewData,
   onPostReplyData,
   onPutData,
-  onCloseEidt,
+  // onCloseEidt,
   onReplyEdit,
   onEdit,
   onDelete,
@@ -70,7 +70,8 @@ export const CommentView = ({
         onPostNewComment={onPostNewData}
         onPostReplyComment={onPostReplyData}
         onPutNewComment={onPutData}
-        onClose={onCloseEidt}
+        onCloseEdit={onEdit}
+        onCloseReplyEdit={onReplyEdit}
         isEdit={isEdit}
         isReply={isReplyEdit}
         commentId={commentId}
