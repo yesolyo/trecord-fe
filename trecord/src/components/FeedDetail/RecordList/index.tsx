@@ -3,7 +3,6 @@ import * as S from './style';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from './DndContainer';
-
 interface RecordListProps {
   feedId: string;
   listData: recordList[];
