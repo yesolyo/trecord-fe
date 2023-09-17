@@ -9,7 +9,6 @@ import { Suspense } from 'react';
 // import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 import { ToastProvider } from '@components/common/Toast';
 
-
 const MobileLikeDiv = styled.div`
   position: relative;
   overflow: hidden;
@@ -75,9 +74,7 @@ function App() {
         <GlobalStyle />
         <MobileLikeDiv id="frame">
           <ToastProvider>
-            <Suspense fallback={<div>...loading</div>}>
-              <Outlet />
-            </Suspense>
+            <Outlet />
           </ToastProvider>
         </MobileLikeDiv>
       </ThemeProvider>

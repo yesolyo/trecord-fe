@@ -1,9 +1,10 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { CommentCateogory } from '../CommentCategory';
 import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
+import { CommentReplyList } from '../CommentReplyList';
 
 interface commentListProps {
   commentData: GetCommentProps[];
@@ -22,6 +23,7 @@ interface commentListProps {
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {
+  const [isReplyComment, setIsReplyComment] = useState<boolean>(false);
   const handleUserProfile = ({ ...userProps }: CommentUserModalProps) => {
     props.onUserProfile();
     props.onUserProfileData({
@@ -29,6 +31,10 @@ export const CommentList = ({ ...props }: commentListProps) => {
       nickName: userProps.nickName,
       content: userProps.content,
     });
+  };
+
+  const handleIsReply = () => {
+    setIsReplyComment((prev) => !prev);
   };
 
   return (
@@ -66,18 +72,29 @@ export const CommentList = ({ ...props }: commentListProps) => {
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.commenterNickname}</div>
-                <CommentCateogory id={user.commentId} {...props} />
+                <CommentCateogory
+                  id={user.commentId}
+                  editText="수정하기"
+                  replyText="답글달기"
+                  deleteText="삭제하기"
+                  {...props}
+                />
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>
               {user.replyCount > 0 && (
-                <button className="reply_count">
+                <button className="reply_count" onClick={handleIsReply}>
                   {user.replyCount}개의 댓글 보기
                 </button>
               )}
+              {isReplyComment && (
+                <CommentReplyList commentId={user.commentId} {...props} />
+              )}
             </S.CommentDataBox>
           </S.CommentBox>
-          {props.commentData.length !== index + 1 && <S.LineBox />}
+          {props.commentData.length !== index + 1 && (
+            <hr className="line_box" />
+          )}
         </Fragment>
       ))}
     </S.Layout>

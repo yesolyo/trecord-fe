@@ -6,12 +6,13 @@ export const Layout = styled.div`
   align-items: center;
   justify-content: center;
   width: 97px;
-  height: 114px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
   border-radius: 8px;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  z-index: 100;
+  z-index: 10;
 `;
 
 export const ButtonBox = styled.button`

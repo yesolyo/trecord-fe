@@ -10,6 +10,9 @@ interface commentCateogoryProps {
   onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit: () => void;
+  deleteText: string;
+  editText: string;
+  replyText?: string;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {

@@ -2,12 +2,15 @@ import * as S from './style';
 
 interface commentModalProps {
   id: number;
+  editText: string;
+  deleteText: string;
+  replyText?: string;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
   onCommentId: (id: number) => void;
   onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
-  onReplyEdit: () => void;
+  onReplyEdit?: () => void;
   onCategory: () => void;
 }
 
@@ -23,7 +26,7 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
           props.onCategory();
         }}
       >
-        수정하기
+        {props.editText}
       </S.ButtonBox>
       <S.LineBox />
       <S.ButtonBox
@@ -32,17 +35,23 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
           props.onCategory();
         }}
       >
-        삭제하기
+        {props.deleteText}
       </S.ButtonBox>
-      <S.LineBox />
-      <S.ButtonBox
-        onClick={() => {
-          props.onReplyEdit();
-          props.onCategory();
-        }}
-      >
-        답글달기
-      </S.ButtonBox>
+      {props.replyText && (
+        <>
+          <S.LineBox />
+          <S.ButtonBox
+            onClick={() => {
+              {
+                props.onReplyEdit && props.onReplyEdit();
+              }
+              props.onCategory();
+            }}
+          >
+            {props.replyText}
+          </S.ButtonBox>
+        </>
+      )}
     </S.Layout>
   );
 };

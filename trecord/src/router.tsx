@@ -106,11 +106,19 @@ export const router = createBrowserRouter(
         },
         {
           path: '/comment/:id',
-          element: <CommentContainer />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommentContainer />
+            </Suspense>
+          ),
         },
         {
           path: '/alarm',
-          element: <Alarm />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Alarm />
+            </Suspense>
+          ),
         },
         {
           path: '/mypage',

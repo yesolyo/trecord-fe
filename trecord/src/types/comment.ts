@@ -6,10 +6,23 @@ export interface PostNewCommentResponse {
 export interface GetNewCommentResponse {
   comments: GetCommentProps[];
 }
+
+export interface GetReplyCommentResponse {
+  content: GetReplyCommentProps[];
+}
 export interface GetMypageCommentResponse {
   commentData: React.Dispatch<React.SetStateAction<number>>;
   onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
   comments: GetMypageComment[];
+}
+
+export interface GetReplyCommentProps {
+  recordId: number;
+  parentId: number;
+  commentId: number;
+  content: string;
+  createdDateTime: string;
+  isUpdatable: boolean;
 }
 
 export interface GetMypageComment {
