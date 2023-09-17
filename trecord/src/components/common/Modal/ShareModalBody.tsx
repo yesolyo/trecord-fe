@@ -1,8 +1,18 @@
-import { ReactElement, useContext } from 'react';
+import {
+  ReactElement,
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import { Icon } from '../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../Toast';
+import { useGetUser } from '@/apis';
+import Skeleton from '../skeleton';
+import { User } from '@/types/user';
 
 const StyledModalBody = styled.div`
   display: flex;
@@ -22,6 +32,14 @@ const StyledModalBody = styled.div`
       font-style: normal;
       font-weight: 600;
       line-height: 28px; /* 155.556% */
+    }
+    .input-result {
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+
+      .user-list {
+      }
     }
     .input-container {
       display: inline-flex;
@@ -87,10 +105,133 @@ const StyledModalBody = styled.div`
   }
 `;
 
+const StyledProfile = styled.div`
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  .profile {
+    display: inline-flex;
+    gap: 12px;
+
+    .name {
+      color: var(--Gray900, #1e1e1e);
+      font-family: Pretendard;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px; /* 150% */
+    }
+  }
+`;
+
 interface Props {
   inputValue: string;
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
+  return (
+    <div className="input-wrapper">
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder={'닉네임을 입력하세요'}
+          id="input_text"
+          value={inputValue}
+          disabled
+        />
+        <button type="button" disabled>
+          초대
+        </button>
+      </div>
+      <div className="input-result">
+        <Skeleton height="30px" />
+      </div>
+    </div>
+  );
+};
+
+const InputContainer = ({
+  inputValue,
+  inputValueSetter: setInputValue,
+}: Props) => {
+  const [enabled, setEnabled] = useState(false);
+  const [list, setList] = useState<User[]>([]);
+  const { data: userData } = useGetUser({ q: inputValue, enabled });
+
+  const handleClickSearch = useCallback(() => {
+    setEnabled(true);
+  }, []);
+
+  const handleClickResult = useCallback(() => {
+    if (userData) setList([...list, userData]);
+    setInputValue('');
+  }, [userData]);
+
+  const handleClickRemove = useCallback((id: number) => {
+    const index = list.findIndex((x) => x.userId === id);
+    const newList = [...list];
+    setList(newList.splice(index, 1));
+  }, []);
+
+  useEffect(() => {
+    console.log(userData);
+    console.log();
+    setEnabled(false);
+  }, [userData]);
+
+  return (
+    <div className="input-wrapper">
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder={'닉네임을 입력하세요'}
+          id="input_text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button
+          type="button"
+          disabled={inputValue === ''}
+          onClick={handleClickSearch}
+        >
+          초대
+        </button>
+      </div>
+      <div className="input-result">
+        {userData &&
+          list.findIndex((x) => x.userId === userData?.userId) === -1 && (
+            <StyledProfile onClick={handleClickResult}>
+              <div className="profile">
+                {userData.imageUrl && <img src={userData.imageUrl} />}
+                {!userData.imageUrl && (
+                  <Icon iconType="profile" width={24} height={24} />
+                )}
+                <div className="name">{userData.nickname}</div>
+              </div>
+            </StyledProfile>
+          )}
+        <div className="user-list">
+          {list.map((l) => (
+            <StyledProfile onClick={handleClickResult}>
+              <div className="profile">
+                {l.imageUrl && <img src={l.imageUrl} />}
+                {!l.imageUrl && (
+                  <Icon iconType="profile" width={24} height={24} />
+                )}
+                <div className="name">{l.nickname}</div>
+              </div>
+              <div onClick={() => handleClickRemove(l.userId)}>
+                <Icon iconType="close" width={24} height={24} />
+              </div>
+            </StyledProfile>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ShareModalBody = ({
   inputValue,
@@ -108,18 +249,12 @@ const ShareModalBody = ({
     <StyledModalBody>
       <div className="invite">
         <div className="title">사용자 초대</div>
-        <div className="input-container">
-          <input
-            type="text"
-            placeholder={'닉네임을 입력하세요'}
-            id="input_text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+        <Suspense fallback={<InputContainerFallback inputValue={inputValue} />}>
+          <InputContainer
+            inputValue={inputValue}
+            inputValueSetter={setInputValue}
           />
-          <button type="button" disabled={inputValue === ''}>
-            초대
-          </button>
-        </div>
+        </Suspense>
       </div>
       <hr />
       <div className="share">
