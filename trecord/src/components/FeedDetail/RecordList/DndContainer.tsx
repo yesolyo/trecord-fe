@@ -6,6 +6,7 @@ import { recordList } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RecordItem from './RecordItem';
+import { useSwapRecords } from '@/apis';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,18 +22,27 @@ interface Props {
 const DndContainer: FC<Props> = ({ feedId, records }) => {
   {
     const navigate = useNavigate();
+    const { mutate } = useSwapRecords({ feedId });
     const [items, setItems] = useState(records);
 
-    const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
-      setItems((prevCards: recordList[]) =>
-        update(prevCards, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, prevCards[dragIndex] as recordList],
-          ],
-        }),
-      );
-    }, []);
+    const moveItem = useCallback(
+      (dragIndex: number, hoverIndex: number) => {
+        console.log(items[dragIndex], items[hoverIndex]);
+        setItems((prevCards: recordList[]) =>
+          update(prevCards, {
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, prevCards[dragIndex] as recordList],
+            ],
+          }),
+        );
+        mutate({
+          originalRecordId: items[dragIndex].id,
+          targetRecordId: items[hoverIndex].id,
+        });
+      },
+      [mutate],
+    );
 
     const clickItem = useCallback(
       (id: string, feedId: string) => {
