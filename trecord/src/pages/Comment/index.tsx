@@ -1,23 +1,27 @@
 import { CommentList } from '@components/Comment/CommentList';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { TabBarComment } from '@components/common/TabBar/TabBarComment';
+import { CommentUserModal } from '@components/Comment/CommentUserModal';
+import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   CommentUserModalProps,
-  GetCommentProps,
   deletDataProps,
-  postDataProps,
+  postNewCommentProps,
   putDataProps,
 } from '@/types/comment';
 import {
-  getNewComment,
   useDeleteNewComment,
   usePostNewComment,
   usePutNewComment,
 } from '@/apis/Comment/postNewComment';
-import { CommentUserModal } from '@components/Comment/CommentUserModal';
-import Modal from '@components/common/Modal';
+import useGetNewComment from '@/apis/Comment/getNewComment';
+import usePostReplyComment, {
+  postReplyCommentProps,
+} from '@/apis/Comment/postReplyComment';
+import { TabBarNewComment } from '@components/common/TabBar/TabBarComment/TabBarNewComment';
+import { TabBarEditComment } from '@components/common/TabBar/TabBarComment/TabBarEditComment';
+import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabBarReplyComment';
 
 export const Comment = () => {
   const navigate = useNavigate();
@@ -25,9 +29,10 @@ export const Comment = () => {
   const { mutate: deleteComment } = useDeleteNewComment();
   const { mutate: postComment } = usePostNewComment();
   const { mutate: putComment } = usePutNewComment();
-  const [comment, setComment] = useState<GetCommentProps[]>([]);
-  const [newComment, setNewComment] = useState('');
+  const { mutate: postReplyComment } = usePostReplyComment();
+  const [newComment, setNewComment] = useState<string>('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isReplyEdit, setIsReplyEdit] = useState<boolean>(false);
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
@@ -35,112 +40,183 @@ export const Comment = () => {
     { imgUrl: '', nickName: '', content: '' },
   );
 
-  useEffect(() => {
-    HandleGetData();
-  }, []);
+  const { data: newCommentData, refetch } = useGetNewComment({
+    recordId: Number(id),
+  });
 
-  const HandleGetData = () => {
-    getNewComment({ recordId: Number(id) }).then((data) => {
-      setComment(data.comments);
-    });
+  const handlePostNewData = ({ id, content }: postNewCommentProps) => {
+    postComment(
+      {
+        recordId: Number(id),
+        content,
+      },
+      {
+        onSuccess: () => {
+          refetch();
+          setNewComment('');
+        },
+      },
+    );
   };
 
-  const HandleDeleteData = ({ id }: deletDataProps) => {
+  const handlePostReplyData = ({
+    recordId,
+    parentId,
+    content,
+  }: postReplyCommentProps) => {
+    postReplyComment(
+      {
+        recordId,
+        parentId,
+        content,
+      },
+      {
+        onSuccess: () => {
+          refetch();
+          handleReplyEdit();
+          setNewComment('');
+        },
+      },
+    );
+  };
+
+  const handlePutData = ({ id, content }: putDataProps) => {
+    putComment(
+      {
+        commentId: id,
+        content: content,
+      },
+      {
+        onSuccess: () => {
+          refetch();
+          handleEdit();
+          setNewComment('');
+        },
+      },
+    );
+  };
+
+  const handleDeleteData = ({ id }: deletDataProps) => {
     deleteComment(
       {
         commentId: id,
       },
       {
         onSuccess: () => {
-          HandleGetData();
+          handleDelete();
+          refetch();
         },
       },
     );
   };
 
-  const HandlePostData = ({ id, comment }: postDataProps) => {
-    const getToken = localStorage.getItem('acessToken');
-
-    if (getToken) {
-      postComment(
-        {
-          recordId: Number(id),
-          content: comment,
-        },
-        {
-          onSuccess: () => {
-            HandleGetData();
-            setNewComment('');
-          },
-        },
-      );
-    }
+  const handleReplyEdit = () => {
+    setIsReplyEdit((prev) => !prev);
   };
 
-  const HandlePutData = ({ id, content }: putDataProps) => {
-    const getToken = localStorage.getItem('acessToken');
-    if (getToken) {
-      putComment(
-        {
-          commentId: id,
-          content: content,
-        },
-        {
-          onSuccess: () => {
-            HandleGetData();
-            setNewComment('');
-          },
-        },
-      );
-    }
+  const handleEdit = () => {
+    setIsEdit((prev) => !prev);
+  };
+  const handleDelete = () => {
+    setIsDelete((prevData) => !prevData);
   };
 
+  const handleSelectUserProfile = () => {
+    setIsUserProfile((prev) => !prev);
+  };
+
+  const handleNavigate = () => {
+    navigate(-1);
+  };
+
+  const handleUserProfileData = ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => {
+    setUserProfileData({
+      imgUrl,
+      nickName,
+      content,
+    });
+  };
+  const handleCommentId = (id: number) => {
+    setCommentId(id);
+  };
+
+  const handleNewComment = (content: string) => {
+    setNewComment(content);
+  };
   const constant = {
     title: '댓글',
     isRegister: false,
-    commentCount: comment.length,
-    onClick: () => navigate(-1),
+    commentCount: newCommentData && newCommentData.comments.length,
+    onClick: handleNavigate,
   };
-  //TODO: commentUserModal창이 나오면 댓글이 사라지는 현상 고침 필요
+
   return (
     <>
       <CommentUserModal
         openModal={isUserProfile}
-        isUserProfile={setIsUserProfile}
+        onUserProfile={handleSelectUserProfile}
         {...userProfileData}
       />
       <NavBarNew {...constant} />
-      <CommentList
-        commentData={comment}
-        isUserProfile={setIsUserProfile}
-        userProfileData={setUserProfileData}
-        handleDeleteClick={HandleDeleteData}
-        commentId={setCommentId}
-        isEdit={setIsEdit}
-        isDelete={setIsDelete}
-      />
+      {newCommentData && (
+        <CommentList
+          commentData={newCommentData}
+          onUserProfile={handleSelectUserProfile}
+          onUserProfileData={handleUserProfileData}
+          handleDeleteClick={handleDeleteData}
+          onCommentId={handleCommentId}
+          onEdit={handleEdit}
+          onReplyEdit={handleReplyEdit}
+          onDelete={handleDelete}
+          isDelete={isDelete}
+          isEdit={isEdit}
+          isReplyEdit={isReplyEdit}
+        />
+      )}
       <Modal
         openModal={isDelete}
         body="한 번 삭제하면 되돌릴 수 없어요"
         title="댓글을 삭제할까요?"
         closeText="취소"
         confirmText="삭제"
-        onClose={() => setIsDelete(false)}
+        onClose={handleDelete}
         onConfirm={() => {
-          HandleDeleteData({ id: commentId });
-          setIsDelete(false);
+          handleDeleteData({ id: commentId });
         }}
       />
-
-      <TabBarComment
-        newCommentValue={newComment}
-        newComment={setNewComment}
-        handlePostNewComment={HandlePostData}
-        handlePutNewComment={HandlePutData}
-        isEditValue={isEdit}
-        commentId={commentId}
-        isEdit={setIsEdit}
-      />
+      {!isEdit && !isReplyEdit && (
+        <TabBarNewComment
+          newComment={newComment}
+          onNewComment={handleNewComment}
+          onPostNewComment={handlePostNewData}
+        />
+      )}
+      {isEdit && !isReplyEdit && (
+        <TabBarEditComment
+          closeText="취소"
+          confirmText="등록"
+          newComment={newComment}
+          onNewComment={handleNewComment}
+          onClose={handleEdit}
+          onConfirm={handlePutData}
+          commentId={commentId}
+        />
+      )}
+      {isReplyEdit && !isEdit && (
+        <TabBarReplyComment
+          closeText="취소"
+          confirmText="등록"
+          newComment={newComment}
+          onNewComment={handleNewComment}
+          onClose={handleReplyEdit}
+          onConfirm={handlePostReplyData}
+          commentId={commentId}
+        />
+      )}
     </>
   );
 };

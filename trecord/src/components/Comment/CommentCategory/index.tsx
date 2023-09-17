@@ -5,10 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 interface commentCateogoryProps {
   id: number;
   handleDeleteClick: ({}: deletDataProps) => void;
-  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  commentId: React.Dispatch<React.SetStateAction<number>>;
-  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  onEdit: () => void;
+  onCommentId: (id: number) => void;
+  onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
+  onReplyEdit?: () => void;
+  deleteText: string;
+  editText: string;
+  replyText?: string;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
@@ -32,17 +36,21 @@ export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
     }
   };
 
+  const handleIsCategory = () => {
+    setIsCategory((prev) => !prev);
+  };
+
   return (
     <S.Layout ref={categoryRef}>
       <Icon
         iconType="more"
         width={16}
         onClick={() => {
-          props.commentId(props.id);
+          props.onCommentId(props.id);
           setIsCategory(!isCategory);
         }}
       />
-      {isCategory && <CommentModal {...props} />}
+      {isCategory && <CommentModal onCategory={handleIsCategory} {...props} />}
     </S.Layout>
   );
 };

@@ -2,11 +2,16 @@ import * as S from './style';
 
 interface commentModalProps {
   id: number;
+  editText: string;
+  deleteText: string;
+  replyText?: string;
   handleDeleteClick: ({}: deletDataProps) => void;
-  isEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  commentId: React.Dispatch<React.SetStateAction<number>>;
-  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  onEdit: () => void;
+  onCommentId: (id: number) => void;
+  onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
+  onReplyEdit?: () => void;
+  onCategory: () => void;
 }
 
 export interface deletDataProps {
@@ -17,21 +22,36 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
     <S.Layout>
       <S.ButtonBox
         onClick={() => {
-          props.isEdit(true);
+          props.onEdit();
+          props.onCategory();
         }}
       >
-        수정하기
+        {props.editText}
       </S.ButtonBox>
       <S.LineBox />
       <S.ButtonBox
         onClick={() => {
-          props.isDelete(true);
+          props.onDelete();
+          props.onCategory();
         }}
       >
-        삭제하기
+        {props.deleteText}
       </S.ButtonBox>
-      <S.LineBox />
-      <S.ButtonBox>답글달기</S.ButtonBox>
+      {props.replyText && (
+        <>
+          <S.LineBox />
+          <S.ButtonBox
+            onClick={() => {
+              {
+                props.onReplyEdit && props.onReplyEdit();
+              }
+              props.onCategory();
+            }}
+          >
+            {props.replyText}
+          </S.ButtonBox>
+        </>
+      )}
     </S.Layout>
   );
 };

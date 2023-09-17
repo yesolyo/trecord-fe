@@ -9,7 +9,6 @@ import { Suspense } from 'react';
 import ModifyRecord from './pages/ModifyRecord';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
-import { Comment } from './pages/Comment';
 import { MyPageProfile } from './pages/MyPageProfile';
 import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
@@ -20,6 +19,7 @@ import {
   Fallback as RecordDetailFallback,
 } from './pages/RecordDetail';
 import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
+import { Comment } from './pages/Comment';
 
 export const router = createBrowserRouter(
   [
@@ -106,11 +106,19 @@ export const router = createBrowserRouter(
         },
         {
           path: '/comment/:id',
-          element: <Comment />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Comment />
+            </Suspense>
+          ),
         },
         {
           path: '/alarm',
-          element: <Alarm />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Alarm />
+            </Suspense>
+          ),
         },
         {
           path: '/mypage',

@@ -16,6 +16,13 @@ export const Layout = styled.div`
     height: 28px;
     border-radius: 50%;
   }
+  .line_box {
+    width: 390px;
+    border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
+    text-align: left;
+    margin-left: 0;
+    background: ${({ theme }) => theme.colors.colorStyles.gray300};
+  }
 `;
 export const LineBox = styled.hr`
   width: 390px;
