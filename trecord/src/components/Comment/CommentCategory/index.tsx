@@ -9,7 +9,7 @@ interface commentCateogoryProps {
   onCommentId: (id: number) => void;
   onDelete: () => void;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
-  onReplyEdit: () => void;
+  onReplyEdit?: () => void;
   deleteText: string;
   editText: string;
   replyText?: string;

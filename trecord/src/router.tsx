@@ -19,7 +19,7 @@ import {
   Fallback as RecordDetailFallback,
 } from './pages/RecordDetail';
 import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
-import { CommentContainer } from './pages/Comment/container';
+import { Comment } from './pages/Comment';
 
 export const router = createBrowserRouter(
   [
@@ -108,7 +108,7 @@ export const router = createBrowserRouter(
           path: '/comment/:id',
           element: (
             <Suspense fallback={<div>Loading...</div>}>
-              <CommentContainer />
+              <Comment />
             </Suspense>
           ),
         },

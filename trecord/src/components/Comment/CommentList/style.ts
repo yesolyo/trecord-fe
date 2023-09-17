@@ -55,14 +55,6 @@ export const CommentDataBox = styled.div`
     ${({ theme }) => theme.font.fontSize.Caption_S}
     ${({ theme }) => theme.font.fontType.R};
   }
-  .reply_count {
-    ${({ theme }) => theme.font.fontSize.Caption_S}
-    ${({ theme }) => theme.font.fontType.R};
-    background: none;
-    border: none;
-    display: flex;
-    padding: 0;
-  }
 `;
 
 export const CommentMainDataBox = styled.div`

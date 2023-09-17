@@ -1,27 +1,28 @@
 import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import * as S from './style';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
+import { GetReplyCommentProps } from '@/types/comment';
 interface Props {
+  replyData: GetReplyCommentProps[];
   commentId: number;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
+  isEdit: boolean;
   onCommentId: (id: number) => void;
   onDelete: () => void;
+  isDelete: boolean;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit: () => void;
+  isReplyEdit: boolean;
 }
 export const CommentReplyList = ({ ...props }: Props) => {
-  const { data: ReplyData } = useGetReplyComment({
-    commentId: props.commentId,
-  });
-
   return (
     <S.Layout>
-      {ReplyData &&
-        ReplyData.map((user, index) => (
+      {props.replyData &&
+        props.replyData.map((user, index) => (
           <Fragment key={user.commentId}>
             <div className="reply_box">
               <Icon iconType="profile" width={28} />
@@ -39,7 +40,9 @@ export const CommentReplyList = ({ ...props }: Props) => {
                 <div className="user_date">{user.createdDateTime}</div>
               </div>
             </div>
-            {ReplyData.length !== index + 1 && <hr className="line_box" />}
+            {props.replyData.length !== index + 1 && (
+              <hr className="line_box" />
+            )}
           </Fragment>
         ))}
     </S.Layout>

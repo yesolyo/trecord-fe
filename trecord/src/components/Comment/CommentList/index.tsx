@@ -2,12 +2,17 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment, useState } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import { CommentUserModalProps, GetCommentProps } from '@/types/comment';
+import {
+  CommentUserModalProps,
+  GetCommentProps,
+  GetNewCommentResponse,
+} from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 import { CommentReplyList } from '../CommentReplyList';
+import { CommentReplyBtn } from '../CommentReplyBtn';
 
 interface commentListProps {
-  commentData: GetCommentProps[];
+  commentData: GetNewCommentResponse;
   onUserProfile: () => void;
   onUserProfileData: ({
     imgUrl,
@@ -16,9 +21,12 @@ interface commentListProps {
   }: CommentUserModalProps) => void;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
+  isEdit: boolean;
   onReplyEdit: () => void;
+  isReplyEdit: boolean;
   onCommentId: (id: number) => void;
   onDelete: () => void;
+  isDelete: boolean;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -40,7 +48,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
   return (
     //TODO:이미지 반영 예정
     <S.Layout>
-      {props.commentData.map((user, index) => (
+      {props.commentData.comments.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
             {user.commenterImageUrl.length >= 1 ? (
@@ -83,16 +91,17 @@ export const CommentList = ({ ...props }: commentListProps) => {
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>
               {user.replyCount > 0 && (
-                <button className="reply_count" onClick={handleIsReply}>
-                  {user.replyCount}개의 댓글 보기
-                </button>
-              )}
-              {isReplyComment && (
-                <CommentReplyList commentId={user.commentId} {...props} />
+                <CommentReplyBtn
+                  onClick={handleIsReply}
+                  replyCount={user.replyCount}
+                  commentId={user.commentId}
+                  isReplyComment={isReplyComment}
+                  {...props}
+                />
               )}
             </S.CommentDataBox>
           </S.CommentBox>
-          {props.commentData.length !== index + 1 && (
+          {props.commentData.comments.length !== index + 1 && (
             <hr className="line_box" />
           )}
         </Fragment>
