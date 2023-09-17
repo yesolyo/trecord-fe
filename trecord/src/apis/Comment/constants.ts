@@ -3,5 +3,4 @@ const COMMENT_API_KEY = {
   MYPAGE_COMMENT: 'mypageComment',
   REPLY_COMMENT: 'replyComment',
 };
-
 export default COMMENT_API_KEY;
