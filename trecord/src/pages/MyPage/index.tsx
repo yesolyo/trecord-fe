@@ -5,6 +5,7 @@ import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
 import { useNavigate } from 'react-router-dom';
+
 export const MyPage = () => {
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
