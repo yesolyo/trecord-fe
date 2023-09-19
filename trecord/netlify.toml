@@ -1,0 +1,4 @@
+[[plugins]]
+  package = "@netlify/plugin-esbuild"
+  [plugins.inputs]
+    version = "0.14.39"
