@@ -9,10 +9,10 @@ import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
 import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
-import { NewPlace } from '@components/NewRecord/NewFirstRecord/NewPlace';
 import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareButton } from '@components/common/button/SquareButton';
+import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 
 const Layout = styled.div`
   display: flex;
@@ -64,7 +64,15 @@ const ModifyRecord = observer((): ReactElement => {
   const [title, setTitle] = useState(data?.title ?? '');
   const [startDate, setStartDate] = useState(data?.date ?? '');
   const [weather, setWeather] = useState(data?.weather ?? '');
-  const [place, setPlace] = useState(data?.place ?? '');
+  const [place, setPlace] = useState<{
+    placeName: string;
+    lat: string;
+    lng: string;
+  }>({
+    placeName: data?.place ?? '',
+    lat: data?.latitude ?? '',
+    lng: data?.longitude ?? '',
+  });
   const [feel, setFeel] = useState(data?.feeling ?? '');
   const [move, setMove] = useState(data?.transportation ?? '');
   const [withPeople, setWithPeople] = useState(data?.companion ?? '');
@@ -76,7 +84,7 @@ const ModifyRecord = observer((): ReactElement => {
       title.length > 0 &&
       startDate.length > 0 &&
       weather.length > 0 &&
-      place.length > 0 &&
+      place.placeName.length > 0 &&
       feel.length > 0 &&
       move.length > 0 &&
       withPeople.length > 0
@@ -85,7 +93,7 @@ const ModifyRecord = observer((): ReactElement => {
       title === data?.title &&
       startDate === data.date &&
       weather === data.weather &&
-      place === data.place &&
+      place.placeName === data.place &&
       feel === data.feeling &&
       move === data.transportation &&
       withPeople === data.companion);
@@ -96,7 +104,9 @@ const ModifyRecord = observer((): ReactElement => {
     recordStore.setTitle(title);
     recordStore.setStartDate(startDate);
     recordStore.setWeather(weather);
-    recordStore.setPlace(place);
+    recordStore.setPlace(place.placeName);
+    recordStore.setLatitude(place.lat);
+    recordStore.setLongitude(place.lng);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
     recordStore.setWithPeople(withPeople);
@@ -137,11 +147,11 @@ const ModifyRecord = observer((): ReactElement => {
           inputHeight="46px"
         />
         <NewWeater isActive={weather} setIsActive={setWeather} />
-        <NewPlace
-          inputValue={place}
-          inputSetValue={setPlace}
-          labelTitle="장소"
-          inputTitle="장소를 입력해주세요"
+        <AutoCompletePlace
+          place={place.placeName}
+          setPlace={setPlace}
+          labelTitle="여행지"
+          inputTitle="여행지를 입력"
         />
         <div className="new_feel">
           <NewFeel isActive={feel} setIsActive={setFeel} />

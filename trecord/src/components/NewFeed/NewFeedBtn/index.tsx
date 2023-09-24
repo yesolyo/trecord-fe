@@ -7,7 +7,7 @@ interface NewFeedBtnProps {
   imageUrl: string;
   saveImageUrl: React.Dispatch<React.SetStateAction<string>>;
   titleValue: string;
-  tripPlaceValue: string;
+  tripPlaceValue: { placeName: string; lat: string; lng: string };
   startAtValue: string;
   endAtValue: string;
   withPeopleValue: string;
@@ -86,7 +86,9 @@ export const NewFeedBtn = ({
         body: JSON.stringify({
           name: titleValue,
           satisfaction: satisfactionValue,
-          place: tripPlaceValue,
+          place: tripPlaceValue.placeName,
+          latitude: tripPlaceValue.lat,
+          longitude: tripPlaceValue.lng,
           startAt: `${startAtValue}T00:00`,
           endAt: `${endAtValue}T00:00`,
           companion: withPeopleValue,
