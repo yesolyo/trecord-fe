@@ -43,12 +43,12 @@ export const NewRecord = observer(() => {
   const [weather, setWeather] = useState(recordStore.weather);
   const [place, setPlace] = useState<{
     placeName: string;
-    lat: number;
-    lng: number;
+    lat: string;
+    lng: string;
   }>({
     placeName: recordStore.place,
-    lat: 0,
-    lng: 0,
+    lat: recordStore.latitude,
+    lng: recordStore.latitude,
   });
   const [feel, setFeel] = useState(recordStore.feel);
   const [move, setMove] = useState(recordStore.move);
@@ -75,6 +75,8 @@ export const NewRecord = observer(() => {
     recordStore.setStartDate(startDate);
     recordStore.setWeather(weather);
     recordStore.setPlace(place.placeName);
+    recordStore.setLatitude(place.lat);
+    recordStore.setLongitude(place.lng);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
     recordStore.setWithPeople(withPeople);

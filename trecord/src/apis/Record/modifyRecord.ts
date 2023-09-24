@@ -9,6 +9,8 @@ interface Props {
   title: string;
   date: string;
   place: string;
+  latitude: string;
+  longitude: string;
   feeling: string;
   weather: string;
   transportation: string;
@@ -22,6 +24,8 @@ const modifyRecord = async ({
   title,
   date,
   place,
+  latitude,
+  longitude,
   feeling,
   weather,
   transportation,
@@ -34,6 +38,8 @@ const modifyRecord = async ({
     title,
     date,
     place,
+    latitude,
+    longitude,
     feeling,
     weather,
     transportation,

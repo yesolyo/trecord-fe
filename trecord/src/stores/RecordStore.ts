@@ -7,6 +7,8 @@ class RecordStore {
   startDate: string;
   weather: string;
   place: string;
+  latitude: string;
+  longitude: string;
   feel: string;
   move: string;
   withPeople: string;
@@ -20,6 +22,8 @@ class RecordStore {
     this.startDate = '';
     this.weather = '';
     this.place = '';
+    this.latitude = '';
+    this.longitude = '';
     this.feel = '';
     this.move = '';
     this.withPeople = '';
@@ -53,6 +57,14 @@ class RecordStore {
     this.place = place;
   }
 
+  setLatitude(latitude: string) {
+    this.latitude = latitude;
+  }
+
+  setLongitude(longitude: string) {
+    this.longitude = longitude;
+  }
+
   setFeel(feel: string) {
     this.feel = feel;
   }
@@ -80,6 +92,8 @@ class RecordStore {
     this.startDate = '';
     this.weather = '';
     this.place = '';
+    this.latitude = '';
+    this.longitude = '';
     this.feel = '';
     this.move = '';
     this.withPeople = '';

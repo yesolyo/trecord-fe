@@ -33,6 +33,8 @@ const ModifyWriteRecord = observer((): ReactElement => {
           title: recordStore.title,
           date: `${recordStore.startDate}T00:00`,
           place: recordStore.place,
+          longitude: recordStore.longitude,
+          latitude: recordStore.latitude,
           feeling: recordStore.feel,
           weather: recordStore.weather,
           transportation: recordStore.move,

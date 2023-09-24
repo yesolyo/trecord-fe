@@ -23,12 +23,12 @@ export const NewFeed = () => {
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState<{
     placeName: string;
-    lat: number;
-    lng: number;
+    lat: string;
+    lng: string;
   }>({
     placeName: '',
-    lat: 0,
-    lng: 0,
+    lat: '',
+    lng: '',
   });
   const [startAt, setStartAt] = useState('');
   const [endAt, setEndAt] = useState('');
@@ -94,7 +94,7 @@ export const NewFeed = () => {
         imageUrl={titleImgUrl}
         saveImageUrl={setTitleImgUrl}
         titleValue={title}
-        tripPlaceValue={place.placeName}
+        tripPlaceValue={place}
         startAtValue={startAt}
         endAtValue={endAt}
         withPeopleValue={withPeople}

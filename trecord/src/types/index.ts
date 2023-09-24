@@ -40,6 +40,8 @@ export type feedDetailProps = {
   description: string;
   companion: string;
   place: string;
+  latitude: string;
+  longitude: string;
   satisfaction: keyof typeof icons;
   startAt: string;
   endAt: string;
@@ -64,6 +66,8 @@ export type recordDetailList = {
   feeling: string;
   isUpdatable: boolean;
   place: string;
+  latitude: string;
+  longitude: string;
   recordId: number;
   title: string;
   transportation: keyof typeof icons;

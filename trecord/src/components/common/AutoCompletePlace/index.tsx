@@ -9,8 +9,8 @@ type Props = {
   setPlace: React.Dispatch<
     React.SetStateAction<{
       placeName: string;
-      lat: number;
-      lng: number;
+      lat: string;
+      lng: string;
     }>
   >;
   labelTitle: string;
@@ -43,8 +43,8 @@ export const AutoCompletePlace = ({
           const inputValue = evt.target.value;
           setPlace({
             placeName: inputValue,
-            lat: 0,
-            lng: 0,
+            lat: '',
+            lng: '',
           });
           debouncedOnChange(inputValue);
         }}
@@ -62,8 +62,8 @@ export const AutoCompletePlace = ({
                       .then((result) =>
                         setPlace({
                           placeName: item.description,
-                          lat: result[0].geometry.location.lat(),
-                          lng: result[0].geometry.location.lng(),
+                          lat: result[0].geometry.location.lat().toString(),
+                          lng: result[0].geometry.location.lng().toString(),
                         }),
                       )
                       .catch((err) => console.error(err));

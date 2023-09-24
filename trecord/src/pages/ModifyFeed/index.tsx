@@ -2,6 +2,7 @@ import { useGetFeedDetail, useModifyFeed } from '@/apis';
 
 import { uploadS3 } from '@/utils/image';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
+import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 
 import ImgInput from '@components/common/ImgInput';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
@@ -39,7 +40,15 @@ const ModifyFeed = (): ReactElement => {
     url: string | null;
   }>({ data: null, url: null });
   const [title, setTitle] = useState('');
-  const [tripPlace, setTripPlace] = useState('');
+  const [place, setPlace] = useState<{
+    placeName: string;
+    lat: string;
+    lng: string;
+  }>({
+    placeName: '',
+    lat: '',
+    lng: '',
+  });
   const [startAt, setStartAt] = useState('');
   const [endAt, setEndAt] = useState('');
   const [withPeople, setWithPeople] = useState('');
@@ -53,7 +62,7 @@ const ModifyFeed = (): ReactElement => {
       endAt.length === 0 ||
       (imgFile.url === data?.imageUrl &&
         title === data?.name &&
-        tripPlace === data?.place &&
+        place.placeName === data?.place &&
         startAt === data?.startAt &&
         endAt === data?.endAt &&
         withPeople === data?.companion &&
@@ -61,7 +70,7 @@ const ModifyFeed = (): ReactElement => {
         satisfaction === data?.satisfaction),
     [
       title,
-      tripPlace,
+      place,
       startAt,
       endAt,
       withPeople,
@@ -92,7 +101,9 @@ const ModifyFeed = (): ReactElement => {
         id,
         name: title,
         satisfaction,
-        place: tripPlace,
+        place: place.placeName,
+        latitude: place.lat,
+        longitude: place.lng,
         startAt: `${startAt}T00:00`,
         endAt: `${endAt}T00:00`,
         companion: withPeople,
@@ -111,7 +122,11 @@ const ModifyFeed = (): ReactElement => {
     if (data) {
       setImgFile({ data: null, url: data.imageUrl });
       setTitle(data.name);
-      setTripPlace(data.place);
+      setPlace({
+        placeName: data.place,
+        lat: data.latitude,
+        lng: data.longitude,
+      });
       setStartAt(data.startAt);
       setEndAt(data.endAt);
       setWithPeople(data.companion);
@@ -134,11 +149,11 @@ const ModifyFeed = (): ReactElement => {
         labelTitle="제목"
         inputTitle="제목을 입력해주세요"
       />
-      <TextInput
-        inputValue={tripPlace}
-        inputSetValue={setTripPlace}
+      <AutoCompletePlace
+        place={place.placeName}
+        setPlace={setPlace}
         labelTitle="여행지"
-        inputTitle="여행지를 입력해주세요"
+        inputTitle="여행지를 입력"
       />
       <DateBox>
         <DateInput

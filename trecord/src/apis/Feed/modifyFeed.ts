@@ -8,6 +8,8 @@ interface Props {
   name: string;
   satisfaction?: string;
   place?: string;
+  latitude?: string;
+  longitude?: string;
   startAt?: string;
   endAt?: string;
   companion?: string;
@@ -20,18 +22,21 @@ const modifyFeed = async ({
   name,
   satisfaction,
   place,
+  latitude,
+  longitude,
   startAt,
   endAt,
   companion,
   description,
   imageUrl,
 }: Props) => {
-  const url = `/api/v1/feeds`;
+  const url = `/api/v1/feeds/${id}`;
   const response = await http.put(url, {
-    id,
     name,
     satisfaction,
     place,
+    latitude,
+    longitude,
     startAt,
     endAt,
     companion,
