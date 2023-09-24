@@ -8,6 +8,7 @@ import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 export const NewFeed = () => {
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
@@ -20,7 +21,15 @@ export const NewFeed = () => {
     'https://trecordbucket.s3.ap-northeast-2.amazonaws.com/upload/KakaoTalk_Photo_2023-08-08-20-30-11+(1).png',
   );
   const [title, setTitle] = useState('');
-  const [tripPlace, setTripPlace] = useState('');
+  const [place, setPlace] = useState<{
+    placeName: string;
+    lat: number;
+    lng: number;
+  }>({
+    placeName: '',
+    lat: 0,
+    lng: 0,
+  });
   const [startAt, setStartAt] = useState('');
   const [endAt, setEndAt] = useState('');
   const [withPeople, setWithPeople] = useState('');
@@ -45,11 +54,11 @@ export const NewFeed = () => {
         labelTitle="제목"
         inputTitle="제목을 입력해주세요"
       />
-      <TextInput
-        inputValue={tripPlace}
-        inputSetValue={setTripPlace}
+      <AutoCompletePlace
+        place={place.placeName}
+        setPlace={setPlace}
         labelTitle="여행지"
-        inputTitle="여행지를 입력해주세요"
+        inputTitle="여행지를 입력"
       />
       <S.DateBox>
         <DateInput
@@ -85,7 +94,7 @@ export const NewFeed = () => {
         imageUrl={titleImgUrl}
         saveImageUrl={setTitleImgUrl}
         titleValue={title}
-        tripPlaceValue={tripPlace}
+        tripPlaceValue={place.placeName}
         startAtValue={startAt}
         endAtValue={endAt}
         withPeopleValue={withPeople}

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import * as S from './style';
 import { DateInput } from '@components/common/input/DateInput';
 import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
-import { NewPlace } from '@components/NewRecord/NewFirstRecord/NewPlace';
 import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
 import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,6 +12,7 @@ import ImgInput from '@components/common/ImgInput';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 import styled from 'styled-components';
+import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 
 const StyledFrame = styled.div`
   display: flex;
@@ -41,7 +41,15 @@ export const NewRecord = observer(() => {
   const [title, setTitle] = useState(recordStore.title);
   const [startDate, setStartDate] = useState(recordStore.startDate);
   const [weather, setWeather] = useState(recordStore.weather);
-  const [place, setPlace] = useState(recordStore.place);
+  const [place, setPlace] = useState<{
+    placeName: string;
+    lat: number;
+    lng: number;
+  }>({
+    placeName: recordStore.place,
+    lat: 0,
+    lng: 0,
+  });
   const [feel, setFeel] = useState(recordStore.feel);
   const [move, setMove] = useState(recordStore.move);
   const [withPeople, setWithPeople] = useState(recordStore.withPeople);
@@ -54,7 +62,7 @@ export const NewRecord = observer(() => {
     title.length > 0 &&
     startDate.length > 0 &&
     weather.length > 0 &&
-    place.length > 0 &&
+    place.placeName.length > 0 &&
     feel.length > 0 &&
     move.length > 0 &&
     withPeople.length > 0
@@ -66,7 +74,7 @@ export const NewRecord = observer(() => {
     recordStore.setTitle(title);
     recordStore.setStartDate(startDate);
     recordStore.setWeather(weather);
-    recordStore.setPlace(place);
+    recordStore.setPlace(place.placeName);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
     recordStore.setWithPeople(withPeople);
@@ -100,11 +108,11 @@ export const NewRecord = observer(() => {
           inputHeight="46px"
         />
         <NewWeater isActive={weather} setIsActive={setWeather} />
-        <NewPlace
-          inputValue={place}
-          inputSetValue={setPlace}
-          labelTitle="장소"
-          inputTitle="장소를 입력해주세요"
+        <AutoCompletePlace
+          place={place.placeName}
+          setPlace={setPlace}
+          labelTitle="여행지"
+          inputTitle="여행지를 입력"
         />
         <div className="new_feel">
           <NewFeel isActive={feel} setIsActive={setFeel} />
