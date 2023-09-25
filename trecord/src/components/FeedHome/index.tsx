@@ -38,7 +38,7 @@ export const FeedHome = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pageData) setTotalFeeds(pageData.length);
+    if (pageData) setTotalFeeds(pageData.content.length);
   }, [pageData]);
 
   const constant = {
@@ -59,11 +59,11 @@ export const FeedHome = ({
     ],
   };
 
-  if (pageData?.length === 0) return <Empty {...constant} />;
+  if (pageData?.content.length === 0) return <Empty {...constant} />;
 
   return (
     <S.Layout>
-      {pageData?.map((feed) => (
+      {pageData?.content.map((feed) => (
         <S.ImgBox
           key={feed.id}
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
