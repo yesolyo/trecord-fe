@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { Icon } from '../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../Toast';
-import { useGetUser } from '@/apis';
+import { useGetUser, useInviteUser } from '@/apis';
 import Skeleton from '../skeleton';
 import { User } from '@/types/user';
 
@@ -126,6 +126,7 @@ const StyledProfile = styled.div`
 `;
 
 interface Props {
+  feedId: string;
   inputValue: string;
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -153,20 +154,31 @@ const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
 };
 
 const InputContainer = ({
+  feedId,
   inputValue,
   inputValueSetter: setInputValue,
 }: Props) => {
   const [enabled, setEnabled] = useState(false);
   const [list, setList] = useState<User[]>([]);
   const { data: userData } = useGetUser({ q: inputValue, enabled });
+  const { mutate } = useInviteUser();
 
   const handleClickSearch = useCallback(() => {
     setEnabled(true);
   }, []);
 
   const handleClickResult = useCallback(() => {
-    if (userData) setList([...list, userData]);
-    setInputValue('');
+    if (userData) {
+      mutate(
+        { feedId, userToId: userData.userId },
+        {
+          onSuccess: () => {
+            setList([...list, userData]);
+            setInputValue('');
+          },
+        },
+      );
+    }
   }, [userData]);
 
   const handleClickRemove = useCallback((id: number) => {
@@ -176,8 +188,6 @@ const InputContainer = ({
   }, []);
 
   useEffect(() => {
-    console.log(userData);
-    console.log();
     setEnabled(false);
   }, [userData]);
 
@@ -234,6 +244,7 @@ const InputContainer = ({
 };
 
 const ShareModalBody = ({
+  feedId,
   inputValue,
   inputValueSetter: setInputValue,
 }: Props): ReactElement => {
@@ -251,6 +262,7 @@ const ShareModalBody = ({
         <div className="title">사용자 초대</div>
         <Suspense fallback={<InputContainerFallback inputValue={inputValue} />}>
           <InputContainer
+            feedId={feedId}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
           />

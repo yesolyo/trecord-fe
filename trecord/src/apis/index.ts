@@ -15,3 +15,4 @@ export { default as useSwapRecords } from './Record/swapRecords';
 
 /** User */
 export { default as useGetUser } from './User/getUser';
+export { default as useInviteUser } from './User/inviteUser';

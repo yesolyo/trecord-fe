@@ -179,6 +179,7 @@ export const FeedDetail = () => {
         onClose={() => setOpenShareModal(false)}
       >
         <ShareModalBody
+          feedId={id}
           inputValue={shareInput}
           inputValueSetter={setShareInput}
         />
