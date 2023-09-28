@@ -7,6 +7,17 @@ export interface GetNewCommentResponse {
   comments: GetCommentProps[];
 }
 
+export interface GetMyPageLikeRespose {
+  content: GetMyPageLikeProps[];
+}
+
+export interface GetMyPageLikeProps {
+  recordId: number;
+  title: string;
+  imageUrl: string | null;
+  authorId: number;
+  authorNickname: string;
+}
 export interface GetReplyCommentResponse {
   content: GetReplyCommentProps[];
 }
