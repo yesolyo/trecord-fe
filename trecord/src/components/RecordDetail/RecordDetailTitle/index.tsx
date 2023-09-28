@@ -4,12 +4,15 @@ import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
 import { feelSet } from '@/utils';
+import { useState } from 'react';
+import RecordDetailGoogleMap from '../RecordDetailGoogleMap';
 
 interface RecordDetailDataProps {
   recordData: recordDetailList;
 }
 
 export const RecordDetailTitle = ({ recordData }: RecordDetailDataProps) => {
+  const [isActiveMap, setIsActiveMap] = useState(false);
   return (
     <S.Layout>
       <div className="title">{recordData.title}</div>
@@ -21,9 +24,18 @@ export const RecordDetailTitle = ({ recordData }: RecordDetailDataProps) => {
         </span>
       </S.DateBox>
       <S.PlaceBox>
-        <span className="first">장소</span>
-        <span className="second">{recordData.place}</span>
+        <span className="first space">장소</span>
+        <span className="second ellipsis">{recordData.place}</span>
+        <button className="map_view" onClick={() => setIsActiveMap(true)}>
+          지도로 보기
+        </button>
       </S.PlaceBox>
+      {isActiveMap && (
+        <RecordDetailGoogleMap
+          latitude={recordData.latitude}
+          longitude={recordData.longitude}
+        />
+      )}
       <S.FeelBox>
         <span className="first">오늘의 기분</span>
         <span className="second">{feelSet({ feel: recordData.feeling })}</span>

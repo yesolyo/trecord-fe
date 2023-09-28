@@ -6,25 +6,26 @@ interface RecordSummaryProps {
   listData: recordList[];
 }
 
-export const RecordSummary = ({ listData }: RecordSummaryProps) => {
-  const result = listData.reduce(
-    (acc, curr) => {
-      const { date } = curr;
-      const day = new Date(date).getDate(); // Extract the day from the date
-      const dayKey = `${day}일차`; // Create the formatted day key
+export const SummeryList = ({ listData }: RecordSummaryProps) => {
+  const result: { [dayNumber: number]: any[] } = {};
 
-      if (acc[dayKey]) {
-        acc[dayKey].push(curr);
-      } else {
-        acc[dayKey] = [curr];
-      }
+  // 데이터를 순회하며 dayNumber를 기준으로 객체를 재구성
+  listData.forEach((item) => {
+    const dayNumber = item.dayNumber;
+    if (!result[dayNumber]) {
+      result[dayNumber] = [];
+    }
+    result[dayNumber].push({
+      id: item.id,
+      title: item.title,
+      place: item.place,
+      latitude: item.latitude,
+      longitude: item.longitude,
+      imageUrl: item.imageUrl,
+      date: item.date,
+    });
+  });
 
-      return acc;
-    },
-    {} as Record<string, typeof listData>,
-  );
-
-  console.log('결과', result);
   return (
     <S.Layout>
       {Object.entries(result).map(([dayKey, dayData]) => (

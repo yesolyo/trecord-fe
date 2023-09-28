@@ -8,6 +8,7 @@ export const DataBox = styled.div`
   align-items: center;
   gap: 5px;
   padding-top: 65px;
+  overflow: auto;
 
   .loading {
     width: 100%;

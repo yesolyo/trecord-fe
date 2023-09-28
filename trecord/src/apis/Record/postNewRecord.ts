@@ -4,16 +4,18 @@ import { http } from '../_http';
 import { PostNewRecordResponse } from '@/types/record';
 
 interface Props {
-    imageUrl?: string;
-    feedId: string;
-    title: string;
-    date: string;
-    place: string;
-    feeling: string;
-    weather: string;
-    transportation: string;
-    content: string;
-    companion: string;         
+  imageUrl?: string;
+  feedId: string;
+  title: string;
+  date: string;
+  place: string;
+  latitude: string;
+  longitude: string;
+  feeling: string;
+  weather: string;
+  transportation: string;
+  content: string;
+  companion: string;
 }
 
 const postNewRecord = async ({
@@ -22,6 +24,8 @@ const postNewRecord = async ({
   title,
   date,
   place,
+  latitude,
+  longitude,
   feeling,
   weather,
   transportation,
@@ -35,6 +39,8 @@ const postNewRecord = async ({
     title,
     date,
     place,
+    latitude,
+    longitude,
     feeling,
     weather,
     transportation,
@@ -47,9 +53,9 @@ const postNewRecord = async ({
 
 /** @TODO 나중에 get도 수정되면 그 때 invaliation 과정 추가 */
 const usePostNewRecord = () => {
-    return useMutation(postNewRecord, {
-        /** @TODO 나중에 error boundary 추가 */
-      onError: (e) => console.log(e), 
+  return useMutation(postNewRecord, {
+    /** @TODO 나중에 error boundary 추가 */
+    onError: (e) => console.log(e),
   });
 };
 

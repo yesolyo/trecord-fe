@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useEffect, useState } from 'react';
 import { SquareButton } from '@components/common/button/SquareButton';
+import uuid from 'react-uuid';
 interface NewFeedBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
@@ -46,10 +47,7 @@ export const NewFeedBtn = ({
       },
     });
 
-    const key =
-      imageFile.originFile instanceof File
-        ? imageFile.originFile.name
-        : 'default-name';
+    const key = uuid();
 
     const params = {
       ACL: 'public-read',

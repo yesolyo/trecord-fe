@@ -27,11 +27,27 @@ export const DateBox = styled.div`
 
 export const PlaceBox = styled.div`
   display: flex;
-  gap: 63px;
+
   .second,
   .first {
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
+  }
+  .map_view {
+    border: none;
+    background: none;
+    color: ${({ theme }) => theme.colors.colorStyles.blue};
+    ${({ theme }) => theme.font.fontType.S}
+  }
+  .space {
+    padding-right: 63px;
+  }
+  .ellipsis {
+    display: inline-block;
+    width: 61px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 export const FeelBox = styled.div`
