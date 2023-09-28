@@ -31,6 +31,8 @@ export const NewWriteRecord = observer((): ReactElement => {
           title: recordStore.title,
           date: `${recordStore.startDate}T00:00`,
           place: recordStore.place,
+          latitude: recordStore.latitude,
+          longitude: recordStore.longitude,
           feeling: recordStore.feel,
           weather: recordStore.weather,
           transportation: recordStore.move,

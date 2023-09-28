@@ -13,6 +13,7 @@ import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ShareModalBody';
+import useGetRecordList from '@/apis/Feed/getRecordList';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -64,13 +65,12 @@ export const Fallback = (): ReactElement => {
 export const FeedDetail = () => {
   const { id = '' } = useParams();
   const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
+  const { data: recordListData } = useGetRecordList({ id: id ?? '' });
   const { mutate: deleteFeed } = useDeleteFeed();
   const navigate = useNavigate();
-
   const [openModal, setOpenModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [shareInput, setShareInput] = useState('');
-
   const handleConfirmDelete = useCallback(() => {
     deleteFeed(
       { id },
@@ -103,12 +103,10 @@ export const FeedDetail = () => {
   return (
     <>
       <S.Layout>
-        {detailData?.isUpdatable && (
-          <NavBarBackBtn
-            onBackBtnClick={() => navigate('/home')}
-            isCategory={false}
-          />
-        )}
+        <NavBarBackBtn
+          onBackBtnClick={() => navigate('/home')}
+          isCategory={false}
+        />
         <S.ImgBox>
           <img src={detailData?.imageUrl} />
         </S.ImgBox>
@@ -139,8 +137,8 @@ export const FeedDetail = () => {
             </S.EmojiBox>
           )}
           <div className="detail_description">{detailData?.description}</div>
-          {detailData?.records && (
-            <ViewRecord feedId={id} listData={detailData?.records} />
+          {recordListData && (
+            <ViewRecord feedId={id} listData={recordListData.content} />
           )}
         </S.ExplainBox>
         <S.EditButtonBox>

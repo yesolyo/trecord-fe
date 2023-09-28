@@ -17,9 +17,7 @@ export const NewFeed = () => {
     imgFile: '',
     originFile: '',
   });
-  const [titleImgUrl, setTitleImgUrl] = useState<string>(
-    'https://trecordbucket.s3.ap-northeast-2.amazonaws.com/upload/KakaoTalk_Photo_2023-08-08-20-30-11+(1).png',
-  );
+  const [titleImgUrl, setTitleImgUrl] = useState<string>('');
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState<{
     placeName: string;

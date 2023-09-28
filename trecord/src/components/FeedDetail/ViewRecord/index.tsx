@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { RecordListBtn } from '../RecordListBtn';
 import * as S from './style';
 import { RecordList } from '../RecordList';
-import { RecordSummary } from '../RecordSummary';
 import { recordList } from '@/types';
 import styled from 'styled-components';
 import EmptyIcon from '@/assets/components/EmptyIcon';
+import { SummeryList } from '../SummeryList';
 
 const StyledEmptyDiv = styled.div`
   display: flex;
@@ -39,6 +39,7 @@ interface ViewRecordProps {
 export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
   const [activeList, setActiveList] = useState('기록리스트');
   const [isActive, setIsActive] = useState(true);
+
   return (
     <S.Layout>
       <S.BtnBox>
@@ -62,7 +63,7 @@ export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
       {isActive && listData.length > 0 ? (
         <RecordList feedId={feedId} listData={listData} />
       ) : (
-        <RecordSummary listData={listData} />
+        <SummeryList listData={listData} />
       )}
       {listData.length === 0 && (
         <StyledEmptyDiv>

@@ -26,6 +26,8 @@ export type feedList = {
   id: number;
   name: string;
   imageUrl: string;
+  longitude: string;
+  latitude: string;
   place: string;
   startAt: string;
   endAt: string;
@@ -45,15 +47,29 @@ export type feedDetailProps = {
   satisfaction: keyof typeof icons;
   startAt: string;
   endAt: string;
-  records: recordList[];
+};
+
+export type recordListProps = {
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  empty: boolean;
+  content: recordList[];
 };
 
 export type recordList = {
   id: number;
+  dayNumber: number;
   title: string;
   place: string;
   date: string;
   imageUrl?: string;
+  latitude: string;
+  longitude: string;
 };
 
 export type recordDetailList = {

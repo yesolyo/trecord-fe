@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Layout = styled.div`
   position: relative;
+  overflow: auto;
   height: 100%;
   width: 100%;
 
@@ -27,8 +28,6 @@ export const IconBox = styled.div`
   justify-content: space-between;
 `;
 export const ExplainBox = styled.div`
-  overflow: auto;
-  position: absolute;
   top: 490px;
   width: 100%;
   box-sizing: border-box;

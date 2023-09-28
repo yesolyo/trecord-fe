@@ -8,4 +8,5 @@ export const colorStyles = {
   gray300: '#E9E9E9',
   gray200: '#F5F5F5',
   gray100: '#FFFFFF',
+  blue: '#52B4FF',
 };

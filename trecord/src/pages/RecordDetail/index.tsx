@@ -107,7 +107,18 @@ export const RecordDetail = () => {
     <>
       <S.Layout>
         <StyledNavbar>
-          {((!recordData?.isUpdatable && !isFromRecordShare) ||
+          <Icon
+            iconType="arrow"
+            width={24}
+            fill={colorStyles.gray900}
+            onClick={handleClickGoback}
+          />
+          <SelectButton
+            right="3%"
+            options={SELECT_INFOS}
+            onSelect={handleChangeSelect}
+          />
+          {/* {((!recordData?.isUpdatable && !isFromRecordShare) ||
             recordData?.isUpdatable) && (
             <Icon
               iconType="arrow"
@@ -115,15 +126,7 @@ export const RecordDetail = () => {
               fill={colorStyles.gray900}
               onClick={handleClickGoback}
             />
-          )}
-
-          {recordData?.isUpdatable && (
-            <SelectButton
-              right="3%"
-              options={SELECT_INFOS}
-              onSelect={handleChangeSelect}
-            />
-          )}
+          )} */}
         </StyledNavbar>
         <S.DataBox>
           {recordData && <RecordDetailTitle recordData={recordData} />}
