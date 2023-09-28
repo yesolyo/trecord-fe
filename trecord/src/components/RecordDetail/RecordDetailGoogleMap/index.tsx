@@ -1,11 +1,5 @@
-import { recordList } from '@/types';
-import React, { Fragment } from 'react';
-import {
-  GoogleMap,
-  Marker,
-  MarkerF,
-  useJsApiLoader,
-} from '@react-google-maps/api';
+import React from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 interface Props {
   latitude: string;
@@ -32,16 +26,15 @@ const RecordDetailGoogleMap = ({ latitude, longitude }: Props) => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_KEY_ID,
   });
 
-  const [map, setMap] = React.useState(null);
+  const [map, setMap] = React.useState<google.maps.Map | null>(null);
 
   const onLoad = React.useCallback(function callback(map: any) {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
-
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map: any) {
+  const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
 
@@ -54,12 +47,14 @@ const RecordDetailGoogleMap = ({ latitude, longitude }: Props) => {
       onUnmount={onUnmount}
       options={OPTIONS}
     >
-      <MarkerF
-        position={{
-          lat: Number(latitude),
-          lng: Number(longitude),
-        }}
-      ></MarkerF>
+      {map && (
+        <Marker
+          position={{
+            lat: Number(latitude),
+            lng: Number(longitude),
+          }}
+        />
+      )}
     </GoogleMap>
   ) : (
     <div>Loading Google Maps…</div>

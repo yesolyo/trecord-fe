@@ -1,4 +1,4 @@
-import { feedDetailProps, recordList, recordListProps } from '@/types';
+import { recordListProps } from '@/types';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { http } from '../_http';
 import FEED_API_KEY from './constants';
