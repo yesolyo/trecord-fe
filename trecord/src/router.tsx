@@ -20,6 +20,7 @@ import {
 } from './pages/RecordDetail';
 import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
 import { Comment } from './pages/Comment';
+import { MyPageLike } from './pages/MyPageLike';
 
 export const router = createBrowserRouter(
   [
@@ -131,6 +132,14 @@ export const router = createBrowserRouter(
         {
           path: '/mypageComment',
           element: <MyPageComment />,
+        },
+        {
+          path: '/mypageLike',
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <MyPageLike />
+            </Suspense>
+          ),
         },
       ],
     },

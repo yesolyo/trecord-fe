@@ -53,6 +53,7 @@ export const MyPage = () => {
         id: 1,
         btnIcon: 'heart',
         btnTitle: '좋아요',
+        onClick: () => navigate('/mypageLike'),
       },
       {
         id: 2,
