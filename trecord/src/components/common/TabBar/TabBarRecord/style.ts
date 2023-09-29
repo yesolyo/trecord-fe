@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Layout = styled.div`
   display: flex;
-  width: 370px;
+  width: 100%;
   height: 70px;
   padding-top: 10px;
   padding-right: 20px;
