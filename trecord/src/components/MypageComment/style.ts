@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const Layout = styled.div`
   padding-top: 70px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 110px);
+  overflow: auto;
+  overflow-x: hidden;
 `;
 export const TextBox = styled.div`
   display: flex;

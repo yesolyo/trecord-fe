@@ -14,7 +14,7 @@ export const Layout = styled.div`
     gap: 30px;
     height: 64px;
     width: 350px;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
   .content {
     display: flex;

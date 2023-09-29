@@ -61,6 +61,12 @@ export const MyPage = () => {
         btnTitle: '댓글',
         onClick: () => navigate('/mypageComment'),
       },
+      {
+        id: 3,
+        btnIcon: 'invite',
+        btnTitle: '초대된 피드',
+        onClick: () => navigate('/mypageInvite'),
+      },
     ],
   };
 
