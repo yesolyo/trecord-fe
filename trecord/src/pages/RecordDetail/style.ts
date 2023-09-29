@@ -8,8 +8,9 @@ export const DataBox = styled.div`
   align-items: center;
   gap: 5px;
   padding-top: 65px;
+  height: calc(100vh - 120px);
   overflow: auto;
-
+  overflow-x: hidden;
   .loading {
     width: 100%;
     padding: 0px 24px;

@@ -1,5 +1,4 @@
 import useGetMyPageLike from '@/apis/MyPage/getMyPageLike';
-import { Icon } from '@components/common/Icon';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';

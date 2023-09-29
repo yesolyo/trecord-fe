@@ -21,6 +21,7 @@ import {
 import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
 import { Comment } from './pages/Comment';
 import { MyPageLike } from './pages/MyPageLike';
+import { MyPageInvite } from './pages/MyPageInvite';
 
 export const router = createBrowserRouter(
   [
@@ -138,6 +139,14 @@ export const router = createBrowserRouter(
           element: (
             <Suspense fallback={<div>Loading...</div>}>
               <MyPageLike />
+            </Suspense>
+          ),
+        },
+        {
+          path: '/mypageInvite',
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <MyPageInvite />
             </Suspense>
           ),
         },

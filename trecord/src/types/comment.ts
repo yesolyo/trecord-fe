@@ -11,6 +11,20 @@ export interface GetMyPageLikeRespose {
   content: GetMyPageLikeProps[];
 }
 
+export interface GetMyPageInviteResponse {
+  content: GetMyPageInvteProps[];
+}
+
+export interface GetMyPageInviteListProps {
+  content: GetMyPageInvteProps[];
+  onDelete: (id: number) => void;
+}
+export interface GetMyPageInvteProps {
+  feedId: number;
+  feedName: string;
+  imageUrl: string | null;
+  ownerNickname: string;
+}
 export interface GetMyPageLikeProps {
   recordId: number;
   title: string;
@@ -24,7 +38,7 @@ export interface GetReplyCommentResponse {
 export interface GetMypageCommentResponse {
   commentData: React.Dispatch<React.SetStateAction<number>>;
   onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
-  comments: GetMypageComment[];
+  content: GetMypageComment[];
 }
 
 export interface GetReplyCommentProps {

@@ -37,7 +37,7 @@ import { ReactComponent as arrowDown } from '@/assets/arrowDown.svg';
 import { ReactComponent as login } from '@/assets/login.svg';
 import { ReactComponent as share } from '@/assets/share.svg';
 import { ReactComponent as change } from '@/assets/change.svg';
-
+import { ReactComponent as invite } from '@/assets/invite.svg';
 export default {
   close,
   addSquare,
@@ -78,4 +78,5 @@ export default {
   login,
   share,
   change,
+  invite,
 };

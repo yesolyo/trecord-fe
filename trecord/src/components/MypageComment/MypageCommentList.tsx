@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 export const MypageCommentList = ({ ...props }: GetMypageCommentResponse) => {
   return (
     <S.Layout>
-      {props.comments.map((comment, index) => (
+      {props.content.map((comment, index) => (
         <Fragment key={comment.commentId}>
           <S.CommentBox>
             <Icon iconType="message" width={24} />
@@ -23,7 +23,7 @@ export const MypageCommentList = ({ ...props }: GetMypageCommentResponse) => {
               }}
             />
           </S.CommentBox>
-          {props.comments.length - 1 !== index && <S.LineBox />}
+          {props.content.length - 1 !== index && <S.LineBox />}
         </Fragment>
       ))}
     </S.Layout>
