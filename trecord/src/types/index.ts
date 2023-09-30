@@ -27,6 +27,7 @@ export type feedDetailProps = {
   writerId: number;
   feedId: number;
   canModifyFeed: boolean;
+  canCreateFeed: boolean;
   name: string;
   imageUrl: string;
   description: string;

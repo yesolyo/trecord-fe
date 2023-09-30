@@ -103,10 +103,12 @@ export const FeedDetail = () => {
   return (
     <>
       <S.Layout>
-        <NavBarBackBtn
-          onBackBtnClick={() => navigate('/home')}
-          isCategory={false}
-        />
+        {detailData?.canModifyFeed && (
+          <NavBarBackBtn
+            onBackBtnClick={() => navigate('/home')}
+            isCategory={false}
+          />
+        )}
         <S.ImgBox>
           <img src={detailData?.imageUrl} />
         </S.ImgBox>
