@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { Icon } from '../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../Toast';
-import { useGetUser, useInviteUser } from '@/apis';
+import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import Skeleton from '../skeleton';
 import { User } from '@/types/user';
 
@@ -126,7 +126,7 @@ const StyledProfile = styled.div`
 `;
 
 interface Props {
-  feedId: string;
+  feedId: number;
   inputValue: string;
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -162,6 +162,7 @@ const InputContainer = ({
   const [list, setList] = useState<User[]>([]);
   const { data: userData } = useGetUser({ q: inputValue, enabled });
   const { mutate } = useInviteUser();
+  const { mutate: gtfOut } = useGtfOutFromFeed({ feedId });
 
   const handleClickSearch = useCallback(() => {
     setEnabled(true);
@@ -170,7 +171,7 @@ const InputContainer = ({
   const handleClickResult = useCallback(() => {
     if (userData) {
       mutate(
-        { feedId, userToId: userData.userId },
+        { feedId: feedId.toString(), userToId: userData.userId },
         {
           onSuccess: () => {
             setList([...list, userData]);
@@ -181,11 +182,24 @@ const InputContainer = ({
     }
   }, [userData]);
 
-  const handleClickRemove = useCallback((id: number) => {
-    const index = list.findIndex((x) => x.userId === id);
-    const newList = [...list];
-    setList(newList.splice(index, 1));
-  }, []);
+  const handleClickRemove = useCallback(
+    (id: number) => {
+      gtfOut(
+        {
+          feedId,
+          userId: id,
+        },
+        {
+          onSuccess: () => {
+            const index = list.findIndex((x) => x.userId === id);
+            const newList = [...list];
+            setList(newList.splice(index, 1));
+          },
+        },
+      );
+    },
+    [gtfOut],
+  );
 
   useEffect(() => {
     setEnabled(false);
