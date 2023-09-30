@@ -43,9 +43,11 @@ interface Props {
   allText: string;
   commentText: string;
   likeText: string;
+  invitaitonText: string;
   onAll?: () => void;
   onComment?: () => void;
   onLike?: () => void;
+  onInvitation?: () => void;
 }
 
 const AlarmFilterBox = ({
@@ -53,9 +55,11 @@ const AlarmFilterBox = ({
   allText,
   commentText,
   likeText,
+  invitaitonText,
   onAll,
   onComment,
   onLike,
+  onInvitation,
 }: Props): ReactElement => {
   return (
     <StyledDiv display={openModal ? 'flex' : 'none'}>
@@ -68,6 +72,9 @@ const AlarmFilterBox = ({
         </button>
         <button className="select" onClick={onLike}>
           {likeText}
+        </button>
+        <button className="select" onClick={onInvitation}>
+          {invitaitonText}
         </button>
       </div>
     </StyledDiv>

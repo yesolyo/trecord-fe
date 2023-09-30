@@ -4,7 +4,7 @@ export interface PostNewCommentResponse {
 }
 
 export interface GetNewCommentResponse {
-  comments: GetCommentProps[];
+  content: GetCommentProps[];
 }
 
 export interface GetMyPageLikeRespose {

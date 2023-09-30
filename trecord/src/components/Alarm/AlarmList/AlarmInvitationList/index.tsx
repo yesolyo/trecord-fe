@@ -1,10 +1,10 @@
 import { Empty } from '@components/common/Empty';
 import * as S from './style';
-import { GetAllAlarmResponse } from '@/types/alarm';
 import { Icon } from '@components/common/Icon';
-import { alarmStatusKeys } from './constant';
 import { Fragment } from 'react';
-export const AlarmList = ({ ...props }: GetAllAlarmResponse) => {
+import useGetInvitationAlarm from '@/apis/Alarm/getInvitaionAlarm';
+export const AlarmInvitationList = () => {
+  const { data: invitationAlarmData } = useGetInvitationAlarm();
   const constant = {
     icon: {
       width: 111.37,
@@ -19,30 +19,24 @@ export const AlarmList = ({ ...props }: GetAllAlarmResponse) => {
     ],
   };
 
-  if (props?.notifications.length === 0) return <Empty {...constant} />;
+  if (invitationAlarmData?.content.length === 0) return <Empty {...constant} />;
   else
     return (
       <S.Layout>
-        {props?.notifications.map((a, index) => (
+        {invitationAlarmData?.content.map((a, index) => (
           <Fragment key={a.userFrom.id}>
             <div className="container">
-              <Icon
-                iconType={
-                  alarmStatusKeys[a.type as keyof typeof alarmStatusKeys]
-                }
-                width={24}
-              />
+              <Icon iconType="message" width={24} />
               <div className="content">
                 <span className="title">
-                  <strong className="nickname">{a.type}</strong>님이 댓글을
-                  남겼어요:
+                  <strong className="nickname">{a.userFrom.nickname}</strong>
+                  님이 피드에 초대했어요
                 </span>
-                <span className="body">{a.content}</span>
                 <span className="date">{a.date}</span>
               </div>
               <Icon iconType="close" width={24} />
             </div>
-            {props.notifications.length - 1 !== index && <S.LineBox />}
+            {invitationAlarmData.content.length - 1 !== index && <S.LineBox />}
           </Fragment>
         ))}
       </S.Layout>

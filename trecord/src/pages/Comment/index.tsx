@@ -150,7 +150,7 @@ export const Comment = () => {
   const constant = {
     title: '댓글',
     isRegister: false,
-    commentCount: newCommentData && newCommentData.comments.length,
+    commentCount: newCommentData && newCommentData.content.length,
     onClick: handleNavigate,
   };
 

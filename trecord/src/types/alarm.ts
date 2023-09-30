@@ -1,16 +1,19 @@
 export interface GetAllAlarmResponse {
-  notifications: (GetCommentAlarm | GetLikeAlarm | GetInvitationAlarm)[];
+  content: (GetCommentAlarm & GetLikeAlarm & GetInvitationAlarm)[];
 }
 
 export interface GetCommentAlarmResponse {
-  notifications: GetCommentAlarm[];
+  content: GetCommentAlarm[];
 }
 
 export interface GetLikeAlarmResponse {
-  notifications: GetLikeAlarm[];
+  content: GetLikeAlarm[];
 }
-
+export interface GetInvitationAlarmResponse {
+  content: GetInvitationAlarm[];
+}
 export interface GetAllAlarm {
+  id: number;
   type: string;
   status: string;
   content: string;
@@ -54,6 +57,7 @@ export interface GetCommentAlarm {
   date: string;
 }
 export interface GetLikeAlarm {
+  id: number;
   type: string;
   status: string;
   content: string;
@@ -62,12 +66,13 @@ export interface GetLikeAlarm {
     nickname: string;
   };
   record: {
-    id: 1;
+    id: number;
     title: string;
   };
   date: string;
 }
 export interface GetInvitationAlarm {
+  id: number;
   type: string;
   status: string;
   content: string;

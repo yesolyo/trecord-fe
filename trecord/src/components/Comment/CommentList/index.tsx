@@ -43,7 +43,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
   return (
     //TODO:이미지 반영 예정
     <S.Layout>
-      {props.commentData.comments.map((user, index) => (
+      {props.commentData.content.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
             {user.commenterImageUrl.length >= 1 ? (
@@ -96,7 +96,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
               )}
             </S.CommentDataBox>
           </S.CommentBox>
-          {props.commentData.comments.length !== index + 1 && (
+          {props.commentData.content.length !== index + 1 && (
             <hr className="line_box" />
           )}
         </Fragment>

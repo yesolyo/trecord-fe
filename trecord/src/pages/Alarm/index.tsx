@@ -1,17 +1,17 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
 import * as S from './style';
-
 import { useState } from 'react';
-import useGetAllAlarm from '@/apis/Alarm/getAlarm';
-import { AlarmList } from '@components/Alarm/AlarmList';
+import { AlarmAllList } from '@components/Alarm/AlarmList/AlarmAllList';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
-import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
-import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
+import { AlarmInvitationList } from '@components/Alarm/AlarmList/AlarmInvitationList';
+import { AlarmCommentList } from '@components/Alarm/AlarmList/AlarmCommentList';
+import { AlarmLikeList } from '@components/Alarm/AlarmList/AlarmLikeList';
 interface alarmProps {
   isAll: boolean;
   isComment: boolean;
   isLike: boolean;
+  isInvitation: boolean;
 }
 export const Alarm = () => {
   const [isFilterActive, setIsFilterActive] = useState(false);
@@ -19,16 +19,15 @@ export const Alarm = () => {
     isAll: true,
     isComment: false,
     isLike: false,
+    isInvitation: false,
   });
-  const { data: allAlarmData } = useGetAllAlarm();
-  const { data: commentAlarmData } = useGetCommentAlarm();
-  const { data: likeAlarmData } = useGetLikeAlarm();
 
   const handleAllAlarm = () => {
     setIsAlarm({
       isAll: true,
       isComment: false,
       isLike: false,
+      isInvitation: false,
     });
     setIsFilterActive(false);
   };
@@ -37,6 +36,7 @@ export const Alarm = () => {
       isAll: false,
       isComment: true,
       isLike: false,
+      isInvitation: false,
     });
     setIsFilterActive(false);
   };
@@ -45,6 +45,17 @@ export const Alarm = () => {
       isAll: false,
       isComment: false,
       isLike: true,
+      isInvitation: false,
+    });
+    setIsFilterActive(false);
+  };
+
+  const handleInvitationAlarm = () => {
+    setIsAlarm({
+      isAll: false,
+      isComment: false,
+      isLike: false,
+      isInvitation: true,
     });
     setIsFilterActive(false);
   };
@@ -75,20 +86,29 @@ export const Alarm = () => {
           onClick={() => setIsFilterActive(true)}
         />
       )}
+      {isAlarm.isInvitation && (
+        <NavBarProfile
+          mainTitle="알림"
+          isButton={true}
+          filterText="초대"
+          onClick={() => setIsFilterActive(true)}
+        />
+      )}
       <AlarmFilterBox
         openModal={isFilterActive}
         allText="전체"
         commentText="댓글"
         likeText="좋아요"
+        invitaitonText="초대"
         onAll={handleAllAlarm}
         onComment={handleCommentAlarm}
         onLike={handleLikeAlarm}
+        onInvitation={handleInvitationAlarm}
       />
-      {isAlarm.isAll && allAlarmData && <AlarmList {...allAlarmData} />}
-      {isAlarm.isComment && commentAlarmData && (
-        <AlarmList {...commentAlarmData} />
-      )}
-      {isAlarm.isLike && likeAlarmData && <AlarmList {...likeAlarmData} />}
+      {isAlarm.isAll && <AlarmAllList />}
+      {isAlarm.isComment && <AlarmCommentList />}
+      {isAlarm.isLike && <AlarmLikeList />}
+      {isAlarm.isInvitation && <AlarmInvitationList />}
       <TabBar currentPage={'alarm'} />
     </S.Layout>
   );
