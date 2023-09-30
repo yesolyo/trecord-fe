@@ -1,6 +1,6 @@
 import { TextareaInput } from '@components/common/input/TextareaInput';
 import { TextInput } from '@components/common/input/TextInput';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import * as S from './style';
 import { DateInput } from '@components/common/input/DateInput';
 import { Satisfaction } from '@components/NewFeed/Satisfaction';
@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import Modal from '@components/common/Modal';
 import InviteFeedModalBody from '@components/common/Modal/InviteFeedModalBody';
 import { User } from '@/types/user';
+import ChipContainer from '@components/common/ChipContainer';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -68,11 +69,18 @@ export const NewFeed = () => {
     () => contributers.map((c) => c.userId),
     [contributers],
   );
+  const contributerNames = useMemo(
+    () => contributers.map((c) => c.nickname ?? ''),
+    [contributers],
+  );
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
   const navigate = useNavigate();
 
-  const [openShareModal, setOpenShareModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const handleClickContributer = useCallback(() => {
+    setOpenModal(true);
+  }, []);
 
   return (
     <>
@@ -116,7 +124,12 @@ export const NewFeed = () => {
         </S.DateBox>
         <StyledDiv>
           <div className="title">같이 간 사람</div>
-          <div className="content">누구와 같이 갔나요?</div>
+          <div className="content" onClick={handleClickContributer}>
+            누구와 같이 갔나요?
+          </div>
+          <div>
+            <ChipContainer names={contributerNames} />
+          </div>
         </StyledDiv>
         <TextareaInput
           inputValue={tripIntroduce}
@@ -144,10 +157,7 @@ export const NewFeed = () => {
           title="완료"
         />
       </S.Layout>
-      <Modal
-        openModal={openShareModal}
-        onClose={() => setOpenShareModal(false)}
-      >
+      <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
         <InviteFeedModalBody
           contributers={contributers}
           contributersSetter={setContributers}

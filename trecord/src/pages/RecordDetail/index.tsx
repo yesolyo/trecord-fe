@@ -167,7 +167,7 @@ export const RecordDetail = () => {
         onClose={() => setOpenShareModal(false)}
       >
         <ShareModalBody
-          feedId={feedId?.toString() ?? '0'}
+          feedId={feedId ?? 0}
           inputValue={shareInput}
           inputValueSetter={setShareInput}
         />
