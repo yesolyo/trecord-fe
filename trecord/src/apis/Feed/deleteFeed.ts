@@ -8,10 +8,8 @@ interface Props {
 }
 
 const deleteFeed = async ({ id }: Props) => {
-  const url = `/api/v1/feeds`;
-  const response = await http.delete(url, {
-    id,
-  });
+  const url = `/api/v1/feeds/${id}`;
+  const response = await http.delete(url);
 
   return response;
 };
