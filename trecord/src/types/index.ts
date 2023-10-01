@@ -85,6 +85,7 @@ export type recordDetailList = {
   latitude: string;
   longitude: string;
   recordId: number;
+  liked: boolean;
   title: string;
   transportation: keyof typeof icons;
   weather: keyof typeof icons;

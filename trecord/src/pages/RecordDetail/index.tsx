@@ -11,6 +11,7 @@ import Modal from '@components/common/Modal';
 import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ShareModalBody';
+import usePostLike from '@/apis/Like/postLike';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -62,11 +63,13 @@ export const RecordDetail = () => {
     return fId !== feedId;
   }, [state, feedId]);
   const { mutate: deleteRecord } = useDeleteRecord({ recordId });
+  const { mutate: postLike } = usePostLike();
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [shareInput, setShareInput] = useState('');
+  const [isActiveLike, setIsActiveLike] = useState(false);
 
   const handleClickGoback = useCallback(() => {
     navigate(`/feedDetail/${feedId ?? recordData?.feedId}`);
@@ -100,7 +103,16 @@ export const RecordDetail = () => {
       },
     );
   }, [recordId, deleteRecord, navigate]);
-
+  const handlePostLike = () => {
+    postLike(
+      { recordId },
+      {
+        onSuccess: (data) => {
+          setIsActiveLike(data.liked);
+        },
+      },
+    );
+  };
   return (
     <>
       <S.Layout>
@@ -129,6 +141,8 @@ export const RecordDetail = () => {
           {recordData && <RecordDetailSub recordData={recordData} />}
           <TabBarRecord
             isRegister={false}
+            isActiveLike={isActiveLike}
+            onPrevClick={handlePostLike}
             onNextClick={() => navigate(`/comment/${recordId}`)}
           />
         </S.DataBox>
