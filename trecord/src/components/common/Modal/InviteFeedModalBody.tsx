@@ -102,8 +102,8 @@ const StyledProfile = styled.div`
 `;
 
 interface Props {
-  contributers: User[];
-  contributersSetter: React.Dispatch<React.SetStateAction<User[]>>;
+  contributors: User[];
+  contributorsSetter: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
@@ -129,8 +129,8 @@ const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
 };
 
 const InputContainer = ({
-  contributers,
-  contributersSetter: setContributers,
+  contributors,
+  contributorsSetter: setContributers,
 }: Props) => {
   const [enabled, setEnabled] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -142,14 +142,14 @@ const InputContainer = ({
 
   const handleClickResult = useCallback(() => {
     if (userData) {
-      setContributers([...contributers, userData]);
+      setContributers([...contributors, userData]);
     }
     setInputValue('');
   }, [userData]);
 
   const handleClickRemove = useCallback((id: number) => {
-    const index = contributers.findIndex((x) => x.userId === id);
-    const newList = [...contributers];
+    const index = contributors.findIndex((x) => x.userId === id);
+    const newList = [...contributors];
     setContributers(newList.splice(index, 1));
   }, []);
 
@@ -177,7 +177,7 @@ const InputContainer = ({
       </div>
       <div className="input-result">
         {userData &&
-          contributers.findIndex((x) => x.userId === userData?.userId) ===
+          contributors.findIndex((x) => x.userId === userData?.userId) ===
             -1 && (
             <StyledProfile onClick={handleClickResult}>
               <div className="profile">
@@ -190,7 +190,7 @@ const InputContainer = ({
             </StyledProfile>
           )}
         <div className="user-list">
-          {contributers.map((l) => (
+          {contributors.map((l) => (
             <StyledProfile onClick={handleClickResult}>
               <div className="profile">
                 {l.imageUrl && <img src={l.imageUrl} />}
@@ -211,8 +211,8 @@ const InputContainer = ({
 };
 
 const InviteFeedModalBody = ({
-  contributers,
-  contributersSetter: setContributers,
+  contributors,
+  contributorsSetter: setContributers,
 }: Props): ReactElement => {
   return (
     <StyledModalBody>
@@ -220,8 +220,8 @@ const InviteFeedModalBody = ({
         <div className="title">사용자 초대</div>
         <Suspense fallback={<InputContainerFallback inputValue={''} />}>
           <InputContainer
-            contributers={contributers}
-            contributersSetter={setContributers}
+            contributors={contributors}
+            contributorsSetter={setContributers}
           />
         </Suspense>
       </div>

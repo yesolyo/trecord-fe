@@ -65,7 +65,8 @@ const ModifyFeed = (): ReactElement => {
         place.placeName === data?.place &&
         startAt === data?.startAt &&
         endAt === data?.endAt &&
-        withPeople === data?.companion &&
+        /** @TODO */
+        // withPeople === data?.contributors &&
         tripIntroduce === data?.description &&
         satisfaction === data?.satisfaction),
     [
@@ -129,7 +130,8 @@ const ModifyFeed = (): ReactElement => {
       });
       setStartAt(data.startAt);
       setEndAt(data.endAt);
-      setWithPeople(data.companion);
+      /** @TODO */
+      //   setWithPeople(data.companion);
       setTripIntroduce(data.description);
       setSatisfaction(data.satisfaction);
     }

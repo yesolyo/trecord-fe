@@ -1,3 +1,6 @@
+import icons from '@/assets/index';
+import { User } from './user';
+
 export interface Feed {
   id: number;
   name: string;
@@ -20,4 +23,21 @@ export interface NewFeedProps {
   description?: string;
   imageUrl?: string;
   contributors: number[];
+}
+
+export interface FeedDetail {
+  writerId: number;
+  feedId: number;
+  canModifyFeed: boolean;
+  canCreateFeed: boolean;
+  name: string;
+  imageUrl: string;
+  description: string;
+  place: string;
+  latitude: string;
+  longitude: string;
+  satisfaction: keyof typeof icons;
+  startAt: string;
+  endAt: string;
+  contributors: User[];
 }

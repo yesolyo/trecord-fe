@@ -64,14 +64,14 @@ export const NewFeed = () => {
   });
   const [startAt, setStartAt] = useState('');
   const [endAt, setEndAt] = useState('');
-  const [contributers, setContributers] = useState<User[]>([]);
+  const [contributors, setContributers] = useState<User[]>([]);
   const contributerIds = useMemo(
-    () => contributers.map((c) => c.userId),
-    [contributers],
+    () => contributors.map((c) => c.userId),
+    [contributors],
   );
   const contributerNames = useMemo(
-    () => contributers.map((c) => c.nickname ?? ''),
-    [contributers],
+    () => contributors.map((c) => c.nickname ?? ''),
+    [contributors],
   );
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
@@ -159,8 +159,8 @@ export const NewFeed = () => {
       </S.Layout>
       <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
         <InviteFeedModalBody
-          contributers={contributers}
-          contributersSetter={setContributers}
+          contributors={contributors}
+          contributorsSetter={setContributers}
         />
       </Modal>
     </>

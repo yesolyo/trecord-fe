@@ -23,23 +23,6 @@ export const SELECT_INFOS: {
 export type tabBarList =
   '"alarm" | "book" | "user" | "noneCharacter" | "profile" | "trecordLogo" | "welcomeCharacter"';
 
-export type feedDetailProps = {
-  writerId: number;
-  feedId: number;
-  canModifyFeed: boolean;
-  canCreateFeed: boolean;
-  name: string;
-  imageUrl: string;
-  description: string;
-  companion: string;
-  place: string;
-  latitude: string;
-  longitude: string;
-  satisfaction: keyof typeof icons;
-  startAt: string;
-  endAt: string;
-};
-
 export type recordListProps = {
   last: boolean;
   totalPages: number;

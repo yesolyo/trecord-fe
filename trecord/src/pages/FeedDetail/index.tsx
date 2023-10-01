@@ -1,19 +1,19 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
-import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
 import { useDeleteFeed, useGetFeedDetail } from '@/apis';
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ShareModalBody';
 import useGetRecordList from '@/apis/Feed/getRecordList';
+import ChipContainer from '@components/common/ChipContainer';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -65,6 +65,11 @@ export const Fallback = (): ReactElement => {
 export const FeedDetail = () => {
   const { id = '' } = useParams();
   const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
+  console.log(detailData);
+  const contributors = useMemo(
+    () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
+    [detailData],
+  );
   const { data: recordListData } = useGetRecordList({ id: id ?? '' });
   const { mutate: deleteFeed } = useDeleteFeed();
   const navigate = useNavigate();
@@ -125,8 +130,9 @@ export const FeedDetail = () => {
           <div className="detail_place">
             {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
           </div>
-          {detailData?.companion && detailData?.companion.length > 0 && (
-            <Tag title={detailData?.companion} />
+
+          {contributors && contributors.length > 0 && (
+            <ChipContainer names={contributors} />
           )}
 
           {detailData?.satisfaction && (
@@ -181,7 +187,7 @@ export const FeedDetail = () => {
         onClose={() => setOpenShareModal(false)}
       >
         <ShareModalBody
-          feedId={id}
+          feedId={+id}
           inputValue={shareInput}
           inputValueSetter={setShareInput}
         />
