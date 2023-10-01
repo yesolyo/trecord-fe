@@ -2,16 +2,18 @@ import { Empty } from '@components/common/Empty';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { alarmStatusKeys } from './constant';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import useGetAllAlarm from '@/apis/Alarm/getAlarm';
 import { useNavigate } from 'react-router-dom';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
+import Modal from '@components/common/Modal';
 interface Props {
   id: number;
 }
 export const AlarmAllList = () => {
   const { data: allAlarmData, refetch } = useGetAllAlarm();
   const { mutate } = useDeleteAlarm();
+  const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
 
   const constant = {
@@ -51,6 +53,7 @@ export const AlarmAllList = () => {
                   alarmStatusKeys[a.type as keyof typeof alarmStatusKeys]
                 }
                 width={24}
+                onClick={() => setIsModalActive((prev) => !prev)}
               />
 
               {a.type === 'COMMENT' && (
@@ -98,6 +101,14 @@ export const AlarmAllList = () => {
               />
             </div>
             {allAlarmData.content.length - 1 !== index && <S.LineBox />}
+            <Modal
+              openModal={isModalActive}
+              title="알림을 삭제할까요?"
+              closeText="취소"
+              confirmText="삭제"
+              onClose={() => setIsModalActive((prev) => !prev)}
+              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+            />
           </Fragment>
         ))}
       </S.Layout>

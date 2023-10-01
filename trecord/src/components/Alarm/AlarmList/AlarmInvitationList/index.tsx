@@ -1,10 +1,17 @@
 import { Empty } from '@components/common/Empty';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import useGetInvitationAlarm from '@/apis/Alarm/getInvitaionAlarm';
+import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
+import Modal from '@components/common/Modal';
+interface Props {
+  id: number;
+}
 export const AlarmInvitationList = () => {
-  const { data: invitationAlarmData } = useGetInvitationAlarm();
+  const { data: invitationAlarmData, refetch } = useGetInvitationAlarm();
+  const { mutate } = useDeleteAlarm();
+  const [isModalActive, setIsModalActive] = useState(false);
   const constant = {
     icon: {
       width: 111.37,
@@ -17,6 +24,16 @@ export const AlarmInvitationList = () => {
         body: '아직 온 알림이 없어요.',
       },
     ],
+  };
+  const handleDeleteAlarm = ({ id }: Props) => {
+    mutate(
+      { id },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      },
+    );
   };
 
   if (invitationAlarmData?.content.length === 0) return <Empty {...constant} />;
@@ -34,9 +51,21 @@ export const AlarmInvitationList = () => {
                 </span>
                 <span className="date">{a.date}</span>
               </div>
-              <Icon iconType="close" width={24} />
+              <Icon
+                iconType="close"
+                width={24}
+                onClick={() => setIsModalActive((prev) => !prev)}
+              />
             </div>
             {invitationAlarmData.content.length - 1 !== index && <S.LineBox />}
+            <Modal
+              openModal={isModalActive}
+              title="알림을 삭제할까요?"
+              closeText="취소"
+              confirmText="삭제"
+              onClose={() => setIsModalActive((prev) => !prev)}
+              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+            />
           </Fragment>
         ))}
       </S.Layout>

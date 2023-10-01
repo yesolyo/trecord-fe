@@ -38,6 +38,7 @@ export interface GetAllAlarm {
 }
 
 export interface GetCommentAlarm {
+  id: number;
   type: string;
   status: string;
   content: string;

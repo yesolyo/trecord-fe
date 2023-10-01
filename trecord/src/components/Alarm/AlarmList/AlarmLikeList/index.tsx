@@ -1,10 +1,17 @@
 import { Empty } from '@components/common/Empty';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
+import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
+import Modal from '@components/common/Modal';
+interface Props {
+  id: number;
+}
 export const AlarmLikeList = () => {
-  const { data: likeAlarmData } = useGetLikeAlarm();
+  const { data: likeAlarmData, refetch } = useGetLikeAlarm();
+  const { mutate } = useDeleteAlarm();
+  const [isModalActive, setIsModalActive] = useState(false);
   const constant = {
     icon: {
       width: 111.37,
@@ -18,7 +25,16 @@ export const AlarmLikeList = () => {
       },
     ],
   };
-
+  const handleDeleteAlarm = ({ id }: Props) => {
+    mutate(
+      { id },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      },
+    );
+  };
   if (likeAlarmData?.content.length === 0) return <Empty {...constant} />;
   else
     return (
@@ -35,9 +51,21 @@ export const AlarmLikeList = () => {
                 <span className="body">{a.record.title}</span>
                 <span className="date">{a.date}</span>
               </div>
-              <Icon iconType="close" width={24} />
+              <Icon
+                iconType="close"
+                width={24}
+                onClick={() => setIsModalActive((prev) => !prev)}
+              />
             </div>
             {likeAlarmData.content.length - 1 !== index && <S.LineBox />}
+            <Modal
+              openModal={isModalActive}
+              title="알림을 삭제할까요?"
+              closeText="취소"
+              confirmText="삭제"
+              onClose={() => setIsModalActive((prev) => !prev)}
+              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+            />
           </Fragment>
         ))}
       </S.Layout>
