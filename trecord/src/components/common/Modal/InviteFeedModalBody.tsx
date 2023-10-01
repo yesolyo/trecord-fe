@@ -147,11 +147,13 @@ const InputContainer = ({
     setInputValue('');
   }, [userData]);
 
-  const handleClickRemove = useCallback((id: number) => {
-    const index = contributors.findIndex((x) => x.userId === id);
-    const newList = [...contributors];
-    setContributers(newList.splice(index, 1));
-  }, []);
+  const handleClickRemove = (id: number) => {
+    const newList: User[] = JSON.parse(JSON.stringify(contributors));
+    const index = newList.findIndex((x) => x.userId === id);
+    newList.splice(index, 1);
+
+    if (index > -1) setContributers(newList);
+  };
 
   useEffect(() => {
     setEnabled(false);
