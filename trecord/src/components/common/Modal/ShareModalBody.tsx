@@ -191,9 +191,11 @@ const InputContainer = ({
         },
         {
           onSuccess: () => {
-            const index = list.findIndex((x) => x.userId === id);
-            const newList = [...list];
-            setList(newList.splice(index, 1));
+            const newList: User[] = JSON.parse(JSON.stringify(list));
+            const index = newList.findIndex((x) => x.userId === id);
+            newList.splice(index, 1);
+
+            if (index > -1) setList(newList);
           },
         },
       );
