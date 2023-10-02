@@ -36,7 +36,7 @@ export type feedList = {
 export type feedDetailProps = {
   writerId: number;
   feedId: number;
-  isUpdatable: boolean;
+  canModifyFeed: boolean;
   name: string;
   imageUrl: string;
   description: string;

@@ -13,16 +13,16 @@ const CloseIcon = ({ fill = 'none' }: Props): ReactElement => {
       <path
         d="M9.16992 14.83L14.8299 9.17001"
         stroke="white"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14.8299 14.83L9.16992 9.17001"
         stroke="white"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

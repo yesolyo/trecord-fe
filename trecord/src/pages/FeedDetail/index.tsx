@@ -113,7 +113,7 @@ export const FeedDetail = () => {
         <S.ExplainBox>
           <S.IconBox>
             <div className="detail_name">{detailData?.name}</div>
-            {detailData?.isUpdatable && (
+            {detailData?.canModifyFeed && (
               <SelectButton
                 options={SELECT_INFOS}
                 onSelect={handleChangeSelect}
@@ -143,12 +143,12 @@ export const FeedDetail = () => {
         </S.ExplainBox>
         <S.EditButtonBox>
           <CircularButton
-            iconType={detailData?.isUpdatable ? 'edit' : 'login'}
+            iconType={detailData?.canModifyFeed ? 'edit' : 'login'}
             width={24}
             onClick={() => {
-              const path = detailData?.isUpdatable ? '/newRecord' : '/login';
+              const path = detailData?.canModifyFeed ? '/newRecord' : '/login';
               navigate(path, {
-                ...(detailData?.isUpdatable && {
+                ...(detailData?.canModifyFeed && {
                   state: {
                     id: id,
                   },
