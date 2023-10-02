@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 import { ToastProvider } from '@components/common/Toast';
 // import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
-// import { useEffect } from 'react';
 
 const MobileLikeDiv = styled.div`
   position: relative;
