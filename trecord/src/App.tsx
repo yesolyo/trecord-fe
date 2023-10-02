@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { useEffect, useState } from 'react';
 // import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 import { ToastProvider } from '@components/common/Toast';
+import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
+import { useEffect } from 'react';
 
 const MobileLikeDiv = styled.div`
   position: relative;
@@ -51,9 +53,11 @@ function App() {
   //             import.meta.env.VITE_BASE_URL
   //           }/api/v1/notifications/subscribe?token=${getToken}`,
   //           {
+  //             heartbeatTimeout: 120000,
   //             withCredentials: true,
   //           },
   //         );
+
   //         sse.onmessage = async (e) => {
   //           console.log('데이터입니다', e);
   //         };

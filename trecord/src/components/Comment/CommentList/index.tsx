@@ -75,13 +75,15 @@ export const CommentList = ({ ...props }: commentListProps) => {
             <S.CommentDataBox>
               <S.CommentMainDataBox>
                 <div className="user_id">{user.commenterNickname}</div>
-                <CommentCateogory
-                  id={user.commentId}
-                  editText="수정하기"
-                  replyText="답글달기"
-                  deleteText="삭제하기"
-                  {...props}
-                />
+                {user.isUpdatable && (
+                  <CommentCateogory
+                    id={user.commentId}
+                    editText="수정하기"
+                    replyText="답글달기"
+                    deleteText="삭제하기"
+                    {...props}
+                  />
+                )}
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
               <div className="user_date">{user.commentCreatedDate}</div>

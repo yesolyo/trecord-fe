@@ -28,12 +28,14 @@ export const CommentReplyList = ({ ...props }: Props) => {
               <div className="content_box">
                 <div className="conetent_title">
                   <div className="user_id">{user.commentId}</div>
-                  <CommentCateogory
-                    id={user.commentId}
-                    editText="수정하기"
-                    deleteText="삭제하기"
-                    {...props}
-                  />
+                  {user.isUpdatable && (
+                    <CommentCateogory
+                      id={user.commentId}
+                      editText="수정하기"
+                      deleteText="삭제하기"
+                      {...props}
+                    />
+                  )}
                 </div>
                 <div className="user_data">{user.content}</div>
                 <div className="user_date">{user.createdDateTime}</div>
