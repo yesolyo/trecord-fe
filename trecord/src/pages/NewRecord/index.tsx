@@ -52,11 +52,9 @@ export const NewRecord = observer(() => {
   });
   const [feel, setFeel] = useState(recordStore.feel);
   const [move, setMove] = useState(recordStore.move);
-  const [withPeople, setWithPeople] = useState(recordStore.withPeople);
-
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = location.state;
+  const { id, maxDate, minDate } = location.state;
 
   const isDisabled = !(
     title.length > 0 &&
@@ -64,8 +62,7 @@ export const NewRecord = observer(() => {
     weather.length > 0 &&
     place.placeName.length > 0 &&
     feel.length > 0 &&
-    move.length > 0 &&
-    withPeople.length > 0
+    move.length > 0
   );
 
   const handleClickNext = () => {
@@ -79,7 +76,6 @@ export const NewRecord = observer(() => {
     recordStore.setLongitude(place.lng);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
-    recordStore.setWithPeople(withPeople);
 
     navigate('./newWrite');
   };
@@ -108,6 +104,8 @@ export const NewRecord = observer(() => {
           labelTitle="여행 시작 날짜"
           inputWidth="342px"
           inputHeight="46px"
+          endDate={maxDate}
+          startDate={minDate}
         />
         <NewWeater isActive={weather} setIsActive={setWeather} />
         <AutoCompletePlace
@@ -121,12 +119,6 @@ export const NewRecord = observer(() => {
           <NewMove isActive={move} setIsActive={setMove} />
         </div>
 
-        <TextInput
-          inputValue={withPeople}
-          inputSetValue={setWithPeople}
-          inputTitle="누구와 같이 갔나요?"
-          labelTitle="같이 간 사람"
-        />
         <div className="new_btn">
           <SquareButton
             title="다음"

@@ -15,7 +15,6 @@ interface Props {
   weather: string;
   transportation: string;
   content: string;
-  companion: string;
 }
 
 const postNewRecord = async ({
@@ -30,7 +29,6 @@ const postNewRecord = async ({
   weather,
   transportation,
   content,
-  companion,
 }: Props): Promise<PostNewRecordResponse> => {
   const url = `/api/v1/records`;
   const response: PostNewRecordResponse = await http.post(url, {
@@ -45,7 +43,6 @@ const postNewRecord = async ({
     weather,
     transportation,
     content,
-    companion,
   });
 
   return response;

@@ -37,7 +37,6 @@ export const NewWriteRecord = observer((): ReactElement => {
           weather: recordStore.weather,
           transportation: recordStore.move,
           content,
-          companion: recordStore.withPeople,
           imageUrl: imgUrl,
         },
         {

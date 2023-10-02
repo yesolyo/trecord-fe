@@ -1,6 +1,5 @@
 /** @TODO feeling type화, transportation 타입화 */
 export interface PostNewRecordResponse {
-  companion: string;
   content: string;
   date: string;
   feedId: number;

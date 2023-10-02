@@ -5,6 +5,8 @@ interface DateInputProps {
   labelTitle: string;
   inputWidth: string;
   inputHeight: string;
+  endDate: string;
+  startDate: string;
 }
 export const DateInput = ({
   inputValue,
@@ -12,6 +14,8 @@ export const DateInput = ({
   labelTitle,
   inputWidth,
   inputHeight,
+  endDate,
+  startDate,
 }: DateInputProps) => {
   return (
     <S.Layout width={inputWidth} height={inputHeight}>
@@ -20,6 +24,8 @@ export const DateInput = ({
         type="date"
         name="startAt"
         id="input_date"
+        max={endDate}
+        min={startDate}
         value={inputValue}
         onChange={(e) => inputSetValue(e.target.value)}
       />

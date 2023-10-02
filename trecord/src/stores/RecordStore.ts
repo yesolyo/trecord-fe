@@ -11,7 +11,6 @@ class RecordStore {
   longitude: string;
   feel: string;
   move: string;
-  withPeople: string;
   feedId: string;
   content: string;
 
@@ -26,7 +25,6 @@ class RecordStore {
     this.longitude = '';
     this.feel = '';
     this.move = '';
-    this.withPeople = '';
     this.feedId = '';
     this.content = '';
 
@@ -73,10 +71,6 @@ class RecordStore {
     this.move = move;
   }
 
-  setWithPeople(withPeople: string) {
-    this.withPeople = withPeople;
-  }
-
   setFeedId(feedId: string) {
     this.feedId = feedId;
   }
@@ -96,7 +90,6 @@ class RecordStore {
     this.longitude = '';
     this.feel = '';
     this.move = '';
-    this.withPeople = '';
     this.feedId = '';
     this.content = '';
   }

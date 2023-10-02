@@ -151,6 +151,8 @@ export const FeedDetail = () => {
                 ...(detailData?.canModifyFeed && {
                   state: {
                     id: id,
+                    maxDate: detailData.endAt,
+                    minDate: detailData.startAt,
                   },
                 }),
               });
