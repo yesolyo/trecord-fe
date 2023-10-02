@@ -35,8 +35,15 @@ const StyledEmptyDiv = styled.div`
 interface ViewRecordProps {
   feedId: string;
   listData: recordList[];
+  endDate: string;
+  startDate: string;
 }
-export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
+export const ViewRecord = ({
+  feedId,
+  listData,
+  endDate,
+  startDate,
+}: ViewRecordProps) => {
   const [activeList, setActiveList] = useState('기록리스트');
   const [isActive, setIsActive] = useState(true);
 
@@ -61,7 +68,12 @@ export const ViewRecord = ({ feedId, listData }: ViewRecordProps) => {
         />
       </S.BtnBox>
       {isActive && listData.length > 0 ? (
-        <RecordList feedId={feedId} listData={listData} />
+        <RecordList
+          feedId={feedId}
+          listData={listData}
+          endDate={endDate}
+          startDate={startDate}
+        />
       ) : (
         <SummeryList listData={listData} />
       )}

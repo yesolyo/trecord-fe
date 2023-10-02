@@ -1,6 +1,6 @@
 import { TextInput } from '@components/common/input/TextInput';
 import { ReactElement, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import styled from 'styled-components';
@@ -52,7 +52,8 @@ const StyledFrame = styled.div`
 
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
-
+  const location = useLocation();
+  const { minDate, maxDate } = location.state;
   const { data } = useGetRecord({ id: recordId });
 
   const { recordStore } = useStore();
@@ -116,7 +117,7 @@ const ModifyRecord = observer((): ReactElement => {
       recordStore.setFeedId(data.feedId.toString());
     }
   }, [data]);
-
+  console.log();
   return (
     <Layout>
       <NavBarNew
@@ -141,6 +142,8 @@ const ModifyRecord = observer((): ReactElement => {
           labelTitle="여행 시작 날짜"
           inputWidth="342px"
           inputHeight="46px"
+          startDate={minDate}
+          endDate={maxDate}
         />
         <NewWeater isActive={weather} setIsActive={setWeather} />
         <AutoCompletePlace

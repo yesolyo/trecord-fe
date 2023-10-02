@@ -81,7 +81,12 @@ export const RecordDetail = () => {
     (v: string) => {
       switch (v) {
         case 'MODIFY':
-          navigate(`/modify-record/${recordId}`);
+          navigate(`/modify-record/${recordId}`, {
+            state: {
+              maxDate: state.endDate,
+              minDate: state.startDate,
+            },
+          });
           return;
         case 'DELETE':
           setOpenModal(true);

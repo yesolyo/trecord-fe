@@ -6,8 +6,15 @@ import DndContainer from './DndContainer';
 interface RecordListProps {
   feedId: string;
   listData: recordList[];
+  endDate: string;
+  startDate: string;
 }
-export const RecordList = ({ feedId, listData }: RecordListProps) => {
+export const RecordList = ({
+  feedId,
+  listData,
+  endDate,
+  startDate,
+}: RecordListProps) => {
   const result = listData.reduce(
     (acc, curr) => {
       const { date } = curr;
@@ -24,7 +31,12 @@ export const RecordList = ({ feedId, listData }: RecordListProps) => {
         <S.GroupBox key={dayKey}>
           <h2>{dayKey}</h2>
           <DndProvider backend={HTML5Backend}>
-            <DndContainer feedId={feedId} records={dayData} />
+            <DndContainer
+              feedId={feedId}
+              records={dayData}
+              endDate={endDate}
+              startDate={startDate}
+            />
           </DndProvider>
         </S.GroupBox>
       ))}

@@ -17,9 +17,11 @@ const StyledDiv = styled.div`
 interface Props {
   feedId: string;
   records: recordList[];
+  endDate: string;
+  startDate: string;
 }
 
-const DndContainer: FC<Props> = ({ feedId, records }) => {
+const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
   {
     const navigate = useNavigate();
     const { mutate } = useSwapRecords({ feedId });
@@ -45,14 +47,16 @@ const DndContainer: FC<Props> = ({ feedId, records }) => {
     );
 
     const clickItem = useCallback(
-      (id: string, feedId: string) => {
+      (id: string, feedId: string, startDate: string, endDate: string) => {
         navigate(`/recordDetail/${id}`, {
           state: {
             feedId,
+            endDate,
+            startDate,
           },
         });
       },
-      [navigate, feedId],
+      [navigate, feedId, endDate, startDate],
     );
 
     const renderItem = useCallback((record: recordList, index: number) => {
@@ -63,7 +67,9 @@ const DndContainer: FC<Props> = ({ feedId, records }) => {
           id={record.id}
           record={record}
           moveItem={moveItem}
-          onClick={() => clickItem(record.id.toString(), feedId)}
+          onClick={() =>
+            clickItem(record.id.toString(), feedId, startDate, endDate)
+          }
         />
       );
     }, []);

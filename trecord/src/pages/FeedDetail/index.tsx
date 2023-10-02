@@ -137,8 +137,13 @@ export const FeedDetail = () => {
             </S.EmojiBox>
           )}
           <div className="detail_description">{detailData?.description}</div>
-          {recordListData && (
-            <ViewRecord feedId={id} listData={recordListData.content} />
+          {recordListData && detailData && (
+            <ViewRecord
+              feedId={id}
+              listData={recordListData.content}
+              endDate={detailData?.endAt}
+              startDate={detailData?.startAt}
+            />
           )}
         </S.ExplainBox>
         <S.EditButtonBox>
