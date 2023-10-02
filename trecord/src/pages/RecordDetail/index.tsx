@@ -120,7 +120,7 @@ export const RecordDetail = () => {
       <S.Layout>
         <StyledNavbar>
           {((!recordData?.canModifyRecord && !isFromRecordShare) ||
-            recordData?.canModifyRecord) && (
+            recordData) && (
             <Icon
               iconType="arrow"
               width={24}
