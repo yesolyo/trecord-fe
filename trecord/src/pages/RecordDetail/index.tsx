@@ -12,6 +12,8 @@ import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ShareModalBody';
 import usePostLike from '@/apis/Like/postLike';
+import SelectButton from '@components/common/button/SelectButton';
+import { SELECT_INFOS } from '@/types';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -75,23 +77,23 @@ export const RecordDetail = () => {
     navigate(`/feedDetail/${feedId ?? recordData?.feedId}`);
   }, [navigate]);
 
-  // const handleChangeSelect = useCallback(
-  //   (v: string) => {
-  //     switch (v) {
-  //       case 'MODIFY':
-  //         navigate(`/modify-record/${recordId}`);
-  //         return;
-  //       case 'DELETE':
-  //         setOpenModal(true);
-  //         return;
-  //       case 'SHARE':
-  //         setOpenShareModal(true);
-  //         return;
-  //       default:
-  //     }
-  //   },
-  //   [navigate],
-  // );
+  const handleChangeSelect = useCallback(
+    (v: string) => {
+      switch (v) {
+        case 'MODIFY':
+          navigate(`/modify-record/${recordId}`);
+          return;
+        case 'DELETE':
+          setOpenModal(true);
+          return;
+        case 'SHARE':
+          setOpenShareModal(true);
+          return;
+        default:
+      }
+    },
+    [navigate],
+  );
 
   const handleConfirmDelete = useCallback(() => {
     deleteRecord(
@@ -117,8 +119,8 @@ export const RecordDetail = () => {
     <>
       <S.Layout>
         <StyledNavbar>
-          {((!recordData?.isUpdatable && !isFromRecordShare) ||
-            recordData?.isUpdatable) && (
+          {((!recordData?.canModifyRecord && !isFromRecordShare) ||
+            recordData?.canModifyRecord) && (
             <Icon
               iconType="arrow"
               width={24}
@@ -126,13 +128,12 @@ export const RecordDetail = () => {
               onClick={handleClickGoback}
             />
           )}
-          {((!recordData?.isUpdatable && !isFromRecordShare) ||
-            recordData?.isUpdatable) && (
-            <Icon
-              iconType="arrow"
-              width={24}
-              fill={colorStyles.gray900}
-              onClick={handleClickGoback}
+          {((!recordData?.canModifyRecord && !isFromRecordShare) ||
+            recordData?.canModifyRecord) && (
+            <SelectButton
+              right="3%"
+              options={SELECT_INFOS}
+              onSelect={handleChangeSelect}
             />
           )}
         </StyledNavbar>

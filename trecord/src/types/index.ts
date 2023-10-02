@@ -80,7 +80,7 @@ export type recordDetailList = {
   date: string;
   feedId: number;
   feeling: string;
-  isUpdatable: boolean;
+  canModifyRecord: boolean;
   place: string;
   latitude: string;
   longitude: string;
