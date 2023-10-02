@@ -21,7 +21,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "antd": "^5.9.2",
     "axios": "^1.4.0",
-    "esbuild": "^0.14.54",
+    "esbuild": "^0.14.39",
     "esbuild-darwin-arm64": "^0.15.18",
     "event-source-polyfill": "^1.0.31",
     "immutability-helper": "^3.1.1",
