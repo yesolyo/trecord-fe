@@ -39,7 +39,6 @@ const ModifyWriteRecord = observer((): ReactElement => {
           weather: recordStore.weather,
           transportation: recordStore.move,
           content,
-          companion: recordStore.withPeople,
         },
         {
           onSuccess: () => {

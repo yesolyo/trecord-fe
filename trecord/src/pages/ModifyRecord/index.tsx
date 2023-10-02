@@ -75,7 +75,6 @@ const ModifyRecord = observer((): ReactElement => {
   });
   const [feel, setFeel] = useState(data?.feeling ?? '');
   const [move, setMove] = useState(data?.transportation ?? '');
-  const [withPeople, setWithPeople] = useState(data?.companion ?? '');
 
   const navigate = useNavigate();
 
@@ -86,8 +85,7 @@ const ModifyRecord = observer((): ReactElement => {
       weather.length > 0 &&
       place.placeName.length > 0 &&
       feel.length > 0 &&
-      move.length > 0 &&
-      withPeople.length > 0
+      move.length > 0
     ) ||
     (thumbNail.url === data?.imageUrl &&
       title === data?.title &&
@@ -95,8 +93,7 @@ const ModifyRecord = observer((): ReactElement => {
       weather === data.weather &&
       place.placeName === data.place &&
       feel === data.feeling &&
-      move === data.transportation &&
-      withPeople === data.companion);
+      move === data.transportation);
 
   const handleClickNext = () => {
     recordStore.setId(recordId);
@@ -109,7 +106,6 @@ const ModifyRecord = observer((): ReactElement => {
     recordStore.setLongitude(place.lng);
     recordStore.setFeel(feel);
     recordStore.setMove(move);
-    recordStore.setWithPeople(withPeople);
 
     navigate(`./modify-write`);
   };
@@ -157,13 +153,6 @@ const ModifyRecord = observer((): ReactElement => {
           <NewFeel isActive={feel} setIsActive={setFeel} />
           <NewMove isActive={move} setIsActive={setMove} />
         </div>
-
-        <TextInput
-          inputValue={withPeople}
-          inputSetValue={setWithPeople}
-          inputTitle="누구와 같이 갔나요?"
-          labelTitle="같이 간 사람"
-        />
         <div className="new_btn">
           <SquareButton
             title="다음"

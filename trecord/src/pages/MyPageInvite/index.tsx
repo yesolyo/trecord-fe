@@ -8,35 +8,7 @@ export const MyPageInvite = () => {
   const navigate = useNavigate();
   const { data, refetch } = useGetMyPageInvite();
   const { mutate } = useDeleteMyPageInvite();
-  const mockData = {
-    content: [
-      {
-        feedId: 4,
-        feedName: 'name',
-        ownerNickname: 'owner',
-        imageUrl:
-          'https://cdn.pixabay.com/photo/2023/08/30/09/24/leaves-8222919_1280.jpg',
-      },
-      {
-        feedId: 3,
-        feedName: 'name',
-        ownerNickname: 'owner',
-        imageUrl: null,
-      },
-      {
-        feedId: 2,
-        feedName: 'name',
-        ownerNickname: 'owner',
-        imageUrl: null,
-      },
-      {
-        feedId: 1,
-        feedName: 'name',
-        ownerNickname: 'owner',
-        imageUrl: null,
-      },
-    ],
-  };
+
   const handleDeleteInvite = (id: number) => {
     mutate(
       {
@@ -56,7 +28,7 @@ export const MyPageInvite = () => {
         isRegister={false}
         onClick={() => navigate(-1)}
       />
-      {data && <MyPageInviteList onDelete={handleDeleteInvite} {...mockData} />}
+      {data && <MyPageInviteList onDelete={handleDeleteInvite} {...data} />}
     </S.Layout>
   );
 };

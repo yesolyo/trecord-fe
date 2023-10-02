@@ -5,8 +5,7 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 110px);
-  overflow: auto;
+  height: calc(100vh - 450px);
   overflow-x: hidden;
 `;
 export const TextBox = styled.div`

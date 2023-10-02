@@ -15,7 +15,6 @@ interface Props {
   weather: string;
   transportation: string;
   content: string;
-  companion: string;
 }
 
 const modifyRecord = async ({
@@ -30,7 +29,6 @@ const modifyRecord = async ({
   weather,
   transportation,
   content,
-  companion,
 }: Props) => {
   const url = `/api/v1/records/${recordId}`;
   const response = await http.put(url, {
@@ -44,7 +42,6 @@ const modifyRecord = async ({
     weather,
     transportation,
     content,
-    companion,
   });
 
   return response;

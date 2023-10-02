@@ -43,7 +43,7 @@ export const AlarmInvitationList = () => {
         {invitationAlarmData?.content.map((a, index) => (
           <Fragment key={a.userFrom.id}>
             <div className="container">
-              <Icon iconType="message" width={24} />
+              <Icon iconType="invite" width={24} />
               <div className="content">
                 <span className="title">
                   <strong className="nickname">{a.userFrom.nickname}</strong>

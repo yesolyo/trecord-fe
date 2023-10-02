@@ -39,6 +39,7 @@ export const AlarmAllList = () => {
         },
       },
     );
+    setIsModalActive((prev) => !prev);
   };
 
   if (allAlarmData?.content.length === 0) return <Empty {...constant} />;
@@ -53,7 +54,6 @@ export const AlarmAllList = () => {
                   alarmStatusKeys[a.type as keyof typeof alarmStatusKeys]
                 }
                 width={24}
-                onClick={() => setIsModalActive((prev) => !prev)}
               />
 
               {a.type === 'COMMENT' && (
@@ -97,7 +97,7 @@ export const AlarmAllList = () => {
               <Icon
                 iconType="close"
                 width={24}
-                onClick={() => handleDeleteAlarm({ id: a.id })}
+                onClick={() => setIsModalActive((prev) => !prev)}
               />
             </div>
             {allAlarmData.content.length - 1 !== index && <S.LineBox />}

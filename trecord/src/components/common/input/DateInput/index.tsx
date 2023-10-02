@@ -5,8 +5,8 @@ interface DateInputProps {
   labelTitle: string;
   inputWidth: string;
   inputHeight: string;
-  endDate: string;
-  startDate: string;
+  endDate?: string;
+  startDate?: string;
 }
 export const DateInput = ({
   inputValue,
