@@ -66,6 +66,8 @@ const Editor = ({
           if (range) {
             editor?.insertEmbed(range.index, 'image', imgUrl);
             editor?.setSelection({ index: range.index + 1, length: 0 });
+            editor?.formatText(range.index, range.index + 1, 'height', '192px');
+            editor?.formatText(range.index, range.index + 1, 'width', '342px');
           }
         }
       } catch (error) {
