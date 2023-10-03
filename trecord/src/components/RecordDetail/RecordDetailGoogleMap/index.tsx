@@ -5,7 +5,6 @@ interface Props {
   latitude: string;
   longitude: string;
 }
-
 const RecordDetailGoogleMap = ({ latitude, longitude }: Props) => {
   const containerStyle = {
     width: '342px',
