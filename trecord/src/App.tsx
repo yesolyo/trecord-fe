@@ -3,10 +3,9 @@ import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { useEffect, useState } from 'react';
-// import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import { useEffect } from 'react';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 import { ToastProvider } from '@components/common/Toast';
-// import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 
 const MobileLikeDiv = styled.div`
   position: relative;
@@ -44,32 +43,25 @@ function App() {
   // const getToken = localStorage.getItem('acessToken');
   // const EventSource = EventSourcePolyfill || NativeEventSource;
   // useEffect(() => {
-  //   if (getToken) {
-  //     const fetchSse = async () => {
-  //       try {
-  //         const sse = new EventSource(
-  //           `${
-  //             import.meta.env.VITE_BASE_URL
-  //           }/api/v1/notifications/subscribe?token=${getToken}`,
-  //           {
-  //             heartbeatTimeout: 120000,
-  //             withCredentials: true,
-  //           },
-  //         );
-
-  //         sse.onmessage = async (e) => {
-  //           console.log('데이터입니다', e);
-  //         };
-  //         sse.onerror = async (e) => {
-  //           console.log('에러입니다', e);
-  //           sse.close();
-  //         };
-  //       } catch (error) {}
-  //     };
-  //     fetchSse();
-  //   }
+  //   const sse = new EventSource(
+  //     `${
+  //       import.meta.env.VITE_BASE_URL
+  //     }/api/v1/notifications/subscribe?token=${getToken}`,
+  //     {
+  //       heartbeatTimeout: 120000,
+  //       withCredentials: true,
+  //     },
+  //   );
+  //   sse.onopen = async (e) => {
+  //     console.log('sse open', e);
+  //   };
+  //   sse.onmessage = async (e) => {
+  //     console.log('sse message', e);
+  //   };
+  //   sse.onerror = async (e) => {
+  //     console.log('에러입니다', e);
+  //   };
   // }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>

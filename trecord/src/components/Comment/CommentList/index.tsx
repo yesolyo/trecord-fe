@@ -5,6 +5,7 @@ import { CommentCateogory } from '../CommentCategory';
 import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 import { CommentReplyBtn } from '../CommentReplyBtn';
+import { MoreButton } from '@components/common/MoreButton';
 
 interface commentListProps {
   commentData: GetNewCommentResponse;
@@ -21,6 +22,7 @@ interface commentListProps {
   isReplyEdit: boolean;
   onCommentId: (id: number) => void;
   onDelete: () => void;
+  onCountPage: () => void;
   isDelete: boolean;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -103,6 +105,9 @@ export const CommentList = ({ ...props }: commentListProps) => {
           )}
         </Fragment>
       ))}
+      {!props.commentData.last && (
+        <MoreButton title="기록" onClick={props.onCountPage} />
+      )}
     </S.Layout>
   );
 };

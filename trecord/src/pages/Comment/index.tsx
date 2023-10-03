@@ -39,9 +39,11 @@ export const Comment = () => {
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
     { imgUrl: '', nickName: '', content: '' },
   );
+  const [pages, setPages] = useState<number>(0);
 
   const { data: newCommentData, refetch } = useGetNewComment({
     recordId: Number(id),
+    page: pages,
   });
 
   const handlePostNewData = ({ id, content }: postNewCommentProps) => {
@@ -140,6 +142,9 @@ export const Comment = () => {
       content,
     });
   };
+  const handleCountPage = () => {
+    setPages((prev) => prev + 1);
+  };
   const handleCommentId = (id: number) => {
     setCommentId(id);
   };
@@ -172,6 +177,7 @@ export const Comment = () => {
           onEdit={handleEdit}
           onReplyEdit={handleReplyEdit}
           onDelete={handleDelete}
+          onCountPage={handleCountPage}
           isDelete={isDelete}
           isEdit={isEdit}
           isReplyEdit={isReplyEdit}

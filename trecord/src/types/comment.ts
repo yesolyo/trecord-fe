@@ -5,6 +5,7 @@ export interface PostNewCommentResponse {
 
 export interface GetNewCommentResponse {
   content: GetCommentProps[];
+  last: boolean;
 }
 
 export interface GetMyPageLikeRespose {
