@@ -1,8 +1,7 @@
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 import { useEffect } from 'react';
-import { createContext } from 'react';
 
-const RealTimeNotification = () => {
+export const RealTimeNotification = () => {
   const getToken = localStorage.getItem('acessToken');
   const EventSource = EventSourcePolyfill || NativeEventSource;
   useEffect(() => {
