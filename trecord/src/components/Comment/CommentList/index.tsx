@@ -2,13 +2,18 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment, useState } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
+import {
+  CommentUserModalProps,
+  GetCommentProps,
+  GetNewCommentResponse,
+} from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 import { CommentReplyBtn } from '../CommentReplyBtn';
 import { MoreButton } from '@components/common/MoreButton';
 
 interface commentListProps {
-  commentData: GetNewCommentResponse;
+  commentData: GetCommentProps[];
+  commentLast: boolean;
   onUserProfile: () => void;
   onUserProfileData: ({
     imgUrl,
@@ -45,7 +50,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
   return (
     //TODO:이미지 반영 예정
     <S.Layout>
-      {props.commentData.content.map((user, index) => (
+      {props.commentData.map((user, index) => (
         <Fragment key={user.commentId}>
           <S.CommentBox>
             {user.commenterImageUrl.length >= 1 ? (
@@ -100,12 +105,12 @@ export const CommentList = ({ ...props }: commentListProps) => {
               )}
             </S.CommentDataBox>
           </S.CommentBox>
-          {props.commentData.content.length !== index + 1 && (
+          {props.commentData.length !== index + 1 && (
             <hr className="line_box" />
           )}
         </Fragment>
       ))}
-      {!props.commentData.last && (
+      {!props.commentLast && (
         <MoreButton title="기록" onClick={props.onCountPage} />
       )}
     </S.Layout>

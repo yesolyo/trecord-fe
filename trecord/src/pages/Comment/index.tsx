@@ -3,9 +3,10 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CommentUserModalProps,
+  GetCommentProps,
   deletDataProps,
   postNewCommentProps,
   putDataProps,
@@ -40,11 +41,17 @@ export const Comment = () => {
     { imgUrl: '', nickName: '', content: '' },
   );
   const [pages, setPages] = useState<number>(0);
-
+  const [commentData, setCommentData] = useState<GetCommentProps[]>([]);
   const { data: newCommentData, refetch } = useGetNewComment({
     recordId: Number(id),
     page: pages,
   });
+
+  useEffect(() => {
+    if (newCommentData) {
+      setCommentData((prev) => [...prev, ...newCommentData.content]);
+    }
+  }, [newCommentData]);
 
   const handlePostNewData = ({ id, content }: postNewCommentProps) => {
     postComment(
@@ -169,7 +176,8 @@ export const Comment = () => {
       <NavBarNew {...constant} />
       {newCommentData && (
         <CommentList
-          commentData={newCommentData}
+          commentData={commentData}
+          commentLast={newCommentData.last}
           onUserProfile={handleSelectUserProfile}
           onUserProfileData={handleUserProfileData}
           handleDeleteClick={handleDeleteData}

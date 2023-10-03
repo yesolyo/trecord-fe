@@ -39,7 +39,7 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  //TODO:sse 이벤트 연결 부분 로직(차후 기능 완성 시 연결 예정)
+  // TODO:sse 이벤트 연결 부분 로직(차후 기능 완성 시 연결 예정)
   // const getToken = localStorage.getItem('acessToken');
   // const EventSource = EventSourcePolyfill || NativeEventSource;
   // useEffect(() => {
