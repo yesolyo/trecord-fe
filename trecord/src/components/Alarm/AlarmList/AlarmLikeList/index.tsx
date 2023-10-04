@@ -40,9 +40,9 @@ export const AlarmLikeList = () => {
     return (
       <S.Layout>
         {likeAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
-              <Icon iconType="message" width={24} />
+              <Icon iconType="heart" width={24} />
               <div className="content">
                 <span className="title">
                   <strong className="nickname">{a.userFrom.nickname}</strong>

@@ -7,13 +7,16 @@ import useGetAllAlarm from '@/apis/Alarm/getAlarm';
 import { useNavigate } from 'react-router-dom';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
   id: number;
 }
 export const AlarmAllList = () => {
-  const { data: allAlarmData, refetch } = useGetAllAlarm();
+  const [pageCount, setPageCount] = useState(10);
+  const { data: allAlarmData, refetch } = useGetAllAlarm({ pageCount });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
+
   const navigate = useNavigate();
 
   const constant = {
@@ -28,6 +31,9 @@ export const AlarmAllList = () => {
         body: '아직 온 알림이 없어요.',
       },
     ],
+  };
+  const handleMorePage = () => {
+    setPageCount((prev) => prev + 10);
   };
 
   const handleDeleteAlarm = ({ id }: Props) => {
@@ -47,7 +53,7 @@ export const AlarmAllList = () => {
     return (
       <S.Layout>
         {allAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
               <Icon
                 iconType={
@@ -62,10 +68,12 @@ export const AlarmAllList = () => {
                   onClick={() => navigate(`/comment/${a.record.id}`)}
                 >
                   <span className="title">
-                    <strong className="nickname">{a.userFrom.nickname}</strong>
+                    <strong className="nickname">
+                      <b>{a.userFrom.nickname}</b>
+                    </strong>
                     님이 댓글을 남겼어요:
                   </span>
-                  <span className="body">{a.content}</span>
+                  <span className="body">{a.comment.content}</span>
                   <span className="date">{a.date}</span>
                 </div>
               )}
@@ -100,6 +108,7 @@ export const AlarmAllList = () => {
                 onClick={() => setIsModalActive((prev) => !prev)}
               />
             </div>
+
             {allAlarmData.content.length - 1 !== index && <S.LineBox />}
             <Modal
               openModal={isModalActive}
@@ -111,6 +120,9 @@ export const AlarmAllList = () => {
             />
           </Fragment>
         ))}
+        {!allAlarmData?.last && (
+          <MoreButton title="알림" onClick={handleMorePage} />
+        )}
       </S.Layout>
     );
 };

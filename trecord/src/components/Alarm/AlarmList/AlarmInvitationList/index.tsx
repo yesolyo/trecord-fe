@@ -41,7 +41,7 @@ export const AlarmInvitationList = () => {
     return (
       <S.Layout>
         {invitationAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
               <Icon iconType="invite" width={24} />
               <div className="content">

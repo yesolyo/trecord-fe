@@ -1,28 +1,42 @@
-import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
-import { useEffect } from 'react';
+import { useEffect, createContext, useState, ReactNode } from 'react';
 
-export const RealTimeNotification = () => {
+interface RealTimeProps {
+  isNotification: boolean;
+  handleIsActiveNotification: () => void;
+}
+export const RealTimeContext = createContext<RealTimeProps | null>(null);
+
+export const RealTimeNotificationProvider: React.FC<{
+  children: ReactNode;
+}> = ({ children }) => {
   const getToken = localStorage.getItem('acessToken');
-  const EventSource = EventSourcePolyfill || NativeEventSource;
+  const [isNotification, setIsNotification] = useState<boolean>(false);
   useEffect(() => {
     const sse = new EventSource(
       `${
         import.meta.env.VITE_BASE_URL
       }/api/v1/notifications/subscribe?token=${getToken}`,
       {
-        heartbeatTimeout: 120000,
         withCredentials: true,
       },
     );
-    sse.onopen = async (e) => {
-      console.log('sse open', e);
-    };
-    sse.onmessage = async (e) => {
-      console.log('sse message', e);
-    };
+    sse.addEventListener('notification', function (event) {
+      if (event.data !== 'Connection completed') {
+        setIsNotification(true);
+      }
+    });
     sse.onerror = async (e) => {
-      console.log('에러입니다', e);
+      console.log(e);
     };
   }, []);
-  return <div>provider</div>;
+  const handleIsActiveNotification = () => {
+    setIsNotification(false);
+  };
+  return (
+    <RealTimeContext.Provider
+      value={{ isNotification, handleIsActiveNotification }}
+    >
+      {children}
+    </RealTimeContext.Provider>
+  );
 };

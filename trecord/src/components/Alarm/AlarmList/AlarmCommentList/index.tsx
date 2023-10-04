@@ -41,15 +41,15 @@ export const AlarmCommentList = () => {
     return (
       <S.Layout>
         {commentAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
               <Icon iconType="message" width={24} />
               <div className="content">
                 <span className="title">
-                  <strong className="nickname">{a.type}</strong>님이 댓글을
-                  남겼어요:
+                  <strong className="nickname">{a.userFrom.nickname}</strong>
+                  님이 댓글을 남겼어요:
                 </span>
-                <span className="body">{a.content}</span>
+                <span className="body">{a.comment.content}</span>
                 <span className="date">{a.date}</span>
               </div>
               <Icon
