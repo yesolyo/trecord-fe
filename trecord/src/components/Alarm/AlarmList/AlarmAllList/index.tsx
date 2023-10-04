@@ -16,6 +16,7 @@ export const AlarmAllList = () => {
   const { data: allAlarmData, refetch } = useGetAllAlarm({ pageCount });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [alarmId, setAlarmId] = useState(0);
 
   const navigate = useNavigate();
 
@@ -105,24 +106,27 @@ export const AlarmAllList = () => {
               <Icon
                 iconType="close"
                 width={24}
-                onClick={() => setIsModalActive((prev) => !prev)}
+                onClick={() => {
+                  setIsModalActive((prev) => !prev);
+                  setAlarmId(a.id);
+                }}
               />
             </div>
 
             {allAlarmData.content.length - 1 !== index && <S.LineBox />}
-            <Modal
-              openModal={isModalActive}
-              title="알림을 삭제할까요?"
-              closeText="취소"
-              confirmText="삭제"
-              onClose={() => setIsModalActive((prev) => !prev)}
-              onConfirm={() => handleDeleteAlarm({ id: a.id })}
-            />
           </Fragment>
         ))}
         {!allAlarmData?.last && (
           <MoreButton title="알림" onClick={handleMorePage} />
         )}
+        <Modal
+          openModal={isModalActive}
+          title="알림을 삭제할까요?"
+          closeText="취소"
+          confirmText="삭제"
+          onClose={() => setIsModalActive((prev) => !prev)}
+          onConfirm={() => handleDeleteAlarm({ id: alarmId })}
+        />
       </S.Layout>
     );
 };

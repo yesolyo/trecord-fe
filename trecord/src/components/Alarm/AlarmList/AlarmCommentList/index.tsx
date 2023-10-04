@@ -5,13 +5,16 @@ import { Fragment, useState } from 'react';
 import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
   id: number;
 }
 export const AlarmCommentList = () => {
-  const { data: commentAlarmData, refetch } = useGetCommentAlarm();
+  const [pageCount, setPageCount] = useState(10);
+  const { data: commentAlarmData, refetch } = useGetCommentAlarm({ pageCount });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [alarmId, setAlarmId] = useState(0);
   const constant = {
     icon: {
       width: 111.37,
@@ -25,6 +28,9 @@ export const AlarmCommentList = () => {
       },
     ],
   };
+  const handleMorePage = () => {
+    setPageCount((prev) => prev + 10);
+  };
   const handleDeleteAlarm = ({ id }: Props) => {
     mutate(
       { id },
@@ -34,6 +40,7 @@ export const AlarmCommentList = () => {
         },
       },
     );
+    setIsModalActive((prev) => !prev);
   };
 
   if (commentAlarmData?.content.length === 0) return <Empty {...constant} />;
@@ -55,7 +62,10 @@ export const AlarmCommentList = () => {
               <Icon
                 iconType="close"
                 width={24}
-                onClick={() => setIsModalActive((prev) => !prev)}
+                onClick={() => {
+                  setIsModalActive((prev) => !prev);
+                  setAlarmId(a.id);
+                }}
               />
             </div>
             {commentAlarmData.content.length - 1 !== index && <S.LineBox />}
@@ -65,10 +75,13 @@ export const AlarmCommentList = () => {
               closeText="취소"
               confirmText="삭제"
               onClose={() => setIsModalActive((prev) => !prev)}
-              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+              onConfirm={() => handleDeleteAlarm({ id: alarmId })}
             />
           </Fragment>
         ))}
+        {!commentAlarmData?.last && (
+          <MoreButton title="알림" onClick={handleMorePage} />
+        )}
       </S.Layout>
     );
 };
