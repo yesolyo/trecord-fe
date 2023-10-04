@@ -12,7 +12,7 @@ const ChipContainer = ({ names }: Props): ReactElement => {
   return (
     <StyledContainer>
       {names.map((name) => (
-        <Chip name={name} />
+        <Chip name={name} key={name} />
       ))}
     </StyledContainer>
   );

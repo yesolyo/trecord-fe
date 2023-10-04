@@ -65,7 +65,7 @@ export const Fallback = (): ReactElement => {
 export const FeedDetail = () => {
   const { id = '' } = useParams();
   const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
-  console.log(detailData);
+
   const contributors = useMemo(
     () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
     [detailData],
@@ -156,10 +156,17 @@ export const FeedDetail = () => {
         </S.ExplainBox>
         <S.EditButtonBox>
           <CircularButton
-            iconType={detailData?.canModifyFeed ? 'edit' : 'login'}
+            iconType={
+              detailData?.canModifyFeed || detailData?.canWriteRecord
+                ? 'edit'
+                : 'login'
+            }
             width={24}
             onClick={() => {
-              const path = detailData?.canModifyFeed ? '/newRecord' : '/login';
+              const path =
+                detailData?.canModifyFeed || detailData?.canWriteRecord
+                  ? '/newRecord'
+                  : '/login';
               navigate(path, {
                 ...(detailData?.canModifyFeed && {
                   state: {
