@@ -15,15 +15,12 @@ const gtfOutFromFeed = async ({ feedId, userId }: Props) => {
   return response;
 };
 
-const useGtfOutFromFeed = ({ feedId }: Pick<Props, 'feedId'>) => {
+const useGtfOutFromFeed = () => {
   const queryClient = useQueryClient();
 
   return useMutation(gtfOutFromFeed, {
     onSuccess: () => {
-      queryClient.invalidateQueries([
-        FEED_API_KEY.FEED_DETAIL,
-        { feed_id: feedId },
-      ]);
+      queryClient.invalidateQueries([FEED_API_KEY.FEED_DETAIL]);
     },
     /** @TODO 나중에 error boundary 추가 */
     onError: (e) => console.log(e),
