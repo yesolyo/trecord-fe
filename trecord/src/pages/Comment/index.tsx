@@ -6,16 +6,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   CommentUserModalProps,
-  GetCommentProps,
   deletDataProps,
   postNewCommentProps,
   putDataProps,
 } from '@/types/comment';
-import {
-  useDeleteNewComment,
-  usePostNewComment,
-  usePutNewComment,
-} from '@/apis/Comment/postNewComment';
 import useGetNewComment from '@/apis/Comment/getNewComment';
 import usePostReplyComment, {
   postReplyCommentProps,
@@ -23,13 +17,16 @@ import usePostReplyComment, {
 import { TabBarNewComment } from '@components/common/TabBar/TabBarComment/TabBarNewComment';
 import { TabBarEditComment } from '@components/common/TabBar/TabBarComment/TabBarEditComment';
 import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabBarReplyComment';
+import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
+import usePostNewComment from '@/apis/Comment/postNewComment';
+import useModifyNewComment from '@/apis/Comment/modifyNewComment';
 
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { mutate: deleteComment } = useDeleteNewComment();
   const { mutate: postComment } = usePostNewComment();
-  const { mutate: putComment } = usePutNewComment();
+  const { mutate: putComment } = useModifyNewComment();
   const { mutate: postReplyComment } = usePostReplyComment();
   const [newComment, setNewComment] = useState<string>('');
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -40,18 +37,11 @@ export const Comment = () => {
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
     { imgUrl: '', nickName: '', content: '' },
   );
-  const [pages, setPages] = useState<number>(0);
-  const [commentData, setCommentData] = useState<GetCommentProps[]>([]);
+  const [pages, setPages] = useState<number>(10);
   const { data: newCommentData, refetch } = useGetNewComment({
     recordId: Number(id),
     page: pages,
   });
-
-  useEffect(() => {
-    if (newCommentData) {
-      setCommentData((prev) => [...prev, ...newCommentData.content]);
-    }
-  }, [newCommentData]);
 
   const handlePostNewData = ({ id, content }: postNewCommentProps) => {
     postComment(
@@ -135,7 +125,7 @@ export const Comment = () => {
   };
 
   const handleNavigate = () => {
-    navigate(-1);
+    navigate(`/recordDetail/${id}`);
   };
 
   const handleUserProfileData = ({
@@ -150,7 +140,7 @@ export const Comment = () => {
     });
   };
   const handleCountPage = () => {
-    setPages((prev) => prev + 1);
+    setPages((prev) => prev + 10);
   };
   const handleCommentId = (id: number) => {
     setCommentId(id);
@@ -176,8 +166,7 @@ export const Comment = () => {
       <NavBarNew {...constant} />
       {newCommentData && (
         <CommentList
-          commentData={commentData}
-          commentLast={newCommentData.last}
+          commentData={newCommentData}
           onUserProfile={handleSelectUserProfile}
           onUserProfileData={handleUserProfileData}
           handleDeleteClick={handleDeleteData}

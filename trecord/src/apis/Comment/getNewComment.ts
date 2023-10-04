@@ -11,7 +11,7 @@ export const getNewComment = async ({
   recordId,
   page,
 }: Props): Promise<GetNewCommentResponse> => {
-  const url = `/api/v1/records/${recordId}/comments?page=${page}`;
+  const url = `/api/v1/records/${recordId}/comments?page=0&size=${page}`;
   const response: GetNewCommentResponse = await http.get(url);
   return response;
 };

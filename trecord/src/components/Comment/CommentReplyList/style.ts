@@ -7,10 +7,15 @@ export const Layout = styled.div`
   gap: 10px;
   width: 100%;
   height: calc(100% - 190px);
+  .user-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
   .reply_box {
     display: flex;
     gap: 25px;
-    width: 320px;
+    width: 350px;
   }
   .conetent_title {
     display: flex;
@@ -45,7 +50,7 @@ export const Layout = styled.div`
     width: 220px;
   }
   .line_box {
-    width: 310px;
+    width: 270px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     text-align: left;
     margin-left: 0;

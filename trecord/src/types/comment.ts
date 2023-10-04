@@ -49,6 +49,9 @@ export interface GetReplyCommentProps {
   content: string;
   createdDateTime: string;
   isUpdatable: boolean;
+  commenterNickname: string;
+  commenterId: number;
+  commenterImageUrl: string;
 }
 
 export interface GetMypageComment {
