@@ -98,6 +98,12 @@ const StyledProfile = styled.div`
       font-weight: 400;
       line-height: 24px; /* 150% */
     }
+
+    img {
+      max-width: 26px;
+      max-height: 26px;
+      border-radius: 100%;
+    }
   }
 `;
 
