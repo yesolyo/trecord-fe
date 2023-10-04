@@ -1,9 +1,10 @@
 import * as S from './style';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
 import useGetReplyComment from '@/apis/Comment/getReplyComment';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
   commentId: number;
   handleDeleteClick: ({}: deletDataProps) => void;
@@ -17,8 +18,10 @@ interface Props {
   isReplyEdit: boolean;
 }
 export const CommentReplyList = ({ ...props }: Props) => {
+  const [pageCount, setPageCount] = useState(10);
   const { data: ReplyData } = useGetReplyComment({
     commentId: props.commentId,
+    pageCount,
   });
 
   return (
@@ -54,6 +57,12 @@ export const CommentReplyList = ({ ...props }: Props) => {
             )}
           </Fragment>
         ))}
+      {!ReplyData?.last && (
+        <MoreButton
+          title="댓글"
+          onClick={() => setPageCount((prev) => prev + 10)}
+        />
+      )}
     </S.Layout>
   );
 };

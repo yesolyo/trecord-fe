@@ -35,6 +35,7 @@ export interface GetMyPageLikeProps {
 }
 export interface GetReplyCommentResponse {
   content: GetReplyCommentProps[];
+  last: boolean;
 }
 export interface GetMypageCommentResponse {
   commentData: React.Dispatch<React.SetStateAction<number>>;
