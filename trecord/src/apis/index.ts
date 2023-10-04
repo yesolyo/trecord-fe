@@ -12,3 +12,8 @@ export { default as usePostNewRecord } from './Record/postNewRecord';
 export { default as useModifyRecord } from './Record/modifyRecord';
 export { default as useDeleteRecord } from './Record/deleteRecord';
 export { default as useSwapRecords } from './Record/swapRecords';
+
+/** User */
+export { default as useGetUser } from './User/getUser';
+export { default as useInviteUser } from './User/inviteUser';
+export { default as useGtfOutFromFeed } from './User/gtfOutFromFeed';

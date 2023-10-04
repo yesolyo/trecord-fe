@@ -2,15 +2,12 @@ import {
   ReactElement,
   Suspense,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../Icon';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ToastContext } from '../Toast';
-import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
+import { useGetUser } from '@/apis';
 import Skeleton from '../skeleton';
 import { User } from '@/types/user';
 
@@ -82,27 +79,6 @@ const StyledModalBody = styled.div`
       }
     }
   }
-
-  hr {
-    width: 100%;
-    border-top: 1px solid #cdcdcd;
-  }
-
-  .share {
-    display: inline-flex;
-    justify-content: flex-end;
-
-    .button {
-      display: inline-flex;
-      gap: 5px;
-      color: var(--Gray900, #1e1e1e);
-      font-family: Pretendard;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 24px; /* 150% */
-    }
-  }
 `;
 
 const StyledProfile = styled.div`
@@ -126,9 +102,8 @@ const StyledProfile = styled.div`
 `;
 
 interface Props {
-  feedId: number;
-  inputValue: string;
-  inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
+  contributors: User[];
+  contributorsSetter: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
@@ -154,15 +129,12 @@ const InputContainerFallback = ({ inputValue }: { inputValue: string }) => {
 };
 
 const InputContainer = ({
-  feedId,
-  inputValue,
-  inputValueSetter: setInputValue,
+  contributors,
+  contributorsSetter: setContributers,
 }: Props) => {
   const [enabled, setEnabled] = useState(false);
-  const [list, setList] = useState<User[]>([]);
+  const [inputValue, setInputValue] = useState('');
   const { data: userData } = useGetUser({ q: inputValue, enabled });
-  const { mutate } = useInviteUser();
-  const { mutate: gtfOut } = useGtfOutFromFeed();
 
   const handleClickSearch = useCallback(() => {
     setEnabled(true);
@@ -170,38 +142,18 @@ const InputContainer = ({
 
   const handleClickResult = useCallback(() => {
     if (userData) {
-      mutate(
-        { feedId: feedId.toString(), userToId: userData.userId },
-        {
-          onSuccess: () => {
-            setList([...list, userData]);
-            setInputValue('');
-          },
-        },
-      );
+      setContributers([...contributors, userData]);
     }
+    setInputValue('');
   }, [userData]);
 
-  const handleClickRemove = useCallback(
-    (id: number) => {
-      gtfOut(
-        {
-          feedId,
-          userId: id,
-        },
-        {
-          onSuccess: () => {
-            const newList: User[] = JSON.parse(JSON.stringify(list));
-            const index = newList.findIndex((x) => x.userId === id);
-            newList.splice(index, 1);
+  const handleClickRemove = (id: number) => {
+    const newList: User[] = JSON.parse(JSON.stringify(contributors));
+    const index = newList.findIndex((x) => x.userId === id);
+    newList.splice(index, 1);
 
-            if (index > -1) setList(newList);
-          },
-        },
-      );
-    },
-    [gtfOut],
-  );
+    if (index > -1) setContributers(newList);
+  };
 
   useEffect(() => {
     setEnabled(false);
@@ -227,7 +179,8 @@ const InputContainer = ({
       </div>
       <div className="input-result">
         {userData &&
-          list.findIndex((x) => x.userId === userData?.userId) === -1 && (
+          contributors.findIndex((x) => x.userId === userData?.userId) ===
+            -1 && (
             <StyledProfile onClick={handleClickResult}>
               <div className="profile">
                 {userData.imageUrl && <img src={userData.imageUrl} />}
@@ -239,7 +192,7 @@ const InputContainer = ({
             </StyledProfile>
           )}
         <div className="user-list">
-          {list.map((l) => (
+          {contributors.map((l) => (
             <StyledProfile onClick={handleClickResult}>
               <div className="profile">
                 {l.imageUrl && <img src={l.imageUrl} />}
@@ -259,46 +212,23 @@ const InputContainer = ({
   );
 };
 
-const ShareModalBody = ({
-  feedId,
-  inputValue,
-  inputValueSetter: setInputValue,
+const InviteFeedModalBody = ({
+  contributors,
+  contributorsSetter: setContributers,
 }: Props): ReactElement => {
-  const toastContext = useContext(ToastContext);
-
-  if (!toastContext) {
-    throw new Error('ToastProvider 필요');
-  }
-
-  const { showToast } = toastContext;
-
   return (
     <StyledModalBody>
       <div className="invite">
         <div className="title">사용자 초대</div>
-        <Suspense fallback={<InputContainerFallback inputValue={inputValue} />}>
+        <Suspense fallback={<InputContainerFallback inputValue={''} />}>
           <InputContainer
-            feedId={feedId}
-            inputValue={inputValue}
-            inputValueSetter={setInputValue}
+            contributors={contributors}
+            contributorsSetter={setContributers}
           />
         </Suspense>
-      </div>
-
-      <hr />
-      <div className="share">
-        <CopyToClipboard
-          text={window.location.href}
-          onCopy={() => showToast('클립 보드에 복사되었습니다.')}
-        >
-          <div className="button">
-            <Icon iconType="share" width={24} height={24} />
-            <div>초대 링크 복사</div>
-          </div>
-        </CopyToClipboard>
       </div>
     </StyledModalBody>
   );
 };
 
-export default ShareModalBody;
+export default InviteFeedModalBody;
