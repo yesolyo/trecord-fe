@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   position: relative;
   overflow: auto;
+  overflow-x: hidden;
   height: 100%;
   width: 100%;
   img {
@@ -21,10 +22,11 @@ export const EditButtonBox = styled.div`
   right: 0;
   bottom: 5%;
 `;
+
 export const ImgBox = styled.div`
   background: white;
   filter: brightness(85%);
-  -webkit-mask-image: linear-gradient(to top, transparent -80%, black 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent -200%, black 65%);
 `;
 export const IconBox = styled.div`
   display: flex;
@@ -34,7 +36,6 @@ export const ExplainBox = styled.div`
   top: 490px;
   width: 100%;
   box-sizing: border-box;
-  height: calc(100vh - 490px);
   @media (min-width: 431px) {
     height: calc(844px - 490px);
   }

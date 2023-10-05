@@ -6,6 +6,7 @@ import useGetInvitationAlarm from '@/apis/Alarm/getInvitaionAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { MoreButton } from '@components/common/MoreButton';
+import { replaceDate } from '@/utils/replaceDate';
 interface Props {
   id: number;
 }
@@ -58,7 +59,7 @@ export const AlarmInvitationList = () => {
                   <strong className="nickname">{a.userFrom.nickname}</strong>
                   님이 피드에 초대했어요
                 </span>
-                <span className="date">{a.date}</span>
+                <span className="date">{replaceDate({ date: a.date })}</span>
               </div>
               <Icon
                 iconType="close"
