@@ -48,7 +48,7 @@ export const MyPageComment = () => {
       )}
       <Modal
         openModal={isModalActive}
-        body="댓글을 삭제 하시겠습니까?"
+        title="댓글을 삭제 하시겠습니까?"
         closeText="취소"
         confirmText="삭제하기"
         onClose={() => setIsModalActive(false)}

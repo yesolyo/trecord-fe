@@ -37,7 +37,6 @@ export const CommentBox = styled.div`
 
 export const LineBox = styled.hr`
   width: 390px;
-  height: 1px;
-  border: none;
-  background: ${({ theme }) => theme.colors.colorStyles.gray300};
+  border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
+  background: none;
 `;

@@ -3,6 +3,7 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
 import { MoreButton } from '@components/common/MoreButton';
+import { useNavigate } from 'react-router-dom';
 interface Props {
   onModalActive: (id: number) => void;
   commentData: GetMypageCommentResponse;
@@ -13,16 +14,18 @@ export const MypageCommentList = ({
   commentData,
   onPageCount,
 }: Props) => {
+  const navigate = useNavigate();
   return (
     <S.Layout>
       {commentData.content.map((c, index) => (
         <Fragment key={c.commentId}>
           <S.CommentBox>
             <Icon iconType="message" width={24} />
-            <S.TextBox>
+            <S.TextBox onClick={() => navigate(`/comment/${c.recordId}`)}>
               <S.ContentBox>{c.content}</S.ContentBox>
               <S.DateBox>{c.commentCreatedDateTime}</S.DateBox>
             </S.TextBox>
+
             <Icon
               iconType="close"
               width={24}
