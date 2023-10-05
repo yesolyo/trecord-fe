@@ -3,7 +3,7 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   CommentUserModalProps,
   deletDataProps,

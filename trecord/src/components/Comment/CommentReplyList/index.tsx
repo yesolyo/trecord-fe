@@ -1,5 +1,5 @@
 import * as S from './style';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
@@ -16,13 +16,18 @@ interface Props {
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit: () => void;
   isReplyEdit: boolean;
+  replyCount: number;
 }
 export const CommentReplyList = ({ ...props }: Props) => {
   const [pageCount, setPageCount] = useState(10);
-  const { data: ReplyData } = useGetReplyComment({
+  const { data: ReplyData, refetch } = useGetReplyComment({
     commentId: props.commentId,
     pageCount,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [props.replyCount, props.isEdit]);
 
   return (
     <S.Layout>
