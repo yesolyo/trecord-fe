@@ -1,26 +1,24 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
-  position: relative;
-  overflow: auto;
-  overflow-x: hidden;
   height: 100%;
   width: 100%;
+  overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   img {
     width: 100%;
     height: 509px;
   }
-`;
-
-export const EditButtonBox = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-right: 20px;
-  right: 0;
-  bottom: 5%;
+  .button-box {
+    position: absolute;
+    margin-right: 20px;
+    right: 0;
+    bottom: 5%;
+  }
 `;
 
 export const ImgBox = styled.div`

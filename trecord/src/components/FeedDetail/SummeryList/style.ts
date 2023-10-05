@@ -4,32 +4,34 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 30px;
-`;
-export const DataBox = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-  border-left: 1px solid;
-  height: 54px;
-`;
-
-export const AlignBox = styled.div`
-  height: 54px;
-  display: flex;
-  align-items: center;
-  border-left: 1px solid;
-`;
-
-export const DayBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-  height: 54px;
-  border-left: 1px solid;
-  span {
-    ${({ theme }) => theme.font.fontSize.Caption_M}
-    ${({ theme }) => theme.font.fontType.M}
+  .container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    .day {
+      padding-top: 3px;
+      ${({ theme }) => theme.font.fontSize.Caption_M}
+      ${({ theme }) => theme.font.fontType.M}
+    }
+  }
+  .circle-line {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .v-line {
+    border-left: 1px solid;
+    height: 50px;
+  }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+  .place {
+    ${({ theme }) => theme.font.fontSize.Body_M}
+    ${({ theme }) => theme.font.fontType.R}
   }
 `;

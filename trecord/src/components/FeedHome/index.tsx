@@ -75,11 +75,13 @@ export const FeedHome = ({
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
           <img src={feed.imageUrl} width={342} height={180} />
-          <div className="img_oppacity"></div>
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>
             <div className="feed_sub">
-              {feed.place}|{feed.startAt}~{feed.endAt}
+              <div className="feed_place">{feed.place}</div>
+              <span>
+                |{feed.startAt}~{feed.endAt}{' '}
+              </span>
             </div>
           </S.TextBox>
         </S.ImgBox>

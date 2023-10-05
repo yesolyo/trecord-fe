@@ -2,6 +2,7 @@ import { recordList } from '@/types';
 import { CircleTag } from './CircleTag/inedx';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
+import { Fragment } from 'react';
 interface RecordSummaryProps {
   listData: recordList[];
 }
@@ -30,18 +31,26 @@ export const SummeryList = ({ listData }: RecordSummaryProps) => {
     <S.Layout>
       {Object.entries(result).map(([dayKey, dayData]) => (
         <div key={dayKey}>
-          <S.DayBox>
-            <CircleTag />
+          <div className="container">
+            <div className="circle-line">
+              <CircleTag />
+              <div className="v-line" />
+            </div>
             <Icon iconType="star" width={24} />
-            <h2>{dayKey}</h2>
-          </S.DayBox>
+            <span className="day">{dayKey}일차</span>
+          </div>
 
           <ul>
             {dayData.map((record) => (
-              <S.DataBox key={record.id}>
-                <CircleTag />
-                <span>{record.place}</span>
-              </S.DataBox>
+              <Fragment key={record.id}>
+                <li className="item">
+                  <div className="circle-line">
+                    <CircleTag />
+                    <div className="v-line" />
+                  </div>
+                  <span className="place">{record.place}</span>
+                </li>
+              </Fragment>
             ))}
           </ul>
         </div>
