@@ -38,9 +38,8 @@ export interface GetReplyCommentResponse {
   last: boolean;
 }
 export interface GetMypageCommentResponse {
-  commentData: React.Dispatch<React.SetStateAction<number>>;
-  onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
   content: GetMypageComment[];
+  last: boolean;
 }
 
 export interface GetReplyCommentProps {

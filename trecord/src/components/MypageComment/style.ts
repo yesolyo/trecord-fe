@@ -5,8 +5,12 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 450px);
-  overflow-x: hidden;
+  height: calc(100% - 80px);
+  overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const TextBox = styled.div`
   display: flex;
@@ -33,7 +37,6 @@ export const CommentBox = styled.div`
 
 export const LineBox = styled.hr`
   width: 390px;
-  height: 1px;
-  border: none;
-  background: ${({ theme }) => theme.colors.colorStyles.gray300};
+  border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
+  background: none;
 `;

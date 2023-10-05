@@ -1,61 +1,59 @@
-import { getMypageComment } from '@/apis/Comment/getMypageComment';
-import { GetMypageCommentResponse } from '@/types/comment';
+import useGetMypageComment from '@/apis/Comment/getMypageComment';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useEffect, useState } from 'react';
-import * as S from './style';
+import { useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
 import { deletDataProps } from '@components/Comment/CommentModal';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
+
 export const MyPageComment = () => {
-  const [comment, setComment] = useState<GetMypageCommentResponse>();
-  const [isActiveModal, setIsActiveModal] = useState<boolean>(false);
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(10);
   const { mutate } = useDeleteNewComment();
+  const { data, refetch } = useGetMypageComment({ pageCount });
   const navigate = useNavigate();
-  useEffect(() => {
-    HandleGetData();
-  }, []);
 
-  const HandleGetData = () => {
-    getMypageComment().then((data) => {
-      setComment(data);
-    });
-  };
-
-  const HandleDeleteData = ({ id }: deletDataProps) => {
+  const handleDeleteData = ({ id }: deletDataProps) => {
     mutate(
       {
         commentId: id,
       },
       {
         onSuccess: () => {
-          HandleGetData();
-          setIsActiveModal(false);
+          refetch();
+          setIsModalActive(false);
         },
       },
     );
   };
 
+  const handleModalActive = (id: number) => {
+    setCommentId(id);
+    setIsModalActive(true);
+  };
+  const handlePageCount = () => {
+    setPageCount((prev) => prev + 10);
+  };
   return (
-    <S.Layout>
+    <>
       <NavBarNew title="댓글" isRegister={false} onClick={() => navigate(-1)} />
-      {comment && (
+      {data && (
         <MypageCommentList
-          {...comment}
-          commentData={setCommentId}
-          onClickModal={setIsActiveModal}
+          commentData={data}
+          onPageCount={handlePageCount}
+          onModalActive={handleModalActive}
         />
       )}
       <Modal
-        openModal={isActiveModal}
-        body="댓글을 삭제 하시겠습니까?"
+        openModal={isModalActive}
+        title="댓글을 삭제 하시겠습니까?"
         closeText="취소"
         confirmText="삭제하기"
-        onClose={() => setIsActiveModal(false)}
-        onConfirm={() => HandleDeleteData({ id: commentId })}
+        onClose={() => setIsModalActive(false)}
+        onConfirm={() => handleDeleteData({ id: commentId })}
       />
-    </S.Layout>
+    </>
   );
 };
