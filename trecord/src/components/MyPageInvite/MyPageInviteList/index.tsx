@@ -5,8 +5,19 @@ import { Fragment, useState } from 'react';
 import { Empty } from '@components/common/Empty';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
+import { MoreButton } from '@components/common/MoreButton';
 
-export const MyPageInviteList = ({ ...props }: GetMyPageInviteListProps) => {
+interface Props {
+  inviteData: GetMyPageInviteListProps;
+  onDelete: (id: number) => void;
+  onPageCount: () => void;
+}
+
+export const MyPageInviteList = ({
+  inviteData,
+  onDelete,
+  onPageCount,
+}: Props) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const constant = {
@@ -23,19 +34,19 @@ export const MyPageInviteList = ({ ...props }: GetMyPageInviteListProps) => {
     ],
   };
 
-  if (props.content.length === 0) return <Empty {...constant} />;
+  if (inviteData.content.length === 0) return <Empty {...constant} />;
   return (
     <S.Layout>
-      {props.content.map((invite, index) => (
-        <Fragment key={invite.feedId}>
+      {inviteData.content.map((i, index) => (
+        <Fragment key={i.feedId}>
           <div className="container">
-            {invite.imageUrl && <img src={invite.imageUrl} className="img" />}
+            {i.imageUrl && <img src={i.imageUrl} className="img" />}
             <div
               className="content"
-              onClick={() => navigate(`/feedDetail/${invite.feedId}`)}
+              onClick={() => navigate(`/feedDetail/${i.feedId}`)}
             >
-              <span className="title ellipsis">{invite.feedName}</span>
-              <span className="sub ellipsis">{invite.ownerNickname}</span>
+              <span className="title ellipsis">{i.feedName}</span>
+              <span className="sub ellipsis">{i.ownerNickname}</span>
             </div>
             <Icon
               iconType="close"
@@ -43,17 +54,18 @@ export const MyPageInviteList = ({ ...props }: GetMyPageInviteListProps) => {
               onClick={() => setIsActive(true)}
             />
           </div>
-          {props.content.length - 1 !== index && <hr className="line" />}
+          {inviteData.content.length - 1 !== index && <hr className="line" />}
           <Modal
             openModal={isActive}
             title="해당 피드에서 나갈까요?"
             closeText="취소"
             confirmText="나가기"
             onClose={() => setIsActive(false)}
-            onConfirm={() => props.onDelete(invite.feedId)}
+            onConfirm={() => onDelete(i.feedId)}
           />
         </Fragment>
       ))}
+      {!inviteData.last && <MoreButton title="피드" onClick={onPageCount} />}
     </S.Layout>
   );
 };

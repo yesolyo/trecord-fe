@@ -6,9 +6,12 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 110px);
+  height: calc(100% - 80px);
   overflow: auto;
-  overflow-x: hidden;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .container {
     display: flex;
     gap: 30px;
@@ -44,8 +47,7 @@ export const Layout = styled.div`
   }
   .line {
     width: 390px;
-    height: 1px;
-    border: none;
-    background: ${({ theme }) => theme.colors.colorStyles.gray300};
+    border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
+    background: none;
   }
 `;
