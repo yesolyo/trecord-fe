@@ -108,7 +108,7 @@ export const FeedDetail = () => {
   return (
     <>
       <S.Layout>
-        {detailData?.canModifyFeed && (
+        {(detailData?.canModifyFeed || detailData?.canWriteRecord) && (
           <NavBarBackBtn
             onBackBtnClick={() => navigate('/home')}
             isCategory={false}
@@ -168,7 +168,8 @@ export const FeedDetail = () => {
                   ? '/newRecord'
                   : '/login';
               navigate(path, {
-                ...(detailData?.canModifyFeed && {
+                ...((detailData?.canModifyFeed ||
+                  detailData?.canWriteRecord) && {
                   state: {
                     id: id,
                     maxDate: detailData.endAt,
