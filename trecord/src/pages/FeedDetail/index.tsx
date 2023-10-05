@@ -86,7 +86,6 @@ export const FeedDetail = () => {
       },
     );
   }, [id, deleteFeed, navigate]);
-
   const handleChangeSelect = useCallback(
     (v: string) => {
       switch (v) {
