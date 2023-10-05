@@ -19,7 +19,7 @@ export interface GetMyPageInviteResponse {
 
 export interface GetMyPageInviteListProps {
   content: GetMyPageInvteProps[];
-  onDelete: (id: number) => void;
+  last: boolean;
 }
 export interface GetMyPageInvteProps {
   feedId: number;
