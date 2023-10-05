@@ -5,7 +5,6 @@ export const Layout = styled.div`
   overflow: auto;
   height: 100%;
   width: 100%;
-
   img {
     width: 100%;
     height: 509px;
