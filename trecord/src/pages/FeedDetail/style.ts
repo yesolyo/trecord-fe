@@ -24,7 +24,7 @@ export const EditButtonBox = styled.div`
 export const ImgBox = styled.div`
   background: white;
   filter: brightness(85%);
-  -webkit-mask-image: linear-gradient(to top, transparent -80%, black 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent -200%, black 65%);
 `;
 export const IconBox = styled.div`
   display: flex;
