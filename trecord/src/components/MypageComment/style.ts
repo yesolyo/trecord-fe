@@ -5,8 +5,12 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 450px);
-  overflow-x: hidden;
+  height: calc(100% - 80px);
+  overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const TextBox = styled.div`
   display: flex;

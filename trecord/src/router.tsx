@@ -132,7 +132,11 @@ export const router = createBrowserRouter(
         },
         {
           path: '/mypageComment',
-          element: <MyPageComment />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <MyPageComment />
+            </Suspense>
+          ),
         },
         {
           path: '/mypageLike',

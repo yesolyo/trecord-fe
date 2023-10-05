@@ -1,6 +1,5 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
-import * as S from './style';
 import { useState } from 'react';
 import { AlarmAllList } from '@components/Alarm/AlarmList/AlarmAllList';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
