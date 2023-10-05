@@ -2,9 +2,10 @@ import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useGetFeeds } from '@/apis';
 import { Empty } from '@components/common/Empty';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Skeleton from '@components/common/skeleton';
+import { MoreButton } from '@components/common/MoreButton';
 
 const StyledFallback = styled.div`
   height: calc(100% - 190px);
@@ -34,12 +35,17 @@ interface FeedHomeProps {
 export const FeedHome = ({
   totalFeedsSetter: setTotalFeeds,
 }: FeedHomeProps) => {
-  const { data: pageData } = useGetFeeds();
+  const [pageCount, setPageCount] = useState<number>(10);
+  const { data: pageData } = useGetFeeds({ pageCount });
   const navigate = useNavigate();
 
   useEffect(() => {
     if (pageData) setTotalFeeds(pageData.content.length);
   }, [pageData]);
+
+  const handlePageCount = () => {
+    setPageCount((prev) => prev + 10);
+  };
 
   const constant = {
     icon: {
@@ -69,15 +75,18 @@ export const FeedHome = ({
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
           <img src={feed.imageUrl} width={342} height={180} />
-          <div className="img_oppacity"></div>
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>
             <div className="feed_sub">
-              {feed.place}|{feed.startAt}~{feed.endAt}
+              <div className="feed_place">{feed.place}</div>
+              <span>
+                |{feed.startAt}~{feed.endAt}{' '}
+              </span>
             </div>
           </S.TextBox>
         </S.ImgBox>
       ))}
+      {!pageData?.last && <MoreButton title="피드" onClick={handlePageCount} />}
     </S.Layout>
   );
 };

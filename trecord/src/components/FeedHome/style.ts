@@ -31,6 +31,7 @@ export const ImgBox = styled.div`
   img {
     border-radius: 8px;
     filter: brightness(72%);
+    background: white;
   }
 `;
 
@@ -44,8 +45,16 @@ export const TextBox = styled.div`
     color:${({ theme }) => theme.colors.colorStyles.gray100}
   }
   .feed_sub {
+    display: flex;
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
     color:${({ theme }) => theme.colors.colorStyles.gray100}
+  }
+  .feed_place {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    width: 120px;
+    overflow: hidden;
   }
 `;
