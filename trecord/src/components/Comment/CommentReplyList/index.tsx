@@ -1,11 +1,11 @@
 import * as S from './style';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
-import { GetReplyCommentProps } from '@/types/comment';
+import useGetReplyComment from '@/apis/Comment/getReplyComment';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
-  replyData: GetReplyCommentProps[];
   commentId: number;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
@@ -16,18 +16,34 @@ interface Props {
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit: () => void;
   isReplyEdit: boolean;
+  replyCount: number;
 }
 export const CommentReplyList = ({ ...props }: Props) => {
+  const [pageCount, setPageCount] = useState(10);
+  const { data: ReplyData, refetch } = useGetReplyComment({
+    commentId: props.commentId,
+    pageCount,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [props.replyCount, props.isEdit]);
+
   return (
     <S.Layout>
-      {props.replyData &&
-        props.replyData.map((user, index) => (
+      {ReplyData &&
+        ReplyData.content.map((user, index) => (
           <Fragment key={user.commentId}>
             <div className="reply_box">
-              <Icon iconType="profile" width={28} />
+              {user.commenterImageUrl.length > 0 ? (
+                <img src={user.commenterImageUrl} className="user-img" />
+              ) : (
+                <Icon iconType="profile" width={28} />
+              )}
+
               <div className="content_box">
                 <div className="conetent_title">
-                  <div className="user_id">{user.commentId}</div>
+                  <div className="user_id">{user.commenterNickname}</div>
                   {user.isUpdatable && (
                     <CommentCateogory
                       id={user.commentId}
@@ -41,11 +57,17 @@ export const CommentReplyList = ({ ...props }: Props) => {
                 <div className="user_date">{user.createdDateTime}</div>
               </div>
             </div>
-            {props.replyData.length !== index + 1 && (
+            {ReplyData.content.length !== index + 1 && (
               <hr className="line_box" />
             )}
           </Fragment>
         ))}
+      {!ReplyData?.last && (
+        <MoreButton
+          title="댓글"
+          onClick={() => setPageCount((prev) => prev + 10)}
+        />
+      )}
     </S.Layout>
   );
 };

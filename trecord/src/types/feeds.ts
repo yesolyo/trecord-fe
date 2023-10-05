@@ -29,7 +29,7 @@ export interface FeedDetail {
   writerId: number;
   feedId: number;
   canModifyFeed: boolean;
-  canCreateFeed: boolean;
+  canWriteRecord: boolean;
   name: string;
   imageUrl: string;
   description: string;

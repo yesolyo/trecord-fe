@@ -11,6 +11,14 @@ export const Layout = styled.div`
   width: 100%;
   height: calc(100% - 190px);
   overflow: auto;
+  .reply {
+    ${({ theme }) => theme.font.fontSize.Caption_S}
+    ${({ theme }) => theme.font.fontType.R};
+    background: none;
+    border: none;
+    display: flex;
+    padding: 0;
+  }
   .user-img {
     width: 28px;
     height: 28px;
@@ -39,6 +47,8 @@ export const CommentDataBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 300px;
+
   .user_id {
     ${({ theme }) => theme.font.fontSize.Body_M}
     ${({ theme }) => theme.font.fontType.S}

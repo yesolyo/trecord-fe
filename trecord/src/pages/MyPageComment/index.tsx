@@ -4,10 +4,10 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
-import { useDeleteNewComment } from '@/apis/Comment/postNewComment';
 import { deletDataProps } from '@components/Comment/CommentModal';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
+import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
 export const MyPageComment = () => {
   const [comment, setComment] = useState<GetMypageCommentResponse>();
   const [isActiveModal, setIsActiveModal] = useState<boolean>(false);
