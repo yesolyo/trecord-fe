@@ -1,16 +1,20 @@
 export interface GetAllAlarmResponse {
   content: (GetCommentAlarm & GetLikeAlarm & GetInvitationAlarm)[];
+  last: boolean;
 }
 
 export interface GetCommentAlarmResponse {
   content: GetCommentAlarm[];
+  last: boolean;
 }
 
 export interface GetLikeAlarmResponse {
   content: GetLikeAlarm[];
+  last: boolean;
 }
 export interface GetInvitationAlarmResponse {
   content: GetInvitationAlarm[];
+  last: boolean;
 }
 export interface GetAllAlarm {
   id: number;

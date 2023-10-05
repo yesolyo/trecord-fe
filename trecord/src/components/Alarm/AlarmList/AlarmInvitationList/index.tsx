@@ -5,13 +5,18 @@ import { Fragment, useState } from 'react';
 import useGetInvitationAlarm from '@/apis/Alarm/getInvitaionAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
   id: number;
 }
 export const AlarmInvitationList = () => {
-  const { data: invitationAlarmData, refetch } = useGetInvitationAlarm();
+  const [pageCount, setPageCount] = useState(10);
+  const { data: invitationAlarmData, refetch } = useGetInvitationAlarm({
+    pageCount,
+  });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [alarmId, setAlarmId] = useState(0);
   const constant = {
     icon: {
       width: 111.37,
@@ -25,6 +30,9 @@ export const AlarmInvitationList = () => {
       },
     ],
   };
+  const handleMorePage = () => {
+    setPageCount((prev) => prev + 10);
+  };
   const handleDeleteAlarm = ({ id }: Props) => {
     mutate(
       { id },
@@ -34,6 +42,7 @@ export const AlarmInvitationList = () => {
         },
       },
     );
+    setIsModalActive((prev) => !prev);
   };
 
   if (invitationAlarmData?.content.length === 0) return <Empty {...constant} />;
@@ -41,7 +50,7 @@ export const AlarmInvitationList = () => {
     return (
       <S.Layout>
         {invitationAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
               <Icon iconType="invite" width={24} />
               <div className="content">
@@ -54,7 +63,10 @@ export const AlarmInvitationList = () => {
               <Icon
                 iconType="close"
                 width={24}
-                onClick={() => setIsModalActive((prev) => !prev)}
+                onClick={() => {
+                  setIsModalActive((prev) => !prev);
+                  setAlarmId(a.id);
+                }}
               />
             </div>
             {invitationAlarmData.content.length - 1 !== index && <S.LineBox />}
@@ -64,10 +76,13 @@ export const AlarmInvitationList = () => {
               closeText="취소"
               confirmText="삭제"
               onClose={() => setIsModalActive((prev) => !prev)}
-              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+              onConfirm={() => handleDeleteAlarm({ id: alarmId })}
             />
           </Fragment>
         ))}
+        {!invitationAlarmData?.last && (
+          <MoreButton title="알림" onClick={handleMorePage} />
+        )}
       </S.Layout>
     );
 };

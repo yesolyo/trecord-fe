@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { CommentReplyList } from '../CommentReplyList';
-import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import { deletDataProps } from '../CommentModal';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Layout = styled.button`
   ${({ theme }) => theme.font.fontSize.Caption_S}
@@ -16,8 +15,6 @@ const Layout = styled.button`
 interface Props {
   replyCount: number;
   commentId: number;
-  isReplyComment: boolean;
-  onClick: () => void;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
   isEdit: boolean;
@@ -29,18 +26,13 @@ interface Props {
   isReplyEdit: boolean;
 }
 export const CommentReplyBtn = ({ ...props }: Props) => {
-  const { data: ReplyData, refetch } = useGetReplyComment({
-    commentId: props.commentId,
-  });
-  useEffect(() => {
-    refetch();
-  }, [props.replyCount, props.isEdit]);
+  const [isReplyComment, setIsReplyComment] = useState<boolean>(false);
   return (
     <>
-      <Layout onClick={props.onClick}>{props.replyCount}개의 댓글 보기</Layout>
-      {props.isReplyComment && ReplyData && (
-        <CommentReplyList replyData={ReplyData?.content} {...props} />
-      )}
+      <Layout onClick={() => setIsReplyComment((prev) => !prev)}>
+        {props.replyCount}개의 댓글 보기
+      </Layout>
+      {isReplyComment && <CommentReplyList {...props} />}
     </>
   );
 };

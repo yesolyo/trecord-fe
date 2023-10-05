@@ -7,8 +7,9 @@ export const Layout = styled.div`
   gap: 15px;
   width: 100%;
   align-items: center;
-  height: calc(100% - 190px);
+  height: calc(100vh - 600px);
   overflow: auto;
+  overflow-x: hidden;
 
   .container {
     display: flex;
@@ -19,6 +20,10 @@ export const Layout = styled.div`
       flex-direction: column;
       gap: 5px;
       width: 264px;
+      .nickname {
+        ${({ theme }) => theme.font.fontSize.Body_M};
+        ${({ theme }) => theme.font.fontType.S};
+      }
       .title {
         ${({ theme }) => theme.font.fontSize.Body_M};
         ${({ theme }) => theme.font.fontType.R};

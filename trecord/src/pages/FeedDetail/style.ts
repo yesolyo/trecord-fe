@@ -22,7 +22,11 @@ export const EditButtonBox = styled.div`
   right: 0;
   bottom: 5%;
 `;
-export const ImgBox = styled.div``;
+export const ImgBox = styled.div`
+  background: white;
+  filter: brightness(85%);
+  -webkit-mask-image: linear-gradient(to top, transparent -80%, black 100%);
+`;
 export const IconBox = styled.div`
   display: flex;
   justify-content: space-between;

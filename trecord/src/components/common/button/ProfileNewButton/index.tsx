@@ -75,8 +75,6 @@ export const ProfileNewButton = ({
       imgUrl: imageUrl,
       introduce: intrduceValue,
     });
-    setIsActive(false);
-    navigate('/home');
   };
 
   const postData = ({ nickName, introduce }: PostDataProps) => {
@@ -94,7 +92,12 @@ export const ProfileNewButton = ({
           introduction: introduce,
         }),
       })
-        .then(() => {})
+        .then((data) => {
+          if (data.status === 200) {
+            setIsActive(false);
+            navigate('/mypage', { replace: true });
+          }
+        })
         .catch((err) => console.log(err));
     }
   };

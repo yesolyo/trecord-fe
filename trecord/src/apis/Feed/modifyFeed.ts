@@ -12,9 +12,9 @@ interface Props {
   longitude?: string;
   startAt?: string;
   endAt?: string;
-  companion?: string;
   description?: string;
   imageUrl?: string;
+  contributors: number[];
 }
 
 const modifyFeed = async ({
@@ -26,7 +26,7 @@ const modifyFeed = async ({
   longitude,
   startAt,
   endAt,
-  companion,
+  contributors,
   description,
   imageUrl,
 }: Props) => {
@@ -39,7 +39,7 @@ const modifyFeed = async ({
     longitude,
     startAt,
     endAt,
-    companion,
+    contributors,
     description,
     imageUrl,
   });

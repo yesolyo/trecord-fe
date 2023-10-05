@@ -109,6 +109,7 @@ export const Alarm = () => {
       {isAlarm.isComment && <AlarmCommentList />}
       {isAlarm.isLike && <AlarmLikeList />}
       {isAlarm.isInvitation && <AlarmInvitationList />}
+
       <TabBar currentPage={'alarm'} />
     </S.Layout>
   );

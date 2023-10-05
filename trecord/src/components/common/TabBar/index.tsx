@@ -2,18 +2,26 @@ import { colorStyles } from '@/styles/color';
 import { Icon } from '../Icon';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { RealTimeContext } from '../RealTimeNotification';
 
 interface TabBarProps {
   currentPage: string;
 }
 export const TabBar = ({ currentPage }: TabBarProps) => {
   const navigate = useNavigate();
-
+  const state = useContext(RealTimeContext);
   return (
     <S.Layout>
-      <S.menuBox type="button" onClick={() => navigate('/alarm')}>
+      <S.menuBox
+        type="button"
+        onClick={() => {
+          state?.handleIsActiveNotification();
+          navigate('/alarm');
+        }}
+      >
         <Icon
-          iconType="alarm"
+          iconType={state?.isNotification ? 'notification' : 'alarm'}
           width={24}
           fill={
             currentPage === 'alarm' ? colorStyles.gray900 : colorStyles.gray600

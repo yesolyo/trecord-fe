@@ -29,7 +29,6 @@ const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
 
     const moveItem = useCallback(
       (dragIndex: number, hoverIndex: number) => {
-        console.log(items[dragIndex], items[hoverIndex]);
         setItems((prevCards: recordList[]) =>
           update(prevCards, {
             $splice: [

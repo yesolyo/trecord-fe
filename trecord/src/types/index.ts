@@ -22,32 +22,6 @@ export const SELECT_INFOS: {
 
 export type tabBarList =
   '"alarm" | "book" | "user" | "noneCharacter" | "profile" | "trecordLogo" | "welcomeCharacter"';
-export type feedList = {
-  id: number;
-  name: string;
-  imageUrl: string;
-  longitude: string;
-  latitude: string;
-  place: string;
-  startAt: string;
-  endAt: string;
-};
-
-export type feedDetailProps = {
-  writerId: number;
-  feedId: number;
-  canModifyFeed: boolean;
-  name: string;
-  imageUrl: string;
-  description: string;
-  companion: string;
-  place: string;
-  latitude: string;
-  longitude: string;
-  satisfaction: keyof typeof icons;
-  startAt: string;
-  endAt: string;
-};
 
 export type recordListProps = {
   last: boolean;
@@ -98,3 +72,15 @@ export type commentList = {
   isUpdatable: boolean;
   content: string;
 };
+
+export interface Page<T> {
+  first: boolean;
+  last: boolean;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  totalPages: number;
+  totalElements: number;
+  empty: boolean;
+  content: T[];
+}

@@ -117,7 +117,7 @@ const ModifyRecord = observer((): ReactElement => {
       recordStore.setFeedId(data.feedId.toString());
     }
   }, [data]);
-  console.log();
+
   return (
     <Layout>
       <NavBarNew

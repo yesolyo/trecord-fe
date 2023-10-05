@@ -20,6 +20,10 @@ export const Layout = styled.div`
       flex-direction: column;
       gap: 5px;
       width: 264px;
+      .nickname {
+        ${({ theme }) => theme.font.fontSize.Body_M};
+        ${({ theme }) => theme.font.fontType.S};
+      }
       .title {
         ${({ theme }) => theme.font.fontSize.Body_M};
         ${({ theme }) => theme.font.fontType.R};

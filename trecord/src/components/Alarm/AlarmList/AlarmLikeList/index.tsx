@@ -5,13 +5,16 @@ import { Fragment, useState } from 'react';
 import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
+import { MoreButton } from '@components/common/MoreButton';
 interface Props {
   id: number;
 }
 export const AlarmLikeList = () => {
-  const { data: likeAlarmData, refetch } = useGetLikeAlarm();
+  const [pageCount, setPageCount] = useState(10);
+  const { data: likeAlarmData, refetch } = useGetLikeAlarm({ pageCount });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [alarmId, setAlarmId] = useState(0);
   const constant = {
     icon: {
       width: 111.37,
@@ -25,6 +28,9 @@ export const AlarmLikeList = () => {
       },
     ],
   };
+  const handleMorePage = () => {
+    setPageCount((prev) => prev + 10);
+  };
   const handleDeleteAlarm = ({ id }: Props) => {
     mutate(
       { id },
@@ -34,15 +40,16 @@ export const AlarmLikeList = () => {
         },
       },
     );
+    setIsModalActive((prev) => !prev);
   };
   if (likeAlarmData?.content.length === 0) return <Empty {...constant} />;
   else
     return (
       <S.Layout>
         {likeAlarmData?.content.map((a, index) => (
-          <Fragment key={a.userFrom.id}>
+          <Fragment key={a.id}>
             <div className="container">
-              <Icon iconType="message" width={24} />
+              <Icon iconType="heart" width={24} />
               <div className="content">
                 <span className="title">
                   <strong className="nickname">{a.userFrom.nickname}</strong>
@@ -54,7 +61,10 @@ export const AlarmLikeList = () => {
               <Icon
                 iconType="close"
                 width={24}
-                onClick={() => setIsModalActive((prev) => !prev)}
+                onClick={() => {
+                  setIsModalActive((prev) => !prev);
+                  setAlarmId(a.id);
+                }}
               />
             </div>
             {likeAlarmData.content.length - 1 !== index && <S.LineBox />}
@@ -64,10 +74,13 @@ export const AlarmLikeList = () => {
               closeText="취소"
               confirmText="삭제"
               onClose={() => setIsModalActive((prev) => !prev)}
-              onConfirm={() => handleDeleteAlarm({ id: a.id })}
+              onConfirm={() => handleDeleteAlarm({ id: alarmId })}
             />
           </Fragment>
         ))}
+        {!likeAlarmData?.last && (
+          <MoreButton title="알림" onClick={handleMorePage} />
+        )}
       </S.Layout>
     );
 };

@@ -3,34 +3,40 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useEffect, useState } from 'react';
 import { SquareButton } from '@components/common/button/SquareButton';
 import uuid from 'react-uuid';
+import useNewFeed from '@/apis/Feed/newFeed';
 interface NewFeedBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
   saveImageUrl: React.Dispatch<React.SetStateAction<string>>;
-  titleValue: string;
-  tripPlaceValue: { placeName: string; lat: string; lng: string };
-  startAtValue: string;
-  endAtValue: string;
-  withPeopleValue: string;
-  tripIntrouceValue: string;
-  satisfactionValue: string;
+  name: string;
+  satisfaction?: string;
+  place?: string;
+  latitude?: string;
+  longitude?: string;
+  startAt: string;
+  endAt: string;
+  description?: string;
+  contributors: number[];
   title: string;
 }
 export const NewFeedBtn = ({
   imageFile,
   imageUrl,
   saveImageUrl,
-  titleValue,
-  tripPlaceValue,
-  startAtValue,
-  endAtValue,
-  withPeopleValue,
-  tripIntrouceValue,
-  satisfactionValue,
+  name,
+  satisfaction,
+  place,
+  latitude,
+  longitude,
+  startAt,
+  endAt,
+  description,
+  contributors,
   title,
 }: NewFeedBtnProps) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
+  const { mutate } = useNewFeed();
 
   useEffect(() => {
     if (isActive) {
@@ -66,41 +72,31 @@ export const NewFeedBtn = ({
       }.amazonaws.com/upload/${key}`;
       saveImageUrl(url);
       setIsActive(true);
-      console.log('성공');
     } catch (error) {
       console.error(error);
     }
   };
 
   const postData = () => {
-    const getToken = localStorage.getItem('acessToken');
-    if (getToken) {
-      fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/feeds`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken,
+    mutate(
+      {
+        name,
+        satisfaction,
+        place,
+        imageUrl,
+        latitude,
+        longitude,
+        startAt: `${startAt}T00:00`,
+        endAt: `${endAt}T00:00`,
+        description,
+        contributors,
+      },
+      {
+        onSuccess: () => {
+          navigate('/home');
         },
-        body: JSON.stringify({
-          name: titleValue,
-          satisfaction: satisfactionValue,
-          place: tripPlaceValue.placeName,
-          latitude: tripPlaceValue.lat,
-          longitude: tripPlaceValue.lng,
-          startAt: `${startAtValue}T00:00`,
-          endAt: `${endAtValue}T00:00`,
-          companion: withPeopleValue,
-          description: tripIntrouceValue,
-          imageUrl: imageUrl,
-        }),
-      })
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) {
-            navigate('/home');
-          }
-        })
-        .catch((err) => console.log(err));
-    }
+      },
+    );
   };
 
   const handlePost = () => {
@@ -112,9 +108,9 @@ export const NewFeedBtn = ({
   };
 
   const isDisabled = !(
-    titleValue.length > 0 &&
-    startAtValue.length > 0 &&
-    endAtValue.length > 0
+    name.length > 0 &&
+    startAt.length > 0 &&
+    endAt.length > 0
   );
 
   const constant = {
