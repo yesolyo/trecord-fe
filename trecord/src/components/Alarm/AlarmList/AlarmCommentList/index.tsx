@@ -6,6 +6,7 @@ import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { MoreButton } from '@components/common/MoreButton';
+import { replaceDate } from '@/utils/replaceDate';
 interface Props {
   id: number;
 }
@@ -57,7 +58,7 @@ export const AlarmCommentList = () => {
                   님이 댓글을 남겼어요:
                 </span>
                 <span className="body">{a.comment.content}</span>
-                <span className="date">{a.date}</span>
+                <span className="date">{replaceDate({ date: a.date })}</span>
               </div>
               <Icon
                 iconType="close"

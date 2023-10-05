@@ -61,7 +61,7 @@ export const Alarm = () => {
   };
 
   return (
-    <S.Layout>
+    <>
       {isAlarm.isAll && (
         <NavBarProfile
           mainTitle="알림"
@@ -111,6 +111,6 @@ export const Alarm = () => {
       {isAlarm.isInvitation && <AlarmInvitationList />}
 
       <TabBar currentPage={'alarm'} />
-    </S.Layout>
+    </>
   );
 };
