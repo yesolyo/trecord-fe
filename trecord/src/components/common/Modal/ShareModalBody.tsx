@@ -246,7 +246,7 @@ const InputContainer = ({
           )}
         <div className="user-list">
           {list.map((l) => (
-            <StyledProfile onClick={handleClickResult}>
+            <StyledProfile onClick={handleClickResult} key={l.userId}>
               <div className="profile">
                 {l.imageUrl && <img src={l.imageUrl} />}
                 {!l.imageUrl && (

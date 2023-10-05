@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { CommentReplyList } from '../CommentReplyList';
-import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import { deletDataProps } from '../CommentModal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const Layout = styled.button`
   ${({ theme }) => theme.font.fontSize.Caption_S}
