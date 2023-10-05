@@ -1,21 +1,24 @@
 import useGetMyPageLike from '@/apis/MyPage/getMyPageLike';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { MyPageLikeList } from '@components/MyPageLike/MyPageLikeList';
+import { useState } from 'react';
 
 export const MyPageLike = () => {
-  const { data } = useGetMyPageLike();
+  const [pageCount, setPageCount] = useState(10);
+  const { data } = useGetMyPageLike({ pageCount });
   const navigate = useNavigate();
-
+  const handlePageCount = () => {
+    setPageCount((prev) => prev + 10);
+  };
   return (
-    <S.Layout>
+    <>
       <NavBarNew
         title="좋아요"
         isRegister={false}
         onClick={() => navigate(-1)}
       />
-      {data && <MyPageLikeList {...data} />}
-    </S.Layout>
+      {data && <MyPageLikeList likeData={data} onPageCount={handlePageCount} />}
+    </>
   );
 };

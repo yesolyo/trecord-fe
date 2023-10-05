@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { http } from '../_http';
 
 export interface postLikeProps {
-  recordId: string;
+  recordId: number;
 }
 
 export interface postLikeResponse {

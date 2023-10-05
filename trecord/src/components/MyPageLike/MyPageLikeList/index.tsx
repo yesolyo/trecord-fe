@@ -4,8 +4,12 @@ import * as S from './style';
 import { Fragment } from 'react';
 import { Empty } from '@components/common/Empty';
 import { useNavigate } from 'react-router-dom';
-
-export const MyPageLikeList = ({ ...props }: GetMyPageLikeRespose) => {
+import { MoreButton } from '@components/common/MoreButton';
+interface Props {
+  onPageCount: () => void;
+  likeData: GetMyPageLikeRespose;
+}
+export const MyPageLikeList = ({ onPageCount, likeData }: Props) => {
   const navigate = useNavigate();
   const constant = {
     icon: {
@@ -20,25 +24,26 @@ export const MyPageLikeList = ({ ...props }: GetMyPageLikeRespose) => {
       },
     ],
   };
-  if (props.content.length === 0) return <Empty {...constant} />;
+  if (likeData.content.length === 0) return <Empty {...constant} />;
   return (
     <S.Layout>
-      {props.content.map((like, index) => (
-        <Fragment key={like.recordId}>
+      {likeData.content.map((l, index) => (
+        <Fragment key={l.recordId}>
           <div
             className="container"
-            onClick={() => navigate(`/recordDetail/${like.recordId}`)}
+            onClick={() => navigate(`/recordDetail/${l.recordId}`)}
           >
             <Icon iconType="heart" width={24} />
             <div className="content">
-              <span className="title ellipsis">{like.title}</span>
-              <span className="sub ellipsis">{like.authorNickname}</span>
+              <span className="title ellipsis">{l.title}</span>
+              <span className="sub ellipsis">{l.authorNickname}</span>
             </div>
-            {like.imageUrl && <img src={like.imageUrl} className="img" />}
+            {l.imageUrl && <img src={l.imageUrl} className="img" />}
           </div>
-          {props.content.length - 1 !== index && <hr className="line" />}
+          {likeData.content.length - 1 !== index && <hr className="line" />}
         </Fragment>
       ))}
+      {!likeData.last && <MoreButton title="좋아요" onClick={onPageCount} />}
     </S.Layout>
   );
 };
