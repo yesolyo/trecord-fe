@@ -10,6 +10,7 @@ export interface GetNewCommentResponse {
 
 export interface GetMyPageLikeRespose {
   content: GetMyPageLikeProps[];
+  last: boolean;
 }
 
 export interface GetMyPageInviteResponse {
