@@ -7,13 +7,15 @@ import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
 import { useDeleteFeed, useGetFeedDetail } from '@/apis';
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 import useGetRecordList from '@/apis/Feed/getRecordList';
 import ChipContainer from '@components/common/ChipContainer';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/stores';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -62,9 +64,17 @@ export const Fallback = (): ReactElement => {
   );
 };
 
-export const FeedDetail = () => {
+export const FeedDetail = observer(() => {
   const { id = '' } = useParams();
+
+  const { feedStore } = useStore();
   const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
+  useEffect(() => {
+    if (detailData) {
+      feedStore.setFeedId(detailData.feedId);
+      feedStore.setContributors(detailData.contributors);
+    }
+  }, [detailData]);
 
   const contributors = useMemo(
     () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
@@ -201,4 +211,4 @@ export const FeedDetail = () => {
       </Modal>
     </>
   );
-};
+});

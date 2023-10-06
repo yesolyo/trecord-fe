@@ -14,6 +14,8 @@ import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/stores';
 
 interface Props {
   feedId: number;
@@ -21,111 +23,113 @@ interface Props {
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const InputContainer = ({
-  feedId,
-  inputValue,
-  inputValueSetter: setInputValue,
-}: Props) => {
-  const [enabled, setEnabled] = useState(false);
-  const [list, setList] = useState<User[]>([]);
-  const { data: userData } = useGetUser({ q: inputValue, enabled });
-  const { mutate } = useInviteUser();
-  const { mutate: gtfOut } = useGtfOutFromFeed();
+const InputContainer = observer(
+  ({ feedId, inputValue, inputValueSetter: setInputValue }: Props) => {
+    const { feedStore } = useStore();
 
-  const handleClickSearch = useCallback(() => {
-    setEnabled(true);
-  }, []);
+    const [enabled, setEnabled] = useState(false);
+    const [list, setList] = useState<User[]>(feedStore.contributors);
+    const { data: userData } = useGetUser({ q: inputValue, enabled });
+    const { mutate } = useInviteUser();
+    const { mutate: gtfOut } = useGtfOutFromFeed();
 
-  const handleClickResult = useCallback(() => {
-    if (userData) {
-      mutate(
-        { feedId: feedId.toString(), userToId: userData.userId },
-        {
-          onSuccess: () => {
-            setList([...list, userData]);
-            setInputValue('');
+    const handleClickSearch = useCallback(() => {
+      setEnabled(true);
+    }, []);
+
+    const handleClickResult = useCallback(() => {
+      if (userData) {
+        if (list.findIndex((l) => l.userId === userData.userId) === -1) {
+          mutate(
+            { feedId: feedId.toString(), userToId: userData.userId },
+            {
+              onSuccess: () => {
+                setList([...list, userData]);
+                setInputValue('');
+              },
+            },
+          );
+        } else setInputValue('');
+      }
+    }, [userData]);
+
+    const handleClickRemove = useCallback(
+      (id: number) => {
+        gtfOut(
+          {
+            feedId,
+            userId: id,
           },
-        },
-      );
-    }
-  }, [userData]);
+          {
+            onSuccess: () => {
+              const newList: User[] = JSON.parse(JSON.stringify(list));
+              const index = newList.findIndex((x) => x.userId === id);
+              newList.splice(index, 1);
 
-  const handleClickRemove = useCallback(
-    (id: number) => {
-      gtfOut(
-        {
-          feedId,
-          userId: id,
-        },
-        {
-          onSuccess: () => {
-            const newList: User[] = JSON.parse(JSON.stringify(list));
-            const index = newList.findIndex((x) => x.userId === id);
-            newList.splice(index, 1);
-
-            if (index > -1) setList(newList);
+              if (index > -1) setList(newList);
+            },
           },
-        },
-      );
-    },
-    [gtfOut],
-  );
+        );
+      },
+      [gtfOut],
+    );
 
-  useEffect(() => {
-    setEnabled(false);
-  }, [userData]);
+    useEffect(() => {
+      setEnabled(false);
+    }, [userData]);
 
-  return (
-    <div className="input-wrapper">
-      <div className="input-container">
-        <input
-          type="text"
-          placeholder={'닉네임을 입력하세요'}
-          id="input_text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          type="button"
-          disabled={inputValue === ''}
-          onClick={handleClickSearch}
-        >
-          초대
-        </button>
-      </div>
-      <div className="input-result">
-        {userData &&
-          list.findIndex((x) => x.userId === userData?.userId) === -1 && (
-            <StyledProfile onClick={handleClickResult}>
-              <div className="profile">
-                {userData.imageUrl && <img src={userData.imageUrl} />}
-                {!userData.imageUrl && (
-                  <Icon iconType="profile" width={24} height={24} />
-                )}
-                <div className="name">{userData.nickname}</div>
-              </div>
-            </StyledProfile>
-          )}
-        <div className="user-list">
-          {list.map((l) => (
-            <StyledProfile onClick={handleClickResult} key={l.userId}>
-              <div className="profile">
-                {l.imageUrl && <img src={l.imageUrl} />}
-                {!l.imageUrl && (
-                  <Icon iconType="profile" width={24} height={24} />
-                )}
-                <div className="name">{l.nickname}</div>
-              </div>
-              <div onClick={() => handleClickRemove(l.userId)}>
-                <Icon iconType="close" width={24} height={24} />
-              </div>
-            </StyledProfile>
-          ))}
+    return (
+      <div className="input-wrapper">
+        <div className="input-container">
+          <input
+            type="text"
+            placeholder={'닉네임을 입력하세요'}
+            id="input_text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            type="button"
+            disabled={inputValue === ''}
+            onClick={handleClickSearch}
+          >
+            초대
+          </button>
+        </div>
+        <div className="input-result">
+          {userData &&
+            list.findIndex((x) => x.userId === userData?.userId) === -1 && (
+              <StyledProfile onClick={handleClickResult}>
+                <div className="profile">
+                  {userData.imageUrl && <img src={userData.imageUrl} />}
+                  {!userData.imageUrl && (
+                    <Icon iconType="profile" width={24} height={24} />
+                  )}
+                  <div className="name">{userData.nickname}</div>
+                </div>
+              </StyledProfile>
+            )}
+          <div className="user-list">
+            {list.map((l) => (
+              <StyledProfile onClick={handleClickResult} key={l.userId}>
+                <div className="profile">
+                  {l.imageUrl && <img src={l.imageUrl} />}
+                  {!l.imageUrl && (
+                    <Icon iconType="profile" width={24} height={24} />
+                  )}
+                  <div className="name">{l.nickname}</div>
+                </div>
+                <div onClick={() => handleClickRemove(l.userId)}>
+                  <Icon iconType="close" width={24} height={24} />
+                </div>
+              </StyledProfile>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 const ShareModalBody = ({
   feedId,
