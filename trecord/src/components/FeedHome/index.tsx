@@ -2,10 +2,11 @@ import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useGetFeeds } from '@/apis';
 import { Empty } from '@components/common/Empty';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
 import Skeleton from '@components/common/skeleton';
-import { MoreButton } from '@components/common/MoreButton';
+import Pagination from '@components/common/Pagination';
+import usePagedData from '@/hooks/usePagedData';
 
 const StyledFallback = styled.div`
   height: calc(100% - 190px);
@@ -35,17 +36,19 @@ interface FeedHomeProps {
 export const FeedHome = ({
   totalFeedsSetter: setTotalFeeds,
 }: FeedHomeProps) => {
-  const [pageCount, setPageCount] = useState<number>(10);
-  const { data: pageData } = useGetFeeds({ pageCount });
+  const {
+    data: pageData,
+    isLoading,
+    paginationClickEventHandler: handleClickPagination,
+  } = usePagedData({
+    queryFunctionProps: { page: 0 },
+    queryFunction: useGetFeeds,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pageData) setTotalFeeds(pageData.content.length);
+    if (pageData) setTotalFeeds(pageData.totalElements);
   }, [pageData]);
-
-  const handlePageCount = () => {
-    setPageCount((prev) => prev + 10);
-  };
 
   const constant = {
     icon: {
@@ -86,7 +89,13 @@ export const FeedHome = ({
           </S.TextBox>
         </S.ImgBox>
       ))}
-      {!pageData?.last && <MoreButton title="피드" onClick={handlePageCount} />}
+      {!pageData?.last && (
+        <Pagination
+          text="피드 더보기"
+          loading={isLoading}
+          onClick={handleClickPagination}
+        />
+      )}
     </S.Layout>
   );
 };
