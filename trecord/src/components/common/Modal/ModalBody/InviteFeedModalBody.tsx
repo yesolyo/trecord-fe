@@ -31,7 +31,9 @@ const InputContainer = ({
 
   const handleClickResult = useCallback(() => {
     if (userData) {
-      setContributers([...contributors, userData]);
+      if (contributors.findIndex((l) => l.userId === userData.userId) === -1) {
+        setContributers([...contributors, userData]);
+      }
     }
     setInputValue('');
   }, [userData]);

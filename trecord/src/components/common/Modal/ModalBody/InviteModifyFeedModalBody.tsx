@@ -45,14 +45,16 @@ const InputContainer = ({
   };
   const handleClickResult = useCallback(() => {
     if (userData) {
-      mutate(
-        { feedId: feedId.toString(), userToId: userData.userId },
-        {
-          onSuccess: () => {
-            handleClickResultOnSuccess();
+      if (contributors.findIndex((l) => l.userId === userData.userId) === -1) {
+        mutate(
+          { feedId: feedId.toString(), userToId: userData.userId },
+          {
+            onSuccess: () => {
+              handleClickResultOnSuccess();
+            },
           },
-        },
-      );
+        );
+      }
     }
   }, [userData]);
 
