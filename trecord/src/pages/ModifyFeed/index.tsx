@@ -8,7 +8,7 @@ import ChipContainer from '@components/common/ChipContainer';
 
 import ImgInput from '@components/common/ImgInput';
 import Modal from '@components/common/Modal';
-import InviteModifyFeedModalBody from '@components/common/Modal/InviteModifyFeedModalBody';
+import InviteModifyFeedModalBody from '@components/common/Modal/ModalBody/InviteModifyFeedModalBody';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { DateInput } from '@components/common/input/DateInput';
@@ -254,6 +254,7 @@ const ModifyFeed = (): ReactElement => {
       </Layout>
       <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
         <InviteModifyFeedModalBody
+          writerId={data?.writerId ?? -1}
           feedId={+id}
           contributors={contributors}
           contributorsSetter={setContributers}

@@ -11,7 +11,7 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 import styled from 'styled-components';
 import Modal from '@components/common/Modal';
-import InviteFeedModalBody from '@components/common/Modal/InviteFeedModalBody';
+import InviteFeedModalBody from '@components/common/Modal/ModalBody/InviteFeedModalBody';
 import { User } from '@/types/user';
 import ChipContainer from '@components/common/ChipContainer';
 
