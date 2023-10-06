@@ -18,13 +18,19 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 
 interface Props {
+  writerId: number;
   feedId: number;
   inputValue: string;
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const InputContainer = observer(
-  ({ feedId, inputValue, inputValueSetter: setInputValue }: Props) => {
+  ({
+    writerId,
+    feedId,
+    inputValue,
+    inputValueSetter: setInputValue,
+  }: Props) => {
     const { feedStore } = useStore();
 
     const [enabled, setEnabled] = useState(false);
@@ -119,7 +125,12 @@ const InputContainer = observer(
                   )}
                   <div className="name">{l.nickname}</div>
                 </div>
-                <div onClick={() => handleClickRemove(l.userId)}>
+                <div
+                  style={{
+                    display: l.userId === writerId ? 'none' : undefined,
+                  }}
+                  onClick={() => handleClickRemove(l.userId)}
+                >
                   <Icon iconType="close" width={24} height={24} />
                 </div>
               </StyledProfile>
@@ -132,6 +143,7 @@ const InputContainer = observer(
 );
 
 const ShareModalBody = ({
+  writerId,
   feedId,
   inputValue,
   inputValueSetter: setInputValue,
@@ -150,6 +162,7 @@ const ShareModalBody = ({
         <div className="title">사용자 초대</div>
         <Suspense fallback={<InputContainerFallback inputValue={inputValue} />}>
           <InputContainer
+            writerId={writerId}
             feedId={feedId}
             inputValue={inputValue}
             inputValueSetter={setInputValue}

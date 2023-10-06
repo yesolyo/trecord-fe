@@ -204,6 +204,7 @@ export const FeedDetail = observer(() => {
         onClose={() => setOpenShareModal(false)}
       >
         <ShareModalBody
+          writerId={detailData?.writerId ?? -1}
           feedId={+id}
           inputValue={shareInput}
           inputValueSetter={setShareInput}
