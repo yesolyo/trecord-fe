@@ -16,7 +16,7 @@ export const SquareButton = ({
   onClick,
 }: squareButtonProps) => {
   return (
-    <>
+    <S.Layout>
       <S.ButtonBox
         width={width}
         height={height}
@@ -26,6 +26,6 @@ export const SquareButton = ({
       >
         {title}
       </S.ButtonBox>
-    </>
+    </S.Layout>
   );
 };

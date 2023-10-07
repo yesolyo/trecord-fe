@@ -84,12 +84,12 @@ export const NewFeed = () => {
 
   return (
     <>
+      <NavBarNew
+        title="피드 만들기"
+        isRegister={false}
+        onClick={() => navigate('/home')}
+      />
       <S.Layout>
-        <NavBarNew
-          title="피드 만들기"
-          isRegister={false}
-          onClick={() => navigate('/home')}
-        />
         <NewTitleImg
           titleImgFile={setTitleImgFile}
           titleImgFileValue={titleImgFile}
@@ -110,6 +110,7 @@ export const NewFeed = () => {
           <DateInput
             inputValue={startAt}
             inputSetValue={setStartAt}
+            endDate={endAt}
             labelTitle="여행 시작 날짜"
             inputWidth="150px"
             inputHeight="46px"
@@ -117,6 +118,7 @@ export const NewFeed = () => {
           <DateInput
             inputValue={endAt}
             inputSetValue={setEndAt}
+            startDate={startAt}
             labelTitle="여행 끝나는 날짜"
             inputWidth="150px"
             inputHeight="46px"

@@ -11,6 +11,11 @@ export const Layout = styled.div`
   width: 100%;
   height: calc(100% - 190px);
   overflow: auto;
+
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .reply {
     ${({ theme }) => theme.font.fontSize.Caption_S}
     ${({ theme }) => theme.font.fontType.R};

@@ -5,11 +5,13 @@ import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
 import { useNavigate } from 'react-router-dom';
+import Modal from '@components/common/Modal';
 
 export const MyPage = () => {
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+  const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
   const getToken = localStorage.getItem('acessToken');
   const navigate = useNavigate();
 
@@ -76,7 +78,7 @@ export const MyPage = () => {
       {
         id: 1,
         btnTitle: '로그아웃',
-        onClick: () => navigate('/login'),
+        onClick: () => setIsLogoutModal(true),
       },
     ],
   };
@@ -95,6 +97,14 @@ export const MyPage = () => {
       <MyPageMenu {...menuActiveConstant} />
       <S.ThinLineBox />
       <MyPageMenu {...menuEtcConstant} />
+      <Modal
+        openModal={isLogoutModal}
+        title="로그아웃 하시겠습니까?"
+        confirmText="로그아웃"
+        closeText="취소"
+        onConfirm={() => navigate('/login')}
+        onClose={() => setIsLogoutModal(false)}
+      />
       <TabBar currentPage="mypage" />
     </S.Layout>
   );
