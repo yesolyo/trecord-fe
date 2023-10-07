@@ -6,6 +6,8 @@ import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 import { MoreButton } from '@components/common/MoreButton';
 import { CommentReplyBtn } from '../CommentReplyBtn';
+import Pagination from '@components/common/Pagination';
+import { replaceDate } from '@/utils/replaceDate';
 
 interface commentListProps {
   commentData: GetNewCommentResponse;
@@ -24,6 +26,7 @@ interface commentListProps {
   onDelete: () => void;
   onCountPage: () => void;
   isDelete: boolean;
+  commentId: number;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -42,7 +45,13 @@ export const CommentList = ({ ...props }: commentListProps) => {
     <S.Layout>
       {props.commentData.content.map((user, index) => (
         <Fragment key={user.commentId}>
-          <S.CommentBox>
+          <div
+            className={
+              props.commentId === user.commentId && props.isReplyEdit
+                ? 'comment_box choice'
+                : 'comment_box'
+            }
+          >
             {user.commenterImageUrl.length >= 1 ? (
               <img
                 src={user.commenterImageUrl}
@@ -83,23 +92,25 @@ export const CommentList = ({ ...props }: commentListProps) => {
                 )}
               </S.CommentMainDataBox>
               <div className="user_data">{user.content}</div>
-              <div className="user_date">{user.commentCreatedDate}</div>
+              <div className="user_date">
+                {replaceDate({ date: user.commentCreatedDate })}
+              </div>
               {user.replyCount > 0 && (
                 <CommentReplyBtn
                   replyCount={user.replyCount}
-                  commentId={user.commentId}
+                  userCommentId={user.commentId}
                   {...props}
                 />
               )}
             </S.CommentDataBox>
-          </S.CommentBox>
+          </div>
           {props.commentData.content.length !== index + 1 && (
             <hr className="line_box" />
           )}
         </Fragment>
       ))}
       {!props.commentData.last && (
-        <MoreButton title="댓글" onClick={props.onCountPage} />
+        <Pagination text="댓글 더보기" onClick={props.onCountPage} />
       )}
     </S.Layout>
   );

@@ -5,7 +5,7 @@ export const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+
   padding-top: 90px;
   padding-bottom: 100px;
   width: 100%;
@@ -36,6 +36,18 @@ export const Layout = styled.div`
     margin-left: 0;
     background: ${({ theme }) => theme.colors.colorStyles.gray300};
   }
+  .comment_box {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    &:hover {
+      background: ${({ theme }) => theme.colors.colorStyles.gray200};
+    }
+  }
+  .choice {
+    background: ${({ theme }) => theme.colors.colorStyles.gray200};
+  }
 `;
 export const LineBox = styled.hr`
   width: 390px;
@@ -45,8 +57,12 @@ export const LineBox = styled.hr`
 `;
 export const CommentBox = styled.div`
   display: flex;
+  justify-content: center;
   gap: 25px;
-  width: 350px;
+  width: 100%;
+  &:focus {
+    background: ${({ theme }) => theme.colors.colorStyles.gray600};
+  }
 `;
 export const CommentDataBox = styled.div`
   display: flex;

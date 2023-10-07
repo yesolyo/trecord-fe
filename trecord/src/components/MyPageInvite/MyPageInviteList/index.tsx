@@ -6,6 +6,7 @@ import { Empty } from '@components/common/Empty';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import { MoreButton } from '@components/common/MoreButton';
+import Pagination from '@components/common/Pagination';
 
 interface Props {
   inviteData: GetMyPageInviteListProps;
@@ -65,7 +66,9 @@ export const MyPageInviteList = ({
           />
         </Fragment>
       ))}
-      {!inviteData.last && <MoreButton title="피드" onClick={onPageCount} />}
+      {!inviteData.last && (
+        <Pagination text="피드 더보기" onClick={onPageCount} />
+      )}
     </S.Layout>
   );
 };

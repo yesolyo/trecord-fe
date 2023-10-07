@@ -24,7 +24,9 @@ export const NameBox = styled.span`
 export const IntroduceBox = styled.span`
   ${({ theme }) => theme.font.fontSize.Caption_S};
   ${({ theme }) => theme.font.fontType.R};
-  display: inline-block;
-  width: 270px;
-  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 264px;
 `;

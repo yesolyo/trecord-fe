@@ -175,6 +175,7 @@ export const Comment = () => {
           onReplyEdit={handleReplyEdit}
           onDelete={handleDelete}
           onCountPage={handleCountPage}
+          commentId={commentId}
           isDelete={isDelete}
           isEdit={isEdit}
           isReplyEdit={isReplyEdit}
