@@ -2,7 +2,6 @@ import { GetMypageCommentResponse } from '@/types/comment';
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
-import { MoreButton } from '@components/common/MoreButton';
 import { useNavigate } from 'react-router-dom';
 import { replaceDate } from '@/utils/replaceDate';
 import Pagination from '@components/common/Pagination';

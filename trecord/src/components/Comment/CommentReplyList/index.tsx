@@ -4,7 +4,6 @@ import { Icon } from '@components/common/Icon';
 import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
 import useGetReplyComment from '@/apis/Comment/getReplyComment';
-import { MoreButton } from '@components/common/MoreButton';
 import Pagination from '@components/common/Pagination';
 import { replaceDate } from '@/utils/replaceDate';
 interface Props {

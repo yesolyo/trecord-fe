@@ -4,7 +4,6 @@ import { Fragment } from 'react';
 import { CommentCateogory } from '../CommentCategory';
 import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
-import { MoreButton } from '@components/common/MoreButton';
 import { CommentReplyBtn } from '../CommentReplyBtn';
 import Pagination from '@components/common/Pagination';
 import { replaceDate } from '@/utils/replaceDate';

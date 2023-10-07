@@ -1,6 +1,6 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { http } from '../_http';
-import { GetMyPageLikeProps, GetMyPageLikeRespose } from '@/types/comment';
+import { GetMyPageLikeProps } from '@/types/comment';
 import MYPAGE_API_KEY from './constants';
 import { Page } from '@/types';
 interface Props {

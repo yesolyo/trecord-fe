@@ -5,7 +5,6 @@ import { Fragment, useState } from 'react';
 import useGetCommentAlarm from '@/apis/Alarm/getCommentAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
-import { MoreButton } from '@components/common/MoreButton';
 import { replaceDate } from '@/utils/replaceDate';
 import Pagination from '@components/common/Pagination';
 interface Props {
