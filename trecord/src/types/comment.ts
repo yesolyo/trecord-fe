@@ -10,6 +10,7 @@ export interface GetNewCommentResponse {
 
 export interface GetMyPageLikeRespose {
   content: GetMyPageLikeProps[];
+  last: boolean;
 }
 
 export interface GetMyPageInviteResponse {
@@ -18,7 +19,7 @@ export interface GetMyPageInviteResponse {
 
 export interface GetMyPageInviteListProps {
   content: GetMyPageInvteProps[];
-  onDelete: (id: number) => void;
+  last: boolean;
 }
 export interface GetMyPageInvteProps {
   feedId: number;
@@ -38,9 +39,8 @@ export interface GetReplyCommentResponse {
   last: boolean;
 }
 export interface GetMypageCommentResponse {
-  commentData: React.Dispatch<React.SetStateAction<number>>;
-  onClickModal: React.Dispatch<React.SetStateAction<boolean>>;
   content: GetMypageComment[];
+  last: boolean;
 }
 
 export interface GetReplyCommentProps {

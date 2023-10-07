@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { SquareBtn } from '../../SquareBtn';
 import uuid from 'react-uuid';
+import usePostNewUser from '@/apis/User/postNewUser';
 
 interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
@@ -11,12 +12,7 @@ interface ImgUploadBtnProps {
   nickNameValue: string;
   title: string;
   intrduceValue: string;
-}
-
-interface PostDataProps {
-  nickName: string;
-  imgUrl: string;
-  introduce: string;
+  isNickName: boolean;
 }
 
 export const ProfileNewButton = ({
@@ -26,15 +22,18 @@ export const ProfileNewButton = ({
   imageUrl,
   title,
   intrduceValue,
+  isNickName,
 }: ImgUploadBtnProps) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
-
+  const { mutate } = usePostNewUser();
   useEffect(() => {
     if (isActive) {
-      handleUploadPost();
+      handlePostNewUser();
     }
   }, [imageUrl]);
+
+  console.log(isNickName);
 
   const uploadS3 = async () => {
     const s3Client = new S3Client({
@@ -69,37 +68,20 @@ export const ProfileNewButton = ({
     }
   };
 
-  const handleUploadPost = () => {
-    postData({
-      nickName: nickNameValue,
-      imgUrl: imageUrl,
-      introduce: intrduceValue,
-    });
-  };
-
-  const postData = ({ nickName, introduce }: PostDataProps) => {
-    const getToken = localStorage.getItem('acessToken');
-    if (getToken) {
-      fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken,
+  const handlePostNewUser = () => {
+    mutate(
+      {
+        nickname: nickNameValue,
+        imageUrl,
+        introduction: intrduceValue,
+      },
+      {
+        onSuccess: () => {
+          setIsActive(false);
+          navigate('/mypage', { replace: true });
         },
-        body: JSON.stringify({
-          nickname: nickName,
-          imageUrl: imageUrl,
-          introduction: introduce,
-        }),
-      })
-        .then((data) => {
-          if (data.status === 200) {
-            setIsActive(false);
-            navigate('/mypage', { replace: true });
-          }
-        })
-        .catch((err) => console.log(err));
-    }
+      },
+    );
   };
 
   const handlePost = (e: any) => {
@@ -108,7 +90,7 @@ export const ProfileNewButton = ({
       e.preventDefault();
       return;
     }
-    handleUploadPost();
+    handlePostNewUser();
     e.preventDefault();
   };
 
@@ -117,7 +99,7 @@ export const ProfileNewButton = ({
       title: title,
       width: '342px',
       height: '56px',
-      disabled: nickNameValue.length <= 0,
+      disabled: isNickName || nickNameValue === '',
       onClick: handlePost,
     },
   };

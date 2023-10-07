@@ -17,21 +17,14 @@ export const MyPageMenu = ({ ...props }: mypageMenuProps) => {
     <S.Layout>
       <S.TitleBox>{props.title}</S.TitleBox>
       {props.menuList.map((e) => (
-        <S.MenuBox key={e.id}>
+        <S.MenuBox key={e.id} onClick={e.onClick}>
           <S.MenuTitleBox>
             {e.btnIcon && <Icon iconType={e.btnIcon} width={24} />}
             <S.BtnTitleBox>{e.btnTitle}</S.BtnTitleBox>
           </S.MenuTitleBox>
-          <Icon iconType="arrowRight" width={24} onClick={e.onClick} />
+          <Icon iconType="arrowRight" width={24} />
         </S.MenuBox>
       ))}
-      {/* <S.MenuBox>
-        <S.MenuTitleBox>
-          <Icon iconType={props.menuList.btnIcon} width={24} />
-          <S.BtnTitleBox>{props.btnTitle}</S.BtnTitleBox>
-        </S.MenuTitleBox>
-        <Icon iconType="arrowRight" width={24} onClick={props.onClick} />
-      </S.MenuBox> */}
     </S.Layout>
   );
 };

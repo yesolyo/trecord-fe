@@ -1,6 +1,5 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
-import * as S from './style';
 import { useState } from 'react';
 import { AlarmAllList } from '@components/Alarm/AlarmList/AlarmAllList';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
@@ -61,7 +60,7 @@ export const Alarm = () => {
   };
 
   return (
-    <S.Layout>
+    <>
       {isAlarm.isAll && (
         <NavBarProfile
           mainTitle="알림"
@@ -111,6 +110,6 @@ export const Alarm = () => {
       {isAlarm.isInvitation && <AlarmInvitationList />}
 
       <TabBar currentPage={'alarm'} />
-    </S.Layout>
+    </>
   );
 };

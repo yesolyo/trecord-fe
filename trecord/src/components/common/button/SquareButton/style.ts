@@ -4,7 +4,7 @@ interface buttonBoxProps {
   height: string;
   isDark: boolean;
 }
-
+export const Layout = styled.div``;
 export const ButtonBox = styled.button<buttonBoxProps>`
   ${({ theme }) => theme.font.fontType.M};
   ${({ theme }) => theme.font.fontSize.Button_M};

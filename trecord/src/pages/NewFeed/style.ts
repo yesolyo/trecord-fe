@@ -5,9 +5,17 @@ export const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 764px;
+
   padding-top: 70px;
   gap: 15px;
+
+  height: calc(100% - 90px);
+  overflow: scroll;
+
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const DateBox = styled.div`

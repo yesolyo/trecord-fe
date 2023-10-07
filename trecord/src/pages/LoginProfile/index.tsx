@@ -17,6 +17,7 @@ export const LoginProfile = () => {
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+  const [isNickName, setIsNickName] = useState<boolean>(true);
 
   const constant = {
     navBarProfile: {
@@ -30,6 +31,7 @@ export const LoginProfile = () => {
     profileName: {
       nickNameValue: nickName,
       nickNameSetValue: setNickName,
+      setIsNickName,
     },
     profileIntroduce: {
       introduceValue: introduce,
@@ -41,6 +43,7 @@ export const LoginProfile = () => {
       imageUrl: profileUrl,
       nickNameValue: nickName,
       intrduceValue: introduce,
+      isNickName,
       title: '시작하기',
     },
   };

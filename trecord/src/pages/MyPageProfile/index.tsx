@@ -18,6 +18,7 @@ export const MyPageProfile = () => {
   const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+  const [isNickName, setIsNickName] = useState<boolean>(true);
   const getToken = localStorage.getItem('acessToken');
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const MyPageProfile = () => {
         <LoginProfileName
           nickNameValue={nickName}
           nickNameSetValue={setNickName}
+          setIsNickName={setIsNickName}
         />
         <LoginProfileIntroduce
           introduceValue={introduce}
@@ -65,6 +67,7 @@ export const MyPageProfile = () => {
             imageUrl={profileUrl}
             nickNameValue={nickName}
             intrduceValue={introduce}
+            isNickName={isNickName}
             title="변경하기"
           ></ProfileNewButton>
         </S.BtnBox>

@@ -5,6 +5,8 @@ import { Empty } from '@components/common/Empty';
 import { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
 import Skeleton from '@components/common/skeleton';
+import Pagination from '@components/common/Pagination';
+import usePagedData from '@/hooks/usePagedData';
 
 const StyledFallback = styled.div`
   height: calc(100% - 190px);
@@ -34,11 +36,18 @@ interface FeedHomeProps {
 export const FeedHome = ({
   totalFeedsSetter: setTotalFeeds,
 }: FeedHomeProps) => {
-  const { data: pageData } = useGetFeeds();
+  const {
+    data: pageData,
+    isLoading,
+    paginationClickEventHandler: handleClickPagination,
+  } = usePagedData({
+    queryFunctionProps: { page: 0 },
+    queryFunction: useGetFeeds,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pageData) setTotalFeeds(pageData.content.length);
+    if (pageData) setTotalFeeds(pageData.totalElements);
   }, [pageData]);
 
   const constant = {
@@ -69,15 +78,24 @@ export const FeedHome = ({
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
           <img src={feed.imageUrl} width={342} height={180} />
-          <div className="img_oppacity"></div>
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>
             <div className="feed_sub">
-              {feed.place}|{feed.startAt}~{feed.endAt}
+              <div className="feed_place">{feed.place}</div>
+              <span>
+                |{feed.startAt}~{feed.endAt}{' '}
+              </span>
             </div>
           </S.TextBox>
         </S.ImgBox>
       ))}
+      {!pageData?.last && (
+        <Pagination
+          text="피드 더보기"
+          loading={isLoading}
+          onClick={handleClickPagination}
+        />
+      )}
     </S.Layout>
   );
 };

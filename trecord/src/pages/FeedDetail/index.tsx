@@ -153,7 +153,7 @@ export const FeedDetail = () => {
             />
           )}
         </S.ExplainBox>
-        <S.EditButtonBox>
+        <div className="button-box">
           <CircularButton
             iconType={
               detailData?.canModifyFeed || detailData?.canWriteRecord
@@ -178,7 +178,7 @@ export const FeedDetail = () => {
               });
             }}
           />
-        </S.EditButtonBox>
+        </div>
       </S.Layout>
       <Modal
         openModal={openModal}

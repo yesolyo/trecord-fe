@@ -6,6 +6,7 @@ import useGetLikeAlarm from '@/apis/Alarm/getLikeAlarm';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { MoreButton } from '@components/common/MoreButton';
+import { replaceDate } from '@/utils/replaceDate';
 interface Props {
   id: number;
 }
@@ -56,7 +57,7 @@ export const AlarmLikeList = () => {
                   님이 좋아요를 남겼어요:
                 </span>
                 <span className="body">{a.record.title}</span>
-                <span className="date">{a.date}</span>
+                <span className="date">{replaceDate({ date: a.date })}</span>
               </div>
               <Icon
                 iconType="close"
