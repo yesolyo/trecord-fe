@@ -6,8 +6,8 @@ import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
-import { useDeleteFeed, useGetFeedDetail } from '@/apis';
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDeleteFeed, useGetFeedDetail, useGtfOutFromFeed } from '@/apis';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
@@ -16,6 +16,7 @@ import useGetRecordList from '@/apis/Feed/getRecordList';
 import ChipContainer from '@components/common/ChipContainer';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
+import { User } from '@/types/user';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -76,10 +77,10 @@ export const FeedDetail = observer(() => {
     }
   }, [detailData]);
 
-  const contributors = useMemo(
-    () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
-    [detailData],
-  );
+  // const contributors = useMemo(
+  //   () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
+  //   [detailData],
+  // );
   const { data: recordListData } = useGetRecordList({ id: id ?? '' });
   const { mutate: deleteFeed } = useDeleteFeed();
   const navigate = useNavigate();
@@ -114,6 +115,29 @@ export const FeedDetail = observer(() => {
     [navigate],
   );
 
+  const [getOutOpen, setGetOutOpen] = useState(false);
+  const [selectedGtfUser, setSelectedGtfUser] = useState<User | null>(null);
+  const [modalText, setModalText] = useState('선택한 사용자를 내보내시겠어요?');
+  const handleClickChip = useCallback(
+    (user: User) => {
+      if (user.userId !== detailData?.writerId) {
+        setSelectedGtfUser(user);
+        setModalText(`${user.nickname}님을 내보내시겠어요?`);
+        setGetOutOpen(true);
+      }
+    },
+    [detailData],
+  );
+  const { mutate } = useGtfOutFromFeed();
+  const handleClickGtfConfirm = () => {
+    mutate(
+      { feedId: feedStore.feedId, userId: selectedGtfUser?.userId ?? -1 },
+      {
+        onSuccess: () => setGetOutOpen(false),
+      },
+    );
+  };
+
   return (
     <>
       <S.Layout>
@@ -140,8 +164,12 @@ export const FeedDetail = observer(() => {
             {detailData?.place} | {detailData?.startAt} ~ {detailData?.endAt}
           </div>
 
-          {contributors && contributors.length > 0 && (
-            <ChipContainer names={contributors} />
+          {detailData?.contributors && detailData?.contributors.length > 0 && (
+            <ChipContainer
+              clickable={true}
+              users={detailData?.contributors ?? []}
+              onClick={handleClickChip}
+            />
           )}
 
           {detailData?.satisfaction && (
@@ -210,6 +238,14 @@ export const FeedDetail = observer(() => {
           inputValueSetter={setShareInput}
         />
       </Modal>
+      <Modal
+        openModal={getOutOpen}
+        body={modalText}
+        closeText="취소"
+        onClose={() => setGetOutOpen(false)}
+        confirmText="내보내기"
+        onConfirm={handleClickGtfConfirm}
+      />
     </>
   );
 });
