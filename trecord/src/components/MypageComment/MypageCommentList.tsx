@@ -4,6 +4,7 @@ import * as S from './style';
 import { Fragment } from 'react';
 import { MoreButton } from '@components/common/MoreButton';
 import { useNavigate } from 'react-router-dom';
+import { replaceDate } from '@/utils/replaceDate';
 interface Props {
   onModalActive: (id: number) => void;
   commentData: GetMypageCommentResponse;
@@ -23,7 +24,9 @@ export const MypageCommentList = ({
             <Icon iconType="message" width={24} />
             <S.TextBox onClick={() => navigate(`/comment/${c.recordId}`)}>
               <S.ContentBox>{c.content}</S.ContentBox>
-              <S.DateBox>{c.commentCreatedDateTime}</S.DateBox>
+              <S.DateBox>
+                {replaceDate({ date: c.commentCreatedDateTime })}
+              </S.DateBox>
             </S.TextBox>
 
             <Icon
