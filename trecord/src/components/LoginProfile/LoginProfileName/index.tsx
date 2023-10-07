@@ -1,6 +1,6 @@
 import { useGetUser } from '@/apis';
 import * as S from './style';
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 interface LoginProfileNameProps {
   nickNameValue: string;
