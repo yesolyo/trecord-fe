@@ -7,4 +7,7 @@ export const Layout = styled.div`
   padding-top: 25px;
   ${({ theme }) => theme.font.fontSize.Body_M}
   ${({ theme }) => theme.font.fontType.R}
+  img {
+    object-fit: cover;
+  }
 `;

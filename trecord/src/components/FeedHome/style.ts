@@ -32,6 +32,7 @@ export const ImgBox = styled.div`
     border-radius: 8px;
     filter: brightness(72%);
     background: white;
+    object-fit: cover;
   }
 `;
 

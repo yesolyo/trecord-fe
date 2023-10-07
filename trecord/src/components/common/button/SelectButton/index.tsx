@@ -60,10 +60,11 @@ const Dropdown = ({ options, onSelect }: Props) => {
 };
 
 const StyledDiv = styled.div<{ right?: string }>`
-  position: 'relative';
-
+  display: flex;
+  position: relative;
   > div {
     position: absolute;
+    top: 25px;
     right: ${({ right = '10%' }) => right};
     z-index: 100;
   }

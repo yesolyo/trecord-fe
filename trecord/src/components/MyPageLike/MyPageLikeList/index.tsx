@@ -1,15 +1,20 @@
-import { GetMyPageLikeRespose } from '@/types/comment';
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
 import { Empty } from '@components/common/Empty';
 import { useNavigate } from 'react-router-dom';
-import { MoreButton } from '@components/common/MoreButton';
-interface Props {
-  onPageCount: () => void;
-  likeData: GetMyPageLikeRespose;
-}
-export const MyPageLikeList = ({ onPageCount, likeData }: Props) => {
+import Pagination from '@components/common/Pagination';
+import usePagedData from '@/hooks/usePagedData';
+import useGetMyPageLike from '@/apis/MyPage/getMyPageLike';
+export const MyPageLikeList = () => {
+  const {
+    data: likeData,
+    isLoading,
+    paginationClickEventHandler: handleClickPagination,
+  } = usePagedData({
+    queryFunctionProps: { page: 0 },
+    queryFunction: useGetMyPageLike,
+  });
   const navigate = useNavigate();
   const constant = {
     icon: {
@@ -24,10 +29,10 @@ export const MyPageLikeList = ({ onPageCount, likeData }: Props) => {
       },
     ],
   };
-  if (likeData.content.length === 0) return <Empty {...constant} />;
+  if (likeData?.content.length === 0) return <Empty {...constant} />;
   return (
     <S.Layout>
-      {likeData.content.map((l, index) => (
+      {likeData?.content.map((l, index) => (
         <Fragment key={l.recordId}>
           <div
             className="container"
@@ -43,7 +48,13 @@ export const MyPageLikeList = ({ onPageCount, likeData }: Props) => {
           {likeData.content.length - 1 !== index && <hr className="line" />}
         </Fragment>
       ))}
-      {!likeData.last && <MoreButton title="좋아요" onClick={onPageCount} />}
+      {!likeData?.last && (
+        <Pagination
+          text="좋아요 더보기"
+          onClick={handleClickPagination}
+          loading={isLoading}
+        />
+      )}
     </S.Layout>
   );
 };

@@ -7,6 +7,7 @@ import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { MoreButton } from '@components/common/MoreButton';
 import { replaceDate } from '@/utils/replaceDate';
+import Pagination from '@components/common/Pagination';
 interface Props {
   id: number;
 }
@@ -81,7 +82,7 @@ export const AlarmCommentList = () => {
           </Fragment>
         ))}
         {!commentAlarmData?.last && (
-          <MoreButton title="알림" onClick={handleMorePage} />
+          <Pagination text="알림 더보기" onClick={handleMorePage} />
         )}
       </S.Layout>
     );

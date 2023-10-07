@@ -5,8 +5,10 @@ import { CommentCateogory } from '../CommentCategory';
 import { deletDataProps } from '../CommentModal';
 import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import { MoreButton } from '@components/common/MoreButton';
+import Pagination from '@components/common/Pagination';
+import { replaceDate } from '@/utils/replaceDate';
 interface Props {
-  commentId: number;
+  userCommentId: number;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
   isEdit: boolean;
@@ -21,7 +23,7 @@ interface Props {
 export const CommentReplyList = ({ ...props }: Props) => {
   const [pageCount, setPageCount] = useState(10);
   const { data: ReplyData, refetch } = useGetReplyComment({
-    commentId: props.commentId,
+    commentId: props.userCommentId,
     pageCount,
   });
 
@@ -54,7 +56,9 @@ export const CommentReplyList = ({ ...props }: Props) => {
                   )}
                 </div>
                 <div className="user_data">{user.content}</div>
-                <div className="user_date">{user.createdDateTime}</div>
+                <div className="user_date">
+                  {replaceDate({ date: user.createdDateTime })}
+                </div>
               </div>
             </div>
             {ReplyData.content.length !== index + 1 && (
@@ -63,8 +67,8 @@ export const CommentReplyList = ({ ...props }: Props) => {
           </Fragment>
         ))}
       {!ReplyData?.last && (
-        <MoreButton
-          title="댓글"
+        <Pagination
+          text="댓글 더보기"
           onClick={() => setPageCount((prev) => prev + 10)}
         />
       )}

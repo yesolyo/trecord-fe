@@ -7,9 +7,12 @@ export const Layout = styled.div`
   gap: 15px;
   width: 100%;
   align-items: center;
-  height: calc(100vh - 600px);
+  height: calc(100% - 250px);
   overflow: auto;
-  overflow-x: hidden;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   .container {
     display: flex;
