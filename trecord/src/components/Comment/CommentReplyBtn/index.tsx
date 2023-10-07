@@ -14,7 +14,7 @@ const Layout = styled.button`
 
 interface Props {
   replyCount: number;
-  commentId: number;
+  userCommentId: number;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
   isEdit: boolean;

@@ -16,12 +16,16 @@ const Layout = styled.div`
     justify-content: center;
     align-items: center;
     border: none;
-    border-radius: 10px;
+    border-radius: 100px;
     width: 118px;
     height: 36px;
     ${({ theme }) => theme.font.fontSize.Caption_S}
     ${({ theme }) => theme.font.fontType.R};
     color: ${({ theme }) => theme.colors.colorStyles.gray700};
+    &:hover,
+    &:focus {
+      background-color: ${({ theme }) => theme.colors.colorStyles.gray100};
+    }
   }
 
   .button-container::before,

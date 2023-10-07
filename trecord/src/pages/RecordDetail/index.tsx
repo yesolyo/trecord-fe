@@ -10,7 +10,7 @@ import { colorStyles } from '@/styles/color';
 import Modal from '@components/common/Modal';
 import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 import Skeleton from '@components/common/skeleton';
-import ShareModalBody from '@components/common/Modal/ShareModalBody';
+import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 
 import SelectButton from '@components/common/button/SelectButton';
 import { SELECT_INFOS } from '@/types';
@@ -159,6 +159,7 @@ export const RecordDetail = () => {
         onClose={() => setOpenShareModal(false)}
       >
         <ShareModalBody
+          writerId={recordData?.writerId ?? -1}
           feedId={feedId ?? 0}
           inputValue={shareInput}
           inputValueSetter={setShareInput}

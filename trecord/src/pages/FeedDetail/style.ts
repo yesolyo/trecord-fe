@@ -12,6 +12,7 @@ export const Layout = styled.div`
   img {
     width: 100%;
     height: 509px;
+    object-fit: cover;
   }
   .button-box {
     position: absolute;

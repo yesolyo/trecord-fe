@@ -2,9 +2,9 @@ import { GetMypageCommentResponse } from '@/types/comment';
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
-import { MoreButton } from '@components/common/MoreButton';
 import { useNavigate } from 'react-router-dom';
 import { replaceDate } from '@/utils/replaceDate';
+import Pagination from '@components/common/Pagination';
 interface Props {
   onModalActive: (id: number) => void;
   commentData: GetMypageCommentResponse;
@@ -38,7 +38,9 @@ export const MypageCommentList = ({
           {commentData.content.length - 1 !== index && <S.LineBox />}
         </Fragment>
       ))}
-      {!commentData.last && <MoreButton title="댓글" onClick={onPageCount} />}
+      {!commentData.last && (
+        <Pagination text="댓글 더보기" onClick={onPageCount} />
+      )}
     </S.Layout>
   );
 };

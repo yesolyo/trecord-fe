@@ -11,4 +11,7 @@ export const Layout = styled.div<LayoutProps>`
   textarea {
     border: none;
   }
+  img {
+    object-fit: cover;
+  }
 `;

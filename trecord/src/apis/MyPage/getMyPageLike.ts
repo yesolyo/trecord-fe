@@ -1,24 +1,25 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { http } from '../_http';
-import { GetMyPageLikeRespose } from '@/types/comment';
+import { GetMyPageLikeProps } from '@/types/comment';
 import MYPAGE_API_KEY from './constants';
+import { Page } from '@/types';
 interface Props {
-  pageCount: number;
+  page: number;
 }
 export const getMyPageLike = async ({
-  pageCount,
-}: Props): Promise<GetMyPageLikeRespose> => {
-  const url = `/api/v1/users/likes?page=0&size=${pageCount}`;
-  const response: GetMyPageLikeRespose = await http.get(url);
+  page,
+}: Props): Promise<Page<GetMyPageLikeProps>> => {
+  const url = `/api/v1/users/likes?page=${page}&size=5`;
+  const response: Page<GetMyPageLikeProps> = await http.get(url);
   return response;
 };
 
 const useGetMyPageLike = ({
-  pageCount,
-}: Props): UseQueryResult<GetMyPageLikeRespose> => {
+  page,
+}: Props): UseQueryResult<Page<GetMyPageLikeProps>> => {
   return useQuery(
-    [MYPAGE_API_KEY.LIKE, { pageCount }],
-    () => getMyPageLike({ pageCount }),
+    [MYPAGE_API_KEY.LIKE, { page }],
+    () => getMyPageLike({ page }),
     {
       suspense: true,
     },
