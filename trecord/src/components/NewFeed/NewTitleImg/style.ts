@@ -13,6 +13,7 @@ export const Layout = styled.div`
     height: 135px;
     width: 342px;
     border-radius: 8px;
+    object-fit: cover;
   }
 `;
 
