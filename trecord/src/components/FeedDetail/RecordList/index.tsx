@@ -1,15 +1,21 @@
-import { recordList } from '@/types';
+import { Page, recordList } from '@/types';
 import * as S from './style';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from './DndContainer';
 interface RecordListProps {
+  pageData: Page<recordList>;
+  paginationLoading?: boolean;
+  onClickPagination: () => void;
   feedId: string;
   listData: recordList[];
   endDate: string;
   startDate: string;
 }
 export const RecordList = ({
+  pageData,
+  paginationLoading = false,
+  onClickPagination,
   feedId,
   listData,
   endDate,
@@ -32,6 +38,9 @@ export const RecordList = ({
           <h2>{dayKey}</h2>
           <DndProvider backend={HTML5Backend}>
             <DndContainer
+              pageData={pageData}
+              paginationLoading={paginationLoading}
+              onClickPagination={onClickPagination}
               feedId={feedId}
               records={dayData}
               endDate={endDate}
