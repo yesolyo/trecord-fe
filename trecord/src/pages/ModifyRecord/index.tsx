@@ -14,25 +14,6 @@ import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-top: 100px;
-  gap: 19px;
-  .new_feel {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 356px;
-    gap: 15px;
-  }
-  .new_btn {
-    padding-top: 30px;
-  }
-`;
-
 const StyledFrame = styled.div`
   display: flex;
   flex-direction: column;
