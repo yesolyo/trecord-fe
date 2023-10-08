@@ -111,10 +111,12 @@ export const Comment = () => {
 
   const handleReplyEdit = () => {
     setIsReplyEdit((prev) => !prev);
+    setNewComment('');
   };
 
   const handleEdit = () => {
     setIsEdit((prev) => !prev);
+    setNewComment('');
   };
   const handleDelete = () => {
     setIsDelete((prevData) => !prevData);
@@ -170,6 +172,7 @@ export const Comment = () => {
           onUserProfile={handleSelectUserProfile}
           onUserProfileData={handleUserProfileData}
           handleDeleteClick={handleDeleteData}
+          handleNewComment={handleNewComment}
           onCommentId={handleCommentId}
           onEdit={handleEdit}
           onReplyEdit={handleReplyEdit}

@@ -8,7 +8,7 @@ export const DataBox = styled.div`
   align-items: center;
   gap: 5px;
   padding-top: 65px;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 300px);
   overflow: auto;
 
   scrollbar-width: none;

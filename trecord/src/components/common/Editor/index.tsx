@@ -16,7 +16,7 @@ const StyledContainer = styled.div`
     border-left: none;
     display: inline-flex;
     justify-content: end;
-    position: fixed;
+
     width: 100%;
     @media (min-width: 431px) {
       width: 390px;
@@ -24,11 +24,19 @@ const StyledContainer = styled.div`
     background: #fff;
     z-index: 1;
     height: 42px;
+    position: fixed;
   }
 
   .ql-container {
     border: none;
     padding-top: 42px;
+    height: 75vh;
+    overflow: auto;
+
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .ql-editor::before {

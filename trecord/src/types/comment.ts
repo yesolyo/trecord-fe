@@ -48,7 +48,7 @@ export interface GetReplyCommentProps {
   commentId: number;
   content: string;
   createdDateTime: string;
-  isUpdatable: boolean;
+  updatable: boolean;
   commenterNickname: string;
   commenterId: number;
   commenterImageUrl: string;
