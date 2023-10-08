@@ -112,39 +112,39 @@ export const RecordDetail = () => {
 
   return (
     <>
-      <S.Layout>
-        <StyledNavbar>
-          {((!recordData?.canModifyRecord && !isFromRecordShare) ||
-            recordData) && (
-            <Icon
-              iconType="arrow"
-              width={24}
-              fill={colorStyles.gray900}
-              onClick={handleClickGoback}
-            />
-          )}
-          {((!recordData?.canModifyRecord && !isFromRecordShare) ||
-            recordData?.canModifyRecord) && (
-            <SelectButton
-              right="3%"
-              options={SELECT_INFOS}
-              onSelect={handleChangeSelect}
-            />
-          )}
-        </StyledNavbar>
-        <S.DataBox>
-          {recordData && <RecordDetailTitle recordData={recordData} />}
-          {recordData && <RecordDetailSub recordData={recordData} />}
-          {recordData && (
-            <TabBarRecord
-              isRegister={false}
-              isActiveLike={recordData.liked}
-              recordId={recordData.recordId}
-              onNextClick={() => navigate(`/comment/${recordId}`)}
-            />
-          )}
-        </S.DataBox>
-      </S.Layout>
+      <S.DataBox>
+        {recordData && <RecordDetailTitle recordData={recordData} />}
+        {recordData && <RecordDetailSub recordData={recordData} />}
+      </S.DataBox>
+      <StyledNavbar>
+        {((!recordData?.canModifyRecord && !isFromRecordShare) ||
+          recordData) && (
+          <Icon
+            iconType="arrow"
+            width={24}
+            fill={colorStyles.gray900}
+            onClick={handleClickGoback}
+          />
+        )}
+        {((!recordData?.canModifyRecord && !isFromRecordShare) ||
+          recordData?.canModifyRecord) && (
+          <SelectButton
+            right="3%"
+            options={SELECT_INFOS}
+            onSelect={handleChangeSelect}
+          />
+        )}
+      </StyledNavbar>
+
+      {recordData && (
+        <TabBarRecord
+          isRegister={false}
+          isActiveLike={recordData.liked}
+          recordId={recordData.recordId}
+          onNextClick={() => navigate(`/comment/${recordId}`)}
+        />
+      )}
+
       <Modal
         openModal={openModal}
         title="기록을 삭제할까요?"

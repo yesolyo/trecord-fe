@@ -51,9 +51,16 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 764px;
+
   padding-top: 70px;
   gap: 15px;
+  height: calc(100% - 80px);
+  overflow: auto;
+
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const DateBox = styled.div`
@@ -189,12 +196,12 @@ const ModifyFeed = (): ReactElement => {
 
   return (
     <>
+      <NavBarNew
+        title="피드 수정하기"
+        isRegister={false}
+        onClick={handleClickGoback}
+      />
       <Layout>
-        <NavBarNew
-          title="피드 수정하기"
-          isRegister={false}
-          onClick={handleClickGoback}
-        />
         <ImgInput imgFile={imgFile} imgFileSetter={setImgFile} />
         <TextInput
           inputValue={title}
