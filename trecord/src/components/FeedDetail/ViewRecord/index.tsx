@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RecordListBtn } from '../RecordListBtn';
 import * as S from './style';
 import { RecordList } from '../RecordList';
-import { recordList } from '@/types';
+import { Page, recordList } from '@/types';
 import styled from 'styled-components';
 import EmptyIcon from '@/assets/components/EmptyIcon';
 import { SummeryList } from '../SummeryList';
@@ -33,12 +33,18 @@ const StyledEmptyDiv = styled.div`
   }
 `;
 interface ViewRecordProps {
+  pageData: Page<recordList>;
+  paginationLoading?: boolean;
+  onClickPagination: () => void;
   feedId: string;
   listData: recordList[];
   endDate: string;
   startDate: string;
 }
 export const ViewRecord = ({
+  pageData,
+  paginationLoading = false,
+  onClickPagination,
   feedId,
   listData,
   endDate,
@@ -69,6 +75,9 @@ export const ViewRecord = ({
       </S.BtnBox>
       {isActive && listData.length > 0 ? (
         <RecordList
+          pageData={pageData}
+          paginationLoading={paginationLoading}
+          onClickPagination={onClickPagination}
           feedId={feedId}
           listData={listData}
           endDate={endDate}

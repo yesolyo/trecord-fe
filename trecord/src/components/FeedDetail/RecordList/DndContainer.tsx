@@ -2,11 +2,12 @@ import update from 'immutability-helper';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 
-import { recordList } from '@/types';
+import { Page, recordList } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RecordItem from './RecordItem';
 import { useSwapRecords } from '@/apis';
+import Pagination from '@components/common/Pagination';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -15,13 +16,24 @@ const StyledDiv = styled.div`
 `;
 
 interface Props {
+  pageData: Page<recordList>;
+  paginationLoading?: boolean;
+  onClickPagination: () => void;
   feedId: string;
   records: recordList[];
   endDate: string;
   startDate: string;
 }
 
-const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
+const DndContainer: FC<Props> = ({
+  pageData,
+  paginationLoading = false,
+  onClickPagination,
+  feedId,
+  records,
+  endDate,
+  startDate,
+}) => {
   {
     const navigate = useNavigate();
     const { mutate } = useSwapRecords({ feedId });
@@ -76,6 +88,13 @@ const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
     return (
       <>
         <StyledDiv>{items.map((item, i) => renderItem(item, i))}</StyledDiv>
+        {!pageData?.last && (
+          <Pagination
+            text="기록 더보기"
+            loading={paginationLoading}
+            onClick={onClickPagination}
+          />
+        )}
       </>
     );
   }

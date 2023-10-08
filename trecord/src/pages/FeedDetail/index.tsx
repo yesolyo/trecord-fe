@@ -17,6 +17,7 @@ import ChipContainer from '@components/common/ChipContainer';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { User } from '@/types/user';
+import usePagedData from '@/hooks/usePagedData';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -77,7 +78,15 @@ export const FeedDetail = observer(() => {
     }
   }, [detailData]);
 
-  const { data: recordListData } = useGetRecordList({ id: id ?? '' });
+  const {
+    data: recordListData,
+    isLoading,
+    paginationClickEventHandler,
+  } = usePagedData({
+    queryFunctionProps: { page: 0, id: id ?? '' },
+    queryFunction: useGetRecordList,
+  });
+
   const { mutate: deleteFeed } = useDeleteFeed();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
@@ -180,6 +189,9 @@ export const FeedDetail = observer(() => {
           <div className="detail_description">{detailData?.description}</div>
           {recordListData && detailData && (
             <ViewRecord
+              pageData={recordListData}
+              paginationLoading={isLoading}
+              onClickPagination={paginationClickEventHandler}
               feedId={id}
               listData={recordListData.content}
               endDate={detailData?.endAt}
