@@ -4,6 +4,7 @@ import * as S from './style';
 import { useEffect, useRef, useState } from 'react';
 interface commentCateogoryProps {
   id: number;
+  newComment: string;
   handleDeleteClick: ({}: deletDataProps) => void;
   onEdit: () => void;
   onCommentId: (id: number) => void;
@@ -13,6 +14,7 @@ interface commentCateogoryProps {
   deleteText: string;
   editText: string;
   replyText?: string;
+  handleNewComment: (val: string) => void;
 }
 
 export const CommentCateogory = ({ ...props }: commentCateogoryProps) => {
