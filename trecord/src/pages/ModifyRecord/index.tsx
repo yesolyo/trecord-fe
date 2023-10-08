@@ -14,13 +14,27 @@ import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 
-const Layout = styled.div`
+const StyledFrame = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  gap: 19px;
+  overflow: auto;
+  padding: 0px 20px;
+  box-sizing: border-box;
+
   padding-top: 100px;
   gap: 19px;
+  @media (min-width: 431px) {
+    height: calc(844px - 120px);
+  }
+  width: 100%;
+  scrollbar-width: none;
+  align-items: center;
+  padding-bottom: 20px;
+  height: calc(100% - 10px);
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .new_feel {
     display: flex;
     flex-direction: column;
@@ -30,23 +44,6 @@ const Layout = styled.div`
   }
   .new_btn {
     padding-top: 30px;
-  }
-`;
-
-const StyledFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-  overflow: auto;
-  @media (min-width: 431px) {
-    height: calc(844px - 120px);
-  }
-  width: 100%;
-  scrollbar-width: none;
-  align-items: center;
-  padding-bottom: 20px;
-  ::-webkit-scrollbar {
-    display: none;
   }
 `;
 
@@ -119,7 +116,7 @@ const ModifyRecord = observer((): ReactElement => {
   }, [data]);
 
   return (
-    <Layout>
+    <>
       <NavBarNew
         title="기록 수정하기"
         isRegister={false}
@@ -167,7 +164,7 @@ const ModifyRecord = observer((): ReactElement => {
           />
         </div>
       </StyledFrame>
-    </Layout>
+    </>
   );
 });
 

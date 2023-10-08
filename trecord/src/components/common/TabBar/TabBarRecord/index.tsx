@@ -33,21 +33,23 @@ export const TabBarRecord = ({
 
   return (
     <S.Layout>
-      {isRegister ? (
-        <>
-          <Icon iconType="camera" width={24} onClick={onPrevClick} />
-          <Icon iconType="gallery" width={24} onClick={onNextClick} />
-        </>
-      ) : (
-        <>
-          <Icon
-            iconType={isLike ? 'activeHeart' : 'heart'}
-            width={24}
-            onClick={handlePostLike}
-          />
-          <Icon iconType="message" width={24} onClick={onNextClick} />
-        </>
-      )}
+      <div className="container">
+        {isRegister ? (
+          <>
+            <Icon iconType="camera" width={24} onClick={onPrevClick} />
+            <Icon iconType="gallery" width={24} onClick={onNextClick} />
+          </>
+        ) : (
+          <>
+            <Icon
+              iconType={isLike ? 'activeHeart' : 'heart'}
+              width={24}
+              onClick={handlePostLike}
+            />
+            <Icon iconType="message" width={24} onClick={onNextClick} />
+          </>
+        )}
+      </div>
     </S.Layout>
   );
 };
