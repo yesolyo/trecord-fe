@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const Layout = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 844px;
+  height: calc(100% - 200px);
+  overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ThickLineBox = styled.hr`

@@ -84,19 +84,21 @@ export const MyPage = () => {
   };
 
   return (
-    <S.Layout>
+    <>
       <NavBarProfile mainTitle="마이페이지" />
-      <MyPageTitle
-        imgUrl={profileUrl}
-        nickname={nickName}
-        introduce={introduce}
-      />
-      <S.ThickLineBox />
-      <MyPageMenu {...menuServiceConstant} />
-      <S.ThinLineBox />
-      <MyPageMenu {...menuActiveConstant} />
-      <S.ThinLineBox />
-      <MyPageMenu {...menuEtcConstant} />
+      <S.Layout>
+        <MyPageTitle
+          imgUrl={profileUrl}
+          nickname={nickName}
+          introduce={introduce}
+        />
+        <S.ThickLineBox />
+        <MyPageMenu {...menuServiceConstant} />
+        <S.ThinLineBox />
+        <MyPageMenu {...menuActiveConstant} />
+        <S.ThinLineBox />
+        <MyPageMenu {...menuEtcConstant} />
+      </S.Layout>
       <Modal
         openModal={isLogoutModal}
         title="로그아웃 하시겠습니까?"
@@ -106,6 +108,6 @@ export const MyPage = () => {
         onClose={() => setIsLogoutModal(false)}
       />
       <TabBar currentPage="mypage" />
-    </S.Layout>
+    </>
   );
 };
