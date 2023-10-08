@@ -24,7 +24,7 @@ const StyledFrame = styled.div`
   padding-top: 100px;
   gap: 19px;
   @media (min-width: 431px) {
-    height: calc(844px - 120px);
+    height: calc(844px - 10px);
   }
   width: 100%;
   scrollbar-width: none;

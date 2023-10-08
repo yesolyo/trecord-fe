@@ -153,7 +153,13 @@ export const FeedDetail = observer(() => {
           />
         )}
         <S.ImgBox>
-          <img src={detailData?.imageUrl} />
+          <img
+            src={
+              detailData?.imageUrl
+                ? detailData?.imageUrl
+                : import.meta.env.VITE_AWS_DEFAULT_IMG
+            }
+          />
         </S.ImgBox>
         <S.ExplainBox>
           <S.IconBox>

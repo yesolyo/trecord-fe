@@ -77,7 +77,15 @@ export const FeedHome = ({
           key={feed.id}
           onClick={() => navigate(`/feedDetail/${feed.id}`)}
         >
-          <img src={feed.imageUrl} width={342} height={180} />
+          <img
+            src={
+              feed.imageUrl
+                ? feed.imageUrl
+                : import.meta.env.VITE_AWS_DEFAULT_IMG
+            }
+            width={342}
+            height={180}
+          />
           <S.TextBox>
             <div className="feed_name">{feed.name}</div>
             <div className="feed_sub">
