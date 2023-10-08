@@ -77,10 +77,6 @@ export const FeedDetail = observer(() => {
     }
   }, [detailData]);
 
-  // const contributors = useMemo(
-  //   () => detailData?.contributors?.map((c) => c.nickname ?? '') ?? [],
-  //   [detailData],
-  // );
   const { data: recordListData } = useGetRecordList({ id: id ?? '' });
   const { mutate: deleteFeed } = useDeleteFeed();
   const navigate = useNavigate();
@@ -168,7 +164,7 @@ export const FeedDetail = observer(() => {
             <ChipContainer
               clickable={true}
               users={detailData?.contributors ?? []}
-              onClick={handleClickChip}
+              onClick={detailData.canModifyFeed ? handleClickChip : undefined}
             />
           )}
 
