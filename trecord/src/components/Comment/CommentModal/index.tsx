@@ -2,6 +2,7 @@ import * as S from './style';
 
 interface commentModalProps {
   id: number;
+  newComment: string;
   editText: string;
   deleteText: string;
   replyText?: string;
@@ -12,6 +13,7 @@ interface commentModalProps {
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit?: () => void;
   onCategory: () => void;
+  handleNewComment: (val: string) => void;
 }
 
 export interface deletDataProps {
@@ -24,6 +26,7 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
         onClick={() => {
           props.onEdit();
           props.onCategory();
+          props.handleNewComment(props.newComment);
         }}
       >
         {props.editText}
@@ -33,6 +36,7 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
         onClick={() => {
           props.onDelete();
           props.onCategory();
+          props.handleNewComment('');
         }}
       >
         {props.deleteText}
@@ -46,6 +50,7 @@ export const CommentModal = ({ ...props }: commentModalProps) => {
                 props.onReplyEdit && props.onReplyEdit();
               }
               props.onCategory();
+              props.handleNewComment('');
             }}
           >
             {props.replyText}

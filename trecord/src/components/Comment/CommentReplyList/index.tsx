@@ -18,6 +18,7 @@ interface Props {
   onReplyEdit: () => void;
   isReplyEdit: boolean;
   replyCount: number;
+  handleNewComment: (val: string) => void;
 }
 export const CommentReplyList = ({ ...props }: Props) => {
   const [pageCount, setPageCount] = useState(10);
@@ -45,8 +46,9 @@ export const CommentReplyList = ({ ...props }: Props) => {
               <div className="content_box">
                 <div className="conetent_title">
                   <div className="user_id">{user.commenterNickname}</div>
-                  {user.isUpdatable && (
+                  {user.updatable && (
                     <CommentCateogory
+                      newComment={user.content}
                       id={user.commentId}
                       editText="수정하기"
                       deleteText="삭제하기"

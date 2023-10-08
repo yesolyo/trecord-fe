@@ -24,6 +24,7 @@ interface commentListProps {
   onCommentId: (id: number) => void;
   onDelete: () => void;
   onCountPage: () => void;
+  handleNewComment: (val: string) => void;
   isDelete: boolean;
   commentId: number;
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -83,6 +84,7 @@ export const CommentList = ({ ...props }: commentListProps) => {
                 {user.isUpdatable && (
                   <CommentCateogory
                     id={user.commentId}
+                    newComment={user.content}
                     editText="수정하기"
                     replyText="답글달기"
                     deleteText="삭제하기"

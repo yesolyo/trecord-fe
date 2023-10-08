@@ -24,6 +24,7 @@ interface Props {
   isNewComment?: React.Dispatch<React.SetStateAction<boolean>>;
   onReplyEdit: () => void;
   isReplyEdit: boolean;
+  handleNewComment: (val: string) => void;
 }
 export const CommentReplyBtn = ({ ...props }: Props) => {
   const [isReplyComment, setIsReplyComment] = useState<boolean>(false);
