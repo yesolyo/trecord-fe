@@ -33,8 +33,6 @@ export const ProfileNewButton = ({
     }
   }, [imageUrl]);
 
-  console.log(isNickName);
-
   const uploadS3 = async () => {
     const s3Client = new S3Client({
       region: import.meta.env.VITE_AWS_REGION,
