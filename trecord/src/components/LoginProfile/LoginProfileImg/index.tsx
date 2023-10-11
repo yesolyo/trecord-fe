@@ -55,8 +55,8 @@ export const LoginProfileImg = ({
 
   return (
     <>
-      <S.Layout>
-        <S.ImgBox>{ChoiceImage()}</S.ImgBox>
+      <S.ImgBox>
+        {ChoiceImage()}
         <S.UploadBox>
           <label htmlFor="input-file">
             <Icon iconType="add" width={24} />
@@ -70,7 +70,7 @@ export const LoginProfileImg = ({
             style={{ display: 'none' }}
           />
         </S.UploadBox>
-      </S.Layout>
+      </S.ImgBox>
     </>
   );
 };

@@ -18,8 +18,9 @@ import ChipContainer from '@components/common/ChipContainer';
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 0px 20px;
+  justify-content: center;
+  width: 342px;
+
   box-sizing: border-box;
   .title {
     font-size: 14px;
@@ -29,7 +30,7 @@ const StyledDiv = styled.div`
   }
   .content {
     height: 40px;
-    width: 100%;
+    width: 342px;
     padding: 2px 12px;
     border: 1px solid rgb(233, 233, 233);
     border-radius: 8px;

@@ -5,7 +5,7 @@ export const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 844px;
+  height: 100%;
   justify-content: center;
 `;
 export const ExplainBox = styled.div`

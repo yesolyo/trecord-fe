@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
-  height: calc(100% - 250px);
+  height: calc(100% - 200px);
   overflow: auto;
   scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
   }
   display: flex;
-  padding-top: 50px;
+  padding-top: 100px;
 
   flex-direction: column;
   gap: 15px;
