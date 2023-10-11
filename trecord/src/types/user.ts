@@ -10,3 +10,10 @@ export interface newUser {
   imageUrl?: string;
   introduction?: string;
 }
+
+export interface MyPageUser {
+  userId: number;
+  nickname: string;
+  imageUrl: string;
+  introduction: string;
+}

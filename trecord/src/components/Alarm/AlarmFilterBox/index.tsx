@@ -9,7 +9,7 @@ const StyledDiv = styled.div<{ display: string }>`
   width: 100%;
   height: 100%;
   background: rgb(30, 30, 30, 0.08);
-  z-index: 10;
+  z-index: 1000;
   align-items: flex-end;
   justify-content: center;
 
@@ -35,6 +35,7 @@ const StyledDiv = styled.div<{ display: string }>`
     display: flex;
     ${({ theme }) => theme.font.fontSize.Body_M}
     ${({ theme }) => theme.font.fontType.R};
+    color: ${({ theme }) => theme.colors.colorStyles.gray900};
   }
 `;
 

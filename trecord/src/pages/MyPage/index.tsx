@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './style';
 import { TabBar } from '@components/common/TabBar';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
@@ -6,35 +6,12 @@ import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@components/common/Modal';
+import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
 
 export const MyPage = () => {
-  const [profileUrl, setProfilUrl] = useState<string>('');
-  const [nickName, setNickName] = useState<string>('');
-  const [introduce, setIntroduce] = useState<string>('');
   const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
-  const getToken = localStorage.getItem('acessToken');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (getToken) {
-      fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/users`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken,
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          setProfilUrl(data.data.imageUrl);
-          setNickName(data.data.nickname);
-          setIntroduce(data.data.introduction);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, []);
+  const { data } = useGetMyPageProfile();
 
   const menuServiceConstant: mypageMenuProps = {
     title: '서비스 설정',
@@ -87,11 +64,14 @@ export const MyPage = () => {
     <>
       <NavBarProfile mainTitle="마이페이지" />
       <S.Layout>
-        <MyPageTitle
-          imgUrl={profileUrl}
-          nickname={nickName}
-          introduce={introduce}
-        />
+        {data && (
+          <MyPageTitle
+            imgUrl={data?.imageUrl}
+            nickname={data.nickname}
+            introduce={data.introduction}
+          />
+        )}
+
         <S.ThickLineBox />
         <MyPageMenu {...menuServiceConstant} />
         <S.ThinLineBox />
