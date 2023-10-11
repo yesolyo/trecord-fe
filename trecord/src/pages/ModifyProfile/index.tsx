@@ -46,6 +46,7 @@ export const ModifyProfile = () => {
         />
         <LoginProfileName
           nickNameValue={nickName}
+          userNicknameData={data?.nickname}
           nickNameSetValue={setNickName}
           setIsNickName={setIsNickName}
         />
