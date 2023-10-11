@@ -20,13 +20,17 @@ const MobileLikeDiv = styled.div`
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
   box-sizing: border-box;
-
+  .module {
+    width: 100vh;
+  }
   @media (min-width: 431px) {
     border-radius: 40px;
     box-shadow: 0px 0px 10px 5px #777777;
     /** iphone pro 12 */
     width: 390px;
-    height: 844px;
+    .module {
+      height: calc(var(--vh, 1vh) * 100);
+    }
   }
 `;
 
