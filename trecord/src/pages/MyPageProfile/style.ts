@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const Layout = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 844px;
-`;
-
 export const TextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,6 +20,13 @@ export const ProfileBox = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 22px;
+  padding-top: 70px;
+  height: calc(100% - 170px);
+  overflow: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const BtnBox = styled.div`

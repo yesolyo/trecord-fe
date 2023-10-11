@@ -6,8 +6,11 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
+import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
+import { useNavigate } from 'react-router-dom';
 
 export const MyPageProfile = () => {
+  const navigate = useNavigate();
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
     originFile: File | Blob | string;
@@ -43,8 +46,11 @@ export const MyPageProfile = () => {
   }, []);
 
   return (
-    <S.Layout>
-      <NavBarProfile mainTitle="마이페이지" />
+    <>
+      <NavBarAllowProfile
+        mainTitle="마이페이지"
+        onClick={() => navigate('/mypage')}
+      />
       <S.ProfileBox>
         <LoginProfileImg
           profileFile={setProfileFile}
@@ -74,6 +80,6 @@ export const MyPageProfile = () => {
       </S.ProfileBox>
 
       <TabBar currentPage="mypage" />
-    </S.Layout>
+    </>
   );
 };

@@ -4,6 +4,7 @@ export const Layout = styled.div`
   display: flex;
   gap: 20px;
   width: 100%;
+
   justify-content: center;
   align-items: center;
   padding-top: 35px;
