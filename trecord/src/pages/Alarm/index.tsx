@@ -61,6 +61,23 @@ export const Alarm = () => {
 
   return (
     <>
+      {isAlarm.isAll && <AlarmAllList />}
+      {isAlarm.isComment && <AlarmCommentList />}
+      {isAlarm.isLike && <AlarmLikeList />}
+      {isAlarm.isInvitation && <AlarmInvitationList />}
+      <AlarmFilterBox
+        openModal={isFilterActive}
+        allText="전체"
+        commentText="댓글"
+        likeText="좋아요"
+        invitaitonText="초대"
+        onAll={handleAllAlarm}
+        onComment={handleCommentAlarm}
+        onLike={handleLikeAlarm}
+        onInvitation={handleInvitationAlarm}
+      />
+
+      <TabBar currentPage={'alarm'} />
       {isAlarm.isAll && (
         <NavBarProfile
           mainTitle="알림"
@@ -93,23 +110,6 @@ export const Alarm = () => {
           onClick={() => setIsFilterActive(true)}
         />
       )}
-      <AlarmFilterBox
-        openModal={isFilterActive}
-        allText="전체"
-        commentText="댓글"
-        likeText="좋아요"
-        invitaitonText="초대"
-        onAll={handleAllAlarm}
-        onComment={handleCommentAlarm}
-        onLike={handleLikeAlarm}
-        onInvitation={handleInvitationAlarm}
-      />
-      {isAlarm.isAll && <AlarmAllList />}
-      {isAlarm.isComment && <AlarmCommentList />}
-      {isAlarm.isLike && <AlarmLikeList />}
-      {isAlarm.isInvitation && <AlarmInvitationList />}
-
-      <TabBar currentPage={'alarm'} />
     </>
   );
 };

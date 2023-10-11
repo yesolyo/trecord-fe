@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
-  margin-top: 50px;
+  /* margin-top: 50px;
   margin-bottom: 80px;
-  margin-left: -37px;
-  display: flex;
+  margin-left: -37px; */
 `;
 export const ImgBox = styled.div`
-  position: absolute;
+  margin-top: 50px;
+  margin-bottom: 80px;
+
+  position: relative;
+  z-index: 0;
   width: 74px;
   height: 74px;
+
   img {
     width: 74px;
     height: 74px;
@@ -18,7 +22,7 @@ export const ImgBox = styled.div`
 `;
 
 export const UploadBox = styled.div`
-  position: relative;
+  position: absolute;
   top: 50px;
   left: 50px;
 `;

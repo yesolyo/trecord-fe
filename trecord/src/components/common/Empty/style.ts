@@ -4,10 +4,11 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 750px;
+  height: 100%;
   justify-content: center;
   width: 100%;
   gap: 15px;
+  overflow: auto;
 `;
 
 export const TextBox = styled.span`

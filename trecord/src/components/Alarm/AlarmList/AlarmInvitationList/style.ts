@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const Layout = styled.div`
   display: flex;
-  padding-top: 50px;
+  padding-top: 100px;
   flex-direction: column;
   gap: 15px;
   width: 100%;
   align-items: center;
-  height: calc(100% - 250px);
+  height: calc(100% - 200px);
   overflow: auto;
   scrollbar-width: none;
   ::-webkit-scrollbar {

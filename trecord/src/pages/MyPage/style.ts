@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Layout = styled.form`
   height: calc(100% - 200px);
+  padding-top: 80px;
   overflow: auto;
   scrollbar-width: none;
   ::-webkit-scrollbar {

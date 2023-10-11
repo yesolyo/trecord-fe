@@ -19,6 +19,9 @@ export const Layout = styled.div`
     color: ${({ theme }) => theme.colors.colorStyles.gray600};
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
+    &:focus {
+      color: ${({ theme }) => theme.colors.colorStyles.gray900};
+    }
   }
   .container {
     display: flex;

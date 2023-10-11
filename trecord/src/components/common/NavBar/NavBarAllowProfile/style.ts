@@ -8,18 +8,26 @@ export const Layout = styled.div`
   justify-content: center;
   z-index: 50;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
-`;
-export const TextBox = styled.div`
-  display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  gap: 20px;
+  width: 350px;
+  margin-left: 20px;
 
   .profile_main-title {
     ${({ theme }) => theme.font.fontSize.Title_BL}
     ${({ theme }) => theme.font.fontType.B}
   }
-  .profile_sub-title {
-    ${({ theme }) => theme.font.fontSize.Body_S}
-    ${({ theme }) => theme.font.fontType.R}
+`;
+export const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 350px;
+
+  .profile_main-title {
+    ${({ theme }) => theme.font.fontSize.Title_BL}
+    ${({ theme }) => theme.font.fontType.B}
   }
 `;
 export const BarBox = styled.div`

@@ -16,8 +16,10 @@ export const Layout = styled.div`
     padding-top: 2px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     border-radius: 8px;
-    color: ${({ theme }) => theme.colors.colorStyles.gray600};
     ${({ theme }) => theme.font.fontSize.Body_S}
     ${({ theme }) => theme.font.fontType.R}
+    &:focus {
+      color: ${({ theme }) => theme.colors.colorStyles.gray900};
+    }
   }
 `;
