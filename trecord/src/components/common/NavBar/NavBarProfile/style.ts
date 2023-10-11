@@ -31,7 +31,8 @@ export const BarBox = styled.div`
 export const ButtonBox = styled.button`
   ${({ theme }) => theme.font.fontSize.Caption_S}
   ${({ theme }) => theme.font.fontType.M}
-  background:none;
+  color: ${({ theme }) => theme.colors.colorStyles.gray900};
+  background: none;
   border: none;
   display: flex;
   align-items: center;

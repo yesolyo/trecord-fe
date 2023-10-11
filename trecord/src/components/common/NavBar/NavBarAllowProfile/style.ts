@@ -9,7 +9,7 @@ export const Layout = styled.div`
   z-index: 50;
   background: ${({ theme }) => theme.colors.colorStyles.gray100};
   flex-direction: column;
-  margin-top: 20px;
+  padding-top: 20px;
   gap: 20px;
   width: 350px;
   margin-left: 20px;
