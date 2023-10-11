@@ -7,8 +7,9 @@ import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
 import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
+import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
 
-export const MyPageProfile = () => {
+export const ModifyProfile = () => {
   const navigate = useNavigate();
   const [profileFile, setProfileFile] = useState<{
     imgFile: string;
@@ -21,28 +22,15 @@ export const MyPageProfile = () => {
   const [nickName, setNickName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
   const [isNickName, setIsNickName] = useState<boolean>(true);
-  const getToken = localStorage.getItem('acessToken');
+  const { data } = useGetMyPageProfile();
 
   useEffect(() => {
-    if (getToken) {
-      fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/users`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken,
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          setProfilUrl(data.data.imageUrl);
-          setNickName(data.data.nickname);
-          setIntroduce(data.data.introduction);
-        })
-        .catch((err) => console.log(err));
+    if (data) {
+      setProfilUrl(data.imageUrl);
+      setNickName(data.nickname);
+      setIntroduce(data.introduction);
     }
-  }, []);
+  }, [data]);
 
   return (
     <>

@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import ModifyRecord from './pages/ModifyRecord';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
-import { MyPageProfile } from './pages/MyPageProfile';
+import { ModifyProfile } from './pages/ModifyProfile';
 import { MyPageComment } from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
@@ -124,11 +124,15 @@ export const router = createBrowserRouter(
         },
         {
           path: '/mypage',
-          element: <MyPage />,
+          element: (
+            <Suspense fallback={<FeedDetailFallback />}>
+              <MyPage />
+            </Suspense>
+          ),
         },
         {
           path: '/mypageProfile',
-          element: <MyPageProfile />,
+          element: <ModifyProfile />,
         },
         {
           path: '/mypageComment',
