@@ -6,11 +6,13 @@ interface LoginProfileNameProps {
   nickNameValue: string;
   nickNameSetValue: React.Dispatch<React.SetStateAction<string>>;
   setIsNickName: React.Dispatch<React.SetStateAction<boolean>>;
+  userNicknameData?: string;
 }
 export const LoginProfileNameBody = ({
   nickNameValue,
   nickNameSetValue,
   setIsNickName,
+  userNicknameData,
 }: LoginProfileNameProps) => {
   const [enabled, setEnabled] = useState(false);
   const [isModal, setIsModal] = useState(false);
@@ -30,7 +32,13 @@ export const LoginProfileNameBody = ({
       nickNameSetValue('');
       setIsNickName(true);
     }
-  }, [userData]);
+    if (userNicknameData === nickNameValue) {
+      setIsNickName(false);
+    }
+    if (userNicknameData !== nickNameValue) {
+      setIsNickName(true);
+    }
+  }, [nickNameValue]);
 
   return (
     <S.Layout>
@@ -68,6 +76,7 @@ export const LoginProfileName = ({
   nickNameValue,
   nickNameSetValue,
   setIsNickName,
+  userNicknameData,
 }: LoginProfileNameProps) => {
   return (
     <Suspense fallback={<div>loading</div>}>
@@ -75,6 +84,7 @@ export const LoginProfileName = ({
         nickNameValue={nickNameValue}
         nickNameSetValue={nickNameSetValue}
         setIsNickName={setIsNickName}
+        userNicknameData={userNicknameData}
       />
     </Suspense>
   );
