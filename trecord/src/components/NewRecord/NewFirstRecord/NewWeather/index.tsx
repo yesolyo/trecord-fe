@@ -7,7 +7,7 @@ interface NewWeaterProps {
 export const NewWeater = ({ isActive, setIsActive }: NewWeaterProps) => {
   return (
     <S.Layout>
-      <span>여행 만족도</span>
+      <span>날씨</span>
       <S.EmojiBox>
         <EmojiBtn
           iconName="sun"
