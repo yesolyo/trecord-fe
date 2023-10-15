@@ -37,6 +37,27 @@ export const NewMove = ({ isActive, setIsActive }: NewMoveProps) => {
           activeBtn={isActive}
           activeSetBtn={setIsActive}
         />
+        <EmojiBtn
+          iconName="bicycle"
+          width="44px"
+          height="40px"
+          activeBtn={isActive}
+          activeSetBtn={setIsActive}
+        />
+        <EmojiBtn
+          iconName="walk"
+          width="44px"
+          height="40px"
+          activeBtn={isActive}
+          activeSetBtn={setIsActive}
+        />
+        <EmojiBtn
+          iconName="train"
+          width="44px"
+          height="40px"
+          activeBtn={isActive}
+          activeSetBtn={setIsActive}
+        />
       </S.EmojiBox>
     </S.Layout>
   );

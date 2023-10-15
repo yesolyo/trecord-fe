@@ -40,6 +40,9 @@ import { ReactComponent as change } from '@/assets/change.svg';
 import { ReactComponent as invite } from '@/assets/invite.svg';
 import { ReactComponent as notification } from '@/assets/notification.svg';
 import { ReactComponent as activeHeart } from '@/assets/activeHeart.svg';
+import { ReactComponent as bicycle } from '@/assets/bicycle.svg';
+import { ReactComponent as train } from '@/assets/train.svg';
+import { ReactComponent as walk } from '@/assets/walk.svg';
 export default {
   close,
   addSquare,
@@ -83,4 +86,7 @@ export default {
   invite,
   notification,
   activeHeart,
+  bicycle,
+  train,
+  walk,
 };
