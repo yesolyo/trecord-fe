@@ -3,18 +3,25 @@ import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { alarmStatusKeys } from './constant';
 import { Fragment, useState } from 'react';
-import useGetAllAlarm from '@/apis/Alarm/getAlarm';
+import useGetAlarm from '@/apis/Alarm/getAlarm';
 import { useNavigate } from 'react-router-dom';
 import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { replaceDate } from '@/utils/replaceDate';
 import Pagination from '@components/common/Pagination';
-interface Props {
+interface DeleteProps {
   id: number;
 }
-export const AlarmAllList = () => {
+
+interface Props {
+  alarmType: string;
+}
+export const AlarmAllList = ({ alarmType }: Props) => {
   const [pageCount, setPageCount] = useState(10);
-  const { data: allAlarmData, refetch } = useGetAllAlarm({ pageCount });
+  const { data: AlarmData, refetch } = useGetAlarm({
+    pageCount,
+    alarmType,
+  });
   const { mutate } = useDeleteAlarm();
   const [isModalActive, setIsModalActive] = useState(false);
   const [alarmId, setAlarmId] = useState(0);
@@ -38,7 +45,7 @@ export const AlarmAllList = () => {
     setPageCount((prev) => prev + 10);
   };
 
-  const handleDeleteAlarm = ({ id }: Props) => {
+  const handleDeleteAlarm = ({ id }: DeleteProps) => {
     mutate(
       { id },
       {
@@ -50,11 +57,11 @@ export const AlarmAllList = () => {
     setIsModalActive((prev) => !prev);
   };
 
-  if (allAlarmData?.content.length === 0) return <Empty {...constant} />;
+  if (AlarmData?.content.length === 0) return <Empty {...constant} />;
   else
     return (
       <S.Layout>
-        {allAlarmData?.content.map((a, index) => (
+        {AlarmData?.content.map((a, index) => (
           <Fragment key={a.id}>
             <div className="container">
               <Icon
@@ -113,10 +120,10 @@ export const AlarmAllList = () => {
                 }}
               />
             </div>
-            {allAlarmData.content.length - 1 !== index && <S.LineBox />}
+            {AlarmData.content.length - 1 !== index && <S.LineBox />}
           </Fragment>
         ))}
-        {!allAlarmData?.last && (
+        {!AlarmData?.last && (
           <Pagination text="알림 더보기" onClick={handleMorePage} />
         )}
         <Modal
