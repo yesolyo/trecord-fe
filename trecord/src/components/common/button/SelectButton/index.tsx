@@ -6,31 +6,7 @@ import {
   useState,
   MouseEvent as ReactMouseEvent,
 } from 'react';
-import styled from 'styled-components';
-
-const StyledDropdown = styled.div`
-  min-width: 97px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.colors.colorStyles.gray100};
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
-
-  .option:not(:last-child) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
-  }
-
-  .option {
-    color: ${({ theme }) => theme.colors.colorStyles.gray900};
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 142.857% */
-    padding: 9px 24px;
-    text-align: center;
-  }
-`;
-
+import * as S from './style';
 interface Props {
   right?: string;
   options: {
@@ -42,7 +18,7 @@ interface Props {
 
 const Dropdown = ({ options, onSelect }: Props) => {
   return (
-    <StyledDropdown>
+    <S.DropdownBox>
       {options.map((option) => (
         <div
           className="option"
@@ -55,20 +31,9 @@ const Dropdown = ({ options, onSelect }: Props) => {
           {option.label}
         </div>
       ))}
-    </StyledDropdown>
+    </S.DropdownBox>
   );
 };
-
-const StyledDiv = styled.div<{ right?: string }>`
-  display: flex;
-  position: relative;
-  > div {
-    position: absolute;
-    top: 25px;
-    right: ${({ right = '10%' }) => right};
-    z-index: 100;
-  }
-`;
 
 const SelectButton = ({ right, options, onSelect }: Props): ReactElement => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -106,14 +71,14 @@ const SelectButton = ({ right, options, onSelect }: Props): ReactElement => {
   }, [isDropdownVisible]);
 
   return (
-    <StyledDiv right={right} onClick={handleClickButton}>
+    <S.Layout right={right} onClick={handleClickButton}>
       <Icon iconType="more" width={24} />
       {isDropdownVisible && (
         <div ref={dropdownRef}>
           <Dropdown options={options} onSelect={handleSelect} />
         </div>
       )}
-    </StyledDiv>
+    </S.Layout>
   );
 };
 
