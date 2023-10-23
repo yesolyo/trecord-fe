@@ -1,4 +1,3 @@
-import { recordDetailList } from '@/types';
 import * as S from './style';
 import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
@@ -6,6 +5,7 @@ import { colorStyles } from '@/styles/color';
 import { feelSet } from '@/utils';
 import { useState } from 'react';
 import RecordDetailGoogleMap from '../RecordDetailGoogleMap';
+import { recordDetailList } from '@/types/record';
 
 interface RecordDetailDataProps {
   recordData: recordDetailList;

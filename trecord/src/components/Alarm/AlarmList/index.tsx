@@ -16,7 +16,7 @@ interface DeleteProps {
 interface Props {
   alarmType: string;
 }
-export const AlarmAllList = ({ alarmType }: Props) => {
+export const AlarmList = ({ alarmType }: Props) => {
   const [pageCount, setPageCount] = useState(10);
   const { data: AlarmData, refetch } = useGetAlarm({
     pageCount,

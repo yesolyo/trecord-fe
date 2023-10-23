@@ -10,7 +10,7 @@ import { useDeleteFeed, useGetFeedDetail, useGtfOutFromFeed } from '@/apis';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
-import Skeleton from '@components/common/skeleton';
+import Skeleton from '@components/common/Skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 import useGetRecordList from '@/apis/Feed/getRecordList';
 import ChipContainer from '@components/common/ChipContainer';

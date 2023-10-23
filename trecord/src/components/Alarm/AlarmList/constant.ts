@@ -3,6 +3,3 @@ export const alarmStatusKeys = {
   RECORD_LIKE: 'heart',
   FEED_INVITATION: 'invite',
 } as const;
-
-export type AlarmStatusUnion =
-  (typeof alarmStatusKeys)[keyof typeof alarmStatusKeys];

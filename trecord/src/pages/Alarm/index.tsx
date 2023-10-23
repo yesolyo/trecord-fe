@@ -1,9 +1,10 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
 import { useState } from 'react';
-import { AlarmAllList } from '@components/Alarm/AlarmList/AlarmAllList';
+
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
 import { Portal } from '@components/common/Portal';
+import { AlarmList } from '@components/Alarm/AlarmList';
 
 export interface alarmProps {
   title: string;
@@ -47,7 +48,7 @@ export const Alarm = () => {
   };
   return (
     <>
-      <AlarmAllList alarmType={alarmType.type} />
+      <AlarmList alarmType={alarmType.type} />
       <Portal>
         <AlarmFilterBox
           openModal={isFilterActive}

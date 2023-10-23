@@ -1,8 +1,9 @@
-import { Page, recordList } from '@/types';
+import { Page } from '@/types';
 import * as S from './style';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from './DndContainer';
+import { recordList } from '@/types/record';
 interface RecordListProps {
   pageData: Page<recordList>;
   paginationLoading?: boolean;

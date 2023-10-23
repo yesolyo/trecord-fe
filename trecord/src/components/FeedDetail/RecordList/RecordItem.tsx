@@ -3,8 +3,8 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import * as S from './style';
-import { recordList } from '@/types';
 import { Icon } from '@components/common/Icon';
+import { recordList } from '@/types/record';
 
 interface Props {
   id: any;

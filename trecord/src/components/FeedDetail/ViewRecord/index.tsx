@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { RecordListBtn } from '../RecordListBtn';
 import * as S from './style';
 import { RecordList } from '../RecordList';
-import { Page, recordList } from '@/types';
+import { Page } from '@/types';
 import styled from 'styled-components';
 import EmptyIcon from '@/assets/components/EmptyIcon';
 import { SummeryList } from '../SummeryList';
+import { recordList } from '@/types/record';
 
 const StyledEmptyDiv = styled.div`
   display: flex;
