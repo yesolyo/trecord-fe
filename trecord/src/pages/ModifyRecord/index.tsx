@@ -8,11 +8,14 @@ import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
-import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
-import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
-import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
+import { SelectionBox } from '@components/common/SelectionBox';
+import {
+  SELECT_FEEL_INFOS,
+  SELECT_MOVE_INFOS,
+  SELECT_WEATHER_INFOS,
+} from '@/types';
 
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
@@ -109,7 +112,13 @@ const ModifyRecord = observer((): ReactElement => {
           startDate={minDate}
           endDate={maxDate}
         />
-        <NewWeater isActive={weather} setIsActive={setWeather} />
+        <SelectionBox
+          title="날씨"
+          list={SELECT_WEATHER_INFOS}
+          confirm={weather}
+          onClick={setWeather}
+        />
+
         <AutoCompletePlace
           place={place.placeName}
           setPlace={setPlace}
@@ -117,8 +126,19 @@ const ModifyRecord = observer((): ReactElement => {
           inputTitle="여행지를 입력"
         />
         <div className="new_feel">
-          <NewFeel isActive={feel} setIsActive={setFeel} />
-          <NewMove isActive={move} setIsActive={setMove} />
+          <SelectionBox
+            title="오늘의 기분"
+            isActive={true}
+            list={SELECT_FEEL_INFOS}
+            confirm={feel}
+            onClick={setFeel}
+          />
+          <SelectionBox
+            title="이동 수단"
+            list={SELECT_MOVE_INFOS}
+            confirm={move}
+            onClick={setMove}
+          />
         </div>
         <div className="new_btn">
           <SquareButton
