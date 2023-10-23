@@ -3,113 +3,71 @@ import { TabBar } from '@components/common/TabBar';
 import { useState } from 'react';
 import { AlarmAllList } from '@components/Alarm/AlarmList/AlarmAllList';
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
-import { AlarmInvitationList } from '@components/Alarm/AlarmList/AlarmInvitationList';
-import { AlarmCommentList } from '@components/Alarm/AlarmList/AlarmCommentList';
-import { AlarmLikeList } from '@components/Alarm/AlarmList/AlarmLikeList';
-interface alarmProps {
-  isAll: boolean;
-  isComment: boolean;
-  isLike: boolean;
-  isInvitation: boolean;
+import { Portal } from '@components/common/Portal';
+
+export interface alarmProps {
+  title: string;
+  type: string;
 }
 export const Alarm = () => {
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [isAlarm, setIsAlarm] = useState<alarmProps>({
-    isAll: true,
-    isComment: false,
-    isLike: false,
-    isInvitation: false,
+  const [alarmType, setAlarmType] = useState<alarmProps>({
+    title: '전체',
+    type: 'ALL',
   });
 
   const handleAllAlarm = () => {
-    setIsAlarm({
-      isAll: true,
-      isComment: false,
-      isLike: false,
-      isInvitation: false,
+    setAlarmType({
+      title: '전체',
+      type: 'ALL',
     });
     setIsFilterActive(false);
   };
   const handleCommentAlarm = () => {
-    setIsAlarm({
-      isAll: false,
-      isComment: true,
-      isLike: false,
-      isInvitation: false,
+    setAlarmType({
+      title: '댓글',
+      type: 'COMMENT',
     });
     setIsFilterActive(false);
   };
   const handleLikeAlarm = () => {
-    setIsAlarm({
-      isAll: false,
-      isComment: false,
-      isLike: true,
-      isInvitation: false,
+    setAlarmType({
+      title: '좋아요',
+      type: 'RECORD_LIKE',
     });
     setIsFilterActive(false);
   };
 
   const handleInvitationAlarm = () => {
-    setIsAlarm({
-      isAll: false,
-      isComment: false,
-      isLike: false,
-      isInvitation: true,
+    setAlarmType({
+      title: '초대',
+      type: 'FEED_INVITATION',
     });
     setIsFilterActive(false);
   };
-
   return (
     <>
-      {isAlarm.isAll && <AlarmAllList />}
-      {isAlarm.isComment && <AlarmCommentList />}
-      {isAlarm.isLike && <AlarmLikeList />}
-      {isAlarm.isInvitation && <AlarmInvitationList />}
-      <AlarmFilterBox
-        openModal={isFilterActive}
-        allText="전체"
-        commentText="댓글"
-        likeText="좋아요"
-        invitaitonText="초대"
-        onAll={handleAllAlarm}
-        onComment={handleCommentAlarm}
-        onLike={handleLikeAlarm}
-        onInvitation={handleInvitationAlarm}
-      />
-
+      <AlarmAllList alarmType={alarmType.type} />
+      <Portal>
+        <AlarmFilterBox
+          openModal={isFilterActive}
+          allText="전체"
+          commentText="댓글"
+          likeText="좋아요"
+          invitaitonText="초대"
+          onAll={handleAllAlarm}
+          onComment={handleCommentAlarm}
+          onLike={handleLikeAlarm}
+          onInvitation={handleInvitationAlarm}
+        />
+      </Portal>
       <TabBar currentPage={'alarm'} />
-      {isAlarm.isAll && (
-        <NavBarProfile
-          mainTitle="알림"
-          isButton={true}
-          filterText="전체"
-          onClick={() => setIsFilterActive(true)}
-        />
-      )}
-      {isAlarm.isComment && (
-        <NavBarProfile
-          mainTitle="알림"
-          isButton={true}
-          filterText="댓글"
-          onClick={() => setIsFilterActive(true)}
-        />
-      )}
-      {isAlarm.isLike && (
-        <NavBarProfile
-          mainTitle="알림"
-          isButton={true}
-          filterText="좋아요"
-          onClick={() => setIsFilterActive(true)}
-        />
-      )}
-      {isAlarm.isInvitation && (
-        <NavBarProfile
-          mainTitle="알림"
-          isButton={true}
-          filterText="초대"
-          onClick={() => setIsFilterActive(true)}
-        />
-      )}
+      <NavBarProfile
+        mainTitle="알림"
+        isButton={true}
+        filterText={alarmType.title}
+        onClick={() => setIsFilterActive(true)}
+      />
     </>
   );
 };
