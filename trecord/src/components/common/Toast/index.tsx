@@ -29,7 +29,7 @@ const StyledToastContainer = styled.div`
     padding: 12px 16px;
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.87);
-    color: #fff;
+    color: ${({ theme }) => theme.colors.colorStyles.gray100};
     font-size: 16px;
     max-width: 90%;
     word-wrap: break-word;

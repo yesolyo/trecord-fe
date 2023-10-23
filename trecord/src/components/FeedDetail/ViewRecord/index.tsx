@@ -15,7 +15,7 @@ const StyledEmptyDiv = styled.div`
   align-items: center;
   gap: 16px;
   padding: 60px;
-  color: var(--gray-900, #1e1e1e);
+  color: ${({ theme }) => theme.colors.colorStyles.gray900};
   text-align: center;
   font-family: Pretendard;
   font-style: normal;
@@ -27,7 +27,7 @@ const StyledEmptyDiv = styled.div`
   }
 
   .small {
-    color: #1e1e1e;
+    color: ${({ theme }) => theme.colors.colorStyles.gray900};
     font-size: 16px;
     font-weight: 400;
     line-height: 24px; /* 150% */

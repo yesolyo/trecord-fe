@@ -41,14 +41,14 @@ const StyledDiv = styled.div<{ display: string; size: Size }>`
     }
 
     border-radius: 8px;
-    background: var(--gray-100, #fff);
+    background: ${({ theme }) => theme.colors.colorStyles.gray100};
     padding: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
     .content {
       .title {
         text-align: center;
-        color: var(--gray-900, #1e1e1e);
+        color: ${({ theme }) => theme.colors.colorStyles.gray900};
         font-family: Pretendard;
         font-size: 18px;
         font-style: normal;
@@ -57,7 +57,7 @@ const StyledDiv = styled.div<{ display: string; size: Size }>`
       }
       .body {
         text-align: center;
-        color: var(--gray-600, #999);
+        color: ${({ theme }) => theme.colors.colorStyles.gray600};
         font-family: Pretendard;
         font-size: 14px;
         font-style: normal;
@@ -78,7 +78,7 @@ const StyledDiv = styled.div<{ display: string; size: Size }>`
         justify-content: center;
         align-items: center;
         border-radius: 8px;
-        border: 1px solid var(--gray-900, #1e1e1e);
+        border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray900};
         font-family: Pretendard;
         font-size: 16px;
         font-style: normal;
@@ -87,13 +87,13 @@ const StyledDiv = styled.div<{ display: string; size: Size }>`
       }
 
       .close {
-        background: var(--gray-900, #ffffff);
-        color: var(--gray-900, #1e1e1e);
+        background: ${({ theme }) => theme.colors.colorStyles.gray100};
+        color: ${({ theme }) => theme.colors.colorStyles.gray900};
       }
 
       .confirm {
-        background: var(--gray-900, #1e1e1e);
-        color: #ffffff;
+        background: ${({ theme }) => theme.colors.colorStyles.gray900};
+        color: ${({ theme }) => theme.colors.colorStyles.gray100};
       }
     }
   }

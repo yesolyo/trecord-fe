@@ -10,7 +10,7 @@ import { RealTimeNotificationProvider } from '@components/common/RealTimeNotific
 const MobileLikeDiv = styled.div`
   position: relative;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.colorStyles.gray100};
   width: 100vw;
   height: 100dvh;
   box-sizing: border-box;

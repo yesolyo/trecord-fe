@@ -13,9 +13,9 @@ const StyledChip = styled.button<ChipPropType>`
   justify-content: center;
   align-items: center;
   border-radius: 100px;
-  border: 1px solid var(--Gray500, #b8b8b8);
-  background-color: #ffffff;
-  color: var(--Gray900, #1e1e1e);
+  border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray500};
+  background-color: ${({ theme }) => theme.colors.colorStyles.gray100};
+  color: ${({ theme }) => theme.colors.colorStyles.gray900};
   text-align: center;
   font-family: Pretendard;
   font-size: 12px;

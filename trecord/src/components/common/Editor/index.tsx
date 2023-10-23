@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   min-height: 85vh;
 
   .ql-toolbar {
-    border: 1px solid #e9e9e9;
+    border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     border-right: none;
     border-left: none;
     display: inline-flex;
@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
     @media (min-width: 431px) {
       width: 390px;
     }
-    background: #fff;
+    background: ${({ theme }) => theme.colors.colorStyles.gray100};
     z-index: 1;
     height: 42px;
     position: fixed;
@@ -40,7 +40,7 @@ const StyledContainer = styled.div`
   }
 
   .ql-editor::before {
-    color: var(--gray-600, #999);
+    color: ${({ theme }) => theme.colors.colorStyles.gray600};
     font-family: Pretendard;
     font-size: 16px;
     font-style: normal;

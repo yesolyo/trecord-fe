@@ -12,15 +12,15 @@ const StyledDropdown = styled.div`
   min-width: 97px;
   flex-shrink: 0;
   border-radius: 8px;
-  background: var(--gray-100, #fff);
+  background: ${({ theme }) => theme.colors.colorStyles.gray100};
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
 
   .option:not(:last-child) {
-    border-bottom: 1px solid #e9e9e9;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
   }
 
   .option {
-    color: var(--gray-900, #1e1e1e);
+    color: ${({ theme }) => theme.colors.colorStyles.gray900};
     font-family: Pretendard;
     font-size: 14px;
     font-style: normal;
