@@ -4,7 +4,10 @@ import { useState } from 'react';
 
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
 import { Portal } from '@components/common/Portal';
+<<<<<<< HEAD
 import { AlarmList } from '@components/Alarm/AlarmList';
+=======
+>>>>>>> 38f2edd ([FE] 알람 필터 바 개선 (#7))
 
 export interface alarmProps {
   title: string;
@@ -48,7 +51,11 @@ export const Alarm = () => {
   };
   return (
     <>
+<<<<<<< HEAD
       <AlarmList alarmType={alarmType.type} />
+=======
+      <AlarmAllList alarmType={alarmType.type} />
+>>>>>>> 38f2edd ([FE] 알람 필터 바 개선 (#7))
       <Portal>
         <AlarmFilterBox
           openModal={isFilterActive}
@@ -64,7 +71,11 @@ export const Alarm = () => {
       </Portal>
       <TabBar currentPage={'alarm'} />
       <NavBarProfile
+<<<<<<< HEAD
         title="알림"
+=======
+        mainTitle="알림"
+>>>>>>> 38f2edd ([FE] 알람 필터 바 개선 (#7))
         isButton={true}
         filterText={alarmType.title}
         onClick={() => setIsFilterActive(true)}
