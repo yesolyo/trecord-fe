@@ -1,4 +1,4 @@
-import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
+import { NavBarProfile } from '@components/common/navBar/NavBarProfile';
 import { TabBar } from '@components/common/TabBar';
 import { useState } from 'react';
 

@@ -7,7 +7,7 @@ import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 import styled from 'styled-components';
 import Modal from '@components/common/Modal';

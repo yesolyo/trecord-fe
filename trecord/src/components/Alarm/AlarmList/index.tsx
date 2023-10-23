@@ -1,7 +1,6 @@
 import { Empty } from '@components/common/Empty';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
-import { alarmStatusKeys } from './constant';
 import { Fragment, useState } from 'react';
 import useGetAlarm from '@/apis/Alarm/getAlarm';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { replaceDate } from '@/utils/replaceDate';
 import Pagination from '@components/common/Pagination';
+import { ALARM_STATUS_KEY } from '@/types';
 interface DeleteProps {
   id: number;
 }
@@ -66,7 +66,7 @@ export const AlarmList = ({ alarmType }: Props) => {
             <div className="container">
               <Icon
                 iconType={
-                  alarmStatusKeys[a.type as keyof typeof alarmStatusKeys]
+                  ALARM_STATUS_KEY[a.type as keyof typeof ALARM_STATUS_KEY]
                 }
                 width={24}
               />

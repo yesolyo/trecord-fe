@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
-import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
+import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
 import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { feelCategory } from '@/utils';

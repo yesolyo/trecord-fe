@@ -2,7 +2,7 @@ import { useState, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import Editor from '@components/common/Editor';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { usePostNewRecord } from '@/apis';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';

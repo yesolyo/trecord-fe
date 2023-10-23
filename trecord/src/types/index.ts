@@ -18,6 +18,12 @@ export const SELECT_INFOS: {
   },
 ];
 
+export const ALARM_STATUS_KEY = {
+  COMMENT: 'message',
+  RECORD_LIKE: 'heart',
+  FEED_INVITATION: 'invite',
+} as const;
+
 export interface Page<T> {
   first: boolean;
   last: boolean;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as S from './style';
 import { TabBar } from '@components/common/TabBar';
-import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
+import { NavBarProfile } from '@components/common/navBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
 import { useNavigate } from 'react-router-dom';
