@@ -44,11 +44,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MobileLikeDiv id="frame">
-          <RealTimeNotificationProvider>
-            <ToastProvider>
-              <Outlet />
-            </ToastProvider>
-          </RealTimeNotificationProvider>
+          <ToastProvider>
+            <Outlet />
+          </ToastProvider>
         </MobileLikeDiv>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
