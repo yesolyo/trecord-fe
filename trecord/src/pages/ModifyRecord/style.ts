@@ -2,19 +2,16 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 19px;
-  overflow: auto;
-  padding: 0px 20px;
-  box-sizing: border-box;
+  align-items: center;
+  width: 100%;
 
   padding-top: 100px;
   gap: 19px;
-  @media (min-width: 431px) {
-    height: calc(100% - 10px);
-  }
-  width: 100%;
+  overflow: auto;
+  height: calc(100% - 110px);
+
   scrollbar-width: none;
-  align-items: center;
+
   padding-bottom: 20px;
   ::-webkit-scrollbar {
     display: none;
