@@ -9,6 +9,6 @@ export const Layout = styled.div`
   }
   .list-box {
     display: flex;
-    gap: 7.5px;
+    gap: 5px;
   }
 `;
