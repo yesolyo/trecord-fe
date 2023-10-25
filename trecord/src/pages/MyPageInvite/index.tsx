@@ -1,4 +1,4 @@
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { useNavigate } from 'react-router-dom';
 import useGetMyPageInvite from '@/apis/MyPage/getMyPageInvite';
 import { MyPageInviteList } from '@components/MyPageInvite/MyPageInviteList';

@@ -8,10 +8,7 @@ import useDeleteAlarm from '@/apis/Alarm/deleteAlarm';
 import Modal from '@components/common/Modal';
 import { replaceDate } from '@/utils/replaceDate';
 import Pagination from '@components/common/Pagination';
-<<<<<<< HEAD:trecord/src/components/Alarm/AlarmList/index.tsx
 import { ALARM_STATUS_KEY } from '@/types';
-=======
->>>>>>> 38f2edd ([FE] 알람 필터 바 개선 (#7)):trecord/src/components/Alarm/AlarmList/AlarmAllList/index.tsx
 interface DeleteProps {
   id: number;
 }
@@ -19,11 +16,7 @@ interface DeleteProps {
 interface Props {
   alarmType: string;
 }
-<<<<<<< HEAD:trecord/src/components/Alarm/AlarmList/index.tsx
 export const AlarmList = ({ alarmType }: Props) => {
-=======
-export const AlarmAllList = ({ alarmType }: Props) => {
->>>>>>> 38f2edd ([FE] 알람 필터 바 개선 (#7)):trecord/src/components/Alarm/AlarmList/AlarmAllList/index.tsx
   const [pageCount, setPageCount] = useState(10);
   const { data: AlarmData, refetch } = useGetAlarm({
     pageCount,
