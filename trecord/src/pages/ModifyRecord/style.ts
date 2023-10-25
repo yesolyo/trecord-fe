@@ -11,7 +11,6 @@ export const Layout = styled.div`
   height: calc(100% - 110px);
 
   scrollbar-width: none;
-
   padding-bottom: 20px;
   ::-webkit-scrollbar {
     display: none;

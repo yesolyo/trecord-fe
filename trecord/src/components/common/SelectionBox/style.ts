@@ -13,5 +13,6 @@ export const Layout = styled.div`
   .list-box {
     display: flex;
     gap: 5px;
+
   }
 `;
