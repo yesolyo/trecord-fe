@@ -62,7 +62,7 @@ export const MyPage = () => {
 
   return (
     <>
-      <NavBarProfile mainTitle="마이페이지" />
+      <NavBarProfile title="마이페이지" />
       <S.Layout>
         {data && (
           <MyPageTitle

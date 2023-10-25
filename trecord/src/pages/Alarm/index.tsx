@@ -64,7 +64,7 @@ export const Alarm = () => {
       </Portal>
       <TabBar currentPage={'alarm'} />
       <NavBarProfile
-        mainTitle="알림"
+        title="알림"
         isButton={true}
         filterText={alarmType.title}
         onClick={() => setIsFilterActive(true)}
