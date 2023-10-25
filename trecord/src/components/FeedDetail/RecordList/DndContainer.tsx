@@ -2,12 +2,13 @@ import update from 'immutability-helper';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 
-import { Page, recordList } from '@/types';
+import { Page } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RecordItem from './RecordItem';
 import { useSwapRecords } from '@/apis';
 import Pagination from '@components/common/Pagination';
+import { recordList } from '@/types/record';
 
 const StyledDiv = styled.div`
   display: flex;

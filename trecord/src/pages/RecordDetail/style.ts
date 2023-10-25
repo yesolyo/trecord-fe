@@ -25,7 +25,7 @@ export const DataBox = styled.div`
 
     hr {
       width: 100%;
-      border-top: 1px solid #e9e9e9;
+      border-top: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     }
 
     .loading-title-area {

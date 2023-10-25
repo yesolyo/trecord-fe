@@ -11,7 +11,13 @@ export const Layout = styled.div`
 
   height: calc(100% - 90px);
   overflow: scroll;
-
+  .selection-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 347px;
+    gap: 15px;
+  }
   scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;

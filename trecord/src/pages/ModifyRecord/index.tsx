@@ -3,49 +3,19 @@ import { ReactElement, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
-import styled from 'styled-components';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import * as S from './style';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
-import { NewWeater } from '@components/NewRecord/NewFirstRecord/NewWeather';
-import { NewFeel } from '@components/NewRecord/NewFirstRecord/NewFeel';
-import { NewMove } from '@components/NewRecord/NewFirstRecord/NewMove';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
-
-const StyledFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-  overflow: auto;
-  padding: 0px 20px;
-  box-sizing: border-box;
-
-  padding-top: 100px;
-  gap: 19px;
-  @media (min-width: 431px) {
-    height: calc(844px - 120px);
-  }
-  width: 100%;
-  scrollbar-width: none;
-  align-items: center;
-  padding-bottom: 20px;
-  height: calc(100% - 10px);
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  .new_feel {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 356px;
-    gap: 15px;
-  }
-  .new_btn {
-    padding-top: 30px;
-  }
-`;
+import { SelectionBox } from '@components/common/SelectionBox';
+import {
+  SELECT_FEEL_INFOS,
+  SELECT_MOVE_INFOS,
+  SELECT_WEATHER_INFOS,
+} from '@/types';
 
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
@@ -125,7 +95,7 @@ const ModifyRecord = observer((): ReactElement => {
           navigate(-1);
         }}
       />
-      <StyledFrame>
+      <S.Layout>
         <ImgInput imgFile={thumbNail} imgFileSetter={setThumbNail} />
         <TextInput
           inputValue={title}
@@ -142,7 +112,13 @@ const ModifyRecord = observer((): ReactElement => {
           startDate={minDate}
           endDate={maxDate}
         />
-        <NewWeater isActive={weather} setIsActive={setWeather} />
+        <SelectionBox
+          title="날씨"
+          list={SELECT_WEATHER_INFOS}
+          confirm={weather}
+          onClick={setWeather}
+        />
+
         <AutoCompletePlace
           place={place.placeName}
           setPlace={setPlace}
@@ -150,8 +126,19 @@ const ModifyRecord = observer((): ReactElement => {
           inputTitle="여행지를 입력"
         />
         <div className="new_feel">
-          <NewFeel isActive={feel} setIsActive={setFeel} />
-          <NewMove isActive={move} setIsActive={setMove} />
+          <SelectionBox
+            title="오늘의 기분"
+            isActive={true}
+            list={SELECT_FEEL_INFOS}
+            confirm={feel}
+            onClick={setFeel}
+          />
+          <SelectionBox
+            title="이동 수단"
+            list={SELECT_MOVE_INFOS}
+            confirm={move}
+            onClick={setMove}
+          />
         </div>
         <div className="new_btn">
           <SquareButton
@@ -163,7 +150,7 @@ const ModifyRecord = observer((): ReactElement => {
             onClick={handleClickNext}
           />
         </div>
-      </StyledFrame>
+      </S.Layout>
     </>
   );
 });

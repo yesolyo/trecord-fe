@@ -9,20 +9,20 @@ interface ImgUploadBtnProps {
   imageFile: { imgFile: string; originFile: File | Blob | string };
   imageUrl: string;
   saveImageUrl: React.Dispatch<React.SetStateAction<string>>;
-  nickNameValue: string;
+  nickname: string;
   title: string;
   intrduceValue: string;
-  isNickName: boolean;
+  isDuplicateNickname: boolean;
 }
 
 export const ProfileNewButton = ({
   imageFile,
   saveImageUrl,
-  nickNameValue,
+  nickname,
   imageUrl,
   title,
   intrduceValue,
-  isNickName,
+  isDuplicateNickname,
 }: ImgUploadBtnProps) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
@@ -69,7 +69,7 @@ export const ProfileNewButton = ({
   const handlePostNewUser = () => {
     mutate(
       {
-        nickname: nickNameValue,
+        nickname,
         imageUrl,
         introduction: intrduceValue,
       },
@@ -97,7 +97,7 @@ export const ProfileNewButton = ({
       title: title,
       width: '342px',
       height: '56px',
-      disabled: isNickName || nickNameValue === '',
+      disabled: isDuplicateNickname,
       onClick: handlePost,
     },
   };

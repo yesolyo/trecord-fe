@@ -12,7 +12,7 @@ const StyledModalBody = styled.div`
     gap: 12px;
     .title {
       text-align: center;
-      color: var(--Gray900, #1e1e1e);
+      color: ${({ theme }) => theme.colors.colorStyles.gray900};
       font-family: Pretendard;
       font-size: 18px;
       font-style: normal;
@@ -36,16 +36,16 @@ const StyledModalBody = styled.div`
         height: 48px;
         padding-left: 12px;
         padding-top: 2px;
-        border: 1px solid #e9e9e9;
+        border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
         border-radius: 8px;
-        color: #999;
+        color: ${({ theme }) => theme.colors.colorStyles.gray600};
         font-family: Pretendard;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: 20px; /* 142.857% */
         &:focused {
-          border: 1px solid #1e1e1e;
+          border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray900};
         }
       }
       button {
@@ -54,8 +54,8 @@ const StyledModalBody = styled.div`
         height: 48px;
         flex-shrink: 0;
         border-radius: 8px;
-        background-color: #1e1e1e;
-        color: var(--Gray100, #fff);
+        background-color: ${({ theme }) => theme.colors.colorStyles.gray900};
+        color: ${({ theme }) => theme.colors.colorStyles.gray100};
         font-family: Pretendard;
         font-size: 14px;
         font-style: normal;
@@ -63,7 +63,7 @@ const StyledModalBody = styled.div`
         line-height: 20px; /* 142.857% */
 
         &:disabled {
-          background-color: var(--Gray500, #b8b8b8);
+          background-color: ${({ theme }) => theme.colors.colorStyles.gray500};
         }
       }
     }
@@ -71,7 +71,7 @@ const StyledModalBody = styled.div`
 
   hr {
     width: 100%;
-    border-top: 1px solid #cdcdcd;
+    border-top: 1px solid ${({ theme }) => theme.colors.colorStyles.gray400};
   }
 
   .share {
@@ -81,7 +81,7 @@ const StyledModalBody = styled.div`
     .button {
       display: inline-flex;
       gap: 5px;
-      color: var(--Gray900, #1e1e1e);
+      color: ${({ theme }) => theme.colors.colorStyles.gray900};
       font-family: Pretendard;
       font-size: 16px;
       font-style: normal;

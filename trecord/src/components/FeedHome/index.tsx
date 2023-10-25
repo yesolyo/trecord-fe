@@ -4,7 +4,7 @@ import { useGetFeeds } from '@/apis';
 import { Empty } from '@components/common/Empty';
 import { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
-import Skeleton from '@components/common/skeleton';
+import Skeleton from '@components/common/Skeleton';
 import Pagination from '@components/common/Pagination';
 import usePagedData from '@/hooks/usePagedData';
 

@@ -5,12 +5,11 @@ import { Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastProvider } from '@components/common/Toast';
-import { RealTimeNotificationProvider } from '@components/common/RealTimeNotification';
 
 const MobileLikeDiv = styled.div`
   position: relative;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.colorStyles.gray100};
   width: 100vw;
   height: 100dvh;
   box-sizing: border-box;
@@ -44,11 +43,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MobileLikeDiv id="frame">
-          <RealTimeNotificationProvider>
-            <ToastProvider>
-              <Outlet />
-            </ToastProvider>
-          </RealTimeNotificationProvider>
+          <ToastProvider>
+            <Outlet />
+          </ToastProvider>
         </MobileLikeDiv>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />

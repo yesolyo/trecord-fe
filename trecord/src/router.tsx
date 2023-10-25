@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import { Login } from './pages/Login';
 import { LoginProfile } from './pages/LoginProfile';
@@ -22,6 +22,7 @@ import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
 import { Comment } from './pages/Comment';
 import { MyPageLike } from './pages/MyPageLike';
 import { MyPageInvite } from './pages/MyPageInvite';
+import { RealTimeNotificationProvider } from '@components/common/RealTimeNotification';
 
 export const router = createBrowserRouter(
   [
@@ -45,11 +46,37 @@ export const router = createBrowserRouter(
           element: <LoginProfile />,
         },
         {
-          path: '/home',
-          async lazy() {
-            const { Home } = await import('./pages/Home');
-            return { Component: Home };
-          },
+          element: (
+            <RealTimeNotificationProvider>
+              <Outlet />
+            </RealTimeNotificationProvider>
+          ),
+
+          children: [
+            {
+              path: '/home',
+              async lazy() {
+                const { Home } = await import('./pages/Home');
+                return { Component: Home };
+              },
+            },
+            {
+              path: '/alarm',
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Alarm />
+                </Suspense>
+              ),
+            },
+            {
+              path: '/mypage',
+              element: (
+                <Suspense fallback={<FeedDetailFallback />}>
+                  <MyPage />
+                </Suspense>
+              ),
+            },
+          ],
         },
         {
           path: '/newfeed',
@@ -111,22 +138,6 @@ export const router = createBrowserRouter(
           element: (
             <Suspense fallback={<div>Loading...</div>}>
               <Comment />
-            </Suspense>
-          ),
-        },
-        {
-          path: '/alarm',
-          element: (
-            <Suspense fallback={<div>Loading...</div>}>
-              <Alarm />
-            </Suspense>
-          ),
-        },
-        {
-          path: '/mypage',
-          element: (
-            <Suspense fallback={<FeedDetailFallback />}>
-              <MyPage />
             </Suspense>
           ),
         },

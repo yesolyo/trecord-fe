@@ -3,46 +3,7 @@ export interface PostNewCommentResponse {
   content: string;
 }
 
-export interface GetNewCommentResponse {
-  content: GetCommentProps[];
-  last: boolean;
-}
-
-export interface GetMyPageLikeRespose {
-  content: GetMyPageLikeProps[];
-}
-
-export interface GetMyPageInviteResponse {
-  content: GetMyPageInvteProps[];
-}
-
-export interface GetMyPageInviteListProps {
-  content: GetMyPageInvteProps[];
-  last: boolean;
-}
-export interface GetMyPageInvteProps {
-  feedId: number;
-  feedName: string;
-  imageUrl: string | null;
-  ownerNickname: string;
-}
-export interface GetMyPageLikeProps {
-  recordId: number;
-  title: string;
-  imageUrl: string | null;
-  authorId: number;
-  authorNickname: string;
-}
-export interface GetReplyCommentResponse {
-  content: GetReplyCommentProps[];
-  last: boolean;
-}
-export interface GetMypageCommentResponse {
-  content: GetMypageComment[];
-  last: boolean;
-}
-
-export interface GetReplyCommentProps {
+export interface GetReplyComment {
   recordId: number;
   parentId: number;
   commentId: number;
@@ -53,15 +14,7 @@ export interface GetReplyCommentProps {
   commenterId: number;
   commenterImageUrl: string;
 }
-
-export interface GetMypageComment {
-  recordId: number;
-  recordTitle: string;
-  commentId: number;
-  content: string;
-  commentCreatedDateTime: string;
-}
-export interface GetCommentProps {
+export interface GetComment {
   commentId: number;
   commenterId: number;
   commenterImageUrl: string;
@@ -97,3 +50,10 @@ export interface putDataProps {
   id: number;
   content: string;
 }
+
+export type commentList = {
+  commentId: number;
+  commenterId: number;
+  isUpdatable: boolean;
+  content: string;
+};

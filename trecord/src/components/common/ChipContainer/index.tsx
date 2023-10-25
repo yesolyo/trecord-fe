@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
-import styled from 'styled-components';
+
 import Chip from './Chip';
 import { User } from '@/types/user';
-
-const StyledContainer = styled.div``;
+import * as S from './style';
 
 interface Props {
   clickable?: boolean;
@@ -17,7 +16,7 @@ const ChipContainer = ({
   onClick,
 }: Props): ReactElement => {
   return (
-    <StyledContainer>
+    <S.Layout>
       {users.map((user) => (
         <Chip
           clickable={clickable}
@@ -26,7 +25,7 @@ const ChipContainer = ({
           onClick={onClick}
         />
       ))}
-    </StyledContainer>
+    </S.Layout>
   );
 };
 
