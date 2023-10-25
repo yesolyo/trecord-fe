@@ -10,13 +10,12 @@ export const Layout = styled.div`
   padding-top: 100px;
   gap: 19px;
   @media (min-width: 431px) {
-    height: calc(844px - 120px);
+    height: calc(100% - 10px);
   }
   width: 100%;
   scrollbar-width: none;
   align-items: center;
   padding-bottom: 20px;
-  height: calc(100% - 10px);
   ::-webkit-scrollbar {
     display: none;
   }
