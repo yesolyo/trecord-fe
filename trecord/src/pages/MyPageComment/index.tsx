@@ -1,5 +1,5 @@
 import useGetMypageComment from '@/apis/Comment/getMypageComment';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
 import { deletDataProps } from '@components/Comment/CommentModal';

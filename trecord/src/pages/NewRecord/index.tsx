@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import ImgInput from '@components/common/ImgInput';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 import styled from 'styled-components';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';

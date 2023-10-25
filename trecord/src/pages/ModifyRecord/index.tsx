@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import * as S from './style';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
