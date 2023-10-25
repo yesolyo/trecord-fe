@@ -19,3 +19,8 @@ export interface GetMypageComment {
   content: string;
   commentCreatedDateTime: string;
 }
+
+export interface ProfileFileProps {
+  imgFile: string;
+  originFile: File | Blob | string;
+}
