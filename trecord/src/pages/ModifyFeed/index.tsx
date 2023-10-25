@@ -2,14 +2,13 @@ import { useGetFeedDetail, useModifyFeed } from '@/apis';
 import { User } from '@/types/user';
 
 import { uploadS3 } from '@/utils/image';
-import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 import ChipContainer from '@components/common/ChipContainer';
 
 import ImgInput from '@components/common/ImgInput';
 import Modal from '@components/common/Modal';
 import InviteModifyFeedModalBody from '@components/common/Modal/ModalBody/InviteModifyFeedModalBody';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { DateInput } from '@components/common/input/DateInput';
 import { TextInput } from '@components/common/input/TextInput';
@@ -17,6 +16,8 @@ import { TextareaInput } from '@components/common/input/TextareaInput';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { SelectionBox } from '@components/common/SelectionBox';
+import { SELECT_SATISFACTION_INFOS } from '@/types';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -246,9 +247,11 @@ const ModifyFeed = (): ReactElement => {
           labelTitle="여행 설명"
           inputTitle="여행에 대해 설명해주세요 (최대 100자)"
         />
-        <Satisfaction
-          inputValue={satisfaction}
-          inputSetValue={setSatisfaction}
+        <SelectionBox
+          title="여행 만족도"
+          list={SELECT_SATISFACTION_INFOS}
+          confirm={satisfaction}
+          onClick={setSatisfaction}
         />
         <SquareButton
           title="완료"

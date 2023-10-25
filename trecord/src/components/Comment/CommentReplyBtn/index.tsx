@@ -1,17 +1,7 @@
-import styled from 'styled-components';
 import { CommentReplyList } from '../CommentReplyList';
 import { deletDataProps } from '../CommentModal';
 import { useState } from 'react';
-
-const Layout = styled.button`
-  ${({ theme }) => theme.font.fontSize.Caption_S}
-  ${({ theme }) => theme.font.fontType.R};
-  background: none;
-  border: none;
-  display: flex;
-  padding: 0;
-`;
-
+import * as S from './style';
 interface Props {
   replyCount: number;
   userCommentId: number;
@@ -30,9 +20,9 @@ export const CommentReplyBtn = ({ ...props }: Props) => {
   const [isReplyComment, setIsReplyComment] = useState<boolean>(false);
   return (
     <>
-      <Layout onClick={() => setIsReplyComment((prev) => !prev)}>
+      <S.Layout onClick={() => setIsReplyComment((prev) => !prev)}>
         {props.replyCount}개의 댓글 보기
-      </Layout>
+      </S.Layout>
       {isReplyComment && <CommentReplyList {...props} />}
     </>
   );

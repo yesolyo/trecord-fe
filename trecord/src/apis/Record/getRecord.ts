@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { http } from '../_http';
 import RECORD_API_KEY from './constants';
-import { recordDetailList } from '@/types';
+import { recordDetailList } from '@/types/record';
 
 interface Props {
   id: string;

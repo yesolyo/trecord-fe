@@ -1,4 +1,3 @@
-import { GetMyPageInviteListProps } from '@/types/comment';
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment, useState } from 'react';
@@ -6,9 +5,11 @@ import { Empty } from '@components/common/Empty';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@components/common/Pagination';
+import { Page } from '@/types';
+import { GetMyPageInvite } from '@/types/mypage';
 
 interface Props {
-  inviteData: GetMyPageInviteListProps;
+  inviteData: Page<GetMyPageInvite>;
   onDelete: (id: number) => void;
   onPageCount: () => void;
 }

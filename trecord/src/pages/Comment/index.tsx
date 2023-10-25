@@ -1,5 +1,5 @@
 import { CommentList } from '@components/Comment/CommentList';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,9 +14,9 @@ import useGetNewComment from '@/apis/Comment/getNewComment';
 import usePostReplyComment, {
   postReplyCommentProps,
 } from '@/apis/Comment/postReplyComment';
-import { TabBarNewComment } from '@components/common/TabBar/TabBarComment/TabBarNewComment';
-import { TabBarEditComment } from '@components/common/TabBar/TabBarComment/TabBarEditComment';
-import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabBarReplyComment';
+import { TabBarNewComment } from '@components/common/TabBar/tabBarComment/TabBarNewComment';
+import { TabBarEditComment } from '@components/common/TabBar/tabBarComment/TabBarEditComment';
+import { TabBarReplyComment } from '@components/common/TabBar/tabBarComment/TabBarReplyComment';
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
 import usePostNewComment from '@/apis/Comment/postNewComment';
 import useModifyNewComment from '@/apis/Comment/modifyNewComment';

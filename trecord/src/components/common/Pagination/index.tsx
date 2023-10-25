@@ -18,7 +18,7 @@ const Spinner = styled.div`
   height: 20px;
   border-radius: 100%;
   border: 2px solid #000;
-  border-top: 2px solid #ffffff;
+  border-top: 2px solid ${({ theme }) => theme.colors.colorStyles.gray100};
   animation: ${rotate} 1s linear infinite;
 `;
 
@@ -34,7 +34,7 @@ const StyledDiv = styled.div`
   hr {
     width: 100%;
     border: 0;
-    border-top: 1px solid #cdcdcd;
+    border-top: 1px solid ${({ theme }) => theme.colors.colorStyles.gray400};
   }
 
   .more-container {
@@ -42,7 +42,7 @@ const StyledDiv = styled.div`
     display: inline-flex;
     padding: 9px 20px;
     border-radius: 100px;
-    background: var(--Gray200, #f5f5f5);
+    background: ${({ theme }) => theme.colors.colorStyles.gray200};
     gap: 12px;
 
     &:hover,
@@ -53,7 +53,7 @@ const StyledDiv = styled.div`
     .text {
       display: inline-block;
       white-space: nowrap;
-      color: var(--Gray700, #686868);
+      color: ${({ theme }) => theme.colors.colorStyles.gray700};
 
       /* Caption-S */
       font-family: Pretendard;

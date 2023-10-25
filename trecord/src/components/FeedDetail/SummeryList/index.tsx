@@ -1,4 +1,4 @@
-import { recordList } from '@/types';
+import { recordList } from '@/types/record';
 import { CircleTag } from './CircleTag/inedx';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
