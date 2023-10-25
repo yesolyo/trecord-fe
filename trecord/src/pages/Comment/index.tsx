@@ -1,5 +1,5 @@
 import { CommentList } from '@components/Comment/CommentList';
-import { NavBarNew } from '@components/common/navBar/NavBarNew';
+import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
