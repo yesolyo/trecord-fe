@@ -25,6 +25,7 @@ const StyledNavbar = styled.div`
   justify-content: space-between;
   padding-left: 20px;
   z-index: 10;
+  background: ${({ theme }) => theme.colors.colorStyles.gray100};
 `;
 
 export const Fallback = (): ReactElement => {
