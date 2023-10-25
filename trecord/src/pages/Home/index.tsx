@@ -1,5 +1,5 @@
 import { FeedHome, Fallback as FeedHomeFallback } from '@components/FeedHome';
-import { NavBarHome } from '@components/common/navBar/NavBarHome';
+import { NavBarHome } from '@components/common/NavBar/NavBarHome';
 import { TabBar } from '@components/common/TabBar';
 import { useNavigate } from 'react-router-dom';
 import { CircularButton } from '@components/common/button/CircularButton';

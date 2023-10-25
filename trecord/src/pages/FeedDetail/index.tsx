@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
-import { NavBarBackBtn } from '@components/common/navBar/NavBarBackBtn';
+import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { Icon } from '@components/common/Icon';
 import { ViewRecord } from '@components/FeedDetail/ViewRecord';
 import { feelCategory } from '@/utils';
@@ -10,7 +10,7 @@ import { useDeleteFeed, useGetFeedDetail, useGtfOutFromFeed } from '@/apis';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_INFOS } from '@/types';
-import Skeleton from '@components/common/Skeleton';
+import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 import useGetRecordList from '@/apis/Feed/getRecordList';
 import ChipContainer from '@components/common/ChipContainer';

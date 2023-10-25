@@ -5,7 +5,7 @@ import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
-import { NavBarAllowProfile } from '@components/common/navBar/NavBarAllowProfile';
+import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
 import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
 import { ProfileFileProps } from '@/types/mypage';
