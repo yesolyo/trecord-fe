@@ -8,7 +8,7 @@ import ChipContainer from '@components/common/ChipContainer';
 import ImgInput from '@components/common/ImgInput';
 import Modal from '@components/common/Modal';
 import InviteModifyFeedModalBody from '@components/common/Modal/ModalBody/InviteModifyFeedModalBody';
-import { NavBarNew } from '@components/common/NavBar/NavBarNew';
+import { NavBarNew } from '@components/common/navBar/NavBarNew';
 import { SquareButton } from '@components/common/button/SquareButton';
 import { DateInput } from '@components/common/input/DateInput';
 import { TextInput } from '@components/common/input/TextInput';
