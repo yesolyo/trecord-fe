@@ -2,14 +2,15 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { Fragment } from 'react';
 import { CommentCateogory } from '../CommentCategory';
-import { CommentUserModalProps, GetNewCommentResponse } from '@/types/comment';
+import { CommentUserModalProps, GetComment } from '@/types/comment';
 import { deletDataProps } from '../CommentModal';
 import { CommentReplyBtn } from '../CommentReplyBtn';
 import Pagination from '@components/common/Pagination';
 import { replaceDate } from '@/utils/replaceDate';
+import { Page } from '@/types';
 
 interface commentListProps {
-  commentData: GetNewCommentResponse;
+  commentData: Page<GetComment>;
   onUserProfile: () => void;
   onUserProfileData: ({
     imgUrl,

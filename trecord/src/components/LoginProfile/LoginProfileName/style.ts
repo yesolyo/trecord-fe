@@ -11,7 +11,7 @@ export const Layout = styled.div`
 
   input {
     height: 40px;
-    width: 270px;
+    width: 217px;
     padding-left: 12px;
     padding-top: 2px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
@@ -25,7 +25,7 @@ export const Layout = styled.div`
   }
   .container {
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
   .button {
     width: 50px;

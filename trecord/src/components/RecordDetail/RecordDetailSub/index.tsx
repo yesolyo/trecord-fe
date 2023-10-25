@@ -1,4 +1,4 @@
-import { recordDetailList } from '@/types';
+import { recordDetailList } from '@/types/record';
 import * as S from './style';
 interface RecordDetailSubProps {
   recordData: recordDetailList;

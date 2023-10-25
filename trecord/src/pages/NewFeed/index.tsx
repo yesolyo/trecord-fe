@@ -3,7 +3,6 @@ import { TextInput } from '@components/common/input/TextInput';
 import { useCallback, useMemo, useState } from 'react';
 import * as S from './style';
 import { DateInput } from '@components/common/input/DateInput';
-import { Satisfaction } from '@components/NewFeed/Satisfaction';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
 import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +13,8 @@ import Modal from '@components/common/Modal';
 import InviteFeedModalBody from '@components/common/Modal/ModalBody/InviteFeedModalBody';
 import { User } from '@/types/user';
 import ChipContainer from '@components/common/ChipContainer';
+import { SelectionBox } from '@components/common/SelectionBox';
+import { SELECT_SATISFACTION_INFOS } from '@/types';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -140,10 +141,15 @@ export const NewFeed = () => {
           labelTitle="여행 설명"
           inputTitle="여행에 대해 설명해주세요 (최대 100자)"
         />
-        <Satisfaction
-          inputValue={satisfaction}
-          inputSetValue={setSatisfaction}
-        />
+        <div className="selection-box">
+          <SelectionBox
+            title="여행 만족도"
+            list={SELECT_SATISFACTION_INFOS}
+            confirm={satisfaction}
+            onClick={setSatisfaction}
+          />
+        </div>
+
         <NewFeedBtn
           imageFile={titleImgFile}
           imageUrl={titleImgUrl}

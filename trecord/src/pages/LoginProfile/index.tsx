@@ -5,33 +5,47 @@ import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
+import { ProfileFileProps } from '@/types/mypage';
 
 export const LoginProfile = () => {
-  const [profileFile, setProfileFile] = useState<{
-    imgFile: string;
-    originFile: File | Blob | string;
-  }>({
+  const [profileFile, setProfileFile] = useState<ProfileFileProps>({
     imgFile: '',
     originFile: '',
   });
   const [profileUrl, setProfilUrl] = useState<string>('');
-  const [nickName, setNickName] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
-  const [isNickName, setIsNickName] = useState<boolean>(true);
+  const [isDuplicateNickname, setIsDuplicateNickname] = useState<boolean>(true);
+  const [edit, setEdit] = useState(true);
+  const handleSaveProfileFile = (file: ProfileFileProps) => {
+    setProfileFile(file);
+  };
+  const handleCheckDuplicateNickname = (b: boolean) => {
+    setIsDuplicateNickname(b);
+  };
+
+  const handleSaveNickname = (name: string) => {
+    setNickname(name);
+  };
+  const handleClickEdit = (b: boolean) => {
+    setEdit(b);
+  };
 
   const constant = {
     navBarProfile: {
-      mainTitle: '프로필',
-      subTitle: '다른 사용자에게 보여지는 프로필을 설정해주세요',
+      title: '프로필',
+      body: '다른 사용자에게 보여지는 프로필을 설정해주세요',
     },
     profileImg: {
-      profileFile: setProfileFile,
-      profileFileValue: profileFile,
+      onSaveProfileFile: handleSaveProfileFile,
+      profileFile: profileFile,
     },
     profileName: {
-      nickNameValue: nickName,
-      nickNameSetValue: setNickName,
-      setIsNickName,
+      nickname,
+      onSaveNickname: handleSaveNickname,
+      onCheckDuplicateNickname: handleCheckDuplicateNickname,
+      edit,
+      onClickEdit: handleClickEdit,
     },
     profileIntroduce: {
       introduceValue: introduce,
@@ -41,9 +55,9 @@ export const LoginProfile = () => {
       imageFile: profileFile,
       saveImageUrl: setProfilUrl,
       imageUrl: profileUrl,
-      nickNameValue: nickName,
+      nickname,
       intrduceValue: introduce,
-      isNickName,
+      isDuplicateNickname,
       title: '시작하기',
     },
   };

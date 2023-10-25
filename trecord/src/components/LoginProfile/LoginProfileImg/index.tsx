@@ -1,17 +1,16 @@
 import { useRef, useState } from 'react';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
+import { ProfileFileProps } from '@/types/mypage';
 interface LoginProfileImgPrpos {
-  profileFile: React.Dispatch<
-    React.SetStateAction<{ imgFile: string; originFile: File | Blob | string }>
-  >;
-  profileFileValue: { imgFile: string; originFile: File | Blob | string };
+  onSaveProfileFile: (file: ProfileFileProps) => void;
+  profileFile: ProfileFileProps;
   profileUrl?: string;
 }
 
 export const LoginProfileImg = ({
+  onSaveProfileFile,
   profileFile,
-  profileFileValue,
   profileUrl,
 }: LoginProfileImgPrpos) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
@@ -24,7 +23,7 @@ export const LoginProfileImg = ({
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         if (file !== null && reader.result) {
-          profileFile({
+          onSaveProfileFile({
             imgFile: String(reader.result),
             originFile: file,
           });
@@ -42,7 +41,7 @@ export const LoginProfileImg = ({
     } else if (isProfileActive) {
       return (
         <img
-          src={profileFileValue.imgFile}
+          src={profileFile.imgFile}
           alt="프로필 이미지"
           height="280"
           width="180"

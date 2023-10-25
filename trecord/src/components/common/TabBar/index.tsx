@@ -8,6 +8,7 @@ import { RealTimeContext } from '../RealTimeNotification';
 interface TabBarProps {
   currentPage: string;
 }
+
 export const TabBar = ({ currentPage }: TabBarProps) => {
   const navigate = useNavigate();
   const state = useContext(RealTimeContext);

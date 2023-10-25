@@ -10,7 +10,7 @@ const StyledProfile = styled.div`
     gap: 12px;
 
     .name {
-      color: var(--Gray900, #1e1e1e);
+      color: ${({ theme }) => theme.colors.colorStyles.gray900};
       font-family: Pretendard;
       font-size: 16px;
       font-style: normal;
