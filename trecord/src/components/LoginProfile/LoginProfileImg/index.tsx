@@ -53,23 +53,21 @@ export const LoginProfileImg = ({
   };
 
   return (
-    <>
-      <S.ImgBox>
-        {ChoiceImage()}
-        <S.UploadBox>
-          <label htmlFor="input-file">
-            <Icon iconType="add" width={24} />
-          </label>
-          <input
-            type="file"
-            id="input-file"
-            accept="image/*"
-            ref={fileInput}
-            onChange={handleSaveImgFile}
-            style={{ display: 'none' }}
-          />
-        </S.UploadBox>
-      </S.ImgBox>
-    </>
+    <S.Layout>
+      {ChoiceImage()}
+      <div className="upload-box">
+        <label htmlFor="input-file">
+          <Icon iconType="add" width={24} />
+        </label>
+        <input
+          type="file"
+          id="input-file"
+          accept="image/*"
+          ref={fileInput}
+          onChange={handleSaveImgFile}
+          style={{ display: 'none' }}
+        />
+      </div>
+    </S.Layout>
   );
 };

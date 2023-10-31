@@ -3,15 +3,18 @@ import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
-import { ProfileNewButton } from '@components/common/button/ProfileNewButton';
 import { TabBar } from '@components/common/TabBar';
 import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
 import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
 import { ProfileFileProps } from '@/types/mypage';
+import { SquareBtn } from '@components/common/SquareBtn';
+import { uploadS3 } from '@/utils/image';
+import usePostNewUser from '@/apis/User/postNewUser';
 
 export const ModifyProfile = () => {
   const navigate = useNavigate();
+  const { mutate } = usePostNewUser();
   const [profileFile, setProfileFile] = useState<ProfileFileProps>({
     imgFile: '',
     originFile: '',
@@ -31,6 +34,9 @@ export const ModifyProfile = () => {
   const handleSaveNickname = (name: string) => {
     setNickname(name);
   };
+  const handleSaveIntroduce = (s: string) => {
+    setIntroduce(s);
+  };
   const handleSaveProfileFile = (file: ProfileFileProps) => {
     setProfileFile(file);
   };
@@ -45,13 +51,38 @@ export const ModifyProfile = () => {
     }
   }, [data]);
 
+  const handleClickRegisterNewUser = async (e: any) => {
+    e.preventDefault();
+    let url = data?.imageUrl;
+    if (profileFile.originFile) {
+      try {
+        url = (await uploadS3({ imageFile: profileFile.originFile })) ?? '';
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    mutate(
+      {
+        nickname,
+        imageUrl: url,
+        introduction: introduce,
+      },
+      {
+        onSuccess: () => {
+          navigate('/mypage', { replace: true });
+        },
+      },
+    );
+  };
+
   return (
     <>
       <NavBarAllowProfile
         mainTitle="마이페이지"
         onClick={() => navigate('/mypage')}
       />
-      <S.ProfileBox>
+      <S.ProfileBox onSubmit={handleClickRegisterNewUser}>
         <LoginProfileImg
           onSaveProfileFile={handleSaveProfileFile}
           profileFile={profileFile}
@@ -65,22 +96,15 @@ export const ModifyProfile = () => {
           onClickEdit={handleClickEdit}
         />
         <LoginProfileIntroduce
-          introduceValue={introduce}
-          introduceSetValue={setIntroduce}
+          introduce={introduce}
+          onSaveIntroduce={handleSaveIntroduce}
         />
-        <S.BtnBox>
-          <ProfileNewButton
-            imageFile={profileFile}
-            saveImageUrl={setProfilUrl}
-            imageUrl={profileUrl}
-            nickname={nickname}
-            intrduceValue={introduce}
-            isDuplicateNickname={isDuplicateNickname}
-            title="변경하기"
-          ></ProfileNewButton>
-        </S.BtnBox>
+        <SquareBtn
+          type="submit"
+          title="시작하기"
+          disabled={isDuplicateNickname}
+        />
       </S.ProfileBox>
-
       <TabBar currentPage="mypage" />
     </>
   );
