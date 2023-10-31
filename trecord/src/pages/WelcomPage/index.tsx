@@ -1,8 +1,8 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
-import { SquareButton } from '@components/common/button/SquareButton';
 import { Fragment } from 'react';
+import { SquareBtn } from '@components/common/SquareBtn';
 
 export const WelcomePage = () => {
   const navigate = useNavigate();
@@ -22,9 +22,7 @@ export const WelcomePage = () => {
     ],
     sqaureBtn: {
       title: '기록하기',
-      width: '212px',
       isDark: true,
-      height: '46px',
       onClick: () => navigate('/login'),
     },
   };
@@ -43,7 +41,11 @@ export const WelcomePage = () => {
           </Fragment>
         ))}
       </S.ExplainBox>
-      <SquareButton {...constant.sqaureBtn} />
+      <SquareBtn
+        title="기록하기"
+        isDark={true}
+        onClick={() => navigate('/login')}
+      />
     </S.Layout>
   );
 };

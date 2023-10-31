@@ -20,6 +20,7 @@ import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabB
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
 import usePostNewComment from '@/apis/Comment/postNewComment';
 import useModifyNewComment from '@/apis/Comment/modifyNewComment';
+import { Portal } from '@components/common/Portal';
 
 export const Comment = () => {
   const navigate = useNavigate();
@@ -160,11 +161,14 @@ export const Comment = () => {
 
   return (
     <>
-      <CommentUserModal
-        openModal={isUserProfile}
-        onUserProfile={handleSelectUserProfile}
-        {...userProfileData}
-      />
+      <Portal>
+        <CommentUserModal
+          openModal={isUserProfile}
+          onUserProfile={handleSelectUserProfile}
+          {...userProfileData}
+        />
+      </Portal>
+
       <NavBarNew {...constant} />
       {newCommentData && (
         <CommentList

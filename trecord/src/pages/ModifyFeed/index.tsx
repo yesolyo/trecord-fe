@@ -9,7 +9,6 @@ import ImgInput from '@components/common/ImgInput';
 import Modal from '@components/common/Modal';
 import InviteModifyFeedModalBody from '@components/common/Modal/ModalBody/InviteModifyFeedModalBody';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { SquareButton } from '@components/common/button/SquareButton';
 import { DateInput } from '@components/common/input/DateInput';
 import { TextInput } from '@components/common/input/TextInput';
 import { TextareaInput } from '@components/common/input/TextareaInput';
@@ -18,6 +17,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { SelectionBox } from '@components/common/SelectionBox';
 import { SELECT_SATISFACTION_INFOS } from '@/types';
+import { SquareBtn } from '@components/common/SquareBtn';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -250,10 +250,9 @@ const ModifyFeed = (): ReactElement => {
           confirm={satisfaction}
           onClick={setSatisfaction}
         />
-        <SquareButton
+        <SquareBtn
+          size="l"
           title="완료"
-          width="342px"
-          height="56px"
           isDark={true}
           disabled={disabled}
           onClick={handleClickNext}

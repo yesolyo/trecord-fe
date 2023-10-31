@@ -1,5 +1,6 @@
-import { SquareButton } from '@components/common/button/SquareButton';
+import { Icon } from '@components/common/Icon';
 import * as S from './style';
+import { SquareBtn } from '@components/common/SquareBtn';
 interface commentUserModalProps {
   openModal: boolean;
   imgUrl: string;
@@ -11,16 +12,15 @@ export const CommentUserModal = ({ ...props }: commentUserModalProps) => {
   return (
     <S.Layout display={props.openModal ? 'flex' : 'none'}>
       <div className="profile">
-        <img src={props.imgUrl} className="user-img" />
+        {props.imgUrl ? (
+          <img src={props.imgUrl} className="user-img" />
+        ) : (
+          <Icon iconType="profile" width={74} />
+        )}
+
         <div className="title">{props.nickName}</div>
         <div className="body">{props.content}</div>
-        <SquareButton
-          title="확인"
-          width="238px"
-          height="41px"
-          isDark={true}
-          onClick={props.onUserProfile}
-        />
+        <SquareBtn title="확인" isDark={true} onClick={props.onUserProfile} />
       </div>
     </S.Layout>
   );
