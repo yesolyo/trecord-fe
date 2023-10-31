@@ -96,10 +96,7 @@ const ModifyFeed = (): ReactElement => {
     () => contributors.map((c) => c.userId),
     [contributors],
   );
-  // const contributerNames = useMemo(
-  //   () => contributors.map((c) => c.nickname ?? ''),
-  //   [contributors],
-  // );
+
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
 
