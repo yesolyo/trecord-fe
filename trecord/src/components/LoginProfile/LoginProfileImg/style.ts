@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
-  /* margin-top: 50px;
-  margin-bottom: 80px;
-  margin-left: -37px; */
-`;
-export const ImgBox = styled.div`
   margin-top: 50px;
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 
   position: relative;
   z-index: 0;
@@ -19,10 +14,10 @@ export const ImgBox = styled.div`
     height: 74px;
     border-radius: 50%;
   }
-`;
 
-export const UploadBox = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 50px;
+  .upload-box {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+  }
 `;

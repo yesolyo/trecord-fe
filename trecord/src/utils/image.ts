@@ -15,7 +15,7 @@ export const uploadS3 = async ({
     },
   });
 
-  const key = imageFile instanceof File ? uuid() : Date.now(); // 이름이 없을 경우 현재 시간을 이름으로 지정
+  const key = uuid();
 
   const params = {
     ACL: 'public-read',

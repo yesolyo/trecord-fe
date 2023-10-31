@@ -1,11 +1,11 @@
 import * as S from './style';
 interface LoginProfileIntroduce {
-  introduceValue: string;
-  introduceSetValue: React.Dispatch<React.SetStateAction<string>>;
+  introduce: string;
+  onSaveIntroduce: (s: string) => void;
 }
 export const LoginProfileIntroduce = ({
-  introduceValue,
-  introduceSetValue,
+  introduce,
+  onSaveIntroduce,
 }: LoginProfileIntroduce) => {
   return (
     <S.Layout>
@@ -14,8 +14,8 @@ export const LoginProfileIntroduce = ({
         rows={5}
         cols={33}
         placeholder="자신을 소개하는 말을 입력해주세요(최대 50자)"
-        value={introduceValue}
-        onChange={(e) => introduceSetValue(e.target.value)}
+        value={introduce}
+        onChange={(e) => onSaveIntroduce(e.target.value)}
       />
     </S.Layout>
   );
