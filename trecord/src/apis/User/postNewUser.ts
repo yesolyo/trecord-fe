@@ -5,7 +5,7 @@ import USER_API_KEY from './constants';
 
 export interface newUserProps {
   nickname: string;
-  imageUrl: string;
+  imageUrl: string | undefined;
   introduction: string;
 }
 
