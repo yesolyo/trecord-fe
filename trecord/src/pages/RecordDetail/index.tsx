@@ -140,6 +140,7 @@ export const RecordDetail = () => {
       {recordData && (
         <TabBarRecord
           isRegister={false}
+          hasEditPermission={recordData.canModifyRecord}
           isActiveLike={recordData.liked}
           recordId={recordData.recordId}
           onNextClick={() => navigate(`/comment/${recordId}`)}

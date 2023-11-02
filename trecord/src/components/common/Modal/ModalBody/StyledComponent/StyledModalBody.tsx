@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledModalBody = styled.div`
   display: flex;
   flex-direction: column;
+
   /* padding: 21px; */
   gap: 20px;
 

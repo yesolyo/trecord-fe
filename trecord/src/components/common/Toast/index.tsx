@@ -1,5 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import * as S from './style';
+import { Portal } from '../Portal';
 interface ToastContextProps {
   showToast: (message: string, duration?: number) => void;
 }
@@ -29,11 +30,13 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
     <ToastContext.Provider value={{ showToast }}>
       {children}
       {toast && (
-        <S.Layout>
-          <div className={`toast ${toast ? '' : 'exiting'}`}>
-            {toast.message}
-          </div>
-        </S.Layout>
+        <Portal>
+          <S.Layout>
+            <div className={`toast ${toast ? '' : 'exiting'}`}>
+              {toast.message}
+            </div>
+          </S.Layout>
+        </Portal>
       )}
     </ToastContext.Provider>
   );

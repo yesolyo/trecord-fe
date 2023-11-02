@@ -3,18 +3,13 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   justify-content: center;
-  align-items: end;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  bottom: 2vh;
   left: 0;
   right: 0;
-  bottom: 0;
   pointer-events: none; /* So that it doesn't block other UI elements */
   z-index: 1500;
   padding: 10%;
-  @media (min-width: 431px) {
-    padding: 19vh;
-  }
 
   .toast {
     padding: 12px 16px;
