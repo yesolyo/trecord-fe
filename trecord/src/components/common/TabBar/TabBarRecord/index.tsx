@@ -5,12 +5,14 @@ import usePostLike from '@/apis/Like/postLike';
 interface TabBarRecordProps {
   isRegister: boolean;
   isActiveLike?: boolean;
+  hasEditPermission?: boolean;
   recordId?: number;
   onPrevClick?: () => void;
   onNextClick?: () => void;
 }
 export const TabBarRecord = ({
   isRegister,
+  hasEditPermission = true,
   isActiveLike,
   recordId,
   onPrevClick,
@@ -34,20 +36,24 @@ export const TabBarRecord = ({
   return (
     <S.Layout>
       <div className="container">
-        {isRegister ? (
-          <>
-            <Icon iconType="camera" width={24} onClick={onPrevClick} />
-            <Icon iconType="gallery" width={24} onClick={onNextClick} />
-          </>
+        {hasEditPermission ? (
+          isRegister ? (
+            <>
+              <Icon iconType="camera" width={24} onClick={onPrevClick} />
+              <Icon iconType="gallery" width={24} onClick={onNextClick} />
+            </>
+          ) : (
+            <>
+              <Icon
+                iconType={isLike ? 'activeHeart' : 'heart'}
+                width={24}
+                onClick={handlePostLike}
+              />
+              <Icon iconType="message" width={24} onClick={onNextClick} />
+            </>
+          )
         ) : (
-          <>
-            <Icon
-              iconType={isLike ? 'activeHeart' : 'heart'}
-              width={24}
-              onClick={handlePostLike}
-            />
-            <Icon iconType="message" width={24} onClick={onNextClick} />
-          </>
+          ''
         )}
       </div>
     </S.Layout>

@@ -9,7 +9,7 @@ import {
 import { Icon } from '../../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../../Toast';
-import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
+import { useGetUser, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
@@ -25,20 +25,13 @@ interface Props {
 }
 
 const InputContainer = observer(
-  ({
-    writerId,
-    feedId,
-    inputValue,
-    inputValueSetter: setInputValue,
-  }: Props) => {
+  ({ feedId, inputValue, inputValueSetter: setInputValue }: Props) => {
     const { feedStore } = useStore();
 
     const [enabled, setEnabled] = useState(false);
     const [list, setList] = useState<User[]>(feedStore.contributors);
     const { data: userData } = useGetUser({ q: inputValue, enabled });
     const { mutate } = useInviteUser();
-    const { mutate: gtfOut } = useGtfOutFromFeed();
-
     const handleClickSearch = useCallback(() => {
       setEnabled(true);
     }, []);
@@ -50,7 +43,7 @@ const InputContainer = observer(
             { feedId: feedId.toString(), userToId: userData.userId },
             {
               onSuccess: () => {
-                setList([...list, userData]);
+                setList([userData]);
                 setInputValue('');
               },
             },
@@ -58,27 +51,6 @@ const InputContainer = observer(
         } else setInputValue('');
       }
     }, [userData]);
-
-    const handleClickRemove = useCallback(
-      (id: number) => {
-        gtfOut(
-          {
-            feedId,
-            userId: id,
-          },
-          {
-            onSuccess: () => {
-              const newList: User[] = JSON.parse(JSON.stringify(list));
-              const index = newList.findIndex((x) => x.userId === id);
-              newList.splice(index, 1);
-
-              if (index > -1) setList(newList);
-            },
-          },
-        );
-      },
-      [gtfOut],
-    );
 
     useEffect(() => {
       setEnabled(false);
@@ -115,27 +87,6 @@ const InputContainer = observer(
                 </div>
               </StyledProfile>
             )}
-          <div className="user-list">
-            {list.map((l) => (
-              <StyledProfile onClick={handleClickResult} key={l.userId}>
-                <div className="profile">
-                  {l.imageUrl && <img src={l.imageUrl} />}
-                  {!l.imageUrl && (
-                    <Icon iconType="profile" width={24} height={24} />
-                  )}
-                  <div className="name">{l.nickname}</div>
-                </div>
-                <div
-                  style={{
-                    display: l.userId === writerId ? 'none' : undefined,
-                  }}
-                  onClick={() => handleClickRemove(l.userId)}
-                >
-                  <Icon iconType="close" width={24} height={24} />
-                </div>
-              </StyledProfile>
-            ))}
-          </div>
         </div>
       </div>
     );

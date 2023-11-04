@@ -8,7 +8,6 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
-import { SquareButton } from '@components/common/button/SquareButton';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 import { SelectionBox } from '@components/common/SelectionBox';
 import {
@@ -16,6 +15,7 @@ import {
   SELECT_MOVE_INFOS,
   SELECT_WEATHER_INFOS,
 } from '@/types';
+import { SquareBtn } from '@components/common/SquareBtn';
 
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
@@ -45,23 +45,6 @@ const ModifyRecord = observer((): ReactElement => {
   const [move, setMove] = useState(data?.transportation ?? '');
 
   const navigate = useNavigate();
-
-  const isDisabled =
-    !(
-      title.length > 0 &&
-      startDate.length > 0 &&
-      weather.length > 0 &&
-      place.placeName.length > 0 &&
-      feel.length > 0 &&
-      move.length > 0
-    ) ||
-    (thumbNail.url === data?.imageUrl &&
-      title === data?.title &&
-      startDate === data.date &&
-      weather === data.weather &&
-      place.placeName === data.place &&
-      feel === data.feeling &&
-      move === data.transportation);
 
   const handleClickNext = () => {
     recordStore.setId(recordId);
@@ -140,16 +123,12 @@ const ModifyRecord = observer((): ReactElement => {
             onClick={setMove}
           />
         </div>
-        <div className="new_btn">
-          <SquareButton
-            title="다음"
-            width="342px"
-            height="56px"
-            disabled={isDisabled}
-            isDark={true}
-            onClick={handleClickNext}
-          />
-        </div>
+        <SquareBtn
+          size="l"
+          title="다음"
+          isDark={true}
+          onClick={handleClickNext}
+        />
       </S.Layout>
     </>
   );

@@ -4,7 +4,6 @@ import { useCallback, useMemo, useState } from 'react';
 import * as S from './style';
 import { DateInput } from '@components/common/input/DateInput';
 import { NewTitleImg } from '@components/NewFeed/NewTitleImg';
-import { NewFeedBtn } from '@components/NewFeed/NewFeedBtn';
 import { useNavigate } from 'react-router-dom';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
@@ -15,6 +14,9 @@ import { User } from '@/types/user';
 import ChipContainer from '@components/common/ChipContainer';
 import { SelectionBox } from '@components/common/SelectionBox';
 import { SELECT_SATISFACTION_INFOS } from '@/types';
+import { SquareBtn } from '@components/common/SquareBtn';
+import useNewFeed from '@/apis/Feed/newFeed';
+import { uploadS3 } from '@/utils/image';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -46,6 +48,7 @@ const StyledDiv = styled.div`
 `;
 
 export const NewFeed = () => {
+  const { mutate } = useNewFeed();
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
     originFile: File | Blob | string;
@@ -53,7 +56,6 @@ export const NewFeed = () => {
     imgFile: '',
     originFile: '',
   });
-  const [titleImgUrl, setTitleImgUrl] = useState<string>('');
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState<{
     placeName: string;
@@ -71,10 +73,7 @@ export const NewFeed = () => {
     () => contributors.map((c) => c.userId),
     [contributors],
   );
-  // const contributerNames = useMemo(
-  //   () => contributors.map((c) => c.nickname ?? ''),
-  //   [contributors],
-  // );
+
   const [tripIntroduce, setTripIntroduce] = useState('');
   const [satisfaction, setSatisfaction] = useState('');
   const navigate = useNavigate();
@@ -83,6 +82,43 @@ export const NewFeed = () => {
   const handleClickContributer = useCallback(() => {
     setOpenModal(true);
   }, []);
+
+  const isDisabled = !(
+    title.length > 0 &&
+    startAt.length > 0 &&
+    endAt.length > 0
+  );
+
+  const handleClickNewFeedButton = async (e: any) => {
+    e.preventDefault();
+    let url = '';
+    if (titleImgFile.originFile) {
+      try {
+        url = (await uploadS3({ imageFile: titleImgFile.originFile })) ?? '';
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    mutate(
+      {
+        name: title,
+        satisfaction,
+        place: place.placeName,
+        imageUrl: url,
+        latitude: place.lat,
+        longitude: place.lng,
+        startAt: `${startAt}T00:00`,
+        endAt: `${endAt}T00:00`,
+        description: tripIntroduce,
+        contributors: contributerIds,
+      },
+      {
+        onSuccess: () => {
+          navigate('/home');
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -149,21 +185,12 @@ export const NewFeed = () => {
             onClick={setSatisfaction}
           />
         </div>
-
-        <NewFeedBtn
-          imageFile={titleImgFile}
-          imageUrl={titleImgUrl}
-          saveImageUrl={setTitleImgUrl}
-          name={title}
-          satisfaction={satisfaction}
-          place={place.placeName}
-          latitude={place.lat}
-          longitude={place.lng}
-          startAt={startAt}
-          endAt={endAt}
-          description={tripIntroduce}
-          contributors={contributerIds}
+        <SquareBtn
           title="완료"
+          size="l"
+          disabled={isDisabled}
+          isDark={true}
+          onClick={handleClickNewFeedButton}
         />
       </S.Layout>
       <Modal openModal={openModal} onClose={() => setOpenModal(false)}>
