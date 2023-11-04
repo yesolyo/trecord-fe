@@ -17,7 +17,6 @@ export const LoginProfile = () => {
     imgFile: '',
     originFile: '',
   });
-  const [profileUrl, setProfilUrl] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
   const [isDuplicateNickname, setIsDuplicateNickname] = useState<boolean>(true);

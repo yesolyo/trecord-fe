@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import ImgInput from '@components/common/ImgInput';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { SquareButton } from '@components/common/button/SquareButton';
 import styled from 'styled-components';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
 import { SelectionBox } from '@components/common/SelectionBox';
@@ -15,6 +14,7 @@ import {
   SELECT_MOVE_INFOS,
   SELECT_WEATHER_INFOS,
 } from '@/types';
+import { SquareBtn } from '@components/common/SquareBtn';
 
 const StyledFrame = styled.div`
   display: flex;
@@ -153,16 +153,13 @@ export const NewRecord = observer(() => {
             onClick={setMove}
           />
         </div>
-        <div className="new_btn">
-          <SquareButton
-            title="다음"
-            width="342px"
-            height="56px"
-            disabled={isDisabled}
-            isDark={true}
-            onClick={handleClickNext}
-          />
-        </div>
+        <SquareBtn
+          title="다음"
+          size="l"
+          disabled={isDisabled}
+          isDark={true}
+          onClick={handleClickNext}
+        />
       </StyledFrame>
     </>
   );

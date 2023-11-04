@@ -1,7 +1,7 @@
 import * as S from './style';
-import { SquareButton } from '@components/common/button/SquareButton';
 import { useParams } from 'react-router-dom';
 import { postNewCommentProps } from '@/types/comment';
+import { SquareBtn } from '@components/common/SquareBtn';
 interface Props {
   newComment: string;
   onNewComment: (content: string) => void;
@@ -22,10 +22,9 @@ export const TabBarNewComment = ({
         value={newComment}
         onChange={(e: any) => onNewComment(e.target.value)}
       />
-      <SquareButton
+      <SquareBtn
+        size="s"
         title="등록"
-        width="61px"
-        height="48px"
         isDark={true}
         disabled={newComment.length <= 0}
         onClick={() =>

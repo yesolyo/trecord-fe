@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import * as S from './style';
+import { Portal } from '../Portal';
 export type Size = 'medium' | 'large';
 interface Props {
   size?: Size;
@@ -72,21 +73,23 @@ const Modal = ({
   }, [openModal, onClose]);
 
   return (
-    <S.Layout size={size} display={openModal ? 'flex' : 'none'}>
-      <div className="modal" ref={modalRef}>
-        {!children && (
-          <ModalBody
-            title={title}
-            body={body}
-            closeText={closeText}
-            confirmText={confirmText}
-            onClose={onClose}
-            onConfirm={onConfirm}
-          />
-        )}
-        {children}
-      </div>
-    </S.Layout>
+    <Portal>
+      <S.Layout size={size} display={openModal ? 'flex' : 'none'}>
+        <div className="modal" ref={modalRef}>
+          {!children && (
+            <ModalBody
+              title={title}
+              body={body}
+              closeText={closeText}
+              confirmText={confirmText}
+              onClose={onClose}
+              onConfirm={onConfirm}
+            />
+          )}
+          {children}
+        </div>
+      </S.Layout>
+    </Portal>
   );
 };
 
