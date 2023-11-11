@@ -4,14 +4,14 @@ import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { Fragment } from 'react';
 interface RecordSummaryProps {
-  listData: recordList[];
+  recordListData: recordList[];
 }
 
-export const SummeryList = ({ listData }: RecordSummaryProps) => {
+export const SummeryList = ({ recordListData }: RecordSummaryProps) => {
   const result: { [dayNumber: number]: any[] } = {};
 
   // 데이터를 순회하며 dayNumber를 기준으로 객체를 재구성
-  listData.forEach((item) => {
+  recordListData.forEach((item) => {
     const dayNumber = item.dayNumber;
     if (!result[dayNumber]) {
       result[dayNumber] = [];
