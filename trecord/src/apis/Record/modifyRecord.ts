@@ -4,7 +4,7 @@ import { http } from '../_http';
 import RECORD_API_KEY from './constants';
 
 interface Props {
-  imageUrl?: string;
+  imageUrl?: string | undefined | null;
   recordId: string;
   title: string;
   date: string;
