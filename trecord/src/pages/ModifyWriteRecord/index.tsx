@@ -17,41 +17,37 @@ const ModifyWriteRecord = observer((): ReactElement => {
 
   const { mutate } = useModifyRecord({ id: recordId });
 
-  const putData = async () => {
-    const getToken = localStorage.getItem('acessToken');
+  const handleModifyRecord = async () => {
+    let imgUrl: string | null | undefined = recordStore.thumbNail.url;
 
-    if (getToken) {
-      let imgUrl: string | undefined;
+    if (recordStore.thumbNail.data)
+      imgUrl = await uploadS3({ imageFile: recordStore.thumbNail.data });
 
-      if (recordStore.thumbNail.data)
-        imgUrl = await uploadS3({ imageFile: recordStore.thumbNail.data });
-
-      mutate(
-        {
-          recordId,
-          imageUrl: imgUrl,
-          title: recordStore.title,
-          date: `${recordStore.startDate}T00:00`,
-          place: recordStore.place,
-          longitude: recordStore.longitude,
-          latitude: recordStore.latitude,
-          feeling: recordStore.feel,
-          weather: recordStore.weather,
-          transportation: recordStore.move,
-          content,
+    mutate(
+      {
+        recordId,
+        imageUrl: imgUrl,
+        title: recordStore.title,
+        date: `${recordStore.startDate}T00:00`,
+        place: recordStore.place,
+        longitude: recordStore.longitude,
+        latitude: recordStore.latitude,
+        feeling: recordStore.feel,
+        weather: recordStore.weather,
+        transportation: recordStore.move,
+        content,
+      },
+      {
+        onSuccess: () => {
+          recordStore.resetAll();
+          navigate(`/recordDetail/${recordId}`, {
+            state: {
+              feedId: recordStore.feedId,
+            },
+          });
         },
-        {
-          onSuccess: () => {
-            recordStore.resetAll();
-            navigate(`/recordDetail/${recordId}`, {
-              state: {
-                feedId: recordStore.feedId,
-              },
-            });
-          },
-        },
-      );
-    }
+      },
+    );
   };
 
   return (
@@ -64,7 +60,7 @@ const ModifyWriteRecord = observer((): ReactElement => {
           content === '<p><br></p>' ||
           content === recordStore.content
         }
-        registerClick={putData}
+        registerClick={handleModifyRecord}
         onClick={() => navigate(-1)}
       />
       <Editor content={content} contentSetter={setContent} />
