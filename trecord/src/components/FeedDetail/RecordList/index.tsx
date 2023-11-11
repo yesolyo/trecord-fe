@@ -4,34 +4,32 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from './DndContainer';
 import { recordList } from '@/types/record';
+import Pagination from '@components/common/Pagination';
 interface RecordListProps {
-  pageData: Page<recordList>;
+  recordListData: Page<recordList>;
   paginationLoading?: boolean;
   onClickPagination: () => void;
   feedId: string;
-  listData: recordList[];
   endDate: string;
   startDate: string;
 }
 export const RecordList = ({
-  pageData,
+  recordListData,
   paginationLoading = false,
   onClickPagination,
   feedId,
-  listData,
   endDate,
   startDate,
 }: RecordListProps) => {
-  const result = listData.reduce(
+  const result = recordListData.content.reduce(
     (acc, curr) => {
       const { date } = curr;
       if (acc[date]) acc[date].push(curr);
       else acc[date] = [curr];
       return acc;
     },
-    {} as Record<string, typeof listData>,
+    {} as Record<string, typeof recordListData.content>,
   );
-
   return (
     <S.Layout>
       {Object.entries(result).map(([dayKey, dayData]) => (
@@ -39,7 +37,6 @@ export const RecordList = ({
           <h2>{dayKey}</h2>
           <DndProvider backend={HTML5Backend}>
             <DndContainer
-              pageData={pageData}
               paginationLoading={paginationLoading}
               onClickPagination={onClickPagination}
               feedId={feedId}
@@ -50,6 +47,13 @@ export const RecordList = ({
           </DndProvider>
         </S.GroupBox>
       ))}
+      {!recordListData?.last && (
+        <Pagination
+          text="기록 더보기"
+          loading={paginationLoading}
+          onClick={onClickPagination}
+        />
+      )}
     </S.Layout>
   );
 };

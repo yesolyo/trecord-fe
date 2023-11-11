@@ -34,26 +34,23 @@ const StyledEmptyDiv = styled.div`
   }
 `;
 interface ViewRecordProps {
-  pageData: Page<recordList>;
+  recordListData: Page<recordList>;
   paginationLoading?: boolean;
   onClickPagination: () => void;
   feedId: string;
-  listData: recordList[];
   endDate: string;
   startDate: string;
 }
 export const ViewRecord = ({
-  pageData,
+  recordListData,
   paginationLoading = false,
   onClickPagination,
   feedId,
-  listData,
   endDate,
   startDate,
 }: ViewRecordProps) => {
   const [activeList, setActiveList] = useState('기록리스트');
   const [isActive, setIsActive] = useState(true);
-
   return (
     <S.Layout>
       <S.BtnBox>
@@ -74,20 +71,19 @@ export const ViewRecord = ({
           }}
         />
       </S.BtnBox>
-      {isActive && listData.length > 0 ? (
+      {isActive && recordListData.content.length > 0 ? (
         <RecordList
-          pageData={pageData}
+          recordListData={recordListData}
           paginationLoading={paginationLoading}
           onClickPagination={onClickPagination}
           feedId={feedId}
-          listData={listData}
           endDate={endDate}
           startDate={startDate}
         />
       ) : (
-        <SummeryList listData={listData} />
+        <SummeryList recordListData={recordListData.content} />
       )}
-      {listData.length === 0 && (
+      {recordListData.content.length === 0 && (
         <StyledEmptyDiv>
           <EmptyIcon />
           <p className="big">앗!</p>
