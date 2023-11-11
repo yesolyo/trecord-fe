@@ -12,9 +12,9 @@
 
 **✏️ 온보딩, 회원가입, 로그인**
 
-<img width="1000" alt="로그인로직" src="https://github.com/yesolyo/trecord-fe/assets/104904719/45876a0c-0778-482d-874d-7480f487104d">
+<p align="center"><img width="1200" alt="로그인로직" src="https://github.com/yesolyo/trecord-fe/assets/104904719/45876a0c-0778-482d-874d-7480f487104d"></P>
 
-| ![회원가입](https://github.com/yesolyo/trecord-fe/assets/104904719/738ee854-54f4-4b2a-b226-a1a9e9a15b02) | ![로그인](https://github.com/yesolyo/trecord-fe/assets/104904719/4ff84444-5014-482e-9982-7d271f962507) |
+| ![회원가입](https://github.com/yesolyo/trecord-fe/assets/104904719/9d20a52d-9e57-4451-980e-9bed9bd9d3ec) | ![로그인](https://github.com/yesolyo/trecord-fe/assets/104904719/52f1676a-e638-4759-88a4-9cf6205bbe06) |
 | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | 회원가입                                                                                                       | 로그인                                                                                                     |
 
