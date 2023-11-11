@@ -2,7 +2,6 @@ import update from 'immutability-helper';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import { Page } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RecordItem from './RecordItem';
