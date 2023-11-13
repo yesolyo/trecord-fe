@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as S from './style';
-import { TabBar } from '@components/common/TabBar';
+import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { MyPageMenu, mypageMenuProps } from '@components/MyPage/MyPageMenu';
@@ -87,7 +87,7 @@ export const MyPage = () => {
         onConfirm={() => navigate('/login')}
         onClose={() => setIsLogoutModal(false)}
       />
-      <TabBar currentPage="mypage" />
+      <MainTabBar currentPage="mypage" />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
-import { TabBar } from '@components/common/TabBar';
+import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { useState } from 'react';
 
 import AlarmFilterBox from '@components/Alarm/AlarmFilterBox';
@@ -62,7 +62,7 @@ export const Alarm = () => {
           onInvitation={handleInvitationAlarm}
         />
       </Portal>
-      <TabBar currentPage={'alarm'} />
+      <MainTabBar currentPage={'alarm'} />
       <NavBarProfile
         title="알림"
         isButton={true}

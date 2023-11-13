@@ -1,5 +1,4 @@
 import * as S from './style';
-import { Tag } from '@components/common/Tag';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
 import { feelSet } from '@/utils';
@@ -44,10 +43,6 @@ export const RecordDetailTitle = ({ recordData }: RecordDetailDataProps) => {
         <span className="first">이동수단</span>
         <Icon iconType={recordData.transportation} />
       </S.MoveBox>
-      <S.PeopleBox>
-        <span className="first">같이 간 사람</span>
-        {recordData.companion && <Tag title={recordData.companion} />}
-      </S.PeopleBox>
     </S.Layout>
   );
 };

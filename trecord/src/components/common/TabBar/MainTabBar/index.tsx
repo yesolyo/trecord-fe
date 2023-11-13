@@ -1,15 +1,15 @@
 import { colorStyles } from '@/styles/color';
-import { Icon } from '../Icon';
+import { Icon } from '../../Icon';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { RealTimeContext } from '../RealTimeNotification';
+import { RealTimeContext } from '../../RealTimeNotification';
 
 interface TabBarProps {
   currentPage: string;
 }
 
-export const TabBar = ({ currentPage }: TabBarProps) => {
+export const MainTabBar = ({ currentPage }: TabBarProps) => {
   const navigate = useNavigate();
   const state = useContext(RealTimeContext);
   return (

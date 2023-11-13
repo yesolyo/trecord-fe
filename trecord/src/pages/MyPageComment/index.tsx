@@ -2,7 +2,6 @@ import useGetMypageComment from '@/apis/Comment/getMypageComment';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
-import { deletDataProps } from '@components/Comment/CommentModal';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
@@ -15,7 +14,7 @@ export const MyPageComment = () => {
   const { data, refetch } = useGetMypageComment({ pageCount });
   const navigate = useNavigate();
 
-  const handleDeleteData = ({ id }: deletDataProps) => {
+  const handleDeleteData = (id: number) => {
     mutate(
       {
         commentId: id,
@@ -52,7 +51,7 @@ export const MyPageComment = () => {
         closeText="취소"
         confirmText="삭제하기"
         onClose={() => setIsModalActive(false)}
-        onConfirm={() => handleDeleteData({ id: commentId })}
+        onConfirm={() => handleDeleteData(commentId)}
       />
     </>
   );
