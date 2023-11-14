@@ -9,20 +9,29 @@ interface Props {
   replyData: GetReplyComment;
   onSaveCommentId: (id: number) => void;
   onSaveCommentType: (v: string) => void;
+  onSaveComment: (v: string) => void;
+  onIsDeleteModalActive: () => void;
 }
 
 export const ReplyCommentItem = ({
   replyData,
   onSaveCommentId,
   onSaveCommentType,
+  onIsDeleteModalActive,
+  onSaveComment,
 }: Props) => {
   const handleChangeSelect = (v: string) => {
     switch (v) {
       case 'MODIFY':
         onSaveCommentType('MODIFY');
         onSaveCommentId(replyData.commentId);
+        onSaveComment(replyData.content);
+
         return;
       case 'DELETE':
+        onIsDeleteModalActive();
+        onSaveCommentId(replyData.commentId);
+
         return;
       default:
     }

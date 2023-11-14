@@ -12,29 +12,27 @@ interface Props {
   onSaveCommentId: (id: number) => void;
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
+  onIsDeleteModalActive: () => void;
+  onSaveIsSuccess: (b: boolean) => void;
+  isSuccess: boolean;
 }
 
-export const CommentItem = ({
-  commentData,
-  onSaveCommentId,
-  onSaveCommentType,
-  onSaveComment,
-}: Props) => {
+export const CommentItem = ({ ...props }: Props) => {
   const handleChangeSelect = (v: string) => {
+    props.onSaveCommentType(v);
     switch (v) {
       case 'NEW':
-        onSaveCommentType('NEW');
         return;
       case 'MODIFY':
-        onSaveCommentType('MODIFY');
-        onSaveCommentId(commentData.commentId);
-        onSaveComment(commentData.content);
+        props.onSaveCommentId(props.commentData.commentId);
+        props.onSaveComment(props.commentData.content);
         return;
       case 'REPLY':
-        onSaveCommentType('REPLY');
-        onSaveCommentId(commentData.commentId);
+        props.onSaveCommentId(props.commentData.commentId);
         return;
       case 'DELETE':
+        props.onSaveCommentId(props.commentData.commentId);
+        props.onIsDeleteModalActive();
         return;
       default:
     }
@@ -42,15 +40,15 @@ export const CommentItem = ({
 
   return (
     <S.Layout>
-      {commentData.commenterImageUrl.length >= 1 ? (
-        <img src={commentData.commenterImageUrl} className="user-img" />
+      {props.commentData.commenterImageUrl.length >= 1 ? (
+        <img src={props.commentData.commenterImageUrl} className="user-img" />
       ) : (
         <Icon iconType="profile" width={28} />
       )}
       <div className="content_box">
         <div className="title-box">
-          <span>{commentData.commenterNickname}</span>
-          {commentData.isUpdatable ? (
+          <span>{props.commentData.commenterNickname}</span>
+          {props.commentData.isUpdatable ? (
             <SelectButton
               options={SELECT_MY_COMMENT_INFOS}
               onSelect={handleChangeSelect}
@@ -62,17 +60,11 @@ export const CommentItem = ({
             />
           )}
         </div>
-        <span className="content">{commentData.content}</span>
+        <span className="content">{props.commentData.content}</span>
         <span className="content_date">
-          {replaceDate({ date: commentData.commentCreatedDate })}
+          {replaceDate({ date: props.commentData.commentCreatedDate })}
         </span>
-        {commentData.replyCount > 0 && (
-          <ReplyCommentList
-            commentId={commentData.commentId}
-            onSaveCommentId={onSaveCommentId}
-            onSaveCommentType={onSaveCommentType}
-          />
-        )}
+        {props.commentData.replyCount > 0 && <ReplyCommentList {...props} />}
       </div>
     </S.Layout>
   );

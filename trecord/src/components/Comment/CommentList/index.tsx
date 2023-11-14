@@ -10,30 +10,26 @@ interface commentListProps {
   onSaveCommentId: (id: number) => void;
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
+  onIsDeleteModalActive: () => void;
+  onSaveIsSuccess: (b: boolean) => void;
+  onClickPageCount: () => void;
+  isSuccess: boolean;
 }
 
-export const CommentList = ({
-  commentData,
-  onSaveCommentId,
-  onSaveCommentType,
-  onSaveComment,
-}: commentListProps) => {
+export const CommentList = ({ ...props }: commentListProps) => {
   return (
     <S.Layout>
-      {commentData.content.map((c, index) => (
+      {props.commentData.content.map((c, index) => (
         <Fragment key={c.commentId}>
-          <CommentItem
-            commentData={c}
-            onSaveCommentId={onSaveCommentId}
-            onSaveCommentType={onSaveCommentType}
-            onSaveComment={onSaveComment}
-          />
-          {commentData.content.length !== index + 1 && (
+          <CommentItem {...props} commentData={c} />
+          {props.commentData.content.length !== index + 1 && (
             <hr className="line_box" />
           )}
         </Fragment>
       ))}
-      {!commentData.last && <Pagination text="댓글 더보기" />}
+      {!props.commentData.last && (
+        <Pagination text="댓글 더보기" onClick={props.onClickPageCount} />
+      )}
     </S.Layout>
   );
 };

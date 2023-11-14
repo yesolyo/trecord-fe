@@ -40,7 +40,6 @@ const DndContainer: FC<Props> = ({
     const navigate = useNavigate();
     const { mutate } = useSwapRecords({ feedId });
     const [items, setItems] = useState(records);
-    const { feedStore } = useStore();
 
     const moveItem = useCallback(
       (dragIndex: number, hoverIndex: number) => {
@@ -61,19 +60,12 @@ const DndContainer: FC<Props> = ({
     );
 
     const clickItem = useCallback(
-      (
-        id: string,
-        feedId: string,
-        startDate: string,
-        endDate: string,
-        canWriteComment: boolean,
-      ) => {
+      (id: string, feedId: string, startDate: string, endDate: string) => {
         navigate(`/recordDetail/${id}`, {
           state: {
             feedId,
             endDate,
             startDate,
-            canWriteComment,
           },
         });
       },
@@ -89,13 +81,7 @@ const DndContainer: FC<Props> = ({
           record={record}
           moveItem={moveItem}
           onClick={() =>
-            clickItem(
-              record.id.toString(),
-              feedId,
-              startDate,
-              endDate,
-              feedStore.canWriteComment,
-            )
+            clickItem(record.id.toString(), feedId, startDate, endDate)
           }
         />
       );

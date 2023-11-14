@@ -14,13 +14,10 @@ import useGetNewComment from '@/apis/Comment/getNewComment';
 import usePostReplyComment, {
   postReplyCommentProps,
 } from '@/apis/Comment/postReplyComment';
-import { TabBarNewComment } from '@components/common/TabBar/TabBarComment/TabBarNewComment';
-import { TabBarEditComment } from '@components/common/TabBar/TabBarComment/TabBarEditComment';
-import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabBarReplyComment';
+
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
 import usePostNewComment from '@/apis/Comment/postNewComment';
 import useModifyNewComment from '@/apis/Comment/modifyNewComment';
-import { Portal } from '@components/common/Portal';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
 
 export const Comment = () => {
@@ -33,6 +30,7 @@ export const Comment = () => {
   const [commentType, setCommentType] = useState('NEW');
   const [comment, setComment] = useState<string>('');
   const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
   const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
@@ -74,6 +72,7 @@ export const Comment = () => {
         onSuccess: () => {
           refetch();
           setComment('');
+          setIsSuccess(true);
         },
       },
     );
@@ -89,6 +88,7 @@ export const Comment = () => {
         onSuccess: () => {
           refetch();
           setComment('');
+          setIsSuccess(true);
         },
       },
     );
@@ -101,8 +101,9 @@ export const Comment = () => {
       },
       {
         onSuccess: () => {
-          handleDelete();
+          handleIsDeleteModalActive();
           refetch();
+          setIsSuccess(true);
         },
       },
     );
@@ -130,7 +131,7 @@ export const Comment = () => {
     }
   };
 
-  const handleDelete = () => {
+  const handleIsDeleteModalActive = () => {
     setIsDelete((prevData) => !prevData);
   };
   const handleSaveComment = (v: string) => {
@@ -149,6 +150,14 @@ export const Comment = () => {
     setIsUserProfile((prev) => !prev);
   };
 
+  const handleSaveIsSuccess = (b: boolean) => {
+    setIsSuccess(b);
+  };
+
+  const handleClickPageCount = () => {
+    setPages((prev) => prev + 5);
+  };
+
   return (
     <>
       <NavBarNew
@@ -163,6 +172,10 @@ export const Comment = () => {
           onSaveCommentId={handleSaveCommentId}
           onSaveCommentType={handleSaveCommentType}
           onSaveComment={handleSaveComment}
+          onIsDeleteModalActive={handleIsDeleteModalActive}
+          onSaveIsSuccess={handleSaveIsSuccess}
+          onClickPageCount={handleClickPageCount}
+          isSuccess={isSuccess}
         />
       )}
       <TabBarComment
@@ -180,7 +193,7 @@ export const Comment = () => {
         title="댓글을 삭제할까요?"
         closeText="취소"
         confirmText="삭제"
-        onClose={handleDelete}
+        onClose={handleIsDeleteModalActive}
         onConfirm={() => {
           handleDeleteData({ id: commentId });
         }}

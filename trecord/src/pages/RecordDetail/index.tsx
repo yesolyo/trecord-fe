@@ -14,6 +14,7 @@ import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 
 import SelectButton from '@components/common/button/SelectButton';
 import { SELECT_INFOS } from '@/types';
+import { useStore } from '@/stores';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -66,7 +67,7 @@ export const RecordDetail = () => {
     return fId !== feedId;
   }, [state, feedId]);
   const { mutate: deleteRecord } = useDeleteRecord({ recordId });
-
+  const { feedStore } = useStore();
   const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
@@ -141,7 +142,7 @@ export const RecordDetail = () => {
         <TabBarRecord
           isRegister={false}
           hasEditPermission={
-            recordData.canModifyRecord || state.canWriteComment
+            recordData.canModifyRecord || feedStore.canWriteComment
           }
           isActiveLike={recordData.liked}
           recordId={recordData.recordId}
