@@ -1,5 +1,5 @@
 import * as S from './style';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import Pagination from '@components/common/Pagination';
 import { ReplyCommentItem } from '../ReplyCommentItem';
@@ -12,25 +12,18 @@ interface Props {
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
   onSaveIsSuccess: (b: boolean) => void;
-  isSuccess: boolean;
+  selectCommentId: number;
 }
 export const ReplyCommentList = ({ ...props }: Props) => {
   const [pages, setPages] = useState(5);
-  const { data: replyData, refetch } = useGetReplyComment({
+  const { data: replyData } = useGetReplyComment({
     commentId: props.commentData.commentId,
     pageCount: pages,
   });
+
   const handleClickPage = () => {
     setPages((prev) => prev + 5);
   };
-  //TODO:2번 get해오는 문제 해결 필요
-
-  useEffect(() => {
-    if (props.isSuccess) {
-      refetch();
-      props.onSaveIsSuccess(false);
-    }
-  }, [props.isSuccess]);
 
   return (
     <S.Layout>

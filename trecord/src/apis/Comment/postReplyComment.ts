@@ -1,5 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http } from '../_http';
+import COMMENT_API_KEY from './constants';
 
 export interface postReplyCommentProps {
   recordId: number;
@@ -22,7 +23,12 @@ const postReplyComment = async ({
 };
 
 const usePostReplyComment = () => {
+  const queryClient = useQueryClient();
   return useMutation(postReplyComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([COMMENT_API_KEY.NEW_COMMENT]);
+      queryClient.invalidateQueries([COMMENT_API_KEY.REPLY_COMMENT]);
+    },
     /** @TODO 나중에 error boundary 추가 */
     onError: (e) => console.log(e),
   });

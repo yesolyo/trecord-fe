@@ -6,6 +6,7 @@ import SelectButton from '@components/common/button/SelectButton';
 import { replaceDate } from '@/utils/replaceDate';
 
 import { ReplyCommentList } from '../ReplyCommentList';
+import { ReplyCommentButton } from '../ReplyCommentButton';
 
 interface Props {
   commentData: GetComment;
@@ -14,7 +15,7 @@ interface Props {
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
   onSaveIsSuccess: (b: boolean) => void;
-  isSuccess: boolean;
+  selectCommentId: number;
 }
 
 export const CommentItem = ({ ...props }: Props) => {
@@ -31,15 +32,15 @@ export const CommentItem = ({ ...props }: Props) => {
         props.onSaveCommentId(props.commentData.commentId);
         return;
       case 'DELETE':
-        props.onSaveCommentId(props.commentData.commentId);
         props.onIsDeleteModalActive();
+        props.onSaveCommentId(props.commentData.commentId);
         return;
       default:
     }
   };
 
   return (
-    <S.Layout>
+    <S.Layout select={props.selectCommentId === props.commentData.commentId}>
       {props.commentData.commenterImageUrl.length >= 1 ? (
         <img src={props.commentData.commenterImageUrl} className="user-img" />
       ) : (
@@ -64,7 +65,7 @@ export const CommentItem = ({ ...props }: Props) => {
         <span className="content_date">
           {replaceDate({ date: props.commentData.commentCreatedDate })}
         </span>
-        {props.commentData.replyCount > 0 && <ReplyCommentList {...props} />}
+        {props.commentData.replyCount > 0 && <ReplyCommentButton {...props} />}
       </div>
     </S.Layout>
   );

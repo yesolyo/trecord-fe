@@ -22,14 +22,9 @@ const useGetReplyComment = ({
   pageCount,
 }: Props): UseQueryResult<Page<GetReplyComment>> => {
   return useQuery(
-    [
-      COMMENT_API_KEY.REPLY_COMMENT,
-      { comment_id: commentId, page_count: pageCount },
-    ],
+    [COMMENT_API_KEY.REPLY_COMMENT, commentId],
     () => getReplyComment({ commentId, pageCount }),
-    {
-      suspense: true,
-    },
+    { enabled: !!commentId },
   );
 };
 

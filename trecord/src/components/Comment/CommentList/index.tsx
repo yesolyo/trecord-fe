@@ -13,7 +13,7 @@ interface commentListProps {
   onIsDeleteModalActive: () => void;
   onSaveIsSuccess: (b: boolean) => void;
   onClickPageCount: () => void;
-  isSuccess: boolean;
+  selectCommentId: number;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {

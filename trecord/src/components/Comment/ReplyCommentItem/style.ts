@@ -1,8 +1,17 @@
 import styled from 'styled-components';
-
-export const Layout = styled.div`
+interface Props {
+  select: boolean;
+}
+export const Layout = styled.div<Props>`
   display: flex;
   gap: 25px;
+  background: ${({ theme, select }) =>
+    select
+      ? theme.colors.colorStyles.gray200
+      : theme.colors.colorStyles.gray100};
+  &:hover {
+    background: ${({ theme }) => theme.colors.colorStyles.gray200};
+  }
   .title-box {
     display: flex;
     align-items: center;

@@ -11,6 +11,7 @@ interface Props {
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
+  selectCommentId: number;
 }
 
 export const ReplyCommentItem = ({
@@ -19,25 +20,23 @@ export const ReplyCommentItem = ({
   onSaveCommentType,
   onIsDeleteModalActive,
   onSaveComment,
+  selectCommentId,
 }: Props) => {
   const handleChangeSelect = (v: string) => {
+    onSaveCommentId(replyData.commentId);
     switch (v) {
       case 'MODIFY':
         onSaveCommentType('MODIFY');
-        onSaveCommentId(replyData.commentId);
         onSaveComment(replyData.content);
-
         return;
       case 'DELETE':
         onIsDeleteModalActive();
-        onSaveCommentId(replyData.commentId);
-
         return;
       default:
     }
   };
   return (
-    <S.Layout>
+    <S.Layout select={selectCommentId === replyData.commentId}>
       {replyData.commenterImageUrl.length >= 1 ? (
         <img src={replyData.commenterImageUrl} className="user-img" />
       ) : (
