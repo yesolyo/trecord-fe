@@ -11,7 +11,7 @@ export const MyPageComment = () => {
   const [commentId, setCommentId] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(10);
   const { mutate } = useDeleteNewComment();
-  const { data, refetch } = useGetMypageComment({ pageCount });
+  const { data: commentData } = useGetMypageComment({ page: pageCount });
   const navigate = useNavigate();
 
   const handleDeleteData = (id: number) => {
@@ -21,7 +21,6 @@ export const MyPageComment = () => {
       },
       {
         onSuccess: () => {
-          refetch();
           setIsModalActive(false);
         },
       },
@@ -38,9 +37,9 @@ export const MyPageComment = () => {
   return (
     <>
       <NavBarNew title="댓글" isRegister={false} onClick={() => navigate(-1)} />
-      {data && (
+      {commentData && (
         <MypageCommentList
-          commentData={data}
+          commentData={commentData}
           onPageCount={handlePageCount}
           onModalActive={handleModalActive}
         />
