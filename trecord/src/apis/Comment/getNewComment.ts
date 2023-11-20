@@ -6,24 +6,21 @@ import { Page } from '@/types';
 
 interface Props {
   recordId: number;
-  page: number;
 }
 export const getNewComment = async ({
   recordId,
-  page,
 }: Props): Promise<Page<GetComment>> => {
-  const url = `/api/v1/records/${recordId}/comments?page=0&size=${page}`;
+  const url = `/api/v1/records/${recordId}/comments`;
   const response: Page<GetComment> = await http.get(url);
   return response;
 };
 
 const useGetNewComment = ({
   recordId,
-  page,
 }: Props): UseQueryResult<Page<GetComment>> => {
   return useQuery(
-    [COMMENT_API_KEY.NEW_COMMENT, { record_id: recordId, page }],
-    () => getNewComment({ recordId, page }),
+    [COMMENT_API_KEY.NEW_COMMENT, { record_id: recordId }],
+    () => getNewComment({ recordId }),
     {
       suspense: true,
     },

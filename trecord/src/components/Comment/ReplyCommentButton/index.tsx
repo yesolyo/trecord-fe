@@ -1,4 +1,4 @@
-import { GetComment } from '@/types/comment';
+import { CommentUserModalProps, GetComment } from '@/types/comment';
 import { useState } from 'react';
 import { ReplyCommentList } from '../ReplyCommentList';
 import * as S from './style';
@@ -8,7 +8,11 @@ interface Props {
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
-  onSaveIsSuccess: (b: boolean) => void;
+  onClickUserProfile: ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => void;
   selectCommentId: number;
 }
 export const ReplyCommentButton = ({ ...props }: Props) => {

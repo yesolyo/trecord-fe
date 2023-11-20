@@ -31,16 +31,15 @@ export const Comment = () => {
   const [commentType, setCommentType] = useState('NEW');
   const [comment, setComment] = useState<string>('');
   const [isDelete, setIsDelete] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
-  const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
-    { imgUrl: '', nickName: '', content: '' },
-  );
-  const [pages, setPages] = useState<number>(5);
-  const { data: newCommentData } = useGetNewComment({
+  const [userProfile, setUserProfile] = useState<CommentUserModalProps>({
+    imgUrl: '',
+    nickName: '',
+    content: '',
+  });
+
+  const { data: commentData } = useGetNewComment({
     recordId: Number(id),
-    page: pages,
   });
 
   const handleSaveNewComment = ({ id, content }: postNewCommentProps) => {
@@ -71,7 +70,6 @@ export const Comment = () => {
       {
         onSuccess: () => {
           setComment('');
-          setIsSuccess(true);
           setSelectCommentId(0);
         },
       },
@@ -87,7 +85,6 @@ export const Comment = () => {
       {
         onSuccess: () => {
           setComment('');
-          setIsSuccess(true);
           setSelectCommentId(0);
         },
       },
@@ -102,7 +99,7 @@ export const Comment = () => {
       {
         onSuccess: () => {
           handleIsDeleteModalActive();
-          setIsSuccess(true);
+          setCommentType('NEW');
           setSelectCommentId(0);
         },
       },
@@ -151,12 +148,23 @@ export const Comment = () => {
     setIsUserProfile((prev) => !prev);
   };
 
-  const handleSaveIsSuccess = (b: boolean) => {
-    setIsSuccess(b);
+  const handleClickUserProfile = ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => {
+    setUserProfile({
+      imgUrl,
+      nickName,
+      content,
+    });
+    handleSelectUserProfile();
   };
 
-  const handleClickPageCount = () => {
-    setPages((prev) => prev + 5);
+  const handleClickTabBarClose = () => {
+    handleSaveCommentType('NEW');
+    setComment('');
+    setSelectCommentId(0);
   };
 
   return (
@@ -164,18 +172,17 @@ export const Comment = () => {
       <NavBarNew
         title="댓글"
         isRegister={false}
-        commentCount={newCommentData && newCommentData.content.length}
+        commentCount={commentData && commentData.content.length}
         onClick={() => navigate(`/recordDetail/${id}`)}
       />
-      {newCommentData && (
+      {commentData && (
         <CommentList
-          commentData={newCommentData}
+          commentData={commentData}
           onSaveCommentId={handleSaveCommentId}
           onSaveCommentType={handleSaveCommentType}
           onSaveComment={handleSaveComment}
           onIsDeleteModalActive={handleIsDeleteModalActive}
-          onSaveIsSuccess={handleSaveIsSuccess}
-          onClickPageCount={handleClickPageCount}
+          onClickUserProfile={handleClickUserProfile}
           selectCommentId={selectCommentId}
         />
       )}
@@ -184,7 +191,7 @@ export const Comment = () => {
         confirmText="등록"
         closeText="취소"
         comment={comment}
-        onClose={() => handleSaveCommentType('NEW')}
+        onClose={handleClickTabBarClose}
         onConfirm={handleChangeSelect}
         onSaveComment={handleSaveComment}
       />
@@ -202,7 +209,7 @@ export const Comment = () => {
       <CommentUserModal
         openModal={isUserProfile}
         onUserProfile={handleSelectUserProfile}
-        {...userProfileData}
+        {...userProfile}
       />
     </>
   );

@@ -1,7 +1,6 @@
 import * as S from './style';
 import { Fragment } from 'react';
-import { GetComment } from '@/types/comment';
-import Pagination from '@components/common/Pagination';
+import { CommentUserModalProps, GetComment } from '@/types/comment';
 import { Page } from '@/types';
 import { CommentItem } from '../CommentItem';
 
@@ -11,9 +10,12 @@ interface commentListProps {
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
-  onSaveIsSuccess: (b: boolean) => void;
-  onClickPageCount: () => void;
   selectCommentId: number;
+  onClickUserProfile: ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => void;
 }
 
 export const CommentList = ({ ...props }: commentListProps) => {
@@ -27,9 +29,6 @@ export const CommentList = ({ ...props }: commentListProps) => {
           )}
         </Fragment>
       ))}
-      {!props.commentData.last && (
-        <Pagination text="댓글 더보기" onClick={props.onClickPageCount} />
-      )}
     </S.Layout>
   );
 };

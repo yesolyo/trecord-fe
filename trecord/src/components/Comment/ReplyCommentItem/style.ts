@@ -6,9 +6,7 @@ export const Layout = styled.div<Props>`
   display: flex;
   gap: 25px;
   background: ${({ theme, select }) =>
-    select
-      ? theme.colors.colorStyles.gray200
-      : theme.colors.colorStyles.gray100};
+    select && theme.colors.colorStyles.gray200};
   &:hover {
     background: ${({ theme }) => theme.colors.colorStyles.gray200};
   }

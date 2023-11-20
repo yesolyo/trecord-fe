@@ -1,21 +1,22 @@
 import { SELECT_COMMENT_INFOS, SELECT_MY_COMMENT_INFOS } from '@/types';
-import { GetComment } from '@/types/comment';
+import { CommentUserModalProps, GetComment } from '@/types/comment';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import SelectButton from '@components/common/button/SelectButton';
 import { replaceDate } from '@/utils/replaceDate';
-
-import { ReplyCommentList } from '../ReplyCommentList';
 import { ReplyCommentButton } from '../ReplyCommentButton';
-
 interface Props {
   commentData: GetComment;
   onSaveCommentId: (id: number) => void;
   onSaveCommentType: (v: string) => void;
   onSaveComment: (v: string) => void;
   onIsDeleteModalActive: () => void;
-  onSaveIsSuccess: (b: boolean) => void;
   selectCommentId: number;
+  onClickUserProfile: ({
+    imgUrl,
+    nickName,
+    content,
+  }: CommentUserModalProps) => void;
 }
 
 export const CommentItem = ({ ...props }: Props) => {
@@ -42,9 +43,29 @@ export const CommentItem = ({ ...props }: Props) => {
   return (
     <S.Layout select={props.selectCommentId === props.commentData.commentId}>
       {props.commentData.commenterImageUrl.length >= 1 ? (
-        <img src={props.commentData.commenterImageUrl} className="user-img" />
+        <img
+          src={props.commentData.commenterImageUrl}
+          className="user-img"
+          onClick={() =>
+            props.onClickUserProfile({
+              imgUrl: props.commentData.commenterImageUrl,
+              nickName: props.commentData.commenterNickname,
+              content: props.commentData.content,
+            })
+          }
+        />
       ) : (
-        <Icon iconType="profile" width={28} />
+        <Icon
+          iconType="profile"
+          width={28}
+          onClick={() =>
+            props.onClickUserProfile({
+              imgUrl: props.commentData.commenterImageUrl,
+              nickName: props.commentData.commenterNickname,
+              content: props.commentData.content,
+            })
+          }
+        />
       )}
       <div className="content_box">
         <div className="title-box">
