@@ -143,7 +143,6 @@ export const FeedDetail = observer(() => {
       },
     );
   };
-
   return (
     <>
       <S.Layout>
@@ -196,11 +195,10 @@ export const FeedDetail = observer(() => {
           <div className="detail_description">{detailData?.description}</div>
           {recordListData && detailData && (
             <ViewRecord
-              pageData={recordListData}
+              recordListData={recordListData}
               paginationLoading={isLoading}
               onClickPagination={paginationClickEventHandler}
               feedId={id}
-              listData={recordListData.content}
               endDate={detailData?.endAt}
               startDate={detailData?.startAt}
             />

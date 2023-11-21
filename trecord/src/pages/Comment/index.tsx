@@ -20,6 +20,7 @@ import usePostNewComment from '@/apis/Comment/postNewComment';
 import useModifyNewComment from '@/apis/Comment/modifyNewComment';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
 
+
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();

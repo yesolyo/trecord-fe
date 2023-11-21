@@ -2,6 +2,7 @@ import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { Portal } from '@components/common/Portal';
+
 interface commentUserModalProps {
   openModal: boolean;
   imgUrl: string;
@@ -26,5 +27,6 @@ export const CommentUserModal = ({ ...props }: commentUserModalProps) => {
         </div>
       </S.Layout>
     </Portal>
+
   );
 };
