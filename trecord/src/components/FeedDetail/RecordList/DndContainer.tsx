@@ -9,7 +9,6 @@ import RecordItem from './RecordItem';
 import { useSwapRecords } from '@/apis';
 import Pagination from '@components/common/Pagination';
 import { recordList } from '@/types/record';
-import { useStore } from '@/stores';
 
 const StyledDiv = styled.div`
   display: flex;
