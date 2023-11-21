@@ -3,7 +3,7 @@ import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
-import { TabBar } from '@components/common/TabBar';
+import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
 import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
@@ -105,7 +105,7 @@ export const ModifyProfile = () => {
           disabled={isDuplicateNickname}
         />
       </S.ProfileBox>
-      <TabBar currentPage="mypage" />
+      <MainTabBar currentPage="mypage" />
     </>
   );
 };

@@ -75,6 +75,7 @@ export const FeedDetail = observer(() => {
     if (detailData) {
       feedStore.setFeedId(detailData.feedId);
       feedStore.setContributors(detailData.contributors);
+      feedStore.setCanWriteComment(detailData.canWriteRecord);
     }
   }, [detailData]);
 

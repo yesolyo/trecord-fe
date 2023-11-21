@@ -3,22 +3,13 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  padding-top: 90px;
-  padding-bottom: 100px;
+  align-items: flex-start;
+  gap: 10px;
   width: 100%;
   height: calc(100% - 190px);
-  overflow: auto;
-
-  scrollbar-width: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 
   .line_box {
-    width: 390px;
+    width: 100%;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     text-align: left;
     margin-left: 0;

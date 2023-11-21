@@ -1,6 +1,6 @@
 import { FeedHome, Fallback as FeedHomeFallback } from '@components/FeedHome';
 import { NavBarHome } from '@components/common/NavBar/NavBarHome';
-import { TabBar } from '@components/common/TabBar';
+import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { useNavigate } from 'react-router-dom';
 import { CircularButton } from '@components/common/button/CircularButton';
 import * as S from './style';
@@ -28,7 +28,7 @@ export const Home = () => {
       <S.ButtonBox>
         <CircularButton iconType="edit" {...constant.circularBtn} />
       </S.ButtonBox>
-      <TabBar currentPage="home" />
+      <MainTabBar currentPage="home" />
       <NavBarHome totalPage={totalFeeds} />
     </>
   );

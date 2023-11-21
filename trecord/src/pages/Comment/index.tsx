@@ -14,37 +14,36 @@ import useGetNewComment from '@/apis/Comment/getNewComment';
 import usePostReplyComment, {
   postReplyCommentProps,
 } from '@/apis/Comment/postReplyComment';
-import { TabBarNewComment } from '@components/common/TabBar/TabBarComment/TabBarNewComment';
-import { TabBarEditComment } from '@components/common/TabBar/TabBarComment/TabBarEditComment';
-import { TabBarReplyComment } from '@components/common/TabBar/TabBarComment/TabBarReplyComment';
+
 import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
 import usePostNewComment from '@/apis/Comment/postNewComment';
 import useModifyNewComment from '@/apis/Comment/modifyNewComment';
-import { Portal } from '@components/common/Portal';
+import { TabBarComment } from '@components/common/TabBar/TabBarComment';
+
 
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { mutate: deleteComment } = useDeleteNewComment();
+  const [selectCommentId, setSelectCommentId] = useState<number>(0);
+  const { mutate: deleteNewComment } = useDeleteNewComment();
   const { mutate: postComment } = usePostNewComment();
   const { mutate: putComment } = useModifyNewComment();
   const { mutate: postReplyComment } = usePostReplyComment();
-  const [newComment, setNewComment] = useState<string>('');
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isReplyEdit, setIsReplyEdit] = useState<boolean>(false);
+  const [commentType, setCommentType] = useState('NEW');
+  const [comment, setComment] = useState<string>('');
   const [isDelete, setIsDelete] = useState<boolean>(false);
-  const [commentId, setCommentId] = useState<number>(0);
   const [isUserProfile, setIsUserProfile] = useState<boolean>(false);
-  const [userProfileData, setUserProfileData] = useState<CommentUserModalProps>(
-    { imgUrl: '', nickName: '', content: '' },
-  );
-  const [pages, setPages] = useState<number>(5);
-  const { data: newCommentData, refetch } = useGetNewComment({
-    recordId: Number(id),
-    page: pages,
+  const [userProfile, setUserProfile] = useState<CommentUserModalProps>({
+    imgUrl: '',
+    nickName: '',
+    content: '',
   });
 
-  const handlePostNewData = ({ id, content }: postNewCommentProps) => {
+  const { data: commentData } = useGetNewComment({
+    recordId: Number(id),
+  });
+
+  const handleSaveNewComment = ({ id, content }: postNewCommentProps) => {
     postComment(
       {
         recordId: Number(id),
@@ -52,14 +51,13 @@ export const Comment = () => {
       },
       {
         onSuccess: () => {
-          refetch();
-          setNewComment('');
+          setComment('');
         },
       },
     );
   };
 
-  const handlePostReplyData = ({
+  const handleSaveReplyComment = ({
     recordId,
     parentId,
     content,
@@ -72,15 +70,14 @@ export const Comment = () => {
       },
       {
         onSuccess: () => {
-          refetch();
-          handleReplyEdit();
-          setNewComment('');
+          setComment('');
+          setSelectCommentId(0);
         },
       },
     );
   };
 
-  const handlePutData = ({ id, content }: putDataProps) => {
+  const handleModifyComment = ({ id, content }: putDataProps) => {
     putComment(
       {
         commentId: id,
@@ -88,146 +85,133 @@ export const Comment = () => {
       },
       {
         onSuccess: () => {
-          refetch();
-          handleEdit();
-          setNewComment('');
+          setComment('');
+          setSelectCommentId(0);
         },
       },
     );
   };
 
-  const handleDeleteData = ({ id }: deletDataProps) => {
-    deleteComment(
+  const handleDeleteNewComment = ({ id }: deletDataProps) => {
+    deleteNewComment(
       {
         commentId: id,
       },
       {
         onSuccess: () => {
-          handleDelete();
-          refetch();
+          handleIsDeleteModalActive();
+          setCommentType('NEW');
+          setSelectCommentId(0);
         },
       },
     );
   };
 
-  const handleReplyEdit = () => {
-    setIsReplyEdit((prev) => !prev);
-    setNewComment('');
+  const handleChangeSelect = (v: string) => {
+    if (id) {
+      switch (v) {
+        case 'NEW':
+          handleSaveNewComment({ id: Number(id), content: comment });
+          return;
+        case 'MODIFY':
+          handleModifyComment({ id: selectCommentId, content: comment });
+          handleSaveCommentType('NEW');
+          return;
+        case 'REPLY':
+          handleSaveReplyComment({
+            recordId: Number(id),
+            parentId: selectCommentId,
+            content: comment,
+          });
+          handleSaveCommentType('NEW');
+          return;
+        default:
+      }
+    }
   };
 
-  const handleEdit = () => {
-    setIsEdit((prev) => !prev);
-    setNewComment('');
-  };
-  const handleDelete = () => {
+  const handleIsDeleteModalActive = () => {
     setIsDelete((prevData) => !prevData);
+  };
+  const handleSaveComment = (v: string) => {
+    setComment(v);
+  };
+
+  const handleSaveCommentType = (v: string) => {
+    setCommentType(v);
+  };
+
+  const handleSaveCommentId = (id: number) => {
+    setSelectCommentId(id);
   };
 
   const handleSelectUserProfile = () => {
     setIsUserProfile((prev) => !prev);
   };
 
-  const handleNavigate = () => {
-    navigate(`/recordDetail/${id}`);
-  };
-
-  const handleUserProfileData = ({
+  const handleClickUserProfile = ({
     imgUrl,
     nickName,
     content,
   }: CommentUserModalProps) => {
-    setUserProfileData({
+    setUserProfile({
       imgUrl,
       nickName,
       content,
     });
-  };
-  const handleCountPage = () => {
-    setPages((prev) => prev + 5);
-  };
-  const handleCommentId = (id: number) => {
-    setCommentId(id);
+    handleSelectUserProfile();
   };
 
-  const handleNewComment = (content: string) => {
-    setNewComment(content);
-  };
-  const constant = {
-    title: '댓글',
-    isRegister: false,
-    commentCount: newCommentData && newCommentData.content.length,
-    onClick: handleNavigate,
+  const handleClickTabBarClose = () => {
+    handleSaveCommentType('NEW');
+    setComment('');
+    setSelectCommentId(0);
   };
 
   return (
     <>
-      <Portal>
-        <CommentUserModal
-          openModal={isUserProfile}
-          onUserProfile={handleSelectUserProfile}
-          {...userProfileData}
-        />
-      </Portal>
-
-      <NavBarNew {...constant} />
-      {newCommentData && (
+      <NavBarNew
+        title="댓글"
+        isRegister={false}
+        commentCount={commentData && commentData.content.length}
+        onClick={() => navigate(`/recordDetail/${id}`)}
+      />
+      {commentData && (
         <CommentList
-          commentData={newCommentData}
-          onUserProfile={handleSelectUserProfile}
-          onUserProfileData={handleUserProfileData}
-          handleDeleteClick={handleDeleteData}
-          handleNewComment={handleNewComment}
-          onCommentId={handleCommentId}
-          onEdit={handleEdit}
-          onReplyEdit={handleReplyEdit}
-          onDelete={handleDelete}
-          onCountPage={handleCountPage}
-          commentId={commentId}
-          isDelete={isDelete}
-          isEdit={isEdit}
-          isReplyEdit={isReplyEdit}
+          commentData={commentData}
+          onSaveCommentId={handleSaveCommentId}
+          onSaveCommentType={handleSaveCommentType}
+          onSaveComment={handleSaveComment}
+          onIsDeleteModalActive={handleIsDeleteModalActive}
+          onClickUserProfile={handleClickUserProfile}
+          selectCommentId={selectCommentId}
         />
       )}
+      <TabBarComment
+        commentType={commentType}
+        confirmText="등록"
+        closeText="취소"
+        comment={comment}
+        onClose={handleClickTabBarClose}
+        onConfirm={handleChangeSelect}
+        onSaveComment={handleSaveComment}
+      />
       <Modal
         openModal={isDelete}
         body="한 번 삭제하면 되돌릴 수 없어요"
         title="댓글을 삭제할까요?"
         closeText="취소"
         confirmText="삭제"
-        onClose={handleDelete}
+        onClose={handleIsDeleteModalActive}
         onConfirm={() => {
-          handleDeleteData({ id: commentId });
+          handleDeleteNewComment({ id: selectCommentId });
         }}
       />
-      {!isEdit && !isReplyEdit && (
-        <TabBarNewComment
-          newComment={newComment}
-          onNewComment={handleNewComment}
-          onPostNewComment={handlePostNewData}
-        />
-      )}
-      {isEdit && !isReplyEdit && (
-        <TabBarEditComment
-          closeText="취소"
-          confirmText="등록"
-          newComment={newComment}
-          onNewComment={handleNewComment}
-          onClose={handleEdit}
-          onConfirm={handlePutData}
-          commentId={commentId}
-        />
-      )}
-      {isReplyEdit && !isEdit && (
-        <TabBarReplyComment
-          closeText="취소"
-          confirmText="등록"
-          newComment={newComment}
-          onNewComment={handleNewComment}
-          onClose={handleReplyEdit}
-          onConfirm={handlePostReplyData}
-          commentId={commentId}
-        />
-      )}
+      <CommentUserModal
+        openModal={isUserProfile}
+        onUserProfile={handleSelectUserProfile}
+        {...userProfile}
+      />
     </>
   );
 };

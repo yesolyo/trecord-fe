@@ -1,6 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http } from '../_http';
 import { PostNewCommentResponse } from '@/types/comment';
+import COMMENT_API_KEY from './constants';
 
 interface postNewCommentProps {
   recordId: number;
@@ -21,7 +22,12 @@ export const postNewComment = async ({
 };
 
 const usePostNewComment = () => {
+  const queryClient = useQueryClient();
   return useMutation(postNewComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([COMMENT_API_KEY.NEW_COMMENT]);
+      queryClient.invalidateQueries([COMMENT_API_KEY.REPLY_COMMENT]);
+    },
     /** @TODO 나중에 error boundary 추가 */
     onError: (e) => console.log(e),
   });

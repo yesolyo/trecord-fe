@@ -4,10 +4,12 @@ import { makeAutoObservable } from 'mobx';
 class FeedStore {
   feedId: number;
   contributors: User[];
+  canWriteComment: boolean;
 
   constructor() {
     this.feedId = 0;
     this.contributors = [];
+    this.canWriteComment = false;
 
     makeAutoObservable(this);
   }
@@ -18,6 +20,10 @@ class FeedStore {
 
   setContributors(contributors: User[]) {
     this.contributors = contributors;
+  }
+
+  setCanWriteComment(canWriteComment: boolean) {
+    this.canWriteComment = canWriteComment;
   }
 }
 

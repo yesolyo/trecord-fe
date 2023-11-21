@@ -18,6 +18,55 @@ export const SELECT_INFOS: {
   },
 ];
 
+const SELECT_MY_COMMENT_TYPES = ['MODIFY', 'DELETE', 'REPLY'] as const;
+export type SelectMyCommentType = (typeof SELECT_MY_COMMENT_TYPES)[number];
+export const SELECT_MY_COMMENT_INFOS: {
+  label: string;
+  value: SelectMyCommentType;
+}[] = [
+  {
+    label: '수정하기',
+    value: 'MODIFY',
+  },
+  {
+    label: '삭제하기',
+    value: 'DELETE',
+  },
+  {
+    label: '답글달기',
+    value: 'REPLY',
+  },
+];
+
+const SELECT_REPLY_COMMENT_TYPES = ['MODIFY', 'DELETE'] as const;
+export type SelectReplyCommentType =
+  (typeof SELECT_REPLY_COMMENT_TYPES)[number];
+export const SELECT_REPLY_COMMENT_INFOS: {
+  label: string;
+  value: SelectReplyCommentType;
+}[] = [
+  {
+    label: '수정하기',
+    value: 'MODIFY',
+  },
+  {
+    label: '삭제하기',
+    value: 'DELETE',
+  },
+];
+
+const SELECT_COMMENT_TYPES = ['REPLY'] as const;
+export type SelectCommentType = (typeof SELECT_COMMENT_TYPES)[number];
+export const SELECT_COMMENT_INFOS: {
+  label: string;
+  value: SelectCommentType;
+}[] = [
+  {
+    label: '답글달기',
+    value: 'REPLY',
+  },
+];
+
 const SELECT_FEEL_TYPES = ['happy', 'flutter', 'sad', 'angry'] as const;
 export type SelectFeelType = (typeof SELECT_FEEL_TYPES)[number];
 export const SELECT_FEEL_INFOS: {
