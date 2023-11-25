@@ -3,7 +3,6 @@ import {
   Suspense,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 import { Icon } from '../../Icon';
@@ -28,12 +27,15 @@ const InputContainer = observer(
   ({ feedId, inputValue, inputValueSetter: setInputValue }: Props) => {
     const { feedStore } = useStore();
 
-    const [enabled, setEnabled] = useState(false);
     const [list, setList] = useState<User[]>(feedStore.contributors);
-    const { data: userData } = useGetUser({ q: inputValue, enabled });
+    const { data: userData, refetch } = useGetUser({ q: inputValue });
     const { mutate } = useInviteUser();
+
     const handleClickSearch = useCallback(() => {
-      setEnabled(true);
+      const newList: User[] = JSON.parse(JSON.stringify(list));
+      newList.map((l) => console.log(l.nickname, inputValue));
+      console.log('nickname', inputValue);
+      refetch();
     }, []);
 
     const handleClickResult = useCallback(() => {
@@ -50,10 +52,6 @@ const InputContainer = observer(
           );
         } else setInputValue('');
       }
-    }, [userData]);
-
-    useEffect(() => {
-      setEnabled(false);
     }, [userData]);
 
     return (

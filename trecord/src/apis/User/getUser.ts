@@ -10,16 +10,10 @@ const getUser = async ({ q }: { q: string }): Promise<User> => {
   return response;
 };
 
-const useGetUser = ({
-  q,
-  enabled,
-}: {
-  q: string;
-  enabled: boolean;
-}): UseQueryResult<User> => {
+const useGetUser = ({ q }: { q: string }): UseQueryResult<User> => {
   return useQuery([USER_API_KEY.USER, { q }], () => getUser({ q }), {
     suspense: true,
-    enabled,
+    enabled: false,
   });
 };
 

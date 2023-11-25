@@ -1,10 +1,4 @@
-import {
-  ReactElement,
-  Suspense,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { ReactElement, Suspense, useCallback, useState } from 'react';
 import { Icon } from '../../Icon';
 import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
@@ -25,15 +19,14 @@ const InputContainer = ({
   contributors,
   contributorsSetter: setContributers,
 }: Props) => {
-  const [enabled, setEnabled] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  const { data: userData } = useGetUser({ q: inputValue, enabled });
+  const { data: userData, refetch } = useGetUser({ q: inputValue });
   const { mutate } = useInviteUser();
   const { mutate: gtfOut } = useGtfOutFromFeed();
 
   const handleClickSearch = useCallback(() => {
-    setEnabled(true);
+    refetch();
   }, []);
 
   const handleClickResultOnSuccess = () => {
@@ -81,10 +74,6 @@ const InputContainer = ({
     },
     [gtfOut],
   );
-
-  useEffect(() => {
-    setEnabled(false);
-  }, [userData]);
 
   return (
     <div className="input-wrapper">
