@@ -1,16 +1,12 @@
-import {
-  ReactElement,
-  Suspense,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { ReactElement, Suspense, useCallback, useState } from 'react';
 import { Icon } from '../../Icon';
 import { useGetUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
+import { useQueryClient } from '@tanstack/react-query';
+import USER_API_KEY from '@/apis/User/constants';
 
 interface Props {
   contributors: User[];
@@ -21,20 +17,21 @@ const InputContainer = ({
   contributors,
   contributorsSetter: setContributers,
 }: Props) => {
-  const [enabled, setEnabled] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const { data: userData } = useGetUser({ q: inputValue, enabled });
-
+  const { data: userData, refetch } = useGetUser({ q: inputValue });
+  const queryClient = useQueryClient();
   const handleClickSearch = useCallback(() => {
-    setEnabled(true);
+    refetch();
   }, []);
 
   const handleClickResult = useCallback(() => {
     if (userData) {
       if (contributors.findIndex((l) => l.userId === userData.userId) === -1) {
         setContributers([...contributors, userData]);
+        queryClient.removeQueries([USER_API_KEY.USER, { q: inputValue }]);
       }
     }
+
     setInputValue('');
   }, [userData]);
 
@@ -45,10 +42,6 @@ const InputContainer = ({
 
     if (index > -1) setContributers(newList);
   };
-
-  useEffect(() => {
-    setEnabled(false);
-  }, [userData]);
 
   return (
     <div className="input-wrapper">
