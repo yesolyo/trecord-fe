@@ -1,10 +1,13 @@
-import { ReactElement, Suspense, useCallback, useState } from 'react';
+import { ReactElement, Suspense, useCallback, useRef, useState } from 'react';
 import { Icon } from '../../Icon';
 import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
+import { useQueryClient } from '@tanstack/react-query';
+import USER_API_KEY from '@/apis/User/constants';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface Props {
   writerId: number;
@@ -20,22 +23,31 @@ const InputContainer = ({
   contributorsSetter: setContributers,
 }: Props) => {
   const [inputValue, setInputValue] = useState('');
-
-  const { data: userData, refetch } = useGetUser({ q: inputValue });
+  const nickname = useDebounce(inputValue, 300);
+  const { data: userData, refetch } = useGetUser({
+    q: nickname,
+  });
   const { mutate } = useInviteUser();
   const { mutate: gtfOut } = useGtfOutFromFeed();
+  const queryClient = useQueryClient();
 
-  const handleClickSearch = useCallback(() => {
-    refetch();
-  }, []);
+  const handleClickSearch = () => {
+    if (contributors.filter((l) => l.nickname === inputValue).length === 0) {
+      refetch();
+    } else {
+      setInputValue('');
+    }
+  };
 
   const handleClickResultOnSuccess = () => {
     if (userData) {
       const newList = JSON.parse(JSON.stringify(contributors));
       setContributers([...newList, userData]);
-      setInputValue('');
+      queryClient.removeQueries([USER_API_KEY.USER, { q: inputValue }]);
     }
+    setInputValue('');
   };
+
   const handleClickResult = useCallback(() => {
     if (userData) {
       if (contributors.findIndex((l) => l.userId === userData.userId) === -1) {
@@ -83,7 +95,9 @@ const InputContainer = ({
           placeholder={'닉네임을 입력하세요'}
           id="input_text"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+          }}
         />
         <button
           type="button"

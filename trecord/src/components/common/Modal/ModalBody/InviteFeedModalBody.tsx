@@ -7,6 +7,7 @@ import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
 import { useQueryClient } from '@tanstack/react-query';
 import USER_API_KEY from '@/apis/User/constants';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface Props {
   contributors: User[];
@@ -18,11 +19,17 @@ const InputContainer = ({
   contributorsSetter: setContributers,
 }: Props) => {
   const [inputValue, setInputValue] = useState('');
-  const { data: userData, refetch } = useGetUser({ q: inputValue });
+  const nickname = useDebounce(inputValue, 300);
+  const { data: userData, refetch } = useGetUser({ q: nickname });
   const queryClient = useQueryClient();
-  const handleClickSearch = useCallback(() => {
-    refetch();
-  }, []);
+
+  const handleClickSearch = () => {
+    if (contributors.filter((l) => l.nickname === inputValue).length === 0) {
+      refetch();
+    } else {
+      setInputValue('');
+    }
+  };
 
   const handleClickResult = useCallback(() => {
     if (userData) {
