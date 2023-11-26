@@ -8,44 +8,64 @@ import {
 import { Icon } from '../../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../../Toast';
-import { useGetUser, useInviteUser } from '@/apis';
+import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useQueryClient } from '@tanstack/react-query';
+import USER_API_KEY from '@/apis/User/constants';
 
 interface Props {
   writerId: number;
   feedId: number;
   inputValue: string;
+  contributors: User[];
+  contributorsSetter: React.Dispatch<React.SetStateAction<User[]>>;
   inputValueSetter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const InputContainer = observer(
-  ({ feedId, inputValue, inputValueSetter: setInputValue }: Props) => {
-    const { feedStore } = useStore();
-
-    const [list, setList] = useState<User[]>(feedStore.contributors);
-    const { data: userData, refetch } = useGetUser({ q: inputValue });
+  ({
+    writerId,
+    feedId,
+    inputValue,
+    contributors,
+    contributorsSetter: setContributors,
+    inputValueSetter: setInputValue,
+  }: Props) => {
+    const nickname = useDebounce(inputValue, 300);
+    const { data: userData, refetch } = useGetUser({ q: nickname });
     const { mutate } = useInviteUser();
-
-    const handleClickSearch = useCallback(() => {
-      const newList: User[] = JSON.parse(JSON.stringify(list));
-      newList.map((l) => console.log(l.nickname, inputValue));
-      console.log('nickname', inputValue);
-      refetch();
-    }, []);
+    const { mutate: gtfOut } = useGtfOutFromFeed();
+    const queryClient = useQueryClient();
+    const handleClickSearch = () => {
+      if (
+        contributors.filter((user) => user.nickname === inputValue).length === 0
+      ) {
+        refetch();
+      } else {
+        setInputValue('');
+      }
+    };
 
     const handleClickResult = useCallback(() => {
       if (userData) {
-        if (list.findIndex((l) => l.userId === userData.userId) === -1) {
+        if (
+          contributors.findIndex((l) => l.userId === userData.userId) === -1
+        ) {
           mutate(
             { feedId: feedId.toString(), userToId: userData.userId },
             {
               onSuccess: () => {
-                setList([userData]);
+                setContributors([...contributors, userData]);
+                queryClient.removeQueries([
+                  USER_API_KEY.USER,
+                  { q: inputValue },
+                ]);
                 setInputValue('');
               },
             },
@@ -53,6 +73,23 @@ const InputContainer = observer(
         } else setInputValue('');
       }
     }, [userData]);
+
+    const handleClickRemove = (id: number) => {
+      gtfOut(
+        {
+          feedId,
+          userId: id,
+        },
+        {
+          onSuccess: () => {
+            const newList: User[] = JSON.parse(JSON.stringify(contributors));
+            const index = newList.findIndex((x) => x.userId === id);
+            newList.splice(index, 1);
+            if (index > -1) setContributors(newList);
+          },
+        },
+      );
+    };
 
     return (
       <div className="input-wrapper">
@@ -74,7 +111,8 @@ const InputContainer = observer(
         </div>
         <div className="input-result">
           {userData &&
-            list.findIndex((x) => x.userId === userData?.userId) === -1 && (
+            contributors.findIndex((x) => x.userId === userData?.userId) ===
+              -1 && (
               <StyledProfile onClick={handleClickResult}>
                 <div className="profile">
                   {userData.imageUrl && <img src={userData.imageUrl} />}
@@ -85,6 +123,27 @@ const InputContainer = observer(
                 </div>
               </StyledProfile>
             )}
+          <div className="user-list">
+            {contributors.map((l) => (
+              <StyledProfile onClick={handleClickResult} key={l.userId}>
+                <div className="profile">
+                  {l.imageUrl && <img src={l.imageUrl} />}
+                  {!l.imageUrl && (
+                    <Icon iconType="profile" width={24} height={24} />
+                  )}
+                  <div className="name">{l.nickname}</div>
+                </div>
+                <div
+                  style={{
+                    display: l.userId === writerId ? 'none' : undefined,
+                  }}
+                  onClick={() => handleClickRemove(l.userId)}
+                >
+                  <Icon iconType="close" width={24} height={24} />
+                </div>
+              </StyledProfile>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -94,6 +153,8 @@ const InputContainer = observer(
 const ShareModalBody = ({
   writerId,
   feedId,
+  contributors,
+  contributorsSetter,
   inputValue,
   inputValueSetter: setInputValue,
 }: Props): ReactElement => {
@@ -113,6 +174,8 @@ const ShareModalBody = ({
           <InputContainer
             writerId={writerId}
             feedId={feedId}
+            contributors={contributors}
+            contributorsSetter={contributorsSetter}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
           />
