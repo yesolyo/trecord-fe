@@ -74,7 +74,6 @@ export const FeedDetail = observer(() => {
   useEffect(() => {
     if (detailData) {
       feedStore.setFeedId(detailData.feedId);
-      feedStore.setContributors(detailData.contributors);
       feedStore.setCanWriteComment(detailData.canWriteRecord);
     }
   }, [detailData]);
@@ -93,6 +92,7 @@ export const FeedDetail = observer(() => {
   const [openModal, setOpenModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [shareInput, setShareInput] = useState('');
+  const [contributors, setContributors] = useState<User[]>([]);
   const handleConfirmDelete = useCallback(() => {
     deleteFeed(
       { id },
@@ -103,6 +103,7 @@ export const FeedDetail = observer(() => {
       },
     );
   }, [id, deleteFeed, navigate]);
+
   const handleChangeSelect = useCallback(
     (v: string) => {
       switch (v) {
@@ -114,6 +115,10 @@ export const FeedDetail = observer(() => {
           return;
         case 'SHARE':
           setOpenShareModal(true);
+          if (detailData) {
+            setContributors(detailData.contributors);
+            console.log(detailData.contributors);
+          }
           return;
         default:
       }
@@ -247,6 +252,8 @@ export const FeedDetail = observer(() => {
         <ShareModalBody
           writerId={detailData?.writerId ?? -1}
           feedId={+id}
+          contributors={contributors}
+          contributorsSetter={setContributors}
           inputValue={shareInput}
           inputValueSetter={setShareInput}
         />
