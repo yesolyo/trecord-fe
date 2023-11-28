@@ -1,10 +1,4 @@
-import {
-  ReactElement,
-  Suspense,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import { ReactElement, Suspense, useContext } from 'react';
 import { Icon } from '../../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../../Toast';
@@ -14,7 +8,6 @@ import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
 import InputContainerFallback from './InputContainerFallback';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@/stores';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQueryClient } from '@tanstack/react-query';
 import USER_API_KEY from '@/apis/User/constants';
@@ -52,7 +45,7 @@ const InputContainer = observer(
       }
     };
 
-    const handleClickResult = useCallback(() => {
+    const handleClickResult = () => {
       if (userData) {
         if (
           contributors.findIndex((l) => l.userId === userData.userId) === -1
@@ -72,7 +65,7 @@ const InputContainer = observer(
           );
         } else setInputValue('');
       }
-    }, [userData]);
+    };
 
     const handleClickRemove = (id: number) => {
       gtfOut(
