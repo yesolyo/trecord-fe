@@ -9,7 +9,7 @@ import SelectButton from '@components/common/button/SelectButton';
 import { useDeleteFeed, useGetFeedDetail, useGtfOutFromFeed } from '@/apis';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
-import { SELECT_INFOS } from '@/types';
+import { SELECT_FEED_DETAIL_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 import useGetRecordList from '@/apis/Feed/getRecordList';
@@ -171,7 +171,7 @@ export const FeedDetail = observer(() => {
             <div className="detail_name">{detailData?.name}</div>
             {detailData?.canModifyFeed && (
               <SelectButton
-                options={SELECT_INFOS}
+                options={SELECT_FEED_DETAIL_INFOS}
                 onSelect={handleChangeSelect}
               />
             )}

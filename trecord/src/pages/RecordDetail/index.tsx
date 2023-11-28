@@ -13,8 +13,9 @@ import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
 
 import SelectButton from '@components/common/button/SelectButton';
-import { SELECT_INFOS } from '@/types';
+import { SELECT_RECRORD_DETAIL_INFOS } from '@/types';
 import { useStore } from '@/stores';
+import { User } from '@/types/user';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -69,10 +70,7 @@ export const RecordDetail = () => {
   const { mutate: deleteRecord } = useDeleteRecord({ recordId });
   const { feedStore } = useStore();
   const navigate = useNavigate();
-
   const [openModal, setOpenModal] = useState(false);
-  const [openShareModal, setOpenShareModal] = useState(false);
-  const [shareInput, setShareInput] = useState('');
 
   const handleClickGoback = useCallback(() => {
     navigate(`/feedDetail/${feedId ?? recordData?.feedId}`);
@@ -92,10 +90,6 @@ export const RecordDetail = () => {
         case 'DELETE':
           setOpenModal(true);
           return;
-        case 'SHARE':
-          setOpenShareModal(true);
-          return;
-        default:
       }
     },
     [navigate],
@@ -132,7 +126,7 @@ export const RecordDetail = () => {
           recordData?.canModifyRecord) && (
           <SelectButton
             right="3%"
-            options={SELECT_INFOS}
+            options={SELECT_RECRORD_DETAIL_INFOS}
             onSelect={handleChangeSelect}
           />
         )}
@@ -159,17 +153,6 @@ export const RecordDetail = () => {
         confirmText="삭제"
         onConfirm={handleConfirmDelete}
       />
-      <Modal
-        openModal={openShareModal}
-        onClose={() => setOpenShareModal(false)}
-      >
-        <ShareModalBody
-          writerId={recordData?.writerId ?? -1}
-          feedId={feedId ?? 0}
-          inputValue={shareInput}
-          inputValueSetter={setShareInput}
-        />
-      </Modal>
     </>
   );
 };
