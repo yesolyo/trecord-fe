@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '@components/common/Modal';
 import { replaceDate } from '@/utils/replaceDate';
 import { ALARM_STATUS_KEY } from '@/types';
-import useAlarmInfiniteQuery from '@/apis/Alarm/useAlarmInfiniteQuery';
-import { useAlarmDeleteMutation } from '@/apis';
+import { useAlarmDeleteMutation, useAlarmInfiniteQuery } from '@/apis';
 import Pagination from '@components/common/Pagination';
+
 interface DeleteProps {
   id: number;
 }

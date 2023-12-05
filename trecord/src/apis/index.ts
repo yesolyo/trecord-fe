@@ -1,6 +1,7 @@
 /** Alarm */
 export { default as useAlarmDeleteMutation } from './Alarm/useAlarmDeleteMutation';
 export { default as useAlarmQuery } from './Alarm/useAlarmQuery';
+export { default as useAlarmInfiniteQuery } from './Alarm/useAlarmInfiniteQuery';
 
 /** comment */
 export { default as useModifyNewCommentMutation } from './Comment/useModifyNewCommentMutation';
