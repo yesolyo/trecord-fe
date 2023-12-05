@@ -22,7 +22,7 @@ const postReplyComment = async ({
   return response;
 };
 
-const usePostReplyComment = () => {
+const useReplyCommentMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(postReplyComment, {
     onSuccess: () => {
@@ -34,4 +34,4 @@ const usePostReplyComment = () => {
   });
 };
 
-export default usePostReplyComment;
+export default useReplyCommentMutation;

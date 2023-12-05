@@ -1,26 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http } from '../_http';
-import { PutNewCommentResponse } from '@/types/comment';
+import { PostNewCommentResponse } from '@/types/comment';
 import COMMENT_API_KEY from './constants';
-interface putCommentProps {
-  commentId: number;
+
+interface postNewCommentProps {
+  recordId: number;
   content: string;
 }
-export const modifyNewComment = async ({
-  commentId,
+
+export const postNewComment = async ({
+  recordId,
   content,
-}: putCommentProps): Promise<putCommentProps> => {
-  const url = `/api/v1/comments/${commentId}`;
-  const response: PutNewCommentResponse = await http.put(url, {
+}: postNewCommentProps): Promise<postNewCommentProps> => {
+  const url = `/api/v1/comments`;
+  const response: PostNewCommentResponse = await http.post(url, {
+    recordId,
     content,
   });
 
   return response;
 };
 
-const useModifyNewComment = () => {
+const useNewCommentMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation(modifyNewComment, {
+  return useMutation(postNewComment, {
     onSuccess: () => {
       queryClient.invalidateQueries([COMMENT_API_KEY.NEW_COMMENT]);
       queryClient.invalidateQueries([COMMENT_API_KEY.REPLY_COMMENT]);
@@ -29,5 +32,4 @@ const useModifyNewComment = () => {
     onError: (e) => console.log(e),
   });
 };
-
-export default useModifyNewComment;
+export default useNewCommentMutation;

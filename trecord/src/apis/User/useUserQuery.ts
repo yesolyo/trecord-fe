@@ -10,11 +10,11 @@ const getUser = async ({ q }: { q: string }): Promise<User> => {
   return response;
 };
 
-const useGetUser = ({ q }: { q: string }): UseQueryResult<User> => {
+const useUserQuery = ({ q }: { q: string }): UseQueryResult<User> => {
   return useQuery([USER_API_KEY.USER, { q }], () => getUser({ q }), {
     suspense: true,
     enabled: false,
   });
 };
 
-export default useGetUser;
+export default useUserQuery;

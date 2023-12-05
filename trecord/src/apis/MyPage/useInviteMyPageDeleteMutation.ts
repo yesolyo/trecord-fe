@@ -14,7 +14,7 @@ const deleteMyPageInvite = async ({ id }: Props) => {
   return response;
 };
 
-const useDeleteMyPageInvite = () => {
+const useInviteMyPageDeleteMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation(deleteMyPageInvite, {
@@ -26,4 +26,4 @@ const useDeleteMyPageInvite = () => {
   });
 };
 
-export default useDeleteMyPageInvite;
+export default useInviteMyPageDeleteMutation;

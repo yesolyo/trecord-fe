@@ -47,7 +47,7 @@ const modifyRecord = async ({
   return response;
 };
 
-const useModifyRecord = ({ id }: { id: string }) => {
+const useModifyRecordMutation = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   return useMutation(modifyRecord, {
     onSuccess: () => {
@@ -58,4 +58,4 @@ const useModifyRecord = ({ id }: { id: string }) => {
   });
 };
 
-export default useModifyRecord;
+export default useModifyRecordMutation;

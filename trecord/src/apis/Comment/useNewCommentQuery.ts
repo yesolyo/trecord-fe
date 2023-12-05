@@ -15,7 +15,7 @@ export const getNewComment = async ({
   return response;
 };
 
-const useGetNewComment = ({
+const useNewCommentQuery = ({
   recordId,
 }: Props): UseQueryResult<Page<GetComment>> => {
   return useQuery(
@@ -27,4 +27,4 @@ const useGetNewComment = ({
   );
 };
 
-export default useGetNewComment;
+export default useNewCommentQuery;

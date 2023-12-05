@@ -4,7 +4,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from './DndContainer';
 import { recordList } from '@/types/record';
-import Pagination from '@components/common/Pagination';
 interface RecordListProps {
   recordListData: Page<recordList>;
   paginationLoading?: boolean;
@@ -47,13 +46,6 @@ export const RecordList = ({
           </DndProvider>
         </S.GroupBox>
       ))}
-      {!recordListData?.last && (
-        <Pagination
-          text="기록 더보기"
-          loading={paginationLoading}
-          onClick={onClickPagination}
-        />
-      )}
     </S.Layout>
   );
 };

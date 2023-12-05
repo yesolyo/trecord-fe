@@ -14,7 +14,7 @@ const getRecord = async ({ id }: Props): Promise<recordDetailList> => {
   return response;
 };
 
-const useGetRecord = ({ id }: Props): UseQueryResult<recordDetailList> => {
+const useRecordQuery = ({ id }: Props): UseQueryResult<recordDetailList> => {
   return useQuery(
     [RECORD_API_KEY.RECORD, { record_id: id }],
     () => getRecord({ id }),
@@ -24,4 +24,4 @@ const useGetRecord = ({ id }: Props): UseQueryResult<recordDetailList> => {
   );
 };
 
-export default useGetRecord;
+export default useRecordQuery;

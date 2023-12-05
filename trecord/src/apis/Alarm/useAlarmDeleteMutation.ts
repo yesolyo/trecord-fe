@@ -14,7 +14,7 @@ const deleteAlarm = async ({ id }: Props) => {
   return response;
 };
 
-const useDeleteAlarm = () => {
+const useAlarmDeleteMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation(deleteAlarm, {
@@ -26,4 +26,4 @@ const useDeleteAlarm = () => {
   });
 };
 
-export default useDeleteAlarm;
+export default useAlarmDeleteMutation;

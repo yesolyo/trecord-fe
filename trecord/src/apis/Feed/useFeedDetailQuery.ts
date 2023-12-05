@@ -14,7 +14,7 @@ const getFeedDetail = async ({ id }: Props): Promise<FeedDetail> => {
   return response;
 };
 
-const useGetFeedDetail = ({ id }: Props): UseQueryResult<FeedDetail> => {
+const useFeedDetailQuery = ({ id }: Props): UseQueryResult<FeedDetail> => {
   return useQuery(
     [FEED_API_KEY.FEED_DETAIL, { feed_id: id }],
     () => getFeedDetail({ id }),
@@ -24,4 +24,4 @@ const useGetFeedDetail = ({ id }: Props): UseQueryResult<FeedDetail> => {
   );
 };
 
-export default useGetFeedDetail;
+export default useFeedDetailQuery;

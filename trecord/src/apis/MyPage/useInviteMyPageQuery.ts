@@ -14,7 +14,7 @@ export const getMyPageInvite = async ({
   return response;
 };
 
-const useGetMyPageInvite = ({
+const useInviteMyPageQuery = ({
   pageCount,
 }: Props): UseQueryResult<Page<GetMyPageInvite>> => {
   return useQuery(
@@ -26,4 +26,4 @@ const useGetMyPageInvite = ({
   );
 };
 
-export default useGetMyPageInvite;
+export default useInviteMyPageQuery;

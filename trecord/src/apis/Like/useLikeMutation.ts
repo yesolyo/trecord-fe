@@ -17,11 +17,11 @@ const postLike = async ({
   return response;
 };
 
-const usePostLike = () => {
+const useLikeMutation = () => {
   return useMutation(postLike, {
     /** @TODO 나중에 error boundary 추가 */
     onError: (e) => console.log(e),
   });
 };
 
-export default usePostLike;
+export default useLikeMutation;

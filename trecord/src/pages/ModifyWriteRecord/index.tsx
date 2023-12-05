@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '@/pages/NewWriteRecord/style';
 import Editor from '@components/common/Editor';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useModifyRecord } from '@/apis';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { uploadS3 } from '@/utils/image';
+import { useModifyRecordMutation } from '@/apis';
 
 const ModifyWriteRecord = observer((): ReactElement => {
   const { recordStore } = useStore();
@@ -15,7 +15,7 @@ const ModifyWriteRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
   const navigate = useNavigate();
 
-  const { mutate } = useModifyRecord({ id: recordId });
+  const { mutate } = useModifyRecordMutation({ id: recordId });
 
   const handleModifyRecord = async () => {
     let imgUrl: string | null | undefined = recordStore.thumbNail.url;

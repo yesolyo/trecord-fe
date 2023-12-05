@@ -6,11 +6,11 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useNavigate } from 'react-router-dom';
-import usePostNewUser from '@/apis/User/postNewUser';
+import useNewUserMutation from '@/apis/User/useNewUserMutation';
 
 export const LoginProfile = () => {
   const navigate = useNavigate();
-  const { mutate } = usePostNewUser();
+  const { mutate } = useNewUserMutation();
   const [profileImgUrl, setProfileImgUrl] = useState('');
   const [nickname, setNickname] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');

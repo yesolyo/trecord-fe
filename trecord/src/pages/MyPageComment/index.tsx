@@ -1,17 +1,17 @@
-import useGetMypageComment from '@/apis/Comment/getMypageComment';
+import useMypageCommentQuery from '@/apis/Comment/useMypageCommentQuery';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
-import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
+import useNewCommentDeleteMutation from '@/apis/Comment/useNewCommentDeleteMutation';
 
 export const MyPageComment = () => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(10);
-  const { mutate } = useDeleteNewComment();
-  const { data: commentData } = useGetMypageComment({ page: pageCount });
+  const { mutate } = useNewCommentDeleteMutation();
+  const { data: commentData } = useMypageCommentQuery({ page: pageCount });
   const navigate = useNavigate();
 
   const handleDeleteData = (id: number) => {

@@ -1,6 +1,5 @@
 import { ReactElement, Suspense, useCallback, useState } from 'react';
 import { Icon } from '../../Icon';
-import { useGetUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
@@ -8,6 +7,7 @@ import InputContainerFallback from './InputContainerFallback';
 import { useQueryClient } from '@tanstack/react-query';
 import USER_API_KEY from '@/apis/User/constants';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useUserQuery } from '@/apis';
 
 interface Props {
   contributors: User[];
@@ -20,7 +20,7 @@ const InputContainer = ({
 }: Props) => {
   const [inputValue, setInputValue] = useState('');
   const nickname = useDebounce(inputValue, 300);
-  const { data: userData, refetch } = useGetUser({ q: nickname });
+  const { data: userData, refetch } = useUserQuery({ q: nickname });
   const queryClient = useQueryClient();
 
   const handleClickSearch = () => {

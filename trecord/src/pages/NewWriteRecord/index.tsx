@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import Editor from '@components/common/Editor';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { usePostNewRecord } from '@/apis';
+
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { uploadS3 } from '@/utils/image';
+import { useNewRecordMutation } from '@/apis';
 
 export const NewWriteRecord = observer((): ReactElement => {
   const { recordStore } = useStore();
@@ -14,7 +15,7 @@ export const NewWriteRecord = observer((): ReactElement => {
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const { mutate } = usePostNewRecord();
+  const { mutate } = useNewRecordMutation();
 
   const handleSaveRecord = async () => {
     let imgUrl: string | undefined;

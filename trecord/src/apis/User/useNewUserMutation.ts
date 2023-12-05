@@ -24,7 +24,7 @@ export const postNewUser = async ({
   return response;
 };
 
-const usePostNewUser = () => {
+const useNewUserMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(postNewUser, {
     onSuccess: () => {
@@ -34,4 +34,4 @@ const usePostNewUser = () => {
     onError: (e) => console.log(e),
   });
 };
-export default usePostNewUser;
+export default useNewUserMutation;

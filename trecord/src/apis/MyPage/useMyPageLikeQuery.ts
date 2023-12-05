@@ -14,7 +14,7 @@ export const getMyPageLike = async ({
   return response;
 };
 
-const useGetMyPageLike = ({
+const useMyPageLikeQuery = ({
   page,
 }: Props): UseQueryResult<Page<GetMyPageLike>> => {
   return useQuery(
@@ -26,4 +26,4 @@ const useGetMyPageLike = ({
   );
 };
 
-export default useGetMyPageLike;
+export default useMyPageLikeQuery;

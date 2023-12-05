@@ -1,14 +1,14 @@
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useNavigate } from 'react-router-dom';
-import useGetMyPageInvite from '@/apis/MyPage/getMyPageInvite';
+import useInviteMyPageQuery from '@/apis/MyPage/useInviteMyPageQuery';
 import { MyPageInviteList } from '@components/MyPageInvite/MyPageInviteList';
-import useDeleteMyPageInvite from '@/apis/MyPage/deleteMyPageInvite';
+import useInviteMyPageDeleteMutation from '@/apis/MyPage/useInviteMyPageDeleteMutation';
 import { useState } from 'react';
 export const MyPageInvite = () => {
   const navigate = useNavigate();
   const [pageCount, setPageCount] = useState<number>(10);
-  const { data, refetch } = useGetMyPageInvite({ pageCount });
-  const { mutate } = useDeleteMyPageInvite();
+  const { data, refetch } = useInviteMyPageQuery({ pageCount });
+  const { mutate } = useInviteMyPageDeleteMutation();
 
   const handlePageCount = () => {
     setPageCount((prev) => prev + 10);

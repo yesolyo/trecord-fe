@@ -1,7 +1,7 @@
 import { Icon } from '@components/common/Icon';
 import * as S from './style';
 import { useState } from 'react';
-import usePostLike from '@/apis/Like/postLike';
+import usePostLike from '@/apis/Like/useLikeMutation';
 interface TabBarRecordProps {
   isRegister: boolean;
   isActiveLike?: boolean;

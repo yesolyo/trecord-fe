@@ -3,7 +3,6 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RecordDetailTitle } from '@components/RecordDetail/RecordDetailTitle';
 import { RecordDetailSub } from '@components/RecordDetail/RecordDetailSub';
-import { useDeleteRecord, useGetRecord } from '@/apis';
 import styled from 'styled-components';
 import { Icon } from '@components/common/Icon';
 import { colorStyles } from '@/styles/color';
@@ -13,6 +12,7 @@ import Skeleton from '@components/common/skeleton';
 import SelectButton from '@components/common/button/SelectButton';
 import { SELECT_RECRORD_DETAIL_INFOS } from '@/types';
 import { useStore } from '@/stores';
+import { useRecordDeleteMutation, useRecordQuery } from '@/apis';
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -58,13 +58,13 @@ export const Fallback = (): ReactElement => {
 export const RecordDetail = () => {
   const { state } = useLocation();
   const { id: recordId = '' } = useParams();
-  const { data: recordData } = useGetRecord({ id: recordId });
+  const { data: recordData } = useRecordQuery({ id: recordId });
   const feedId = useMemo(() => recordData?.feedId, [recordData]);
   const isFromRecordShare = useMemo(() => {
     const fId = state ? state.feedId : undefined;
     return fId !== feedId;
   }, [state, feedId]);
-  const { mutate: deleteRecord } = useDeleteRecord({ recordId });
+  const { mutate: deleteRecord } = useRecordDeleteMutation({ recordId });
   const { feedStore } = useStore();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);

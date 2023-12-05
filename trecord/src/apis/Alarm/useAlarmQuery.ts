@@ -4,33 +4,33 @@ import { GetAlarm } from '@/types/alarm';
 import ALARM_API_KEY from './constants';
 import { Page } from '@/types';
 interface Props {
-  pageCount: number;
+  page: number;
   alarmType: string;
 }
 
-const getAlarm = async ({
-  pageCount,
+export const getAlarm = async ({
+  page,
   alarmType,
 }: Props): Promise<Page<GetAlarm>> => {
   const url = `/api/v1/notifications${
     alarmType === 'ALL' ? `` : `/type/${alarmType}`
-  }?page=0&size=${pageCount}`;
+  }?page=${page}&size=5`;
 
   const response: Page<GetAlarm> = await http.authGet(url);
   return response;
 };
 
-const useGetAlarm = ({
-  pageCount,
+const useAlarmQuery = ({
+  page,
   alarmType,
 }: Props): UseQueryResult<Page<GetAlarm>> => {
   return useQuery(
-    [ALARM_API_KEY.ALL_ALARM, { pageCount, alarmType }],
-    () => getAlarm({ pageCount, alarmType }),
+    [ALARM_API_KEY.ALL_ALARM, { page, alarmType }],
+    () => getAlarm({ page, alarmType }),
     {
       suspense: true,
     },
   );
 };
 
-export default useGetAlarm;
+export default useAlarmQuery;

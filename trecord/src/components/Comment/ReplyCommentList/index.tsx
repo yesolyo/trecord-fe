@@ -1,8 +1,8 @@
 import * as S from './style';
 import { Fragment } from 'react';
-import useGetReplyComment from '@/apis/Comment/getReplyComment';
 import { ReplyCommentItem } from '../ReplyCommentItem';
 import { CommentUserModalProps, GetComment } from '@/types/comment';
+import { useReplyCommentQuery } from '@/apis';
 
 interface Props {
   commentData: GetComment;
@@ -18,7 +18,7 @@ interface Props {
   selectCommentId: number;
 }
 export const ReplyCommentList = ({ ...props }: Props) => {
-  const { data: replyCommentData } = useGetReplyComment({
+  const { data: replyCommentData } = useReplyCommentQuery({
     commentId: props.commentData.commentId,
   });
 

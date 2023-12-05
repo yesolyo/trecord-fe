@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RecordItem from './RecordItem';
-import { useSwapRecords } from '@/apis';
 
 import { recordList } from '@/types/record';
+import { useSwapRecordsMutation } from '@/apis';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ interface Props {
 const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
   {
     const navigate = useNavigate();
-    const { mutate } = useSwapRecords({ feedId });
+    const { mutate } = useSwapRecordsMutation({ feedId });
     const [items, setItems] = useState<recordList[]>([]);
     const moveItem = useCallback(
       (dragIndex: number, hoverIndex: number) => {

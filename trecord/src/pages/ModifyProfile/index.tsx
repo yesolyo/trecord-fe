@@ -6,13 +6,13 @@ import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntr
 import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
-import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
+import useGetMyPageProfile from '@/apis/MyPage/useMyPageProfileQuery';
 import { SquareBtn } from '@components/common/SquareBtn';
-import usePostNewUser from '@/apis/User/postNewUser';
+import useNewUserMutation from '@/apis/User/useNewUserMutation';
 
 export const ModifyProfile = () => {
   const navigate = useNavigate();
-  const { mutate } = usePostNewUser();
+  const { mutate } = useNewUserMutation();
   const { data } = useGetMyPageProfile();
 
   const [profileImgUrl, setProfileImgUrl] = useState<string>(

@@ -13,7 +13,7 @@ const deleteNewComment = async ({ commentId }: Props): Promise<Props> => {
   return response;
 };
 
-const useDeleteNewComment = () => {
+const useNewCommentDeleteMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(deleteNewComment, {
     onSuccess: () => {
@@ -27,4 +27,4 @@ const useDeleteNewComment = () => {
   });
 };
 
-export default useDeleteNewComment;
+export default useNewCommentDeleteMutation;

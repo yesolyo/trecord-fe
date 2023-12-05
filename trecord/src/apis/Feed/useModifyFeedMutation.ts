@@ -47,7 +47,7 @@ const modifyFeed = async ({
   return response;
 };
 
-const useModifyFeed = ({ id }: { id: string }) => {
+const useModifyFeedMutation = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   return useMutation(modifyFeed, {
     onSuccess: () => {
@@ -61,4 +61,4 @@ const useModifyFeed = ({ id }: { id: string }) => {
   });
 };
 
-export default useModifyFeed;
+export default useModifyFeedMutation;

@@ -14,7 +14,7 @@ const deleteFeed = async ({ id }: Props) => {
   return response;
 };
 
-const useDeleteFeed = () => {
+const useFeedDeleteMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation(deleteFeed, {
@@ -26,4 +26,4 @@ const useDeleteFeed = () => {
   });
 };
 
-export default useDeleteFeed;
+export default useFeedDeleteMutation;

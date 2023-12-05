@@ -49,11 +49,11 @@ const postNewRecord = async ({
 };
 
 /** @TODO 나중에 get도 수정되면 그 때 invaliation 과정 추가 */
-const usePostNewRecord = () => {
+const useNewRecordMutation = () => {
   return useMutation(postNewRecord, {
     /** @TODO 나중에 error boundary 추가 */
     onError: (e) => console.log(e),
   });
 };
 
-export default usePostNewRecord;
+export default useNewRecordMutation;

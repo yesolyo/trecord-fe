@@ -10,16 +10,15 @@ import {
   postNewCommentProps,
   putDataProps,
 } from '@/types/comment';
-import useGetNewComment from '@/apis/Comment/getNewComment';
+import useGetNewComment from '@/apis/Comment/useNewCommentQuery';
 import usePostReplyComment, {
   postReplyCommentProps,
-} from '@/apis/Comment/postReplyComment';
+} from '@/apis/Comment/useReplyCommentMutation';
 
-import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
-import usePostNewComment from '@/apis/Comment/postNewComment';
-import useModifyNewComment from '@/apis/Comment/modifyNewComment';
+import useDeleteNewComment from '@/apis/Comment/useNewCommentDeleteMutation';
+import usePostNewComment from '@/apis/Comment/useNewCommentMutation';
+import useModifyNewComment from '@/apis/Comment/useModifyNewCommentMutation';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
-
 
 export const Comment = () => {
   const navigate = useNavigate();

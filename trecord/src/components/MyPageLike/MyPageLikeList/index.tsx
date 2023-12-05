@@ -5,7 +5,7 @@ import { Empty } from '@components/common/Empty';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@components/common/Pagination';
 import usePagedData from '@/hooks/usePagedData';
-import useGetMyPageLike from '@/apis/MyPage/getMyPageLike';
+import useMyPageLikeQuery from '@/apis/MyPage/useMyPageLikeQuery';
 export const MyPageLikeList = () => {
   const {
     data: likeData,
@@ -13,7 +13,7 @@ export const MyPageLikeList = () => {
     paginationClickEventHandler: handleClickPagination,
   } = usePagedData({
     queryFunctionProps: { page: 0 },
-    queryFunction: useGetMyPageLike,
+    queryFunction: useMyPageLikeQuery,
   });
   const navigate = useNavigate();
   const constant = {

@@ -4,27 +4,24 @@ import { http } from '../_http';
 import RECORD_API_KEY from './constants';
 
 interface Props {
-  originalRecordId: number;
-  targetRecordId: number;
+  recordId: string;
 }
 
-const swapRecords = async ({ originalRecordId, targetRecordId }: Props) => {
-  const url = `/api/v1/records/sequence/swap`;
-  const response = await http.post(url, {
-    originalRecordId,
-    targetRecordId,
-  });
+const deleteRecord = async ({ recordId }: Props) => {
+  const url = `/api/v1/records/${recordId}`;
+  const response = await http.delete(url);
 
   return response;
 };
 
-const useSwapRecords = ({ feedId }: { feedId: string }) => {
+const useRecordDeleteMutation = ({ recordId }: Pick<Props, 'recordId'>) => {
   const queryClient = useQueryClient();
-  return useMutation(swapRecords, {
+
+  return useMutation(deleteRecord, {
     onSuccess: () => {
       queryClient.invalidateQueries([
         RECORD_API_KEY.RECORD,
-        { feed_id: feedId },
+        { record_id: recordId },
       ]);
     },
     /** @TODO 나중에 error boundary 추가 */
@@ -32,4 +29,4 @@ const useSwapRecords = ({ feedId }: { feedId: string }) => {
   });
 };
 
-export default useSwapRecords;
+export default useRecordDeleteMutation;

@@ -15,7 +15,7 @@ export const getMypageComment = async ({
   return response;
 };
 
-const useGetMypageComment = ({
+const useMypageCommentQuery = ({
   page,
 }: Props): UseQueryResult<Page<GetMypageComment>> => {
   return useQuery(
@@ -27,4 +27,4 @@ const useGetMypageComment = ({
   );
 };
 
-export default useGetMypageComment;
+export default useMypageCommentQuery;

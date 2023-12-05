@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import * as S from './style';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
@@ -16,12 +15,13 @@ import {
   SELECT_WEATHER_INFOS,
 } from '@/types';
 import { SquareBtn } from '@components/common/SquareBtn';
+import { useRecordQuery } from '@/apis';
 
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
   const location = useLocation();
   const { minDate, maxDate } = location.state;
-  const { data } = useGetRecord({ id: recordId });
+  const { data } = useRecordQuery({ id: recordId });
 
   const { recordStore } = useStore();
 

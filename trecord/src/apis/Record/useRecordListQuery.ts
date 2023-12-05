@@ -1,8 +1,8 @@
 import { Page } from '@/types';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { http } from '../_http';
-import FEED_API_KEY from './constants';
 import { recordList } from '@/types/record';
+import RECORD_API_KEY from './constants';
 
 interface Props {
   id: string;
@@ -19,12 +19,12 @@ const getRecordList = async ({
   return response;
 };
 
-const useGetRecordList = ({
+const useRecordListQuery = ({
   id,
   page,
 }: Props): UseQueryResult<Page<recordList>> => {
   return useQuery(
-    [FEED_API_KEY.RECORD_LIST, { feed_id: id, page }],
+    [RECORD_API_KEY.RECORD_LIST, { feed_id: id, page }],
     () => getRecordList({ id, page }),
     {
       suspense: true,
@@ -32,4 +32,4 @@ const useGetRecordList = ({
   );
 };
 
-export default useGetRecordList;
+export default useRecordListQuery;

@@ -1,5 +1,5 @@
 import * as S from './style';
-import { postReplyCommentProps } from '@/apis/Comment/postReplyComment';
+import { postReplyCommentProps } from '@/apis/Comment/useReplyCommentMutation';
 import { useParams } from 'react-router-dom';
 interface Props {
   closeText: string;

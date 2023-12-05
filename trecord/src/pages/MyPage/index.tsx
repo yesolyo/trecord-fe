@@ -5,13 +5,13 @@ import { NavBarProfile } from '@components/common/NavBar/NavBarProfile';
 import { MyPageTitle } from '@components/MyPage/MyPageTitle';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@components/common/Modal';
-import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
+import useMyPageProfileQuery from '@/apis/MyPage/useMyPageProfileQuery';
 import { MyPageMenuList } from '@components/MyPage/MyPageMenuList';
 
 export const MyPage = () => {
   const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { data: userProfileData } = useGetMyPageProfile();
+  const { data: userProfileData } = useMyPageProfileQuery();
 
   const hanldeIsLogoutModal = () => {
     setIsLogoutModal((prev) => !prev);

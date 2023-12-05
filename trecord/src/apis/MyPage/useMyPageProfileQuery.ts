@@ -9,10 +9,10 @@ export const getMyPageProfile = async (): Promise<MyPageUser> => {
   return response;
 };
 
-const useGetMyPageProfile = (): UseQueryResult<MyPageUser> => {
+const useMyPageProfileQuery = (): UseQueryResult<MyPageUser> => {
   return useQuery([MYPAGE_API_KEY.USER], () => getMyPageProfile(), {
     suspense: true,
   });
 };
 
-export default useGetMyPageProfile;
+export default useMyPageProfileQuery;

@@ -33,7 +33,7 @@ const newFeed = async ({
   return response;
 };
 
-const useNewFeed = () => {
+const useNewFeedMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(newFeed, {
     onSuccess: () => {
@@ -44,4 +44,4 @@ const useNewFeed = () => {
   });
 };
 
-export default useNewFeed;
+export default useNewFeedMutation;

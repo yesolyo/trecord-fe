@@ -15,7 +15,7 @@ export const getReplyComment = async ({
   return response;
 };
 
-const useGetReplyComment = ({
+const useReplyCommentQuery = ({
   commentId,
 }: Props): UseQueryResult<Page<GetReplyComment>> => {
   return useQuery(
@@ -25,4 +25,4 @@ const useGetReplyComment = ({
   );
 };
 
-export default useGetReplyComment;
+export default useReplyCommentQuery;

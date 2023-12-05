@@ -4,21 +4,23 @@ import { http } from '../_http';
 import FEED_API_KEY from '../Feed/constants';
 
 interface Props {
-  feedId: number;
-  userId: number;
+  feedId: string;
+  userToId: number;
 }
 
-const gtfOutFromFeed = async ({ feedId, userId }: Props) => {
-  const url = `/api/v1/feeds/${feedId}/contributors/${userId}`;
-  const response = await http.delete(url);
+const inviteUser = async ({ feedId, userToId }: Props) => {
+  const url = `/api/v1/feeds/${feedId}/contributors/invite`;
+  const response = await http.post(url, {
+    userToId,
+  });
 
   return response;
 };
 
-const useGtfOutFromFeed = () => {
+const useInviteUserMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(gtfOutFromFeed, {
+  return useMutation(inviteUser, {
     onSuccess: () => {
       queryClient.invalidateQueries([FEED_API_KEY.FEED_DETAIL]);
     },
@@ -27,4 +29,4 @@ const useGtfOutFromFeed = () => {
   });
 };
 
-export default useGtfOutFromFeed;
+export default useInviteUserMutation;
