@@ -1,4 +1,4 @@
-import { ReactElement, Suspense, useCallback, useRef, useState } from 'react';
+import { ReactElement, Suspense, useCallback, useState } from 'react';
 import { Icon } from '../../Icon';
 import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';

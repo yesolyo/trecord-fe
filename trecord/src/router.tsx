@@ -142,7 +142,7 @@ export const router = createBrowserRouter(
           ),
         },
         {
-          path: '/mypageProfile',
+          path: '/modifyProfile',
           element: <ModifyProfile />,
         },
         {
