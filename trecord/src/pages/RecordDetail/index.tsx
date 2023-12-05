@@ -10,12 +10,9 @@ import { colorStyles } from '@/styles/color';
 import Modal from '@components/common/Modal';
 import { TabBarRecord } from '@components/common/TabBar/TabBarRecord';
 import Skeleton from '@components/common/skeleton';
-import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
-
 import SelectButton from '@components/common/button/SelectButton';
 import { SELECT_RECRORD_DETAIL_INFOS } from '@/types';
 import { useStore } from '@/stores';
-import { User } from '@/types/user';
 
 const StyledNavbar = styled.div`
   display: flex;

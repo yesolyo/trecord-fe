@@ -12,15 +12,15 @@ interface menuPorps {
   onClick?: () => void;
 }
 
-export const MyPageMenu = ({ ...props }: mypageMenuProps) => {
+export const MyPageMenuItem = ({ title, menuList }: mypageMenuProps) => {
   return (
     <S.Layout>
-      <S.TitleBox>{props.title}</S.TitleBox>
-      {props.menuList.map((e) => (
-        <S.MenuBox key={e.id} onClick={e.onClick}>
+      <S.TitleBox>{title}</S.TitleBox>
+      {menuList.map((menu) => (
+        <S.MenuBox key={menu.id} onClick={menu.onClick}>
           <S.MenuTitleBox>
-            {e.btnIcon && <Icon iconType={e.btnIcon} width={24} />}
-            <S.BtnTitleBox>{e.btnTitle}</S.BtnTitleBox>
+            {menu.btnIcon && <Icon iconType={menu.btnIcon} width={24} />}
+            <S.BtnTitleBox>{menu.btnTitle}</S.BtnTitleBox>
           </S.MenuTitleBox>
           <Icon iconType="arrowRight" width={24} />
         </S.MenuBox>

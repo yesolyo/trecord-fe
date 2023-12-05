@@ -1,38 +1,45 @@
 import { useGetUser } from '@/apis';
 import * as S from './style';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import Modal from '@components/common/Modal';
-import { User } from '@/types/user';
+import { useQueryClient } from '@tanstack/react-query';
+import USER_API_KEY from '@/apis/User/constants';
+import { useDebounce } from '@/hooks/useDebounce';
 interface LoginProfileNameProps {
   nickname: string;
   onSaveNickname: (name: string) => void;
-  onCheckDuplicateNickname: (b: boolean) => void;
-  edit: boolean;
-  onClickEdit: (b: boolean) => void;
+  onIsDuplicateNickname: (b: boolean) => void;
 }
 export const LoginProfileNameBody = ({
   nickname,
   onSaveNickname,
-  onCheckDuplicateNickname,
-  edit,
-  onClickEdit,
+  onIsDuplicateNickname,
 }: LoginProfileNameProps) => {
-  const [enabled, setEnabled] = useState(false);
-  const [isModal, setIsModal] = useState(false);
-  const [userData, setUserData] = useState<User | undefined | null>(null);
+  const debouncedNickname = useDebounce(nickname, 300);
+  const [isNicknameDuplicateModal, setIsNicknameDuplicateModal] =
+    useState(false);
+  const [edit, setEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data } = useGetUser({ q: nickname, enabled });
+  const { refetch } = useGetUser({ q: debouncedNickname });
+  const queryCilent = useQueryClient();
 
-  const handleClickSearch = (e: any) => {
+  const handleCheckDuplicateNickname = async (e: any) => {
     e.preventDefault();
-    setEnabled(true);
-    onClickEdit(false);
+    const userData = await refetch();
+    if (userData.data?.userId) {
+      setIsNicknameDuplicateModal(true);
+      queryCilent.removeQueries([USER_API_KEY.USER, { nickname }]);
+      onIsDuplicateNickname(true);
+    } else {
+      onIsDuplicateNickname(false);
+    }
+    setEdit(false);
   };
 
-  const handleClickEdit = () => {
+  const handleClickEditNickname = () => {
     if (inputRef.current !== null) {
-      onCheckDuplicateNickname(true);
-      onClickEdit(true);
+      onIsDuplicateNickname(true);
+      setEdit(true);
       inputRef.current.disabled = false;
       inputRef.current.focus();
     }
@@ -40,27 +47,12 @@ export const LoginProfileNameBody = ({
 
   const handleClickConfirmModal = () => {
     if (inputRef.current !== null) {
-      setIsModal((prev) => !prev);
-      onClickEdit(true);
+      setIsNicknameDuplicateModal((prev) => !prev);
+      setEdit(true);
       inputRef.current.disabled = false;
       inputRef.current.focus();
     }
   };
-
-  useEffect(() => {
-    setUserData(data);
-    setEnabled(false);
-
-    if (userData?.userId) {
-      setIsModal(true);
-      setUserData(null);
-      onCheckDuplicateNickname(true);
-    }
-
-    if (data === null) {
-      onCheckDuplicateNickname(false);
-    }
-  }, [enabled]);
 
   return (
     <S.Layout>
@@ -78,12 +70,16 @@ export const LoginProfileNameBody = ({
           }}
         />
 
-        <button className="button" onClick={handleClickEdit} disabled={edit}>
+        <button
+          className="button"
+          onClick={handleClickEditNickname}
+          disabled={edit}
+        >
           수정
         </button>
         <button
           className="button"
-          onClick={handleClickSearch}
+          onClick={handleCheckDuplicateNickname}
           disabled={nickname === '' || !edit}
         >
           확인
@@ -91,7 +87,7 @@ export const LoginProfileNameBody = ({
       </div>
 
       <Modal
-        openModal={isModal}
+        openModal={isNicknameDuplicateModal}
         title="이미 닉네임이 존재합니다"
         confirmText="확인"
         onConfirm={handleClickConfirmModal}
@@ -103,18 +99,14 @@ export const LoginProfileNameBody = ({
 export const LoginProfileName = ({
   nickname,
   onSaveNickname,
-  onCheckDuplicateNickname,
-  edit,
-  onClickEdit,
+  onIsDuplicateNickname,
 }: LoginProfileNameProps) => {
   return (
     <Suspense fallback={<div>loading</div>}>
       <LoginProfileNameBody
         nickname={nickname}
         onSaveNickname={onSaveNickname}
-        onCheckDuplicateNickname={onCheckDuplicateNickname}
-        edit={edit}
-        onClickEdit={onClickEdit}
+        onIsDuplicateNickname={onIsDuplicateNickname}
       />
     </Suspense>
   );
