@@ -13,6 +13,7 @@ export const Layout = styled.div`
     width: 74px;
     height: 74px;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   .upload-box {

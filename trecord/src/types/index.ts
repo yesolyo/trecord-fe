@@ -1,8 +1,8 @@
-const SELECT_TYPES = ['MODIFY', 'DELETE', 'SHARE'] as const;
-export type SelectType = (typeof SELECT_TYPES)[number];
-export const SELECT_INFOS: {
+const SELECT_FEED_DETAIL_TYPES = ['MODIFY', 'DELETE', 'SHARE'] as const;
+export type SelectFeedDetailType = (typeof SELECT_FEED_DETAIL_TYPES)[number];
+export const SELECT_FEED_DETAIL_INFOS: {
   label: string;
-  value: SelectType;
+  value: SelectFeedDetailType;
 }[] = [
   {
     label: '수정하기',
@@ -15,6 +15,23 @@ export const SELECT_INFOS: {
   {
     label: '공유하기',
     value: 'SHARE',
+  },
+];
+
+const SELECT_RECORD_DETAIL_TYPES = ['MODIFY', 'DELETE'] as const;
+export type SelectRecordDetailType =
+  (typeof SELECT_RECORD_DETAIL_TYPES)[number];
+export const SELECT_RECRORD_DETAIL_INFOS: {
+  label: string;
+  value: SelectRecordDetailType;
+}[] = [
+  {
+    label: '수정하기',
+    value: 'MODIFY',
+  },
+  {
+    label: '삭제하기',
+    value: 'DELETE',
   },
 ];
 

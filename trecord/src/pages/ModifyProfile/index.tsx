@@ -1,34 +1,34 @@
 import { LoginProfileImg } from '@components/LoginProfile/LoginProfileImg';
 import { LoginProfileName } from '@components/LoginProfile/LoginProfileName';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './style';
 import { LoginProfileIntroduce } from '@components/LoginProfile/LoginProfileIntroduce';
 import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { NavBarAllowProfile } from '@components/common/NavBar/NavBarAllowProfile';
 import { useNavigate } from 'react-router-dom';
 import useGetMyPageProfile from '@/apis/MyPage/getMyPageProfil';
-import { ProfileFileProps } from '@/types/mypage';
 import { SquareBtn } from '@components/common/SquareBtn';
-import { uploadS3 } from '@/utils/image';
 import usePostNewUser from '@/apis/User/postNewUser';
 
 export const ModifyProfile = () => {
   const navigate = useNavigate();
   const { mutate } = usePostNewUser();
-  const [profileFile, setProfileFile] = useState<ProfileFileProps>({
-    imgFile: '',
-    originFile: '',
-  });
-  const [profileUrl, setProfilUrl] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
-  const [introduce, setIntroduce] = useState<string>('');
-  const [isDuplicateNickname, setIsDuplicateNickname] =
-    useState<boolean>(false);
-  const [edit, setEdit] = useState(false);
   const { data } = useGetMyPageProfile();
 
-  const handleCheckDuplicateNickname = (b: boolean) => {
+  const [profileImgUrl, setProfileImgUrl] = useState<string>(
+    data?.imageUrl ?? '',
+  );
+  const [nickname, setNickname] = useState<string>(data?.nickname ?? '');
+  const [introduce, setIntroduce] = useState<string>(data?.introduction ?? '');
+  const [isDuplicateNickname, setIsDuplicateNickname] =
+    useState<boolean>(false);
+
+  const handleIsDuplicateNickname = (b: boolean) => {
     setIsDuplicateNickname(b);
+  };
+
+  const handleSaveProfileImgUrl = (url: string) => {
+    setProfileImgUrl(url);
   };
 
   const handleSaveNickname = (name: string) => {
@@ -37,35 +37,13 @@ export const ModifyProfile = () => {
   const handleSaveIntroduce = (s: string) => {
     setIntroduce(s);
   };
-  const handleSaveProfileFile = (file: ProfileFileProps) => {
-    setProfileFile(file);
-  };
-  const handleClickEdit = (b: boolean) => {
-    setEdit(b);
-  };
-  useEffect(() => {
-    if (data) {
-      setProfilUrl(data.imageUrl);
-      setNickname(data.nickname);
-      setIntroduce(data.introduction);
-    }
-  }, [data]);
 
   const handleClickRegisterNewUser = async (e: any) => {
     e.preventDefault();
-    let url = data?.imageUrl;
-    if (profileFile.originFile) {
-      try {
-        url = (await uploadS3({ imageFile: profileFile.originFile })) ?? '';
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
     mutate(
       {
         nickname,
-        imageUrl: url,
+        imageUrl: profileImgUrl,
         introduction: introduce,
       },
       {
@@ -84,16 +62,13 @@ export const ModifyProfile = () => {
       />
       <S.ProfileBox onSubmit={handleClickRegisterNewUser}>
         <LoginProfileImg
-          onSaveProfileFile={handleSaveProfileFile}
-          profileFile={profileFile}
-          profileUrl={profileUrl}
+          onSaveProfileImgUrl={handleSaveProfileImgUrl}
+          profileImgUrl={profileImgUrl}
         />
         <LoginProfileName
           nickname={nickname}
           onSaveNickname={handleSaveNickname}
-          onCheckDuplicateNickname={handleCheckDuplicateNickname}
-          edit={edit}
-          onClickEdit={handleClickEdit}
+          onIsDuplicateNickname={handleIsDuplicateNickname}
         />
         <LoginProfileIntroduce
           introduce={introduce}

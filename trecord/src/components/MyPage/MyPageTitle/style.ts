@@ -12,6 +12,7 @@ export const Layout = styled.div`
 `;
 export const ImgBox = styled.img`
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const ProfileBox = styled.div`
