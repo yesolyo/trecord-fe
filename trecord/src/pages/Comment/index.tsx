@@ -43,7 +43,7 @@ export const Comment = () => {
     data: commentData,
     fetchNextPage,
     hasNextPage,
-    isFetching,
+    isLoading,
   } = useNewCommentInfiniteQuery({
     recordId: Number(id),
   });
@@ -184,7 +184,7 @@ export const Comment = () => {
       {commentData && (
         <CommentList
           commentData={commentData}
-          paginationLoading={isFetching}
+          paginationLoading={isLoading}
           paginationHasNextPage={hasNextPage}
           onClickPagination={fetchNextPage}
           onSaveCommentId={handleSaveCommentId}

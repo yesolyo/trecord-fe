@@ -13,7 +13,7 @@ export const Home = () => {
   const {
     data: feedData,
     fetchNextPage,
-    isFetching,
+    isLoading,
     hasNextPage,
   } = useFeedInfiniteQuery();
 
@@ -33,7 +33,7 @@ export const Home = () => {
           feedData={feedData}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
-          isFetching={isFetching}
+          isLoading={isLoading}
         />
       </Suspense>
       <S.ButtonBox>

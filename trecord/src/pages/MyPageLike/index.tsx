@@ -7,7 +7,7 @@ export const MyPageLike = () => {
   const navigate = useNavigate();
   const {
     data: likeListData,
-    isFetching,
+    isLoading,
     hasNextPage,
     fetchNextPage,
   } = useMyLikeListInfiniteQuery();
@@ -21,7 +21,7 @@ export const MyPageLike = () => {
       />
       <MyPageLikeList
         likeListData={likeListData}
-        isFetching={isFetching}
+        isLoading={isLoading}
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
       />

@@ -18,7 +18,7 @@ const RecordBody = ({
   const {
     data: recordListData,
     hasNextPage,
-    isFetching,
+    isLoading,
     fetchNextPage,
   } = useRecordListInfiniteQuery({ id: feedId });
   const constant = {
@@ -45,7 +45,7 @@ const RecordBody = ({
       {isActive ? (
         <RecordList
           recordListData={concatenatePages}
-          paginationLoading={isFetching}
+          paginationLoading={isLoading}
           paginationHasNextPage={hasNextPage}
           onClickPagination={fetchNextPage}
           feedId={feedId}
@@ -55,7 +55,7 @@ const RecordBody = ({
       ) : (
         <SummeryList
           recordListData={concatenatePages}
-          paginationLoading={isFetching}
+          paginationLoading={isLoading}
           paginationHasNextPage={hasNextPage}
           onClickPagination={fetchNextPage}
         />

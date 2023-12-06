@@ -18,7 +18,7 @@ interface Props {
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<Page<GetMypageComment>, unknown>>;
   hasNextPage: boolean | undefined;
-  isFetching: boolean;
+  isLoading: boolean;
 }
 
 export const MypageCommentList = ({
@@ -26,7 +26,7 @@ export const MypageCommentList = ({
   myCommentListData,
   fetchNextPage,
   hasNextPage,
-  isFetching,
+  isLoading,
 }: Props) => {
   const constant = {
     icon: {
@@ -66,7 +66,7 @@ export const MypageCommentList = ({
         <Pagination
           text="댓글 더보기"
           onClick={() => fetchNextPage()}
-          loading={isFetching}
+          loading={isLoading}
         />
       )}
     </S.Layout>

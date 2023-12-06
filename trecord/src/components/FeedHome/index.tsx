@@ -39,14 +39,14 @@ interface FeedHomeProps {
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<Page<Feed>, unknown>>;
   hasNextPage: boolean | undefined;
-  isFetching: boolean;
+  isLoading: boolean;
 }
 
 export const FeedHome = ({
   feedData,
   fetchNextPage,
   hasNextPage,
-  isFetching,
+  isLoading,
 }: FeedHomeProps) => {
   const navigate = useNavigate();
 
@@ -102,7 +102,7 @@ export const FeedHome = ({
       {hasNextPage && (
         <Pagination
           text="피드 더보기"
-          loading={isFetching}
+          loading={isLoading}
           onClick={() => fetchNextPage()}
         />
       )}

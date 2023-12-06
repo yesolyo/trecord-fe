@@ -13,7 +13,7 @@ export const MyPageComment = () => {
   const {
     data: myCommentListData,
     hasNextPage,
-    isFetching,
+    isLoading,
     fetchNextPage,
   } = useMyCommentListInfiniteQuery();
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const MyPageComment = () => {
         <MypageCommentList
           myCommentListData={myCommentListData}
           hasNextPage={hasNextPage}
-          isFetching={isFetching}
+          isLoading={isLoading}
           fetchNextPage={fetchNextPage}
           onModalActive={handleModalActive}
         />

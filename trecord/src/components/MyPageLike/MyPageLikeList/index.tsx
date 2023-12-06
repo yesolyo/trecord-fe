@@ -17,13 +17,13 @@ interface MyPageLikeListProps {
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<Page<GetMyPageLike>, unknown>>;
   hasNextPage: boolean | undefined;
-  isFetching: boolean;
+  isLoading: boolean;
 }
 export const MyPageLikeList = ({
   likeListData,
   fetchNextPage,
   hasNextPage,
-  isFetching,
+  isLoading,
 }: MyPageLikeListProps) => {
   const navigate = useNavigate();
   const constant = {
@@ -70,7 +70,7 @@ export const MyPageLikeList = ({
         <Pagination
           text="좋아요 더보기"
           onClick={() => fetchNextPage()}
-          loading={isFetching}
+          loading={isLoading}
         />
       )}
     </S.Layout>

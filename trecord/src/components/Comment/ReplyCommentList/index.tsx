@@ -22,7 +22,7 @@ export const ReplyCommentList = ({ ...props }: Props) => {
   const {
     data: replyCommentListData,
     hasNextPage,
-    isFetching,
+    isLoading,
     fetchNextPage,
   } = useReplyCommentInfiniteQuery({
     commentId: props.commentData.commentId,
@@ -46,7 +46,7 @@ export const ReplyCommentList = ({ ...props }: Props) => {
       {hasNextPage && (
         <Pagination
           text="대댓글 더보기"
-          loading={isFetching}
+          loading={isLoading}
           onClick={() => fetchNextPage()}
         />
       )}

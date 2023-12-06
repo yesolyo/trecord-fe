@@ -8,7 +8,7 @@ export const MyPageInvite = () => {
   const { mutate } = useInviteMyPageDeleteMutation();
   const {
     data: inviteFeedListData,
-    isFetching: isDataFetching,
+    isLoading: isDataFetching,
     hasNextPage,
     fetchNextPage,
   } = useInviteFeedListInfiniteQuery();

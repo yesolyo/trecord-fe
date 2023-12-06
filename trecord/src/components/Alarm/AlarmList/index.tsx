@@ -22,7 +22,7 @@ export const AlarmList = ({ alarmType }: Props) => {
     data: alarmListData,
     fetchNextPage,
     hasNextPage,
-    isFetching,
+    isLoading,
   } = useAlarmInfiniteQuery({ alarmType });
   const { mutate } = useAlarmDeleteMutation();
   const [isModalActive, setIsModalActive] = useState(false);
@@ -110,7 +110,7 @@ export const AlarmList = ({ alarmType }: Props) => {
         {hasNextPage && (
           <Pagination
             text="알림 더보기"
-            loading={isFetching}
+            loading={isLoading}
             onClick={() => fetchNextPage()}
           />
         )}
