@@ -4,17 +4,27 @@ import { Fragment } from 'react';
 import { Empty } from '@components/common/Empty';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@components/common/Pagination';
-import usePagedData from '@/hooks/usePagedData';
-import useMyPageLikeQuery from '@/apis/MyPage/useMyPageLikeQuery';
-export const MyPageLikeList = () => {
-  const {
-    data: likeData,
-    isLoading,
-    paginationClickEventHandler: handleClickPagination,
-  } = usePagedData({
-    queryFunctionProps: { page: 0 },
-    queryFunction: useMyPageLikeQuery,
-  });
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
+import { Page } from '@/types';
+import { GetMyPageLike } from '@/types/mypage';
+interface MyPageLikeListProps {
+  likeListData: InfiniteData<Page<GetMyPageLike>> | undefined;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<Page<GetMyPageLike>, unknown>>;
+  hasNextPage: boolean | undefined;
+  isFetching: boolean;
+}
+export const MyPageLikeList = ({
+  likeListData,
+  fetchNextPage,
+  hasNextPage,
+  isFetching,
+}: MyPageLikeListProps) => {
   const navigate = useNavigate();
   const constant = {
     icon: {
@@ -29,30 +39,39 @@ export const MyPageLikeList = () => {
       },
     ],
   };
-  if (likeData?.content.length === 0) return <Empty {...constant} />;
+  if (likeListData?.pages[0].content.length === 0)
+    return <Empty {...constant} />;
   return (
     <S.Layout>
-      {likeData?.content.map((l, index) => (
-        <Fragment key={l.recordId}>
-          <div
-            className="container"
-            onClick={() => navigate(`/recordDetail/${l.recordId}`)}
-          >
-            <Icon iconType="heart" width={24} />
-            <div className="content">
-              <span className="title ellipsis">{l.title}</span>
-              <span className="sub ellipsis">{l.authorNickname}</span>
-            </div>
-            {l.imageUrl && <img src={l.imageUrl} className="img" />}
-          </div>
-          {likeData.content.length - 1 !== index && <hr className="line" />}
-        </Fragment>
-      ))}
-      {!likeData?.last && (
+      {likeListData?.pages.map(
+        (page, pageIndex) =>
+          page?.content.map((like, feedIndex) => (
+            <Fragment key={like.recordId}>
+              <div
+                className="container"
+                onClick={() => navigate(`/recordDetail/${like.recordId}`)}
+              >
+                <Icon iconType="heart" width={24} />
+                <div className="content">
+                  <span className="title ellipsis">{like.title}</span>
+                  <span className="sub ellipsis">{like.authorNickname}</span>
+                </div>
+                {like.imageUrl && <img src={like.imageUrl} className="img" />}
+              </div>
+              {!page.last &&
+                likeListData.pages[likeListData.pages.length - 1].content[
+                  page.content.length - 1
+                ] !== likeListData.pages[pageIndex].content[feedIndex] && (
+                  <hr className="line" />
+                )}
+            </Fragment>
+          )),
+      )}
+      {hasNextPage && (
         <Pagination
           text="좋아요 더보기"
-          onClick={handleClickPagination}
-          loading={isLoading}
+          onClick={() => fetchNextPage()}
+          loading={isFetching}
         />
       )}
     </S.Layout>

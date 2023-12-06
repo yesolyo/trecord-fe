@@ -24,8 +24,8 @@ export { default as useLikeMutation } from './Like/useLikeMutation';
 
 /** MyPage */
 export { default as useInviteMyPageDeleteMutation } from './MyPage/useInviteMyPageDeleteMutation';
-export { default as useInviteMyPageQuery } from './MyPage/useInviteFeedListQuery';
-export { default as useMyPageLikeQuery } from './MyPage/useMyPageLikeQuery';
+export { default as useInviteFeedListInfiniteQuery } from './MyPage/useInviteFeedListInfiniteQuery';
+export { default as useMyLikeListInfiniteQuery } from './MyPage/useMyLikeListInfiniteQuery';
 export { default as useMyPageProfileQuery } from './MyPage/useMyPageProfileQuery';
 
 /** Record */
