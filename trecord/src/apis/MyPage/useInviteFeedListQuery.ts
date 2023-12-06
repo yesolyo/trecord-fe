@@ -9,7 +9,7 @@ interface Props {
 export const getInviteFeedList = async ({
   page,
 }: Props): Promise<Page<GetInviteFeedList>> => {
-  const url = `/api/v1/users/invited?page=${page}&size=0`;
+  const url = `/api/v1/users/invited?page=${page}&size=5`;
   const response: Page<GetInviteFeedList> = await http.get(url);
   return response;
 };

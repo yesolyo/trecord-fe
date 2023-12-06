@@ -111,7 +111,6 @@ export const FeedDetail = observer(() => {
           setOpenShareModal(true);
           if (detailData) {
             setContributors(detailData.contributors);
-            console.log(detailData.contributors);
           }
           return;
         default:

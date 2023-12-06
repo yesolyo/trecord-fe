@@ -47,10 +47,11 @@ export const MyPageInviteList = ({
 
   if (inviteFeedListData.pages[0].content.length === 0)
     return <Empty {...constant} />;
+
   return (
     <S.Layout>
-      {inviteFeedListData.pages.map((page) =>
-        page.content.map((inviteFeed, index) => (
+      {inviteFeedListData.pages.map((page, pageIndex) =>
+        page.content.map((inviteFeed, feedIndex) => (
           <Fragment key={inviteFeed.feedId}>
             <div className="container">
               {inviteFeed.imageUrl && (
@@ -69,7 +70,12 @@ export const MyPageInviteList = ({
                 onClick={() => setIsActive(true)}
               />
             </div>
-            {page.content.length - 1 !== index && <hr className="line" />}
+            {!page.last &&
+              inviteFeedListData.pages[inviteFeedListData.pages.length - 1]
+                .content[page.content.length - 1] !==
+                inviteFeedListData.pages[pageIndex].content[feedIndex] && (
+                <hr className="line" />
+              )}
             <Modal
               openModal={isActive}
               title="해당 피드에서 나갈까요?"
