@@ -5,7 +5,6 @@ export { default as useAlarmInfiniteQuery } from './Alarm/useAlarmInfiniteQuery'
 
 /** comment */
 export { default as useModifyNewCommentMutation } from './Comment/useModifyNewCommentMutation';
-export { default as useMypageCommentQuery } from './Comment/useMypageCommentQuery';
 export { default as useNewCommentDeleteMutation } from './Comment/useNewCommentDeleteMutation';
 export { default as useNewCommentMutation } from './Comment/useNewCommentMutation';
 export { default as useNewCommentQuery } from './Comment/useNewCommentQuery';
@@ -27,7 +26,7 @@ export { default as useInviteMyPageDeleteMutation } from './MyPage/useInviteMyPa
 export { default as useInviteFeedListInfiniteQuery } from './MyPage/useInviteFeedListInfiniteQuery';
 export { default as useMyLikeListInfiniteQuery } from './MyPage/useMyLikeListInfiniteQuery';
 export { default as useMyPageProfileQuery } from './MyPage/useMyPageProfileQuery';
-
+export { default as useMyCommentListInfiniteQuery } from './MyPage/useMyCommentListInfiniteQuery';
 /** Record */
 export { default as useRecordListQuery } from './Record/useRecordListQuery';
 export { default as useRecordQuery } from './Record/useRecordQuery';

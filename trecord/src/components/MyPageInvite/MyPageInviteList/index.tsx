@@ -54,9 +54,14 @@ export const MyPageInviteList = ({
         page.content.map((inviteFeed, feedIndex) => (
           <Fragment key={inviteFeed.feedId}>
             <div className="container">
-              {inviteFeed.imageUrl && (
-                <img src={inviteFeed.imageUrl} className="img" />
-              )}
+              <img
+                src={
+                  inviteFeed.imageUrl
+                    ? inviteFeed.imageUrl
+                    : import.meta.env.VITE_AWS_DEFAULT_IMG
+                }
+                className="img"
+              />
               <div
                 className="content"
                 onClick={() => navigate(`/feedDetail/${inviteFeed.feedId}`)}
@@ -70,12 +75,11 @@ export const MyPageInviteList = ({
                 onClick={() => setIsActive(true)}
               />
             </div>
-            {!page.last &&
-              inviteFeedListData.pages[inviteFeedListData.pages.length - 1]
-                .content[page.content.length - 1] !==
-                inviteFeedListData.pages[pageIndex].content[feedIndex] && (
-                <hr className="line" />
-              )}
+            {inviteFeedListData.pages[inviteFeedListData.pages.length - 1]
+              .content[page.content.length - 1] !==
+              inviteFeedListData.pages[pageIndex].content[feedIndex] && (
+              <hr className="line" />
+            )}
             <Modal
               openModal={isActive}
               title="해당 피드에서 나갈까요?"

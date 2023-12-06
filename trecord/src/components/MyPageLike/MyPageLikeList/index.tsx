@@ -58,12 +58,11 @@ export const MyPageLikeList = ({
                 </div>
                 {like.imageUrl && <img src={like.imageUrl} className="img" />}
               </div>
-              {!page.last &&
-                likeListData.pages[likeListData.pages.length - 1].content[
-                  page.content.length - 1
-                ] !== likeListData.pages[pageIndex].content[feedIndex] && (
-                  <hr className="line" />
-                )}
+              {likeListData.pages[likeListData.pages.length - 1].content[
+                page.content.length - 1
+              ] !== likeListData.pages[pageIndex].content[feedIndex] && (
+                <hr className="line" />
+              )}
             </Fragment>
           )),
       )}

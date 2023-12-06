@@ -67,6 +67,7 @@ export const FeedHome = ({
       },
     ],
   };
+
   if (feedData?.pages[0].content.length === 0) return <Empty {...constant} />;
 
   return (

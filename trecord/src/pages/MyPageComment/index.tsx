@@ -1,17 +1,21 @@
-import useMypageCommentQuery from '@/apis/Comment/useMypageCommentQuery';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useState } from 'react';
-import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
+import { MypageCommentList } from '@components/MypageComment/MyPgaeCommentList';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import useNewCommentDeleteMutation from '@/apis/Comment/useNewCommentDeleteMutation';
+import { useMyCommentListInfiniteQuery } from '@/apis';
 
 export const MyPageComment = () => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
-  const [pageCount, setPageCount] = useState<number>(10);
   const { mutate } = useNewCommentDeleteMutation();
-  const { data: commentData } = useMypageCommentQuery({ page: pageCount });
+  const {
+    data: myCommentListData,
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+  } = useMyCommentListInfiniteQuery();
   const navigate = useNavigate();
 
   const handleDeleteData = (id: number) => {
@@ -31,16 +35,15 @@ export const MyPageComment = () => {
     setCommentId(id);
     setIsModalActive(true);
   };
-  const handlePageCount = () => {
-    setPageCount((prev) => prev + 10);
-  };
   return (
     <>
       <NavBarNew title="댓글" isRegister={false} onClick={() => navigate(-1)} />
-      {commentData && (
+      {myCommentListData && (
         <MypageCommentList
-          commentData={commentData}
-          onPageCount={handlePageCount}
+          myCommentListData={myCommentListData}
+          hasNextPage={hasNextPage}
+          isFetching={isFetching}
+          fetchNextPage={fetchNextPage}
           onModalActive={handleModalActive}
         />
       )}
