@@ -10,7 +10,6 @@ import {
   postNewCommentProps,
   putDataProps,
 } from '@/types/comment';
-import useGetNewComment from '@/apis/Comment/useNewCommentQuery';
 import usePostReplyComment, {
   postReplyCommentProps,
 } from '@/apis/Comment/useReplyCommentMutation';
@@ -19,6 +18,8 @@ import useDeleteNewComment from '@/apis/Comment/useNewCommentDeleteMutation';
 import usePostNewComment from '@/apis/Comment/useNewCommentMutation';
 import useModifyNewComment from '@/apis/Comment/useModifyNewCommentMutation';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
+import { getTotalItem } from '@/utils/getTotalItem';
+import { useNewCommentInfiniteQuery } from '@/apis';
 
 export const Comment = () => {
   const navigate = useNavigate();
@@ -38,7 +39,12 @@ export const Comment = () => {
     content: '',
   });
 
-  const { data: commentData } = useGetNewComment({
+  const {
+    data: commentData,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useNewCommentInfiniteQuery({
     recordId: Number(id),
   });
 
@@ -172,12 +178,15 @@ export const Comment = () => {
       <NavBarNew
         title="댓글"
         isRegister={false}
-        commentCount={commentData && commentData.content.length}
+        commentCount={commentData && getTotalItem({ data: commentData })}
         onClick={() => navigate(`/recordDetail/${id}`)}
       />
       {commentData && (
         <CommentList
           commentData={commentData}
+          paginationLoading={isFetching}
+          paginationHasNextPage={hasNextPage}
+          onClickPagination={fetchNextPage}
           onSaveCommentId={handleSaveCommentId}
           onSaveCommentType={handleSaveCommentType}
           onSaveComment={handleSaveComment}

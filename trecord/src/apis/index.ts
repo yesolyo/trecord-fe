@@ -7,9 +7,9 @@ export { default as useAlarmInfiniteQuery } from './Alarm/useAlarmInfiniteQuery'
 export { default as useModifyNewCommentMutation } from './Comment/useModifyNewCommentMutation';
 export { default as useNewCommentDeleteMutation } from './Comment/useNewCommentDeleteMutation';
 export { default as useNewCommentMutation } from './Comment/useNewCommentMutation';
-export { default as useNewCommentQuery } from './Comment/useNewCommentQuery';
+export { default as useNewCommentInfiniteQuery } from './Comment/useNewCommentInfiniteQuery';
 export { default as useReplyCommentMutation } from './Comment/useReplyCommentMutation';
-export { default as useReplyCommentQuery } from './Comment/useReplyCommentQuery';
+export { default as useReplyCommentInfiniteQuery } from './Comment/useReplyCommentInfiniteQuery';
 
 /** Feed */
 export { default as useFeedQuery } from './Feed/useFeedQuery';

@@ -2,9 +2,10 @@ import styled from 'styled-components';
 interface Props {
   select: boolean;
 }
-export const Layout = styled.div<Props>`
+export const Layout = styled.li<Props>`
   display: flex;
   gap: 25px;
+
   background: ${({ theme, select }) =>
     select && theme.colors.colorStyles.gray200};
   &:hover {
@@ -13,7 +14,7 @@ export const Layout = styled.div<Props>`
   .title-box {
     display: flex;
     align-items: center;
-    width: 250px;
+    width: 100%;
     justify-content: space-between;
   }
   .content_box {
@@ -28,8 +29,8 @@ export const Layout = styled.div<Props>`
     .content {
       ${({ theme }) => theme.font.fontSize.Body_S}
       ${({ theme }) => theme.font.fontType.R}
-    display: inline-block;
-      width: 200px;
+      display: inline-block;
+      width: 220px;
       word-wrap: break-word;
     }
     .content_date {

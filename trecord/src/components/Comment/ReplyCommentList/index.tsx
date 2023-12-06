@@ -2,7 +2,8 @@ import * as S from './style';
 import { Fragment } from 'react';
 import { ReplyCommentItem } from '../ReplyCommentItem';
 import { CommentUserModalProps, GetComment } from '@/types/comment';
-import { useReplyCommentQuery } from '@/apis';
+import { useReplyCommentInfiniteQuery } from '@/apis';
+import Pagination from '@components/common/Pagination';
 
 interface Props {
   commentData: GetComment;
@@ -18,21 +19,37 @@ interface Props {
   selectCommentId: number;
 }
 export const ReplyCommentList = ({ ...props }: Props) => {
-  const { data: replyCommentData } = useReplyCommentQuery({
+  const {
+    data: replyCommentListData,
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+  } = useReplyCommentInfiniteQuery({
     commentId: props.commentData.commentId,
   });
 
   return (
     <S.Layout>
-      {replyCommentData &&
-        replyCommentData.content.map((r, index) => (
-          <Fragment key={r.commentId}>
-            {<ReplyCommentItem replyCommentData={r} {...props} />}
-            {replyCommentData.content.length !== index + 1 && (
-              <hr className="line_box" />
-            )}
-          </Fragment>
-        ))}
+      {replyCommentListData &&
+        replyCommentListData.pages.map((page, pageIndex) =>
+          page.content.map((replyComment, replyCommentIndex) => (
+            <Fragment key={replyComment.commentId}>
+              {<ReplyCommentItem replyCommentData={replyComment} {...props} />}
+              {replyCommentListData.pages[replyCommentListData.pages.length - 1]
+                .content[page.content.length - 1] !==
+                replyCommentListData.pages[pageIndex].content[
+                  replyCommentIndex
+                ] && <hr className="line" />}
+            </Fragment>
+          )),
+        )}
+      {hasNextPage && (
+        <Pagination
+          text="대댓글 더보기"
+          loading={isFetching}
+          onClick={() => fetchNextPage()}
+        />
+      )}
     </S.Layout>
   );
 };

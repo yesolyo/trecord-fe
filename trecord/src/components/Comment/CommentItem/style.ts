@@ -4,9 +4,10 @@ interface Props {
   select: boolean;
 }
 
-export const Layout = styled.div<Props>`
+export const Layout = styled.li<Props>`
   display: flex;
   gap: 25px;
+  width: 85%;
   background: ${({ theme, select }) =>
     select
       ? theme.colors.colorStyles.gray200
