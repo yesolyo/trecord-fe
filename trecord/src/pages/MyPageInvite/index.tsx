@@ -1,18 +1,17 @@
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { useNavigate } from 'react-router-dom';
-import useInviteMyPageQuery from '@/apis/MyPage/useInviteMyPageQuery';
 import { MyPageInviteList } from '@components/MyPageInvite/MyPageInviteList';
 import useInviteMyPageDeleteMutation from '@/apis/MyPage/useInviteMyPageDeleteMutation';
-import { useState } from 'react';
+import { useInviteFeedListInfiniteQuery } from '@/apis/MyPage/useInviteFeedListInfiniteQuery';
 export const MyPageInvite = () => {
   const navigate = useNavigate();
-  const [pageCount, setPageCount] = useState<number>(10);
-  const { data, refetch } = useInviteMyPageQuery({ pageCount });
   const { mutate } = useInviteMyPageDeleteMutation();
-
-  const handlePageCount = () => {
-    setPageCount((prev) => prev + 10);
-  };
+  const {
+    data: inviteFeedListData,
+    isFetching: isDataFetching,
+    hasNextPage,
+    fetchNextPage,
+  } = useInviteFeedListInfiniteQuery();
 
   const handleDeleteInvite = (id: number) => {
     mutate(
@@ -20,9 +19,7 @@ export const MyPageInvite = () => {
         id,
       },
       {
-        onSuccess: () => {
-          refetch();
-        },
+        onSuccess: () => {},
       },
     );
   };
@@ -33,11 +30,13 @@ export const MyPageInvite = () => {
         isRegister={false}
         onClick={() => navigate(-1)}
       />
-      {data && (
+      {inviteFeedListData && (
         <MyPageInviteList
           onDelete={handleDeleteInvite}
-          inviteData={data}
-          onPageCount={handlePageCount}
+          inviteFeedListData={inviteFeedListData}
+          isDataFetching={isDataFetching}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
         />
       )}
     </>

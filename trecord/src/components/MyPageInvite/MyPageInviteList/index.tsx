@@ -6,18 +6,28 @@ import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@components/common/Pagination';
 import { Page } from '@/types';
-import { GetMyPageInvite } from '@/types/mypage';
-
+import { GetInviteFeedList } from '@/types/mypage';
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 interface Props {
-  inviteData: Page<GetMyPageInvite>;
+  inviteFeedListData: InfiniteData<Page<GetInviteFeedList>>;
   onDelete: (id: number) => void;
-  onPageCount: () => void;
+  isDataFetching: boolean;
+  hasNextPage: boolean | undefined;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<Page<GetInviteFeedList>, unknown>>;
 }
 
 export const MyPageInviteList = ({
-  inviteData,
+  inviteFeedListData,
   onDelete,
-  onPageCount,
+  isDataFetching,
+  hasNextPage,
+  fetchNextPage,
 }: Props) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
@@ -35,39 +45,48 @@ export const MyPageInviteList = ({
     ],
   };
 
-  if (inviteData.content.length === 0) return <Empty {...constant} />;
+  if (inviteFeedListData.pages[0].content.length === 0)
+    return <Empty {...constant} />;
   return (
     <S.Layout>
-      {inviteData.content.map((i, index) => (
-        <Fragment key={i.feedId}>
-          <div className="container">
-            {i.imageUrl && <img src={i.imageUrl} className="img" />}
-            <div
-              className="content"
-              onClick={() => navigate(`/feedDetail/${i.feedId}`)}
-            >
-              <span className="title ellipsis">{i.feedName}</span>
-              <span className="sub ellipsis">{i.ownerNickname}</span>
+      {inviteFeedListData.pages.map((page) =>
+        page.content.map((inviteFeed, index) => (
+          <Fragment key={inviteFeed.feedId}>
+            <div className="container">
+              {inviteFeed.imageUrl && (
+                <img src={inviteFeed.imageUrl} className="img" />
+              )}
+              <div
+                className="content"
+                onClick={() => navigate(`/feedDetail/${inviteFeed.feedId}`)}
+              >
+                <span className="title ellipsis">{inviteFeed.feedName}</span>
+                <span className="sub ellipsis">{inviteFeed.ownerNickname}</span>
+              </div>
+              <Icon
+                iconType="close"
+                width={24}
+                onClick={() => setIsActive(true)}
+              />
             </div>
-            <Icon
-              iconType="close"
-              width={24}
-              onClick={() => setIsActive(true)}
+            {page.content.length - 1 !== index && <hr className="line" />}
+            <Modal
+              openModal={isActive}
+              title="해당 피드에서 나갈까요?"
+              closeText="취소"
+              confirmText="나가기"
+              onClose={() => setIsActive(false)}
+              onConfirm={() => onDelete(inviteFeed.feedId)}
             />
-          </div>
-          {inviteData.content.length - 1 !== index && <hr className="line" />}
-          <Modal
-            openModal={isActive}
-            title="해당 피드에서 나갈까요?"
-            closeText="취소"
-            confirmText="나가기"
-            onClose={() => setIsActive(false)}
-            onConfirm={() => onDelete(i.feedId)}
-          />
-        </Fragment>
-      ))}
-      {!inviteData.last && (
-        <Pagination text="피드 더보기" onClick={onPageCount} />
+          </Fragment>
+        )),
+      )}
+      {hasNextPage && (
+        <Pagination
+          text="피드 더보기"
+          loading={isDataFetching}
+          onClick={() => fetchNextPage()}
+        />
       )}
     </S.Layout>
   );

@@ -1,4 +1,4 @@
-export interface GetMyPageInvite {
+export interface GetInviteFeedList {
   feedId: number;
   feedName: string;
   imageUrl: string | null;
