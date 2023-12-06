@@ -1,4 +1,4 @@
-import useRecordListInfiniteQuery from '@/apis/Record/useRecordListInfiniteQuery';
+import { useRecordListInfiniteQuery } from '@/apis';
 import { RecordList } from '../RecordList';
 import { SummeryList } from '../SummeryList';
 import { Empty } from '@components/common/Empty';
@@ -34,13 +34,17 @@ const RecordBody = ({
       },
     ],
   };
+  const concatenatePages = recordListData?.pages.flatMap(
+    (page) => page.content,
+  );
+
   if (recordListData?.pages[0].content.length === 0)
     return <Empty {...constant} />;
   return (
     <>
       {isActive ? (
         <RecordList
-          recordListData={recordListData}
+          recordListData={concatenatePages}
           paginationLoading={isFetching}
           paginationHasNextPage={hasNextPage}
           onClickPagination={fetchNextPage}
@@ -49,7 +53,12 @@ const RecordBody = ({
           startDate={startDate}
         />
       ) : (
-        <SummeryList recordListData={recordListData} />
+        <SummeryList
+          recordListData={concatenatePages}
+          paginationLoading={isFetching}
+          paginationHasNextPage={hasNextPage}
+          onClickPagination={fetchNextPage}
+        />
       )}
     </>
   );

@@ -28,7 +28,7 @@ export { default as useMyLikeListInfiniteQuery } from './MyPage/useMyLikeListInf
 export { default as useMyPageProfileQuery } from './MyPage/useMyPageProfileQuery';
 export { default as useMyCommentListInfiniteQuery } from './MyPage/useMyCommentListInfiniteQuery';
 /** Record */
-export { default as useRecordListQuery } from './Record/useRecordListQuery';
+export { default as useRecordListInfiniteQuery } from './Record/useRecordListInfiniteQuery';
 export { default as useRecordQuery } from './Record/useRecordQuery';
 export { default as useNewRecordMutation } from './Record/useNewRecordMutation';
 export { default as useModifyRecordMutation } from './Record/useModifyRecordMutation';

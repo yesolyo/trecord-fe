@@ -20,8 +20,6 @@ import ChipContainer from '@components/common/ChipContainer';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { User } from '@/types/user';
-import useRecordListInfiniteQuery from '@/apis/Record/useRecordListInfiniteQuery';
-
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
   return (

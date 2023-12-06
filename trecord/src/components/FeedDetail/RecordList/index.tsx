@@ -1,13 +1,11 @@
-import { Page } from '@/types';
 import * as S from '../RecordItem/style';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DndContainer from '../RecordDndContainer/DndContainer';
 import { recordList } from '@/types/record';
-import { InfiniteData } from '@tanstack/react-query';
 import Pagination from '@components/common/Pagination';
 interface RecordListProps {
-  recordListData: InfiniteData<Page<recordList>> | undefined;
+  recordListData: recordList[] | undefined;
   paginationLoading?: boolean | undefined;
   paginationHasNextPage: boolean | undefined;
   onClickPagination: () => void;
@@ -25,11 +23,7 @@ export const RecordList = ({
   endDate,
   startDate,
 }: RecordListProps) => {
-  const concatenatePages = recordListData?.pages.flatMap(
-    (page) => page.content,
-  );
-
-  const sortByDate = concatenatePages?.reduce(
+  const sortByDate = recordListData?.reduce(
     (acc, curr) => {
       const { date } = curr;
 
@@ -37,7 +31,7 @@ export const RecordList = ({
       else acc[date] = [curr];
       return acc;
     },
-    {} as Record<string, typeof concatenatePages>,
+    {} as Record<string, typeof recordListData>,
   );
 
   return (
