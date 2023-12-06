@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import RecordItem from './RecordItem';
+import RecordItem from '../RecordItem/RecordItem';
 
 import { recordList } from '@/types/record';
 import { useSwapRecordsMutation } from '@/apis';
@@ -24,7 +24,12 @@ interface Props {
   startDate: string;
 }
 
-const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
+const RecordDndContainer: FC<Props> = ({
+  feedId,
+  records,
+  endDate,
+  startDate,
+}) => {
   {
     const navigate = useNavigate();
     const { mutate } = useSwapRecordsMutation({ feedId });
@@ -82,4 +87,4 @@ const DndContainer: FC<Props> = ({ feedId, records, endDate, startDate }) => {
   }
 };
 
-export default DndContainer;
+export default RecordDndContainer;

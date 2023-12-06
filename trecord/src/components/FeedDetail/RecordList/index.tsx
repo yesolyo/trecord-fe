@@ -1,51 +1,70 @@
 import { Page } from '@/types';
-import * as S from './style';
+import * as S from '../RecordItem/style';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import DndContainer from './DndContainer';
+import DndContainer from '../RecordDndContainer/DndContainer';
 import { recordList } from '@/types/record';
+import { InfiniteData } from '@tanstack/react-query';
+import Pagination from '@components/common/Pagination';
 interface RecordListProps {
-  recordListData: Page<recordList>;
-  paginationLoading?: boolean;
+  recordListData: InfiniteData<Page<recordList>> | undefined;
+  paginationLoading?: boolean | undefined;
+  paginationHasNextPage: boolean | undefined;
   onClickPagination: () => void;
   feedId: string;
   endDate: string;
   startDate: string;
 }
+
 export const RecordList = ({
   recordListData,
   paginationLoading = false,
+  paginationHasNextPage,
   onClickPagination,
   feedId,
   endDate,
   startDate,
 }: RecordListProps) => {
-  const result = recordListData.content.reduce(
+  const concatenatePages = recordListData?.pages.flatMap(
+    (page) => page.content,
+  );
+
+  const sortByDate = concatenatePages?.reduce(
     (acc, curr) => {
       const { date } = curr;
+
       if (acc[date]) acc[date].push(curr);
       else acc[date] = [curr];
       return acc;
     },
-    {} as Record<string, typeof recordListData.content>,
+    {} as Record<string, typeof concatenatePages>,
   );
+
   return (
     <S.Layout>
-      {Object.entries(result).map(([dayKey, dayData]) => (
-        <S.GroupBox key={dayKey}>
-          <h2>{dayKey}</h2>
-          <DndProvider backend={HTML5Backend}>
-            <DndContainer
-              paginationLoading={paginationLoading}
-              onClickPagination={onClickPagination}
-              feedId={feedId}
-              records={dayData}
-              endDate={endDate}
-              startDate={startDate}
-            />
-          </DndProvider>
-        </S.GroupBox>
-      ))}
+      {sortByDate &&
+        Object.entries(sortByDate).map(([date, records]) => (
+          <S.GroupBox key={date}>
+            <h2>{date}</h2>
+            <DndProvider backend={HTML5Backend}>
+              <DndContainer
+                paginationLoading={paginationLoading}
+                onClickPagination={onClickPagination}
+                feedId={feedId}
+                records={records}
+                endDate={endDate}
+                startDate={startDate}
+              />
+            </DndProvider>
+          </S.GroupBox>
+        ))}
+      {paginationHasNextPage && (
+        <Pagination
+          text="기록 더보기"
+          loading={paginationLoading}
+          onClick={onClickPagination}
+        />
+      )}
     </S.Layout>
   );
 };

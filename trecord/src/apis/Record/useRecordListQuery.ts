@@ -9,7 +9,7 @@ interface Props {
   page: number;
 }
 
-const getRecordList = async ({
+export const getRecordList = async ({
   id,
   page,
 }: Props): Promise<Page<recordList>> => {

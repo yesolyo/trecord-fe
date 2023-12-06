@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import EmptyIcon from '@/assets/components/EmptyIcon';
 import { SummeryList } from '../SummeryList';
 import { recordList } from '@/types/record';
+import { InfiniteData } from '@tanstack/react-query';
+import useRecordListInfiniteQuery from '@/apis/Record/useRecordListInfiniteQuery';
+import RecordBody from '../RecordBody';
 
 const StyledEmptyDiv = styled.div`
   display: flex;
@@ -33,66 +36,39 @@ const StyledEmptyDiv = styled.div`
     line-height: 24px; /* 150% */
   }
 `;
-interface ViewRecordProps {
-  recordListData: Page<recordList>;
-  paginationLoading?: boolean;
-  onClickPagination: () => void;
+interface RecordContainerProps {
   feedId: string;
   endDate: string;
   startDate: string;
 }
-export const ViewRecord = ({
-  recordListData,
-  paginationLoading = false,
-  onClickPagination,
-  feedId,
-  endDate,
-  startDate,
-}: ViewRecordProps) => {
+export const RecordContainer = ({ ...props }: RecordContainerProps) => {
   const [activeList, setActiveList] = useState('기록리스트');
   const [isActive, setIsActive] = useState(true);
+
+  const handleShowRecordList = () => {
+    setActiveList('기록리스트');
+    setIsActive(true);
+  };
+
+  const handleShowSummeryRecordList = () => {
+    setActiveList('요약보기');
+    setIsActive(false);
+  };
   return (
     <S.Layout>
-      <S.BtnBox>
+      <div className="button_box">
         <RecordListBtn
           title="기록리스트"
           isActive={activeList}
-          onClick={() => {
-            setActiveList('기록리스트');
-            setIsActive(true);
-          }}
+          onClick={handleShowRecordList}
         />
         <RecordListBtn
           title="요약보기"
           isActive={activeList}
-          onClick={() => {
-            setActiveList('요약보기');
-            setIsActive(false);
-          }}
+          onClick={handleShowSummeryRecordList}
         />
-      </S.BtnBox>
-      {isActive && recordListData.content.length > 0 ? (
-        <RecordList
-          recordListData={recordListData}
-          paginationLoading={paginationLoading}
-          onClickPagination={onClickPagination}
-          feedId={feedId}
-          endDate={endDate}
-          startDate={startDate}
-        />
-      ) : (
-        <SummeryList recordListData={recordListData.content} />
-      )}
-      {recordListData.content.length === 0 && (
-        <StyledEmptyDiv>
-          <EmptyIcon />
-          <p className="big">앗!</p>
-          <div>
-            <p className="small">아직 생성된 기록이 없어요.</p>
-            <p className="small">여행 기록을 작성해 보세요.</p>
-          </div>
-        </StyledEmptyDiv>
-      )}
+      </div>
+      <RecordBody isActive={isActive} {...props} />
     </S.Layout>
   );
 };

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { Icon } from '@components/common/Icon';
-import { ViewRecord } from '@components/FeedDetail/ViewRecord';
+import { RecordContainer } from '@components/FeedDetail/RecordContainer';
 import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
@@ -16,11 +16,11 @@ import Modal from '@components/common/Modal';
 import { SELECT_FEED_DETAIL_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
-import useRecordListQuery from '@/apis/Record/useRecordListQuery';
 import ChipContainer from '@components/common/ChipContainer';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { User } from '@/types/user';
+import useRecordListInfiniteQuery from '@/apis/Record/useRecordListInfiniteQuery';
 
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
@@ -71,9 +71,9 @@ export const Fallback = (): ReactElement => {
 
 export const FeedDetail = observer(() => {
   const { id = '' } = useParams();
-
   const { feedStore } = useStore();
   const { data: detailData } = useFeedDetailQuery({ id: id ?? '' });
+
   useEffect(() => {
     if (detailData) {
       feedStore.setFeedId(detailData.feedId);
@@ -192,16 +192,13 @@ export const FeedDetail = observer(() => {
             </S.EmojiBox>
           )}
           <div className="detail_description">{detailData?.description}</div>
-          {/* {recordListData && detailData && (
-            <ViewRecord
-              recordListData={recordListData}
-              paginationLoading={isLoading}
-              onClickPagination={paginationClickEventHandler}
+          {detailData && (
+            <RecordContainer
               feedId={id}
               endDate={detailData?.endAt}
               startDate={detailData?.startAt}
             />
-          )} */}
+          )}
         </S.ExplainBox>
         <div className="button-box">
           <CircularButton

@@ -3,8 +3,10 @@ import { CircleTag } from './CircleTag/inedx';
 import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import { Fragment } from 'react';
+import { InfiniteData } from '@tanstack/react-query';
+import { Page } from '@/types';
 interface RecordSummaryProps {
-  recordListData: recordList[];
+  recordListData: InfiniteData<Page<recordList>> | undefined;
 }
 
 export const SummeryList = ({ recordListData }: RecordSummaryProps) => {
