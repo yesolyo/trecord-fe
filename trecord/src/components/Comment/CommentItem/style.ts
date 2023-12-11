@@ -6,20 +6,25 @@ interface Props {
 
 export const Layout = styled.li<Props>`
   display: flex;
+  flex-direction: column;
   gap: 25px;
-  width: 85%;
-  background: ${({ theme, select }) =>
-    select
-      ? theme.colors.colorStyles.gray200
-      : theme.colors.colorStyles.gray100};
-  &:hover {
-    background: ${({ theme }) => theme.colors.colorStyles.gray200};
-  }
+  align-items: center;
 
   .user-img {
     width: 28px;
     height: 28px;
     border-radius: 50%;
+  }
+  .comment_item {
+    display: flex;
+    gap: 25px;
+    background: ${({ theme, select }) =>
+      select
+        ? theme.colors.colorStyles.gray200
+        : theme.colors.colorStyles.gray100};
+    &:hover {
+      background: ${({ theme }) => theme.colors.colorStyles.gray200};
+    }
   }
 
   .title-box {
@@ -49,5 +54,13 @@ export const Layout = styled.li<Props>`
       ${({ theme }) => theme.font.fontSize.Caption_S}
       ${({ theme }) => theme.font.fontType.R};
     }
+  }
+  .button_reply {
+    ${({ theme }) => theme.font.fontSize.Caption_S}
+    ${({ theme }) => theme.font.fontType.R};
+    background: none;
+    border: none;
+    display: flex;
+    padding: 0;
   }
 `;

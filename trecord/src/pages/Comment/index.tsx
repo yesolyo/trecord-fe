@@ -13,21 +13,25 @@ import {
 import usePostReplyComment, {
   postReplyCommentProps,
 } from '@/apis/Comment/useReplyCommentMutation';
-
-import useDeleteNewComment from '@/apis/Comment/useNewCommentDeleteMutation';
-import usePostNewComment from '@/apis/Comment/useNewCommentMutation';
-import useModifyNewComment from '@/apis/Comment/useModifyNewCommentMutation';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
 import { getTotalItem } from '@/utils/getTotalItem';
-import { useNewCommentInfiniteQuery } from '@/apis';
+import {
+  useModifyNewCommentMutation,
+  useNewCommentDeleteMutation,
+  useNewCommentInfiniteQuery,
+  useNewCommentMutation,
+} from '@/apis';
 
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [selectCommentId, setSelectCommentId] = useState<number>(0);
-  const { mutate: deleteNewComment } = useDeleteNewComment();
-  const { mutate: postComment } = usePostNewComment();
-  const { mutate: putComment } = useModifyNewComment();
+  const { mutate: deleteNewComment } = useNewCommentDeleteMutation({
+    recordId: id,
+    commentId: selectCommentId,
+  });
+  const { mutate: postComment } = useNewCommentMutation();
+  const { mutate: putComment } = useModifyNewCommentMutation();
   const { mutate: postReplyComment } = usePostReplyComment();
   const [commentType, setCommentType] = useState('NEW');
   const [comment, setComment] = useState<string>('');

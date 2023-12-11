@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MyPgaeCommentList';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
-import useNewCommentDeleteMutation from '@/apis/Comment/useNewCommentDeleteMutation';
 import { useMyCommentListInfiniteQuery } from '@/apis';
+import useCommentListDeleteMutation from '@/apis/Comment/useCommentListDeleteMutation';
 
 export const MyPageComment = () => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
-  const { mutate } = useNewCommentDeleteMutation();
+  const { mutate } = useCommentListDeleteMutation();
   const {
     data: myCommentListData,
     hasNextPage,

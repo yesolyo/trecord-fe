@@ -4,7 +4,8 @@ import * as S from './style';
 import { Icon } from '@components/common/Icon';
 import SelectButton from '@components/common/button/SelectButton';
 import { replaceDate } from '@/utils/replaceDate';
-import { ReplyCommentButton } from '../ReplyCommentButton';
+import { useState } from 'react';
+import { ReplyCommentList } from '../ReplyCommentList';
 interface Props {
   commentData: GetComment;
   onSaveCommentId: (id: number) => void;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const CommentItem = ({ ...props }: Props) => {
+  const [hasReplyComment, sethasReplyComment] = useState<boolean>(false);
   const handleChangeSelect = (v: string) => {
     props.onSaveCommentType(v);
     switch (v) {
@@ -42,52 +44,63 @@ export const CommentItem = ({ ...props }: Props) => {
 
   return (
     <S.Layout select={props.selectCommentId === props.commentData.commentId}>
-      {props.commentData.commenterImageUrl.length >= 1 ? (
-        <img
-          src={props.commentData.commenterImageUrl}
-          className="user-img"
-          onClick={() =>
-            props.onClickUserProfile({
-              imgUrl: props.commentData.commenterImageUrl,
-              nickName: props.commentData.commenterNickname,
-              content: props.commentData.content,
-            })
-          }
-        />
-      ) : (
-        <Icon
-          iconType="profile"
-          width={28}
-          onClick={() =>
-            props.onClickUserProfile({
-              imgUrl: props.commentData.commenterImageUrl,
-              nickName: props.commentData.commenterNickname,
-              content: props.commentData.content,
-            })
-          }
-        />
-      )}
-      <div className="content_box">
-        <div className="title-box">
-          <span>{props.commentData.commenterNickname}</span>
-          {props.commentData.isUpdatable ? (
-            <SelectButton
-              options={SELECT_MY_COMMENT_INFOS}
-              onSelect={handleChangeSelect}
-            />
-          ) : (
-            <SelectButton
-              options={SELECT_COMMENT_INFOS}
-              onSelect={handleChangeSelect}
-            />
+      <div className="comment_item">
+        {props.commentData.commenterImageUrl.length >= 1 ? (
+          <img
+            src={props.commentData.commenterImageUrl}
+            className="user-img"
+            onClick={() =>
+              props.onClickUserProfile({
+                imgUrl: props.commentData.commenterImageUrl,
+                nickName: props.commentData.commenterNickname,
+                content: props.commentData.content,
+              })
+            }
+          />
+        ) : (
+          <Icon
+            iconType="profile"
+            width={28}
+            onClick={() =>
+              props.onClickUserProfile({
+                imgUrl: props.commentData.commenterImageUrl,
+                nickName: props.commentData.commenterNickname,
+                content: props.commentData.content,
+              })
+            }
+          />
+        )}
+        <div className="content_box">
+          <div className="title-box">
+            <span>{props.commentData.commenterNickname}</span>
+            {props.commentData.isUpdatable ? (
+              <SelectButton
+                options={SELECT_MY_COMMENT_INFOS}
+                onSelect={handleChangeSelect}
+              />
+            ) : (
+              <SelectButton
+                options={SELECT_COMMENT_INFOS}
+                onSelect={handleChangeSelect}
+              />
+            )}
+          </div>
+          <span className="content">{props.commentData.content}</span>
+          <span className="content_date">
+            {replaceDate({ date: props.commentData.commentCreatedDate })}
+          </span>
+          {props.commentData.replyCount > 0 && (
+            <button
+              type="button"
+              className="button_reply"
+              onClick={() => sethasReplyComment((prev) => !prev)}
+            >
+              {props.commentData.replyCount}개의 댓글 보기
+            </button>
           )}
         </div>
-        <span className="content">{props.commentData.content}</span>
-        <span className="content_date">
-          {replaceDate({ date: props.commentData.commentCreatedDate })}
-        </span>
-        {props.commentData.replyCount > 0 && <ReplyCommentButton {...props} />}
       </div>
+      {hasReplyComment && <ReplyCommentList {...props} />}
     </S.Layout>
   );
 };

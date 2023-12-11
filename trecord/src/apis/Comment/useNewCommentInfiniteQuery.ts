@@ -24,7 +24,7 @@ const getNewComment = async ({
 
 const useNewCommentInfiniteQuery = ({ recordId }: Props) => {
   return useInfiniteQuery({
-    queryKey: [COMMENT_API_KEY.NEW_COMMENT],
+    queryKey: [COMMENT_API_KEY.NEW_COMMENT, { recordId }],
     queryFn: async ({ pageParam = 0 }) =>
       await getNewComment({ page: pageParam, recordId }),
     getNextPageParam: (lastPage, allPages) => {

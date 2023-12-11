@@ -5,7 +5,6 @@ export const Layout = styled.ul`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  width: 70%;
   height: calc(100% - 190px);
 
   .line_box {
