@@ -4,12 +4,18 @@ import { MainTabBar } from '@components/common/TabBar/MainTabBar';
 import { useNavigate } from 'react-router-dom';
 import { CircularButton } from '@components/common/button/CircularButton';
 import * as S from './style';
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
+import useFeedInfiniteQuery from '@/apis/Feed/useFeedInfiniteQuery';
+import { getTotalItem } from '@/utils/getTotalItem';
 
 export const Home = () => {
   const navigate = useNavigate();
-
-  const [totalFeeds, setTotalFeeds] = useState(0);
+  const {
+    data: feedData,
+    fetchNextPage,
+    isLoading,
+    hasNextPage,
+  } = useFeedInfiniteQuery();
 
   const constant = {
     circularBtn: {
@@ -23,13 +29,20 @@ export const Home = () => {
   return (
     <>
       <Suspense fallback={<FeedHomeFallback />}>
-        <FeedHome totalFeedsSetter={setTotalFeeds} />
+        <FeedHome
+          feedData={feedData}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isLoading={isLoading}
+        />
       </Suspense>
       <S.ButtonBox>
         <CircularButton iconType="edit" {...constant.circularBtn} />
       </S.ButtonBox>
       <MainTabBar currentPage="home" />
-      <NavBarHome totalPage={totalFeeds} />
+      <NavBarHome
+        totalPage={feedData?.pages && getTotalItem({ data: feedData })}
+      />
     </>
   );
 };

@@ -1,17 +1,38 @@
-import useGetMypageComment from '@/apis/Comment/getMypageComment';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useState } from 'react';
-import { MypageCommentList } from '@components/MypageComment/MypageCommentList';
+import { Fragment, ReactElement, useState } from 'react';
+import { MypageCommentList } from '@components/MypageComment/MyPgaeCommentList';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
-import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
-
+import { useMyCommentListInfiniteQuery } from '@/apis';
+import useCommentListDeleteMutation from '@/apis/Comment/useCommentListDeleteMutation';
+import Skeleton from '@components/common/skeleton';
+import * as S from './style';
+export const Fallback = (): ReactElement => {
+  const contentList = Array.from({ length: 8 }, (_, i) => i + 1);
+  return (
+    <S.Layout>
+      <NavBarNew title="댓글" isRegister={false} />
+      <div className="content">
+        {contentList.map((content, index) => (
+          <Fragment key={content}>
+            <Skeleton width="100%" height="85px" />
+            {index !== contentList.length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
+    </S.Layout>
+  );
+};
 export const MyPageComment = () => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
-  const [pageCount, setPageCount] = useState<number>(10);
-  const { mutate } = useDeleteNewComment();
-  const { data: commentData } = useGetMypageComment({ page: pageCount });
+  const { mutate } = useCommentListDeleteMutation();
+  const {
+    data: myCommentListData,
+    hasNextPage,
+    isLoading,
+    fetchNextPage,
+  } = useMyCommentListInfiniteQuery();
   const navigate = useNavigate();
 
   const handleDeleteData = (id: number) => {
@@ -31,16 +52,15 @@ export const MyPageComment = () => {
     setCommentId(id);
     setIsModalActive(true);
   };
-  const handlePageCount = () => {
-    setPageCount((prev) => prev + 10);
-  };
   return (
     <>
       <NavBarNew title="댓글" isRegister={false} onClick={() => navigate(-1)} />
-      {commentData && (
+      {myCommentListData && (
         <MypageCommentList
-          commentData={commentData}
-          onPageCount={handlePageCount}
+          myCommentListData={myCommentListData}
+          hasNextPage={hasNextPage}
+          isLoading={isLoading}
+          fetchNextPage={fetchNextPage}
           onModalActive={handleModalActive}
         />
       )}

@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '../../Icon';
 import * as S from './style';
 interface NavBarProps {
-  totalPage: number;
+  totalPage?: number;
 }
-export const NavBarHome = ({ totalPage }: NavBarProps) => {
+export const NavBarHome = ({ totalPage = 0 }: NavBarProps) => {
   const navigate = useNavigate();
   return (
     <S.Layout>

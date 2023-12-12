@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Layout = styled.div`
+export const Layout = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@ export const Layout = styled.div`
     display: none;
   }
 
-  .line_box {
+  .line {
     width: 390px;
     border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
     text-align: left;

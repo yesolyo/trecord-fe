@@ -1,13 +1,17 @@
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
-import { useGetFeeds } from '@/apis';
-import { Empty } from '@components/common/Empty';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 import Skeleton from '@components/common/skeleton';
+import { Empty } from '@components/common/Empty';
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
+import { Page } from '@/types';
+import { Feed } from '@/types/feeds';
 import Pagination from '@components/common/Pagination';
-import usePagedData from '@/hooks/usePagedData';
-
 const StyledFallback = styled.div`
   height: calc(100% - 190px);
   overflow: auto;
@@ -30,25 +34,21 @@ export const Fallback = (): ReactElement => {
 };
 
 interface FeedHomeProps {
-  totalFeedsSetter: React.Dispatch<React.SetStateAction<number>>;
+  feedData: InfiniteData<Page<Feed>> | undefined;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<Page<Feed>, unknown>>;
+  hasNextPage: boolean | undefined;
+  isLoading: boolean;
 }
 
 export const FeedHome = ({
-  totalFeedsSetter: setTotalFeeds,
+  feedData,
+  fetchNextPage,
+  hasNextPage,
+  isLoading,
 }: FeedHomeProps) => {
-  const {
-    data: pageData,
-    isLoading,
-    paginationClickEventHandler: handleClickPagination,
-  } = usePagedData({
-    queryFunctionProps: { page: 0 },
-    queryFunction: useGetFeeds,
-  });
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (pageData) setTotalFeeds(pageData.totalElements);
-  }, [pageData]);
 
   const constant = {
     icon: {
@@ -68,40 +68,42 @@ export const FeedHome = ({
     ],
   };
 
-  if (pageData?.content.length === 0) return <Empty {...constant} />;
+  if (feedData?.pages[0].content.length === 0) return <Empty {...constant} />;
 
   return (
     <S.Layout>
-      {pageData?.content.map((feed) => (
-        <S.ImgBox
-          key={feed.id}
-          onClick={() => navigate(`/feedDetail/${feed.id}`)}
-        >
-          <img
-            src={
-              feed.imageUrl
-                ? feed.imageUrl
-                : import.meta.env.VITE_AWS_DEFAULT_IMG
-            }
-            width={342}
-            height={180}
-          />
-          <S.TextBox>
-            <div className="feed_name">{feed.name}</div>
-            <div className="feed_sub">
-              <div className="feed_place">{feed.place}</div>
-              <span>
-                |{feed.startAt}~{feed.endAt}{' '}
-              </span>
-            </div>
-          </S.TextBox>
-        </S.ImgBox>
-      ))}
-      {!pageData?.last && (
+      {feedData?.pages.map((page) =>
+        page.content.map((feed) => (
+          <S.ImgBox
+            key={feed.id}
+            onClick={() => navigate(`/feedDetail/${feed.id}`)}
+          >
+            <img
+              src={
+                feed.imageUrl
+                  ? feed.imageUrl
+                  : import.meta.env.VITE_AWS_DEFAULT_IMG
+              }
+              width={342}
+              height={180}
+            />
+            <S.TextBox>
+              <div className="feed_name">{feed.name}</div>
+              <div className="feed_sub">
+                <div className="feed_place">{feed.place}</div>
+                <span>
+                  |{feed.startAt}~{feed.endAt}{' '}
+                </span>
+              </div>
+            </S.TextBox>
+          </S.ImgBox>
+        )),
+      )}
+      {hasNextPage && (
         <Pagination
           text="피드 더보기"
           loading={isLoading}
-          onClick={handleClickPagination}
+          onClick={() => fetchNextPage()}
         />
       )}
     </S.Layout>

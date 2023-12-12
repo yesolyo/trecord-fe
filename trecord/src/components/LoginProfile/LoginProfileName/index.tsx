@@ -1,4 +1,4 @@
-import { useGetUser } from '@/apis';
+import { useUserQuery } from '@/apis';
 import * as S from './style';
 import { Suspense, useRef, useState } from 'react';
 import Modal from '@components/common/Modal';
@@ -20,7 +20,7 @@ export const LoginProfileNameBody = ({
     useState(false);
   const [edit, setEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { refetch } = useGetUser({ q: debouncedNickname });
+  const { refetch } = useUserQuery({ q: debouncedNickname });
   const queryCilent = useQueryClient();
 
   const handleCheckDuplicateNickname = async (e: any) => {

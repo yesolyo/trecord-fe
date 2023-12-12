@@ -1,11 +1,10 @@
 import { TextInput } from '@components/common/input/TextInput';
-import { ReactElement, useEffect, useState } from 'react';
+import { Fragment, ReactElement, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import * as S from './style';
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useGetRecord } from '@/apis';
 import ImgInput from '@components/common/ImgInput';
 import { DateInput } from '@components/common/input/DateInput';
 import { AutoCompletePlace } from '@components/common/AutoCompletePlace';
@@ -16,12 +15,29 @@ import {
   SELECT_WEATHER_INFOS,
 } from '@/types';
 import { SquareBtn } from '@components/common/SquareBtn';
-
+import { useRecordQuery } from '@/apis';
+import Skeleton from '@components/common/skeleton';
+export const Fallback = (): ReactElement => {
+  const contentList = Array.from({ length: 8 }, (_, i) => i + 1);
+  return (
+    <S.Layout>
+      <NavBarNew title="댓글" isRegister={false} />
+      <div className="content">
+        {contentList.map((content, index) => (
+          <Fragment key={content}>
+            <Skeleton width="100%" height="85px" />
+            {index !== contentList.length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
+    </S.Layout>
+  );
+};
 const ModifyRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
   const location = useLocation();
   const { minDate, maxDate } = location.state;
-  const { data } = useGetRecord({ id: recordId });
+  const { data } = useRecordQuery({ id: recordId });
 
   const { recordStore } = useStore();
 

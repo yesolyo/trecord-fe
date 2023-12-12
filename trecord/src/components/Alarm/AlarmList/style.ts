@@ -48,10 +48,9 @@ export const Layout = styled.div`
       }
     }
   }
-`;
-
-export const LineBox = styled.hr`
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
-  background: none;
+  .line {
+    width: 390px;
+    border: 1px solid ${({ theme }) => theme.colors.colorStyles.gray300};
+    background: none;
+  }
 `;

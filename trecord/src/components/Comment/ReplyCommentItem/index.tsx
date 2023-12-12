@@ -43,45 +43,49 @@ export const ReplyCommentItem = ({
   };
   return (
     <S.Layout select={selectCommentId === replyCommentData.commentId}>
-      {replyCommentData.commenterImageUrl.length >= 1 ? (
-        <img
-          src={replyCommentData.commenterImageUrl}
-          className="user-img"
-          onClick={() =>
-            onClickUserProfile({
-              imgUrl: replyCommentData.commenterImageUrl,
-              nickName: replyCommentData.commenterNickname,
-              content: replyCommentData.content,
-            })
-          }
-        />
-      ) : (
-        <Icon
-          iconType="profile"
-          width={28}
-          onClick={() =>
-            onClickUserProfile({
-              imgUrl: replyCommentData.commenterImageUrl,
-              nickName: replyCommentData.commenterNickname,
-              content: replyCommentData.content,
-            })
-          }
-        />
-      )}
-      <div className="content_box">
-        <div className="title-box">
-          <span>{replyCommentData.commenterNickname}</span>
-          {replyCommentData.updatable && (
-            <SelectButton
-              options={SELECT_REPLY_COMMENT_INFOS}
-              onSelect={handleChangeSelect}
-            />
-          )}
+      <div className="comment-arrow"></div>
+      <div className="comment-user">
+        {replyCommentData.commenterImageUrl.length >= 1 ? (
+          <img
+            src={replyCommentData.commenterImageUrl}
+            className="comment-user__image"
+            onClick={() =>
+              onClickUserProfile({
+                imgUrl: replyCommentData.commenterImageUrl,
+                nickName: replyCommentData.commenterNickname,
+                content: replyCommentData.content,
+              })
+            }
+          />
+        ) : (
+          <Icon
+            iconType="profile"
+            width={28}
+            onClick={() =>
+              onClickUserProfile({
+                imgUrl: replyCommentData.commenterImageUrl,
+                nickName: replyCommentData.commenterNickname,
+                content: replyCommentData.content,
+              })
+            }
+          />
+        )}
+
+        <div className="comment-content-box">
+          <div className="comment-content__title">
+            <span>{replyCommentData.commenterNickname}</span>
+            {replyCommentData.updatable && (
+              <SelectButton
+                options={SELECT_REPLY_COMMENT_INFOS}
+                onSelect={handleChangeSelect}
+              />
+            )}
+          </div>
+          <span className="comment-content">{replyCommentData.content}</span>
+          <span className="comment-content__date">
+            {replaceDate({ date: replyCommentData.createdDateTime })}
+          </span>
         </div>
-        <span className="content">{replyCommentData.content}</span>
-        <span className="content_date">
-          {replaceDate({ date: replyCommentData.createdDateTime })}
-        </span>
       </div>
     </S.Layout>
   );

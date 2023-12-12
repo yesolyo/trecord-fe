@@ -3,31 +3,54 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import {
   CommentUserModalProps,
   deletDataProps,
   postNewCommentProps,
   putDataProps,
 } from '@/types/comment';
-import useGetNewComment from '@/apis/Comment/getNewComment';
 import usePostReplyComment, {
   postReplyCommentProps,
-} from '@/apis/Comment/postReplyComment';
-
-import useDeleteNewComment from '@/apis/Comment/deleteNewComment';
-import usePostNewComment from '@/apis/Comment/postNewComment';
-import useModifyNewComment from '@/apis/Comment/modifyNewComment';
+} from '@/apis/Comment/useReplyCommentMutation';
 import { TabBarComment } from '@components/common/TabBar/TabBarComment';
+import { getTotalItem } from '@/utils/getTotalItem';
+import {
+  useModifyNewCommentMutation,
+  useNewCommentDeleteMutation,
+  useNewCommentInfiniteQuery,
+  useNewCommentMutation,
+} from '@/apis';
+import Skeleton from '@components/common/skeleton';
+import * as S from './style';
 
+export const Fallback = (): ReactElement => {
+  const contentList = Array.from({ length: 8 }, (_, i) => i + 1);
+  return (
+    <S.Layout>
+      <NavBarNew title="댓글" isRegister={false} />
+      <div className="content">
+        {contentList.map((content, index) => (
+          <Fragment key={content}>
+            <Skeleton width="100%" height="85px" />
+            {index !== contentList.length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
+    </S.Layout>
+  );
+};
 
 export const Comment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [selectCommentId, setSelectCommentId] = useState<number>(0);
-  const { mutate: deleteNewComment } = useDeleteNewComment();
-  const { mutate: postComment } = usePostNewComment();
-  const { mutate: putComment } = useModifyNewComment();
+  const { mutate: deleteNewComment } = useNewCommentDeleteMutation({
+    recordId: id,
+    commentId: selectCommentId,
+  });
+  const { mutate: postComment } = useNewCommentMutation();
+  const { mutate: putComment } = useModifyNewCommentMutation();
   const { mutate: postReplyComment } = usePostReplyComment();
   const [commentType, setCommentType] = useState('NEW');
   const [comment, setComment] = useState<string>('');
@@ -39,7 +62,12 @@ export const Comment = () => {
     content: '',
   });
 
-  const { data: commentData } = useGetNewComment({
+  const {
+    data: commentData,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+  } = useNewCommentInfiniteQuery({
     recordId: Number(id),
   });
 
@@ -173,12 +201,15 @@ export const Comment = () => {
       <NavBarNew
         title="댓글"
         isRegister={false}
-        commentCount={commentData && commentData.content.length}
+        commentCount={commentData && getTotalItem({ data: commentData })}
         onClick={() => navigate(`/recordDetail/${id}`)}
       />
       {commentData && (
         <CommentList
           commentData={commentData}
+          paginationLoading={isLoading}
+          paginationHasNextPage={hasNextPage}
+          onClickPagination={fetchNextPage}
           onSaveCommentId={handleSaveCommentId}
           onSaveCommentType={handleSaveCommentType}
           onSaveComment={handleSaveComment}

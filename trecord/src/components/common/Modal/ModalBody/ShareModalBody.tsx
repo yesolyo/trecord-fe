@@ -2,7 +2,6 @@ import { ReactElement, Suspense, useContext } from 'react';
 import { Icon } from '../../Icon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContext } from '../../Toast';
-import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
@@ -11,6 +10,11 @@ import { observer } from 'mobx-react-lite';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQueryClient } from '@tanstack/react-query';
 import USER_API_KEY from '@/apis/User/constants';
+import {
+  useGtfOutFromFeedMutation,
+  useInviteUserMutation,
+  useUserQuery,
+} from '@/apis';
 
 interface Props {
   writerId: number;
@@ -31,9 +35,9 @@ const InputContainer = observer(
     inputValueSetter: setInputValue,
   }: Props) => {
     const nickname = useDebounce(inputValue, 300);
-    const { data: userData, refetch } = useGetUser({ q: nickname });
-    const { mutate } = useInviteUser();
-    const { mutate: gtfOut } = useGtfOutFromFeed();
+    const { data: userData, refetch } = useUserQuery({ q: nickname });
+    const { mutate } = useInviteUserMutation();
+    const { mutate: gtfOut } = useGtfOutFromFeedMutation();
     const queryClient = useQueryClient();
     const handleClickSearch = () => {
       if (

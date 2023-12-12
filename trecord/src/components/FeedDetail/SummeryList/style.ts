@@ -20,6 +20,12 @@ export const Layout = styled.div`
     flex-direction: column;
     align-items: center;
   }
+  .circle-tag {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.colorStyles.gray900};
+  }
   .v-line {
     border-left: 1px solid;
     height: 50px;

@@ -2,23 +2,24 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import { NavBarBackBtn } from '@components/common/NavBar/NavBarBackBtn';
 import { Icon } from '@components/common/Icon';
-import { ViewRecord } from '@components/FeedDetail/ViewRecord';
+import { RecordContainer } from '@components/FeedDetail/RecordContainer';
 import { feelCategory } from '@/utils';
 import { CircularButton } from '@components/common/button/CircularButton';
 import SelectButton from '@components/common/button/SelectButton';
-import { useDeleteFeed, useGetFeedDetail, useGtfOutFromFeed } from '@/apis';
+import {
+  useFeedDeleteMutation,
+  useFeedDetailQuery,
+  useGtfOutFromFeedMutation,
+} from '@/apis';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import Modal from '@components/common/Modal';
 import { SELECT_FEED_DETAIL_INFOS } from '@/types';
 import Skeleton from '@components/common/skeleton';
 import ShareModalBody from '@components/common/Modal/ModalBody/ShareModalBody';
-import useGetRecordList from '@/apis/Feed/getRecordList';
 import ChipContainer from '@components/common/ChipContainer';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { User } from '@/types/user';
-import usePagedData from '@/hooks/usePagedData';
-
 export const Fallback = (): ReactElement => {
   const navigate = useNavigate();
   return (
@@ -68,9 +69,9 @@ export const Fallback = (): ReactElement => {
 
 export const FeedDetail = observer(() => {
   const { id = '' } = useParams();
-
   const { feedStore } = useStore();
-  const { data: detailData } = useGetFeedDetail({ id: id ?? '' });
+  const { data: detailData } = useFeedDetailQuery({ id: id ?? '' });
+
   useEffect(() => {
     if (detailData) {
       feedStore.setFeedId(detailData.feedId);
@@ -78,16 +79,7 @@ export const FeedDetail = observer(() => {
     }
   }, [detailData]);
 
-  const {
-    data: recordListData,
-    isLoading,
-    paginationClickEventHandler,
-  } = usePagedData({
-    queryFunctionProps: { page: 0, id: id ?? '' },
-    queryFunction: useGetRecordList,
-  });
-
-  const { mutate: deleteFeed } = useDeleteFeed();
+  const { mutate: deleteFeed } = useFeedDeleteMutation();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -117,7 +109,6 @@ export const FeedDetail = observer(() => {
           setOpenShareModal(true);
           if (detailData) {
             setContributors(detailData.contributors);
-            console.log(detailData.contributors);
           }
           return;
         default:
@@ -139,7 +130,7 @@ export const FeedDetail = observer(() => {
     },
     [detailData],
   );
-  const { mutate } = useGtfOutFromFeed();
+  const { mutate } = useGtfOutFromFeedMutation();
   const handleClickGtfConfirm = () => {
     mutate(
       { feedId: feedStore.feedId, userId: selectedGtfUser?.userId ?? -1 },
@@ -198,11 +189,8 @@ export const FeedDetail = observer(() => {
             </S.EmojiBox>
           )}
           <div className="detail_description">{detailData?.description}</div>
-          {recordListData && detailData && (
-            <ViewRecord
-              recordListData={recordListData}
-              paginationLoading={isLoading}
-              onClickPagination={paginationClickEventHandler}
+          {detailData && (
+            <RecordContainer
               feedId={id}
               endDate={detailData?.endAt}
               startDate={detailData?.startAt}

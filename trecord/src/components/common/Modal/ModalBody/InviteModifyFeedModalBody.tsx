@@ -1,6 +1,5 @@
 import { ReactElement, Suspense, useCallback, useState } from 'react';
 import { Icon } from '../../Icon';
-import { useGetUser, useGtfOutFromFeed, useInviteUser } from '@/apis';
 import { User } from '@/types/user';
 import StyledProfile from './StyledComponent/StyledProfile';
 import StyledModalBody from './StyledComponent/StyledModalBody';
@@ -8,6 +7,11 @@ import InputContainerFallback from './InputContainerFallback';
 import { useQueryClient } from '@tanstack/react-query';
 import USER_API_KEY from '@/apis/User/constants';
 import { useDebounce } from '@/hooks/useDebounce';
+import {
+  useGtfOutFromFeedMutation,
+  useInviteUserMutation,
+  useUserQuery,
+} from '@/apis';
 
 interface Props {
   writerId: number;
@@ -24,11 +28,11 @@ const InputContainer = ({
 }: Props) => {
   const [inputValue, setInputValue] = useState('');
   const nickname = useDebounce(inputValue, 300);
-  const { data: userData, refetch } = useGetUser({
+  const { data: userData, refetch } = useUserQuery({
     q: nickname,
   });
-  const { mutate } = useInviteUser();
-  const { mutate: gtfOut } = useGtfOutFromFeed();
+  const { mutate } = useInviteUserMutation();
+  const { mutate: gtfOut } = useGtfOutFromFeedMutation();
   const queryClient = useQueryClient();
 
   const handleClickSearch = () => {

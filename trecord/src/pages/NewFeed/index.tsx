@@ -15,7 +15,7 @@ import ChipContainer from '@components/common/ChipContainer';
 import { SelectionBox } from '@components/common/SelectionBox';
 import { SELECT_SATISFACTION_INFOS } from '@/types';
 import { SquareBtn } from '@components/common/SquareBtn';
-import useNewFeed from '@/apis/Feed/newFeed';
+import useNewFeedMutation from '@/apis/Feed/useNewFeedMutation';
 import { uploadS3 } from '@/utils/image';
 
 const StyledDiv = styled.div`
@@ -48,7 +48,7 @@ const StyledDiv = styled.div`
 `;
 
 export const NewFeed = () => {
-  const { mutate } = useNewFeed();
+  const { mutate } = useNewFeedMutation();
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
     originFile: File | Blob | string;
