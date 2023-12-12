@@ -10,7 +10,10 @@ import ModifyRecord from './pages/ModifyRecord';
 import { NewRecord } from './pages/NewRecord';
 import { NewWriteRecord } from './pages/NewWriteRecord';
 import { ModifyProfile } from './pages/ModifyProfile';
-import { MyPageComment } from './pages/MyPageComment';
+import {
+  MyPageComment,
+  Fallback as MyPageCommentFallback,
+} from './pages/MyPageComment';
 import ModifyFeed from './pages/ModifyFeed';
 import ModifyWriteRecord from './pages/ModifyWriteRecord';
 import { Alarm } from './pages/Alarm';
@@ -19,10 +22,14 @@ import {
   Fallback as RecordDetailFallback,
 } from './pages/RecordDetail';
 import { FeedDetail, Fallback as FeedDetailFallback } from './pages/FeedDetail';
-import { Comment } from './pages/Comment';
-import { MyPageLike } from './pages/MyPageLike';
-import { MyPageInvite } from './pages/MyPageInvite';
+import { Comment, Fallback as CommentFallback } from './pages/Comment';
+import { MyPageLike, Fallback as MyPageLikeFallback } from './pages/MyPageLike';
+import {
+  MyPageInvite,
+  Fallback as MyPageInviteFallback,
+} from './pages/MyPageInvite';
 import { RealTimeNotificationProvider } from '@components/common/RealTimeNotification';
+import { SpinnerFallback } from '@components/common/SpinnerFallback';
 
 export const router = createBrowserRouter(
   [
@@ -63,7 +70,7 @@ export const router = createBrowserRouter(
             {
               path: '/alarm',
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<SpinnerFallback />}>
                   <Alarm />
                 </Suspense>
               ),
@@ -96,7 +103,7 @@ export const router = createBrowserRouter(
         {
           path: '/modify-feed/:id',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<SpinnerFallback />}>
               <ModifyFeed />
             </Suspense>
           ),
@@ -112,7 +119,7 @@ export const router = createBrowserRouter(
         {
           path: '/modify-record/:id',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<SpinnerFallback />}>
               <ModifyRecord />
             </Suspense>
           ),
@@ -120,7 +127,7 @@ export const router = createBrowserRouter(
         {
           path: '/modify-record/:id/modify-write',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<SpinnerFallback />}>
               <ModifyWriteRecord />
             </Suspense>
           ),
@@ -136,7 +143,7 @@ export const router = createBrowserRouter(
         {
           path: '/comment/:id',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<CommentFallback />}>
               <Comment />
             </Suspense>
           ),
@@ -148,7 +155,7 @@ export const router = createBrowserRouter(
         {
           path: '/mypageComment',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<MyPageCommentFallback />}>
               <MyPageComment />
             </Suspense>
           ),
@@ -156,7 +163,7 @@ export const router = createBrowserRouter(
         {
           path: '/mypageLike',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<MyPageLikeFallback />}>
               <MyPageLike />
             </Suspense>
           ),
@@ -164,7 +171,7 @@ export const router = createBrowserRouter(
         {
           path: '/mypageInvite',
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<MyPageInviteFallback />}>
               <MyPageInvite />
             </Suspense>
           ),

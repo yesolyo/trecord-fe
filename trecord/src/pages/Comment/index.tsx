@@ -3,7 +3,7 @@ import { NavBarNew } from '@components/common/NavBar/NavBarNew';
 import { CommentUserModal } from '@components/Comment/CommentUserModal';
 import Modal from '@components/common/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import {
   CommentUserModalProps,
   deletDataProps,
@@ -21,6 +21,25 @@ import {
   useNewCommentInfiniteQuery,
   useNewCommentMutation,
 } from '@/apis';
+import Skeleton from '@components/common/skeleton';
+import * as S from './style';
+
+export const Fallback = (): ReactElement => {
+  const contentList = Array.from({ length: 8 }, (_, i) => i + 1);
+  return (
+    <S.Layout>
+      <NavBarNew title="댓글" isRegister={false} />
+      <div className="content">
+        {contentList.map((content, index) => (
+          <Fragment key={content}>
+            <Skeleton width="100%" height="85px" />
+            {index !== contentList.length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
+    </S.Layout>
+  );
+};
 
 export const Comment = () => {
   const navigate = useNavigate();

@@ -1,11 +1,28 @@
 import { NavBarNew } from '@components/common/NavBar/NavBarNew';
-import { useState } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import { MypageCommentList } from '@components/MypageComment/MyPgaeCommentList';
 import Modal from '@components/common/Modal';
 import { useNavigate } from 'react-router-dom';
 import { useMyCommentListInfiniteQuery } from '@/apis';
 import useCommentListDeleteMutation from '@/apis/Comment/useCommentListDeleteMutation';
-
+import Skeleton from '@components/common/skeleton';
+import * as S from './style';
+export const Fallback = (): ReactElement => {
+  const contentList = Array.from({ length: 8 }, (_, i) => i + 1);
+  return (
+    <S.Layout>
+      <NavBarNew title="댓글" isRegister={false} />
+      <div className="content">
+        {contentList.map((content, index) => (
+          <Fragment key={content}>
+            <Skeleton width="100%" height="85px" />
+            {index !== contentList.length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
+    </S.Layout>
+  );
+};
 export const MyPageComment = () => {
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<number>(0);
