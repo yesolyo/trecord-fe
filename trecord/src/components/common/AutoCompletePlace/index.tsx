@@ -30,7 +30,11 @@ export const AutoCompletePlace = ({
   const [isList, setIsList] = useState(false);
   const debouncedOnChange = debounce((inputValue) => {
     getPlacePredictions({ input: inputValue });
-    setIsList(true);
+    if (inputValue === '') {
+      setIsList(false);
+    } else {
+      setIsList(true);
+    }
   }, 300);
   return (
     <S.Layout>
