@@ -7,6 +7,8 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { uploadS3 } from '@/utils/image';
 import { useModifyRecordMutation } from '@/apis';
+import Modal from '@components/common/Modal';
+import { Spinner } from '@components/common/Spinner';
 
 const ModifyWriteRecord = observer((): ReactElement => {
   const { recordStore } = useStore();
@@ -15,7 +17,7 @@ const ModifyWriteRecord = observer((): ReactElement => {
   const { id: recordId = '' } = useParams();
   const navigate = useNavigate();
 
-  const { mutate } = useModifyRecordMutation({ id: recordId });
+  const { mutate, isLoading } = useModifyRecordMutation({ id: recordId });
 
   const handleModifyRecord = async () => {
     let imgUrl: string | null | undefined = recordStore.thumbNail.url;
@@ -58,12 +60,16 @@ const ModifyWriteRecord = observer((): ReactElement => {
         disabled={
           content.length <= 0 ||
           content === '<p><br></p>' ||
-          content === recordStore.content
+          content === recordStore.content ||
+          isLoading
         }
         registerClick={handleModifyRecord}
         onClick={() => navigate(-1)}
       />
       <Editor content={content} contentSetter={setContent} />
+      <Modal openModal={isLoading}>
+        <Spinner />
+      </Modal>
     </S.Layout>
   );
 });
