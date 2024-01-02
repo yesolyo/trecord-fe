@@ -8,6 +8,8 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import { uploadS3 } from '@/utils/image';
 import { useNewRecordMutation } from '@/apis';
+import Modal from '@components/common/Modal';
+import { Spinner } from '@components/common/Spinner';
 
 export const NewWriteRecord = observer((): ReactElement => {
   const { recordStore } = useStore();
@@ -15,7 +17,7 @@ export const NewWriteRecord = observer((): ReactElement => {
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const { mutate } = useNewRecordMutation();
+  const { mutate, isLoading } = useNewRecordMutation();
 
   const handleSaveRecord = async () => {
     let imgUrl: string | undefined;
@@ -55,11 +57,14 @@ export const NewWriteRecord = observer((): ReactElement => {
       <NavBarNew
         title="기록 남기기"
         isRegister={true}
-        disabled={content.length <= 0 || content === '<p><br></p>'}
+        disabled={content.length <= 0 || content === '<p><br></p>' || isLoading}
         registerClick={handleSaveRecord}
         onClick={() => navigate(-1)}
       />
       <Editor content={content} contentSetter={setContent} />
+      <Modal openModal={isLoading}>
+        <Spinner />
+      </Modal>
     </S.Layout>
   );
 });

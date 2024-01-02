@@ -18,6 +18,7 @@ import { SelectionBox } from '@components/common/SelectionBox';
 import { SELECT_SATISFACTION_INFOS } from '@/types';
 import { SquareBtn } from '@components/common/SquareBtn';
 import { useFeedDetailQuery, useModifyFeedMutation } from '@/apis';
+import { Spinner } from '@components/common/Spinner';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ const ModifyFeed = (): ReactElement => {
   const navigate = useNavigate();
   const { id = '' } = useParams();
   const { data } = useFeedDetailQuery({ id });
-  const { mutate } = useModifyFeedMutation({ id });
+  const { mutate, isLoading } = useModifyFeedMutation({ id });
 
   const [imgFile, setImgFile] = useState<{
     data: File | null;
@@ -254,7 +255,7 @@ const ModifyFeed = (): ReactElement => {
           size="l"
           title="완료"
           isDark={true}
-          disabled={disabled}
+          disabled={disabled || isLoading}
           onClick={handleClickNext}
         />
       </Layout>
@@ -265,6 +266,9 @@ const ModifyFeed = (): ReactElement => {
           contributors={contributors}
           contributorsSetter={setContributers}
         />
+      </Modal>
+      <Modal openModal={isLoading}>
+        <Spinner />
       </Modal>
     </>
   );

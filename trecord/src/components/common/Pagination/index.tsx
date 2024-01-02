@@ -1,26 +1,7 @@
 import { ReactElement } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { Icon } from '../Icon';
-
-const rotate = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
-const Spinner = styled.div`
-  box-sizing: border-box;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  border: 2px solid #000;
-  border-top: 2px solid ${({ theme }) => theme.colors.colorStyles.gray100};
-  animation: ${rotate} 1s linear infinite;
-`;
+import { Spinner } from '../Spinner';
 
 const StyledDiv = styled.div`
   display: flex;

@@ -17,6 +17,7 @@ import { SELECT_SATISFACTION_INFOS } from '@/types';
 import { SquareBtn } from '@components/common/SquareBtn';
 import useNewFeedMutation from '@/apis/Feed/useNewFeedMutation';
 import { uploadS3 } from '@/utils/image';
+import { Spinner } from '@components/common/Spinner';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ const StyledDiv = styled.div`
 `;
 
 export const NewFeed = () => {
-  const { mutate } = useNewFeedMutation();
+  const { mutate, isLoading } = useNewFeedMutation();
   const [titleImgFile, setTitleImgFile] = useState<{
     imgFile: string;
     originFile: File | Blob | string;
@@ -188,7 +189,7 @@ export const NewFeed = () => {
         <SquareBtn
           title="완료"
           size="l"
-          disabled={isDisabled}
+          disabled={isDisabled || isLoading}
           isDark={true}
           onClick={handleClickNewFeedButton}
         />
@@ -198,6 +199,9 @@ export const NewFeed = () => {
           contributors={contributors}
           contributorsSetter={setContributers}
         />
+      </Modal>
+      <Modal openModal={isLoading}>
+        <Spinner />
       </Modal>
     </>
   );
